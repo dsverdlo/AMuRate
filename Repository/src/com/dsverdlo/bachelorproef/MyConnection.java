@@ -19,7 +19,7 @@ public class MyConnection {
 
 	public void getTest(android.content.Context Context)  {
 		Log.d(android.content.Context.VIBRATOR_SERVICE, "start get test");
-		InputStream is = getInputStreamFromUrl("http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=cher&api_key=46d561a6de9e5daa380db343d40ffbab", 30000);
+		InputStream is = getInputStreamFromUrl("http://wilma.vub.ac.be/~dsverdlo/bachproef/test.php", 30000);
 		
 		Log.d(android.content.Context.VIBRATOR_SERVICE, "done");
 		System.out.println("donee");

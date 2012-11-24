@@ -1,31 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-        <TextView
-            android:id="@+id/tex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="@string/search" android:focusableInTouchMode="true" android:textColor="#000000">
-</TextView>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainlayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="20sp"
+    android:background="@drawable/loginbg"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/tex"
+        android:hint="@string/search" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:text="@string/search"
+        android:textColor="#000000" >
+    </EditText>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/button_submit"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="@string/submit" >
+            android:hint="@string/submit"
+            android:background="@layout/rounded_corners"
+            android:singleLine="true" >
+        </Button>
 
-</Button>
         <Button
             android:id="@+id/button_cancel"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="@string/cancel" >
+            android:hint="@string/cancel"
+            android:layout_marginLeft="30sp"
+            android:background="@layout/rounded_corners"
+            android:singleLine="true" >
+        </Button>
+    </LinearLayout>
 
-</Button>
-
-</RelativeLayout>
+</LinearLayout>
