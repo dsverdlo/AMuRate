@@ -13,20 +13,33 @@ public final class R {
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
         public static final int loginbg=0x7f020001;
+        public static final int loginbg_no_watermark=0x7f020002;
+        public static final int loginbg_no_watermark_crop=0x7f020003;
+        public static final int star_red_empty=0x7f020004;
+        public static final int star_red_empty2=0x7f020005;
+        public static final int star_red_full=0x7f020006;
+        public static final int star_red_full2=0x7f020007;
+        public static final int star_red_half=0x7f020008;
+        public static final int star_red_half2=0x7f020009;
     }
     public static final class id {
-        public static final int button_cancel=0x7f060003;
-        public static final int button_submit=0x7f060002;
+        public static final int button_cancel=0x7f060004;
+        public static final int button_submit=0x7f060003;
         public static final int mainlayout=0x7f060000;
-        public static final int tex=0x7f060001;
+        public static final int questionmark=0x7f060001;
+        public static final int ratingbar=0x7f060006;
+        public static final int results=0x7f060005;
+        public static final int tex=0x7f060002;
     }
     public static final class layout {
         public static final int main_test=0x7f030000;
-        public static final int rounded_corners=0x7f030001;
+        public static final int rating_bar_red=0x7f030001;
+        public static final int rounded_corners=0x7f030002;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
         public static final int cancel=0x7f040003;
+        public static final int results=0x7f040004;
         public static final int search=0x7f040001;
         public static final int submit=0x7f040002;
     }
