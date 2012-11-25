@@ -9,10 +9,14 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -80,8 +84,8 @@ public class MyConnection extends Activity implements OnClickListener {
 
 				// Sending a GET request to the web page that we want
 				// Because of we are sending a GET request, we have to pass the values through the URL
-				HttpGet httpGet = new HttpGet("http://wilma.vub.ac.be/~dsverdlo/bachproef/command.php?paramUsername=" + paramUsername);
-
+				//HttpGet httpGet = new HttpGet("http://wilma.vub.ac.be/~dsverdlo/bachproef/getJSON.php?paramUsername=" + paramUsername);
+				HttpGet httpGet = new HttpGet("http://twitter.com/statuses/user_timeline/franklakatos.json");
 				try {
 					// execute(); executes a request using the default context.
 					// Then we assign the execution result to HttpResponse
@@ -137,11 +141,14 @@ public class MyConnection extends Activity implements OnClickListener {
 			//it is the third generic type of the AsyncTask
 			@Override
 			protected void onPostExecute(String result) {
-				super.onPostExecute(result);
+				super.onPostExecute(result); 
 				TextView results = (TextView) findViewById(R.id.results);
-				if(result.charAt(0) == '1'){
-					Toast.makeText(getApplicationContext(), "HTTP GET is working...", Toast.LENGTH_LONG).show();
-					System.out.println("onPostExecute length: " + result.length());
+				//if(result.charAt(0) == '1'){
+
+				try {
+			//		JSONArray records = new JSONArray(result);
+					Toast.makeText(getApplicationContext(), "HTTP GET JSON is working...", Toast.LENGTH_LONG).show();
+					//System.out.println("onPostExecute length: " + result.length());
 					
 					final RatingBar rating = (RatingBar) findViewById(R.id.ratingbar);
 					rating.setVisibility(RatingBar.VISIBLE);
@@ -151,10 +158,17 @@ public class MyConnection extends Activity implements OnClickListener {
 							Toast.makeText(getApplicationContext(), "Sending score " + getRating + " to the database", Toast.LENGTH_LONG).show();
 						}
 					});
-				}else{
-					Toast.makeText(getApplicationContext(), "Invalid...", Toast.LENGTH_LONG).show();
-				}	
-				results.setText(result.substring(1));			
+					JSONObject record;
+						record = new JSONObject(result);
+					results.setText("Error!" + "\n" + "err: " + record.getString("errors"));	
+
+					} catch (JSONException e) {
+						Log.d(VIBRATOR_SERVICE, "JSON Exception motherfucker!");
+						e.printStackTrace();
+					}
+			//	}else{
+			//		Toast.makeText(getApplicationContext(), "Invalid...", Toast.LENGTH_LONG).show();
+			//	}			
 			}			
 		}
 
