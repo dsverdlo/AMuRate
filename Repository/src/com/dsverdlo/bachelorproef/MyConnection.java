@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -28,7 +30,11 @@ import android.widget.Toast;
 public class MyConnection extends Activity implements OnClickListener {
 
 	private EditText usernameEditText;
+	private Button cancelButton;
 	private Button sendGetReqButton;
+	private TextView results;
+	private TextView questionMark;
+	private RatingBar rating;
 
     /** Called when the activity is first created. */
     @Override
@@ -41,27 +47,59 @@ public class MyConnection extends Activity implements OnClickListener {
         sendGetReqButton = (Button) findViewById(R.id.button_submit);
         sendGetReqButton.setOnClickListener(this);
 
-		final RatingBar rating = (RatingBar) findViewById(R.id.ratingbar);
+        cancelButton = (Button) findViewById(R.id.button_cancel);
+        cancelButton.setOnClickListener(this);
+        
+		rating = (RatingBar) findViewById(R.id.ratingbar);
 		rating.setVisibility(RatingBar.INVISIBLE);
-		
-		TextView questionMark = (TextView) findViewById(R.id.questionmark);
+
+		questionMark = (TextView) findViewById(R.id.questionmark);
 		questionMark.setText(" ? ");
+
+		results = (TextView) findViewById(R.id.results);
     }
 
 	public void onClick(View v) {
-
+		System.out.println("Clicked: " + v.getId() + "/" + R.id.button_cancel);
 		if(v.getId() == R.id.button_submit){
 
 			// Get the values given in EditText fields
 			String givenUsername = usernameEditText.getText().toString();
 			System.out.println("Given usernames is :" + givenUsername);
 
+			//if (givenUsername=="auth") {
+				//Lets auth this bitch
+				//authWithHttpsPost();
+		//	} else {
 			// Pass those values to connectWithHttpGet() method
 			connectWithHttpGet(givenUsername);
-		}		
+		//	}
+		} else if (v.getId() == R.id.button_cancel) {
+			results.setText("");
+			usernameEditText.setText("");
+			rating.setVisibility(RatingBar.INVISIBLE);
+			
+		}
 	}
 
-	private void connectWithHttpGet(String givenUsername) {
+	/*private void authWithHttpsPost() {
+		class HttpsPostAsyncTask extends AsyncTask<Void, Void, String>{
+
+			@Override
+			protected String doInBackground() {
+				HttpsURLConnection https;
+				String url = ""
+				
+			}
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result); 
+			}
+		}
+			
+	}*/
+	
+	private void connectWithHttpGet(final String givenUsername) {
 
 		// Connect with a server is a time consuming process.
 		//Therefore we use AsyncTask to handle it
@@ -85,7 +123,9 @@ public class MyConnection extends Activity implements OnClickListener {
 				// Sending a GET request to the web page that we want
 				// Because of we are sending a GET request, we have to pass the values through the URL
 				//HttpGet httpGet = new HttpGet("http://wilma.vub.ac.be/~dsverdlo/bachproef/getJSON.php?paramUsername=" + paramUsername);
-				HttpGet httpGet = new HttpGet("http://twitter.com/statuses/user_timeline/franklakatos.json");
+				//HttpGet httpGet = new HttpGet("http://twitter.com/statuses/user_timeline/franklakatos.json");
+				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + givenUsername + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json&user=dsverdlo");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+					
 				try {
 					// execute(); executes a request using the default context.
 					// Then we assign the execution result to HttpResponse
@@ -120,7 +160,7 @@ public class MyConnection extends Activity implements OnClickListener {
 
 					// Now we have the whole response as a String value.
 					//We return that value then the onPostExecute() can handle the content
-					System.out.println("Returning value of doInBackground :" + stringBuilder.toString());
+				//	System.out.println("Returning value of doInBackground :" + stringBuilder.toString());
 
 					// If the Username and Password match, it will return "working" as response
 					// If the Username or Password wrong, it will return "invalid" as response					
@@ -139,15 +179,18 @@ public class MyConnection extends Activity implements OnClickListener {
 
 			// Argument comes for this method according to the return type of the doInBackground() and
 			//it is the third generic type of the AsyncTask
+			/* (non-Javadoc)
+			 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+			 */
 			@Override
 			protected void onPostExecute(String result) {
 				super.onPostExecute(result); 
-				TextView results = (TextView) findViewById(R.id.results);
 				//if(result.charAt(0) == '1'){
 
+				TextView results = (TextView) findViewById(R.id.results);
 				try {
 			//		JSONArray records = new JSONArray(result);
-					Toast.makeText(getApplicationContext(), "HTTP GET JSON is working...", Toast.LENGTH_LONG).show();
+					//Toast.makeText(getApplicationContext(), "HTTP GET JSON is working...", Toast.LENGTH_LONG).show();
 					//System.out.println("onPostExecute length: " + result.length());
 					
 					final RatingBar rating = (RatingBar) findViewById(R.id.ratingbar);
@@ -158,10 +201,18 @@ public class MyConnection extends Activity implements OnClickListener {
 							Toast.makeText(getApplicationContext(), "Sending score " + getRating + " to the database", Toast.LENGTH_LONG).show();
 						}
 					});
-					JSONObject record;
-						record = new JSONObject(result);
-					results.setText("Error!" + "\n" + "err: " + record.getString("errors"));	
-
+					JSONObject records = new JSONObject(result);
+					JSONObject record = records.getJSONObject("artist");
+					JSONObject recor = record.getJSONObject("bio");
+					//JSONObject reco = recor.getJSONObject("summary");
+					
+					//results.setText("Error!" + "\n" + "err: " + record.getString("errors"));	
+					//	results.setText(record.getString("status"));
+					//	System.out.println("JSON Object length:");
+						//System.out.println(record.length());
+					System.out.println("From bio, pull: ");
+					System.out.println(recor.get("summary"));
+					results.setText(recor.getString("summary"));
 					} catch (JSONException e) {
 						Log.d(VIBRATOR_SERVICE, "JSON Exception motherfucker!");
 						e.printStackTrace();
