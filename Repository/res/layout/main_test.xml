@@ -14,7 +14,7 @@
         android:gravity="right"
         android:orientation="horizontal" >
 
-        <TextView
+        <Button
             android:id="@+id/questionmark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,6 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30sp"
+            android:layout_marginRight="20sp"
             android:background="@layout/rounded_corners"
             android:hint="@string/cancel"
             android:paddingBottom="10sp"
@@ -85,22 +86,22 @@
         android:id="@+id/results"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
         android:hint="@string/results"
         android:textColor="@android:color/white" >
     </TextView>
-
-    <RatingBar
-        android:id="@+id/ratingbar"
+    
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="260sp"
-        android:alpha="0.7"
-        android:numStars="5"
-        android:progressDrawable="@layout/rating_bar_red"
-        android:scaleX="0.7"
-        android:scaleY="0.7"
-        android:stepSize="0.5" >
-    </RatingBar>
-
+        android:id="@+id/view"
+        android:layout_marginTop="30sp"
+        android:background="@layout/rounded_corners"
+        android:paddingBottom="6sp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:paddingTop="6sp"
+        android:textSize="20sp" />
+    
 </LinearLayout>

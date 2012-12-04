@@ -32,10 +32,10 @@ public final class R {
         public static final int mainlayout=0x7f060004;
         public static final int questionmark=0x7f060005;
         public static final int ratingBar1=0x7f060003;
-        public static final int ratingbar=0x7f06000a;
         public static final int results=0x7f060009;
         public static final int tex=0x7f060006;
         public static final int textView1=0x7f060000;
+        public static final int view=0x7f06000a;
     }
     public static final class layout {
         public static final int artist_activity=0x7f030000;
@@ -49,6 +49,7 @@ public final class R {
         public static final int results=0x7f040004;
         public static final int search=0x7f040001;
         public static final int submit=0x7f040002;
+        public static final int view=0x7f040005;
     }
     public static final class style {
         /** 

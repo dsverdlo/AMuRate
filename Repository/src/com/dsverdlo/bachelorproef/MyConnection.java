@@ -16,8 +16,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.LauncherActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,8 +39,10 @@ public class MyConnection extends Activity implements OnClickListener {
 	private Button sendGetReqButton;
 	private TextView results;
 	private TextView questionMark;
-	private RatingBar rating;
-
+	//private RatingBar rating;
+	private Button view;
+	private JSONObject artist;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,40 +56,68 @@ public class MyConnection extends Activity implements OnClickListener {
 
         cancelButton = (Button) findViewById(R.id.button_cancel);
         cancelButton.setOnClickListener(this);
-        
+        /*
 		rating = (RatingBar) findViewById(R.id.ratingbar);
 		rating.setVisibility(RatingBar.INVISIBLE);
-
-		questionMark = (TextView) findViewById(R.id.questionmark);
+*/
+		questionMark = (Button) findViewById(R.id.questionmark);
+		questionMark.setOnClickListener(this);
+		questionMark.setTextColor(Color.LTGRAY);
 		questionMark.setText(" ? ");
-
+		
+		view = (Button) findViewById(R.id.view);
+		view.setOnClickListener(this);
+		view.setVisibility(view.INVISIBLE);
+		
 		results = (TextView) findViewById(R.id.results);
     }
 
-	public void onClick(View v) {
-		System.out.println("Clicked: " + v.getId() + "/" + R.id.button_cancel);
-		if(v.getId() == R.id.button_submit){
+    public void onClick(View v) {
+    	System.out.println("Clicked: " + v.getId() + "/" + R.id.button_cancel);
+    	switch (v.getId()) {
+    	case R.id.button_submit : 
 
-			// Get the values given in EditText fields
-			String givenUsername = usernameEditText.getText().toString();
-			System.out.println("Given usernames is :" + givenUsername);
+    		// Get the values given in EditText fields
+    		String givenUsername = usernameEditText.getText().toString();
+    		System.out.println("Given usernames is :" + givenUsername);
 
-			//if (givenUsername=="auth") {
-				//Lets auth this bitch
-				//authWithHttpsPost();
-		//	} else {
-			// Pass those values to connectWithHttpGet() method
-			connectWithHttpGet(givenUsername);
-		//	}
-		} else if (v.getId() == R.id.button_cancel) {
-		/*	results.setText("");
+    		if(givenUsername == "" || givenUsername == null || givenUsername.length() == 0 ) {
+    			Toast.makeText(getApplicationContext(), "Please enter an artist", Toast.LENGTH_LONG).show();
+    		} else {
+    			results.setText("Loading...");
+    			connectWithHttpGet(givenUsername);	
+    		}
+    		break;
+
+    	case R.id.button_cancel :
+    			results.setText("");
 			usernameEditText.setText("");
-			rating.setVisibility(RatingBar.INVISIBLE);
-			*/
-			Intent newpage = new Intent(this, ArtistActivity.class);
-			startActivity(newpage);
-		}
-	}
+			//rating.setVisibility(RatingBar.INVISIBLE);
+    		 
+    		break;
+
+    	case R.id.questionmark :
+    		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+    		alertDialog.setTitle("Info");
+    		alertDialog.setMessage("Please enter an artist in the search field and then press SUBMIT.");
+    		// Setting OK Button
+    		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+    			public void onClick(DialogInterface dialog, int which) {
+    				// Write your code here to execute after dialog closed
+    				//Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
+    			}
+    		});
+    		// Showing Alert Message
+    		alertDialog.show();
+    		break;
+    		
+    	case R.id.view : 
+
+    		Intent newpage = new Intent(this, ArtistActivity.class);
+    		startActivity(newpage);
+    		break;
+    	}
+    }
 
 	/*private void authWithHttpsPost() {
 		class HttpsPostAsyncTask extends AsyncTask<Void, Void, String>{
@@ -128,7 +161,7 @@ public class MyConnection extends Activity implements OnClickListener {
 				// Because of we are sending a GET request, we have to pass the values through the URL
 				//HttpGet httpGet = new HttpGet("http://wilma.vub.ac.be/~dsverdlo/bachproef/getJSON.php?paramUsername=" + paramUsername);
 				//HttpGet httpGet = new HttpGet("http://twitter.com/statuses/user_timeline/franklakatos.json");
-				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + givenUsername + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json&user=dsverdlo");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + givenUsername.replace(" ", "%20") + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json&autocorrect=1&user=dsverdlo");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
 					
 				try {
 					// execute(); executes a request using the default context.
@@ -196,7 +229,7 @@ public class MyConnection extends Activity implements OnClickListener {
 			//		JSONArray records = new JSONArray(result);
 					//Toast.makeText(getApplicationContext(), "HTTP GET JSON is working...", Toast.LENGTH_LONG).show();
 					//System.out.println("onPostExecute length: " + result.length());
-					
+					/*
 					final RatingBar rating = (RatingBar) findViewById(R.id.ratingbar);
 					rating.setVisibility(RatingBar.VISIBLE);
 					rating.setOnClickListener(new OnClickListener() {
@@ -204,19 +237,28 @@ public class MyConnection extends Activity implements OnClickListener {
 							float getRating = rating.getRating();
 							Toast.makeText(getApplicationContext(), "Sending score " + getRating + " to the database", Toast.LENGTH_LONG).show();
 						}
-					});
+					});*/
 					JSONObject records = new JSONObject(result);
-					JSONObject record = records.getJSONObject("artist");
-					JSONObject recor = record.getJSONObject("bio");
+					artist = records.getJSONObject("artist");
+					JSONObject recor = artist.getJSONObject("bio");
 					//JSONObject reco = recor.getJSONObject("summary");
 					
 					//results.setText("Error!" + "\n" + "err: " + record.getString("errors"));	
 					//	results.setText(record.getString("status"));
 					//	System.out.println("JSON Object length:");
 						//System.out.println(record.length());
+					
+					//wasaaa mofo
+					String summary = android.text.Html.fromHtml(recor.getString("summary")).toString();
+
+					
+					
 					System.out.println("From bio, pull: ");
-					System.out.println(recor.get("summary"));
-					results.setText(recor.getString("summary"));
+					System.out.println(summary);
+					results.setText(summary);
+					
+					view.setVisibility(view.VISIBLE);
+					
 					} catch (JSONException e) {
 						Log.d(VIBRATOR_SERVICE, "JSON Exception motherfucker!");
 						e.printStackTrace();
