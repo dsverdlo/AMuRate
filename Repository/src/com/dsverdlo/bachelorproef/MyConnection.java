@@ -3,7 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
+ 
 import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.http.HttpResponse;
@@ -16,6 +16,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.LauncherActivity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -75,10 +77,12 @@ public class MyConnection extends Activity implements OnClickListener {
 			connectWithHttpGet(givenUsername);
 		//	}
 		} else if (v.getId() == R.id.button_cancel) {
-			results.setText("");
+		/*	results.setText("");
 			usernameEditText.setText("");
 			rating.setVisibility(RatingBar.INVISIBLE);
-			
+			*/
+			Intent newpage = new Intent(this, ArtistActivity.class);
+			startActivity(newpage);
 		}
 	}
 
