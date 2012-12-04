@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bachelorproef</string>
+    <string name="search">Search artist/song</string>
+    <string name="submit"> Submit </string>
+    <string name="cancel"> Cancel </string>
+    <string name="results">Results</string>
+    
+</resources>
