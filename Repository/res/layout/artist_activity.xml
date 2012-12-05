@@ -2,15 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="20sp"
+    android:layout_marginRight="20sp"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
+        android:layout_marginBottom="10sp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20sp"
-        android:text="Cher"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
@@ -30,30 +32,44 @@
             android:scrollbars="vertical" >
 
             <TextView
-                android:id="@+id/editText1"
+                android:id="@+id/info"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="#000000"
                 android:textColor="#FFFFFF"
                 android:inputType="textMultiLine"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
-                android:text="Cher (born Cherilyn Sarkisian; May 20, 1946) is an American singer and actress. A major figure for over five decades in the world of popular culture, she is often referred to as the Goddess of Pop for having first brought the sense of female autonomy and self-actualization into entertainment industry. She is known for her distinctive contralto and for having worked extensively across media, as well as for continuously reinventing both her music and image, the latter of which has been known to induce controversy." >
+                android:scrollbarAlwaysDrawVerticalTrack="true" >
 
                 <requestFocus />
             </TextView>
         </ScrollView>
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:src="@drawable/cher_large" />
     </LinearLayout>
 
-    <RatingBar
+    <Button
         android:id="@+id/ratingBar1"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="10sp"
+        android:layout_height="130sp" />
+    
+        <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/back"
+        android:layout_marginLeft="20sp"
+        android:background="@layout/rounded_corners"
+        android:paddingBottom="6sp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:paddingTop="6sp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
 </LinearLayout>

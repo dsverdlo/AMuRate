@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dsverdlo.bachelorproef"
+    package="com.dsverdlo.AMuRate"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".dsverdlo.bachelorproef.MainActivity"
+            android:name=".dsverdlo.AMuRate.MainActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar" >

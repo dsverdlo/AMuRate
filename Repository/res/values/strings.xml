@@ -6,5 +6,6 @@
     <string name="cancel"> Cancel </string>
     <string name="results">Results</string>
     <string name="view"> View </string>
+    <string name="back"> Back </string>
     
 </resources>
