@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 
 		
 		System.out.println("Test succeeded");
-		final EditText tex = (EditText) findViewById(R.id.tex);
+		final EditText tex = (EditText) findViewById(R.id.enterArtist);
 		tex.setBackgroundColor(Color.LTGRAY);
 		final String init_tex = "Enter an artist name";
 		tex.setText(init_tex);

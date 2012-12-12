@@ -11,32 +11,37 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int cher_large=0x7f020000;
-        public static final int cher_med=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int loginbg=0x7f020003;
-        public static final int loginbg_no_watermark=0x7f020004;
-        public static final int loginbg_no_watermark_crop=0x7f020005;
-        public static final int star_red_empty=0x7f020006;
-        public static final int star_red_empty2=0x7f020007;
-        public static final int star_red_full=0x7f020008;
-        public static final int star_red_full2=0x7f020009;
-        public static final int star_red_half=0x7f02000a;
-        public static final int star_red_half2=0x7f02000b;
+        public static final int amr=0x7f020000;
+        public static final int amr_gold=0x7f020001;
+        public static final int amr_gold_thick=0x7f020002;
+        public static final int cher_large=0x7f020003;
+        public static final int cher_med=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int loginbg=0x7f020006;
+        public static final int loginbg_no_watermark=0x7f020007;
+        public static final int loginbg_no_watermark_crop=0x7f020008;
+        public static final int logo_black_star=0x7f020009;
+        public static final int star_red_empty=0x7f02000a;
+        public static final int star_red_empty2=0x7f02000b;
+        public static final int star_red_full=0x7f02000c;
+        public static final int star_red_full2=0x7f02000d;
+        public static final int star_red_half=0x7f02000e;
+        public static final int star_red_half2=0x7f02000f;
     }
     public static final class id {
         public static final int back=0x7f060004;
-        public static final int button_cancel=0x7f060009;
-        public static final int button_submit=0x7f060008;
+        public static final int button_cancel=0x7f06000a;
+        public static final int button_submit=0x7f060009;
+        public static final int enterArtist=0x7f060008;
+        public static final int enterTitle=0x7f060007;
         public static final int info=0x7f060001;
         public static final int mainlayout=0x7f060005;
         public static final int picture=0x7f060002;
         public static final int questionmark=0x7f060006;
         public static final int ratingBar1=0x7f060003;
-        public static final int results=0x7f06000a;
-        public static final int tex=0x7f060007;
+        public static final int results=0x7f06000b;
         public static final int title=0x7f060000;
-        public static final int view=0x7f06000b;
+        public static final int view=0x7f06000c;
     }
     public static final class layout {
         public static final int artist_activity=0x7f030000;
@@ -46,12 +51,13 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int back=0x7f040006;
-        public static final int cancel=0x7f040003;
-        public static final int results=0x7f040004;
-        public static final int search=0x7f040001;
-        public static final int submit=0x7f040002;
-        public static final int view=0x7f040005;
+        public static final int back=0x7f040007;
+        public static final int cancel=0x7f040004;
+        public static final int results=0x7f040005;
+        public static final int searchArtist=0x7f040002;
+        public static final int searchTitle=0x7f040001;
+        public static final int submit=0x7f040003;
+        public static final int view=0x7f040006;
     }
     public static final class style {
         /** 

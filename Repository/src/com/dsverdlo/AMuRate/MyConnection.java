@@ -31,7 +31,8 @@ import android.widget.Toast;
 
 public class MyConnection extends Activity implements OnClickListener {
 
-	private EditText artistEdit;
+	private EditText searchArtist;
+	private EditText searchTitle;
 	private Button cancelButton;
 	private Button sendGetReqButton;
 	private TextView results;
@@ -45,13 +46,16 @@ public class MyConnection extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_test);
 
-		artistEdit = (EditText) findViewById(R.id.tex);
+		searchArtist = (EditText) findViewById(R.id.enterArtist);
+		searchTitle = (EditText) findViewById(R.id.enterTitle);
 
 		sendGetReqButton = (Button) findViewById(R.id.button_submit);
 		sendGetReqButton.setOnClickListener(this);
+		sendGetReqButton.setText(R.string.submit);
 
 		cancelButton = (Button) findViewById(R.id.button_cancel);
 		cancelButton.setOnClickListener(this);
+		cancelButton.setText(R.string.cancel);
 
 		questionMark = (Button) findViewById(R.id.questionmark);
 		questionMark.setOnClickListener(this);
@@ -71,11 +75,13 @@ public class MyConnection extends Activity implements OnClickListener {
 		case R.id.button_submit : 
 
 			// Get the values given in EditText fields
-			String givenArtist = artistEdit.getText().toString();
-			System.out.println("Given usernames is :" + givenArtist);
+			String givenArtist = searchArtist.getText().toString();
+			String givenTitle = searchTitle.getText().toString();
+			
+			System.out.println("Given artist[" + givenArtist + "], given title[" + givenTitle + "]");
 
-			if(givenArtist == "" || givenArtist == null || givenArtist.length() == 0 ) {
-				Toast.makeText(getApplicationContext(), "Please enter an artist", Toast.LENGTH_LONG).show();
+			if(givenArtist.length() == 0 && givenTitle.length() == 0 ) {
+				Toast.makeText(getApplicationContext(), "Please enter an artist, song or both", Toast.LENGTH_LONG).show();
 			} else {
 				results.setText("Loading...");
 				view.setVisibility(Button.INVISIBLE);
@@ -86,14 +92,15 @@ public class MyConnection extends Activity implements OnClickListener {
 		case R.id.button_cancel :
 			results.setText("");
 			view.setVisibility(Button.INVISIBLE);
-			artistEdit.setText("");
+			searchArtist.setText("");
+			searchTitle.setText("");
 
 			break;
 
 		case R.id.questionmark :
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle("Info");
-			alertDialog.setMessage("Please enter an artist in the search field and then press SUBMIT.");
+			alertDialog.setMessage("Please enter an artist, a song title or both in the search field and then press SUBMIT.");
 			// Setting OK Button
 			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
@@ -111,9 +118,9 @@ public class MyConnection extends Activity implements OnClickListener {
 			break;
 
 
-		case R.id.tex : 
+		//case R.id.tex : 
 			// String get = artistEdit.getText().toString();
-			break;
+			//break;
 		}
 
 
