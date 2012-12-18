@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">AMuRate</string>
     <string name="searchTitle">Title</string>
     <string name="searchArtist">Artist</string>
@@ -8,5 +9,9 @@
     <string name="results">Results</string>
     <string name="view"> View </string>
     <string name="back"> Back </string>
-    
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
+    <string name="title_activity_main">RateTrackActivity</string>
+
 </resources>

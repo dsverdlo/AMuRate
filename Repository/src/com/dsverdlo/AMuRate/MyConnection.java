@@ -9,125 +9,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.dsverdlo.AMuRate.R;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-public class MyConnection extends Activity implements OnClickListener {
+public class MyConnection  {
 
-	private EditText searchArtist;
-	private EditText searchTitle;
-	private Button cancelButton;
-	private Button sendGetReqButton;
-	private TextView results;
-	private TextView questionMark;
-	private Button view;
-	private JSONObject artist;
-
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_test);
-
-		searchArtist = (EditText) findViewById(R.id.enterArtist);
-		searchTitle = (EditText) findViewById(R.id.enterTitle);
-
-		sendGetReqButton = (Button) findViewById(R.id.button_submit);
-		sendGetReqButton.setOnClickListener(this);
-		sendGetReqButton.setText(R.string.submit);
-
-		cancelButton = (Button) findViewById(R.id.button_cancel);
-		cancelButton.setOnClickListener(this);
-		cancelButton.setText(R.string.cancel);
-
-		questionMark = (Button) findViewById(R.id.questionmark);
-		questionMark.setOnClickListener(this);
-		questionMark.setTextColor(Color.LTGRAY);
-		questionMark.setText(" ? ");
-
-		view = (Button) findViewById(R.id.view);
-		view.setOnClickListener(this);
-		view.setVisibility(View.INVISIBLE);
-		view.setText("View");
-
-		results = (TextView) findViewById(R.id.results);
-	}
-
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.button_submit : 
-
-			// Get the values given in EditText fields
-			String givenArtist = searchArtist.getText().toString();
-			String givenTitle = searchTitle.getText().toString();
-			
-			System.out.println("Given artist[" + givenArtist + "], given title[" + givenTitle + "]");
-
-			if(givenArtist.length() == 0 && givenTitle.length() == 0 ) {
-				Toast.makeText(getApplicationContext(), "Please enter an artist, song or both", Toast.LENGTH_LONG).show();
-			} else {
-				results.setText("Loading...");
-				view.setVisibility(Button.INVISIBLE);
-				connectWithHttpGet(givenArtist);	
-			}
-			break;
-
-		case R.id.button_cancel :
-			results.setText("");
-			view.setVisibility(Button.INVISIBLE);
-			searchArtist.setText("");
-			searchTitle.setText("");
-
-			break;
-
-		case R.id.questionmark :
-			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-			alertDialog.setTitle("Info");
-			alertDialog.setMessage("Please enter an artist, a song title or both in the search field and then press SUBMIT.");
-			// Setting OK Button
-			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					// Write your code here to execute after dialog closed
-				}
-			});
-			alertDialog.show();
-			break;
-
-		case R.id.view : 
-
-			Intent newpage = new Intent(this, ArtistActivity.class);
-			newpage.putExtra("artist", artist.toString());
-			startActivity(newpage);
-			break;
-
-
-		//case R.id.tex : 
-			// String get = artistEdit.getText().toString();
-			//break;
-		}
-
-
-	}
-
-
-	private void connectWithHttpGet(final String givenArtist) {
+	public void getFromTitle(final MainActivity main, final String givenTitle) {
 
 		// Connect with a server is a time consuming process.
 		//Therefore we use AsyncTask to handle it
@@ -150,7 +36,7 @@ public class MyConnection extends Activity implements OnClickListener {
 
 				// Sending a GET request to the web page that we want
 				// Because of we are sending a GET request, we have to pass the values through the URL
-				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + givenArtist.replace(" ", "%20") + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json&autocorrect=1&user=dsverdlo");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=track.search&track=" + givenTitle.replace(" ", "%20") + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
 
 				try {
 					// execute(); executes a request using the default context.
@@ -209,29 +95,68 @@ public class MyConnection extends Activity implements OnClickListener {
 			@Override
 			protected void onPostExecute(String result) {
 				super.onPostExecute(result); 
+				main.searchResultsTitle(result);
 
-				TextView results = (TextView) findViewById(R.id.results);
+			}			
+		}
+
+		// Initialize the AsyncTask class
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		// Parameter we pass in the execute() method is relate to the first generic type of the AsyncTask
+		// We are passing the connectWithHttpGet() method arguments to that
+		httpGetAsyncTask.execute(givenTitle); 
+	}
+
+
+	//// COPPPYYYYYYYY TODO: lol
+
+
+	public void getFromArtist(final MainActivity main, final String givenArtist) {
+
+		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+			@Override
+			protected String doInBackground(String... params) {
+				String paramArtist = params[0];
+				System.out.println("paramArtist is :" + paramArtist);
+
+				HttpClient httpClient = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=" + givenArtist.replace(" ", "%20") + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json&autocorrect=1&user=dsverdlo");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+
 				try {
-					JSONObject records = new JSONObject(result);
+					HttpResponse httpResponse = httpClient.execute(httpGet);
+					System.out.println("httpResponse");
 
-					if(result.substring(2, 7).equals("error")) {
-						results.setText("Artist not found");
-					} else {
-						artist = records.getJSONObject("artist");
-						JSONObject recor = artist.getJSONObject("bio");
-						// Use fromHtml to handle htlm links in string (<a href="...">text</a>)
-						String summary = android.text.Html.fromHtml(recor.getString("summary")).toString();
-
-						System.out.println("From bio, pull: ");
-						System.out.println(summary);
-						results.setText(summary);
-
-						view.setVisibility(View.VISIBLE);
+					InputStream inputStream = httpResponse.getEntity().getContent();
+					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+					StringBuilder stringBuilder = new StringBuilder();
+					String bufferedStrChunk = null;
+					while((bufferedStrChunk = bufferedReader.readLine()) != null){
+						stringBuilder.append(bufferedStrChunk);
 					}
-				} catch (JSONException e) {
-					Log.d(VIBRATOR_SERVICE, "JSON Exception!");
-					e.printStackTrace();
-				}		
+					return stringBuilder.toString();
+
+				} catch (ClientProtocolException cpe) {
+					System.out.println("Exception generates caz of httpResponse :" + cpe);
+					cpe.printStackTrace();
+				} catch (IOException ioe) {
+					System.out.println("Second exception generates caz of httpResponse :" + ioe);
+					ioe.printStackTrace();
+				}
+
+				return null;
+			}
+
+			// Argument comes for this method according to the return type of the doInBackground() and
+			//it is the third generic type of the AsyncTask
+			/* (non-Javadoc)
+			 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+			 */
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result); 
+				main.searchResultsArtist(result);
+
 			}			
 		}
 
@@ -240,6 +165,105 @@ public class MyConnection extends Activity implements OnClickListener {
 		// Parameter we pass in the execute() method is relate to the first generic type of the AsyncTask
 		// We are passing the connectWithHttpGet() method arguments to that
 		httpGetAsyncTask.execute(givenArtist); 
+	}
 
+	//// COPY TODO: trol
+
+
+	public void getFromTitleAndArtist(final MainActivity main, final String givenTitle, final String givenArtist) {
+
+		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+			@Override
+			protected String doInBackground(String... params) {
+				String paramArtist = params[0];
+				System.out.println("paramArtist is :" + paramArtist);
+
+				HttpClient httpClient = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=track.search&track=" + givenTitle.replace(" ", "%20") + "&artist=" + givenArtist.replace(" ",  "%20") + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+
+				try {
+					HttpResponse httpResponse = httpClient.execute(httpGet);
+					System.out.println("httpResponse");
+
+					InputStream inputStream = httpResponse.getEntity().getContent();
+					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+					StringBuilder stringBuilder = new StringBuilder();
+					String bufferedStrChunk = null;
+					while((bufferedStrChunk = bufferedReader.readLine()) != null){
+						stringBuilder.append(bufferedStrChunk);
+					}
+					return stringBuilder.toString();
+
+				} catch (ClientProtocolException cpe) {
+					System.out.println("Exception generates caz of httpResponse :" + cpe);
+					cpe.printStackTrace();
+				} catch (IOException ioe) {
+					System.out.println("Second exception generates caz of httpResponse :" + ioe);
+					ioe.printStackTrace();
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result); 
+				main.searchResultsTitleAndArtist(result);
+			}			
+		}
+
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		httpGetAsyncTask.execute(givenArtist); 
+	}
+
+
+	// TODO: copy lolno!
+
+	public void getFromMBID(final SearchResultsActivity searchActivity, final String mbid) {
+
+		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+			@Override
+			protected String doInBackground(String... params) {
+				System.out.println("Debug1");
+				String mbid = params[0];
+				System.out.println("Debug2");
+				HttpClient httpClient = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=track.getinfo&mbid=" + mbid + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+				System.out.println("Debug3");
+				try {
+					HttpResponse httpResponse = httpClient.execute(httpGet);
+					System.out.println("httpResponse");
+
+					InputStream inputStream = httpResponse.getEntity().getContent();
+					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+					StringBuilder stringBuilder = new StringBuilder();
+					String bufferedStrChunk = null;
+					while((bufferedStrChunk = bufferedReader.readLine()) != null){
+						stringBuilder.append(bufferedStrChunk);
+					}
+					return stringBuilder.toString();
+
+				} catch (ClientProtocolException cpe) {
+					System.out.println("Exception generates caz of httpResponse :" + cpe);
+					cpe.printStackTrace();
+				} catch (IOException ioe) {
+					System.out.println("Second exception generates caz of httpResponse :" + ioe);
+					ioe.printStackTrace();
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result); 
+				System.out.println("Connection sending back!");
+				searchActivity.onPostExecute(result);
+			}			
+		}
+		System.out.println("Debug0.1 (" + mbid + ")");
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		System.out.println("Debug0.2");
+		httpGetAsyncTask.execute(mbid); 
 	}
 }

@@ -27,19 +27,22 @@ public class ArtistActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.artist_activity);
 
 		try {
-			artist = new JSONObject(getIntent().getStringExtra("artist"));
-
+			//artist = new JSONObject(getIntent().getStringExtra("artist"));
+			JSONObject l = new JSONObject();
+			JSONObject.numberToString(500);
 
 			back = (Button) findViewById(R.id.back);
 			back.setText(" Back ");
 			back.setOnClickListener(this);
 
 			title = (TextView) findViewById(R.id.title);
-			title.setText(artist.getString("name"));
+			//title.setText(artist.getString("name"));
+			title.setText("Surprise!");
 
 			TextView info = (TextView) findViewById(R.id.info);
 			//info.setText("Cher (born Cherilyn Sarkisian; May 20, 1946) is an American singer and actress. A major figure for over five decades in the world of popular culture, she is often referred to as the Goddess of Pop for having first brought the sense of female autonomy and self-actualization into entertainment industry. She is known for her distinctive contralto and for having worked extensively across media, as well as for continuously reinventing both her music and image, the latter of which has been known to induce controversy.");
-			info.setText(android.text.Html.fromHtml(artist.getJSONObject("bio").getString("content")));
+			//info.setText(android.text.Html.fromHtml(artist.getJSONObject("bio").getString("content")));
+			info.setText("Congradulations motherfucker");
 
 			ImageView picture = (ImageView) findViewById(R.id.picture);
 			picture.setImageResource(R.drawable.cher_large);

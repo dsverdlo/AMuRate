@@ -1,11 +1,16 @@
 package com.dsverdlo.AMuRate;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.dsverdlo.AMuRate.R;
-import android.os.Bundle;
+
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,78 +18,169 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+public class MainActivity extends Activity implements OnClickListener {
 
-public class MainActivity extends Activity {
-	Context context;
+	private EditText searchArtist;
+	private EditText searchTitle;
+	private Button cancelButton;
+	private Button sendGetReqButton;
+	private TextView results;
+	private TextView questionMark;
+	private Button view;
+	private JSONObject artist;
+	private MyConnection connection; 
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_test);
-		System.out.println("0.5");
+		setContentView(R.layout.main_test);	
 		
-		context = this.getApplicationContext();
-		final Toast t = Toast.makeText(context, "Main created!", Toast.LENGTH_LONG);
-		t.show();
-		  
-
+		connection = new MyConnection();
 		
-		System.out.println("Test succeeded");
-		final EditText tex = (EditText) findViewById(R.id.enterArtist);
-		tex.setBackgroundColor(Color.LTGRAY);
-		final String init_tex = "Enter an artist name";
-		tex.setText(init_tex);
-		tex.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				String get = tex.getText().toString();
-				if (get == init_tex) {
-					t.setText("Erasing");
-					t.show();
-					tex.setText("");
-				} else {
-					t.setText("Selecting all");
-					t.show();
-					tex.selectAll();
-				}
-			}
-		});
-
-		System.out.println("EditText completed");
+		searchArtist = (EditText) findViewById(R.id.enterArtist);
+		searchTitle = (EditText) findViewById(R.id.enterTitle);
 		
+		// TODO: remove hack
+		searchTitle.setText("hunter");
+		searchArtist.setText("Dido");
 
-	/*	Button button_submit = (Button) findViewById(R.id.button_submit);
-		button_submit.setBackgroundColor(Color.LTGRAY);
-		button_submit.setText("Submit");
-		button_submit.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Toast later = Toast.makeText(context, "I'll do it now!", Toast.LENGTH_LONG);
-				later.show();
+		sendGetReqButton = (Button) findViewById(R.id.button_submit);
+		sendGetReqButton.setOnClickListener(this);
+		sendGetReqButton.setTextColor(Color.WHITE);
+		sendGetReqButton.setText(R.string.submit);
 
-				TextView results = (TextView) findViewById(R.id.results);
-				
-				//myc.getTest(results, tex.getEditableText().toString());
-				//System.out.println("Returned from server with:");
-				//System.out.println(get);
-				//System.out.println(tex.getText());
-				results.setBackgroundColor(Color.WHITE);
-				results.setText("Loading...");
-			}
-		});*/
+		cancelButton = (Button) findViewById(R.id.button_cancel);
+		cancelButton.setOnClickListener(this);
+		cancelButton.setTextColor(Color.WHITE);
+		cancelButton.setText(R.string.cancel);
 
-		System.out.println("Submit button created");
-		Button button_cancel = (Button) findViewById(R.id.button_cancel);
-		button_cancel.setBackgroundColor(Color.LTGRAY);
-		button_cancel.setText("Cancel");
-		button_cancel.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Toast later = Toast.makeText(context, "I'll cancel it later", Toast.LENGTH_LONG);
-				later.show();
-				//System.out.println(tex.getText());
-			}
-		});
+		questionMark = (Button) findViewById(R.id.questionmark);
+		questionMark.setOnClickListener(this);
+		questionMark.setTextColor(Color.LTGRAY);
+		questionMark.setText(" ? ");
 
-		System.out.println("Cancel button created");
-		Intent inten = new Intent(getBaseContext(), MyConnection.class);
-		startActivity(inten);
+		view = (Button) findViewById(R.id.view);
+		view.setOnClickListener(this);
+		view.setVisibility(View.INVISIBLE);
+		view.setText("View");
+
+		results = (TextView) findViewById(R.id.results);
 	}
+
+
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.button_submit : 
+
+			// Get the values given in EditText fields
+			String givenArtist = searchArtist.getText().toString();
+			String givenTitle = searchTitle.getText().toString();
+			int nArtist = givenArtist.length();
+			int nTitle = givenTitle.length();
+			
+			System.out.println("Given artist[" + givenArtist + "], given title[" + givenTitle + "]");
+			
+			if(nArtist == 0 && nTitle == 0 ) {
+				Toast.makeText(getApplicationContext(), "Please enter an artist, song or both", Toast.LENGTH_LONG).show();
+			} else {
+				results.setText("Loading...");
+				view.setVisibility(Button.INVISIBLE);
+
+				if(nArtist > 0 && nTitle == 0) connection.getFromArtist(this, givenArtist);	
+				if(nArtist == 0 && nTitle > 0) connection.getFromTitle(this, givenTitle);	
+				if(nArtist > 0 && nTitle > 0) connection.getFromTitleAndArtist(this, givenTitle, givenArtist);	
+			}
+			break;
+
+		case R.id.button_cancel :
+			results.setText("");
+			view.setVisibility(Button.INVISIBLE);
+			searchArtist.setText("");
+			searchTitle.setText("");
+
+			break;
+
+		case R.id.questionmark :
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			alertDialog.setTitle("Info");
+			alertDialog.setMessage("Please enter an artist, a song title or both in the search field and then press SUBMIT.");
+			// Setting OK Button
+			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					// Write your code here to execute after dialog closed
+				}
+			});
+			alertDialog.show();
+			break;
+
+		case R.id.view : 
+
+			Intent newpage = new Intent(this, SearchResultsActivity.class);
+			newpage.putExtra("searchResults", artist.toString());
+			startActivity(newpage);
+			break;
+
+
+		//case R.id.tex : 
+			// String get = artistEdit.getText().toString();
+			//break;
+		}
+	}
+
+	public void searchResultsTitle(String resultString) {
+		try {
+			if(!resultString.substring(2, 7).equals("error")) {
+				JSONObject JSONobject = new JSONObject(resultString);
+				JSONObject JSONresults = JSONobject.getJSONObject("results");
+				int nResults = JSONresults.getInt("opensearch:totalResults");
+				if(nResults>0) {
+					results.setText("" + nResults + " results found...");
+					artist = JSONresults.getJSONObject("trackmatches");
+					view.setVisibility(Button.VISIBLE);
+				}
+
+			}
+		} catch (JSONException je) {
+			System.out.println("JSON Exception in MainAcitivty(searchResultsTitle):");
+			je.printStackTrace();
+		}
+	}
+
+	public void searchResultsArtist(String resultString) {
+		try {
+			if(!resultString.substring(2, 7).equals("error")) {
+				JSONObject JSONobject = new JSONObject(resultString);
+				JSONObject JSONresults = JSONobject.getJSONObject("results");
+				int nResults = JSONresults.getInt("opensearch:totalResults");
+				if(nResults>0) {
+					results.setText("" + nResults + " results found...");
+					artist = JSONresults.getJSONObject("artistmatches");
+					view.setVisibility(Button.VISIBLE);
+				}	
+			}
+		} catch (JSONException je) {
+			System.out.println("JSON Exception in MainAcitivty(searchResultsArtist):");
+			je.printStackTrace();
+		}
+	}
+
+	public void searchResultsTitleAndArtist(String resultString) {
+		try {
+			if(!resultString.substring(2, 7).equals("error")) {
+				JSONObject JSONobject = new JSONObject(resultString);
+				JSONObject JSONresults = JSONobject.getJSONObject("results");
+				int nResults = JSONresults.getInt("opensearch:totalResults");
+				if(nResults>0) {
+					results.setText("" + nResults + " results found...");
+					artist = JSONresults.getJSONObject("trackmatches");
+					view.setVisibility(Button.VISIBLE);
+				}
+
+			}
+		} catch (JSONException je) {
+			System.out.println("JSON Exception in MainAcitivty(searchResultsTitleAndArtist):");
+			je.printStackTrace();
+		}
+	}
+
 }
