@@ -3,13 +3,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.widget.ImageView;
 
 public class MyConnection  {
 
@@ -266,4 +272,33 @@ public class MyConnection  {
 		System.out.println("Debug0.2");
 		httpGetAsyncTask.execute(mbid); 
 	}
+	
+	// TODO yeah yeah
+	
+	public void loadImage(final String url, final ImageView iv) {
+
+		class HttpGetAsyncTask extends AsyncTask<String, Void, Bitmap>{
+			@Override
+			protected Bitmap doInBackground(String... params) {
+				try {
+					URL url = new URL(params[0]);
+					Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+					return bmp;
+				} catch (Exception e) {
+					System.out.println("Exception in MyConnection(loadImage):");
+					e.printStackTrace();
+					return null;
+				}
+			}
+
+			@Override
+			protected void onPostExecute(Bitmap bmp) {
+				super.onPostExecute(bmp); 
+				iv.setImageBitmap(bmp);
+			}			
+		}
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		httpGetAsyncTask.execute(url); 
+	}
+
 }

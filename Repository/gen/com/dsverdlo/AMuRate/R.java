@@ -27,6 +27,11 @@ public final class R {
         public static final int star_red_full2=0x7f02000d;
         public static final int star_red_half=0x7f02000e;
         public static final int star_red_half2=0x7f02000f;
+        public static final int track_background=0x7f020010;
+        public static final int track_background_shorter=0x7f020011;
+        public static final int track_background_wider=0x7f020012;
+        public static final int track_background_wider_small=0x7f020013;
+        public static final int track_background_wider_small_clicked=0x7f020014;
     }
     public static final class id {
         public static final int back=0x7f070006;
