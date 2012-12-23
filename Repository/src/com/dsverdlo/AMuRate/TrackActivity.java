@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +35,10 @@ public class TrackActivity extends Activity {
 		album = (TextView) findViewById(R.id.textView2);
 		image = (ImageView) findViewById(R.id.track_image);
 		ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+		ratingBar.setPadding(5, 10, 0, 0); 
+		
 		streamText = (TextView) findViewById(R.id.textView3);
+		streamText.setPadding(0, 300, 0, 0);
 		connection = new MyConnection();
 		
 		try {
@@ -87,9 +91,12 @@ public class TrackActivity extends Activity {
 			connection.loadImage(url, image);
 			album.setText("From album: " + trackAlbum);
 			
-			ratingBar.setOnClickListener( new OnClickListener() {
-				public void onClick(View v) {
-					Toast.makeText(getApplicationContext(), "Sending score to database!", Toast.LENGTH_SHORT).show();
+			ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+				public void onRatingChanged(RatingBar ratingBar, float rating,
+						boolean fromUser) {
+					Toast.makeText(getApplicationContext(), "Sending score: " + rating + " to database!", Toast.LENGTH_SHORT).show();
+					ratingBar.setClickable(false);
+					
 				}
 			});
 			

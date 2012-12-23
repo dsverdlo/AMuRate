@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_note"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         android:layout_gravity="center"
-        android:text="Title - Artist (Dur:ation)"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TableLayout
@@ -27,9 +28,9 @@
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
                 android:layout_gravity="left"
                 android:layout_weight="1"
-                android:text="Small Text"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <ImageView
@@ -37,8 +38,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/cher_large" />
+                android:layout_weight="1" />
         </TableRow>
 
         <TableRow
@@ -52,7 +52,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small Text"
+        android:textColor="@android:color/white"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </TableRow>

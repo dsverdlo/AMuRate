@@ -129,12 +129,13 @@ public class SearchResultsActivity extends Activity {
 					default: break;
 					}
 				}
+				//Track track(oneResults);
 
 				// Set the onClick function
-				final String mbid = oneResult.getString("mbid");
+				final String mbid = oneResult.getString("mbid"); 
 				horizontalLayout.setOnClickListener( new OnClickListener() {
 					public void onClick(View v) {
-						horizontalLayout.setBackgroundResource(R.drawable.track_background_wider_small_clicked);
+						horizontalLayout.setBackgroundResource(R.drawable.track_background_2);
 						System.out.println("Someone clicked a track! Starting connection for: " + mbid);
 						connection.getFromMBID(thisActivity, mbid);
 					}
@@ -156,13 +157,6 @@ public class SearchResultsActivity extends Activity {
 			System.out.println("Exception in SearchResultsActivity (onCreate):");
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_search_results, menu);
-		return true;
 	}
 
 	public void onPostExecute(String results) {

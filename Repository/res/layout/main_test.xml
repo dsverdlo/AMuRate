@@ -3,7 +3,7 @@
     android:id="@+id/mainlayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/loginbg_no_watermark_crop"
+    android:background="@drawable/loginbg_no_watermark_crop2"
     android:gravity="right"
     android:orientation="vertical" >
 
