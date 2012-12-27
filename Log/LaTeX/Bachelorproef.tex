@@ -1,0 +1,73 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\author{David Sverdlov \\ dsverdlo@vub.ac.be}
+\title{Bachelorproef AMuRate\\ 3e Bachelor Computerwetenschappen}
+\begin{document}
+% Begin title page
+\begin{flushleft}
+\noindent \includegraphics[width=0.6\linewidth]{vub_logo.jpg} 
+\end{flushleft}
+{\let\newpage\relax\maketitle} % don't let it set newpage
+
+\begin{center}
+\includegraphics[width=4cm]{amr_gold_thick.png} 
+\end{center}
+
+
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Inleiding}
+	\subsection{Doel}
+Het doel van dit project is om een applicatie te ontwikkelen voor het mobiele platform Android. Deze bachelorproef werd gepromote door prof. De applicatie moet gebruikers in staat stellen om muzieknummers op te zoeken en een beoordeling te kunnen geven. Deze scores worden dan opgeslagen in een database. Er wordt gewerkt met een lokale en een externe database. De applicatie zal ontwikkeld worden voor Android versie 4.0 (Ice Cream Sandwich) om het grootste doelpubliek aan te spreken.
+
+	\subsection{Referenties}
+		\subsubsection{Android}
+			\url{http://www.android.com/}
+		\subsubsection{Ice Cream Sandwich}
+			\url{http://www.android.com/about/ice-cream-sandwich/}	
+		\subsubsection{Last.fm}
+			\url{http://www.last.fm/home}	
+
+	\subsection{Afkortingen en definities}
+		\subsubsection{API}
+		API staat voor Application Programming Interface en zorgt vaak voor de communicatie tussen programmas, door de scheiding te vormen tussen verschillende lagen van abstracties.
+		\subsubsection{XML/JSON}
+		XML staat voor Extensible Markup Language en is een van de meest gebruikte opmaaktalen, die gestructureerde gegevens kunnen omzetten in platte tekst. (Om het zo makkelijk(er) door te kunnen sturen.)
+		\newline
+		JSON is aan afkorting van JavaScript Object Notation en is een alternatieve simpele manier om objecten voor te stellen als platte tekst.
+
+\section{Achtergrond}
+	\subsection{Last.fm/api: REST}
+Om (informatie over) muziek te kunnen opzoeken moet er gebruikt worden van een grote online database met een werkbare API. Last.fm is een muziek recommendation service met een enorme online muziek database. Last.fm biedt ook een gratis (lees: voor geregistreerde gebruikers) API aan, die iedereen toelaat om mobiele/desktop programmas of web services te bouwen met hun data.
+\newline
+Om methoden (zoekopdrachten) van de API aan te vragen, moet er een call (oproep) gestuurd worden. Deze gebeurt via HTTP naar de Last.fm server die antwoordt via REST style XML (of JSON op aanvraag).
+	\subsection{REST architectuur}
+	NYI
+\section{Voorgrond}
+	\subsection{Website}
+		In dit project wordt er gebruik gemaakt van Git als versiebeheersysteem, omdat het een gratis, eenvoudige en betrouwbare manier is om de broncode te beheren. Nog een voordeel is, dat Github de mogelijkheid biedt om snel en simpele websites te maken voor projecten. De website voor dit project is dus terug te vinden op: \url{http://dsverdlo.github.com/AMuRate/}. Hier kan men de open-source broncode bekijken, het logboek of dit document raadplegen, en de applicatie (.apk) downloaden voor Android 4.0 toestellen.
+	\subsection{NYI}
+	NYI
+\section{Implementatie}
+\section{Problemen}
+\section{Voortgang}
+	\begin{tabular}{| c | p{\linewidth} | }
+	\hline
+	Datum & Informatie \\ \hline \hline 
+	24-10 & Informatie ontvangen i.v.m. opdracht \\ \hline
+	07-11 & Afspraak met begeleiders en promoter, acceptatie bachelorproef \\ \hline
+	21-11 & Android project aangemaakt met simpele GUI. Ook Last.fm account aangemaakt en unieke API sleutel aangevraagd. \\ \hline
+	05-12 & Gebruikers kunnen echte calls maken en muziek opzoeken. Zitten nog bugs in en er kan nog niet gezocht worden naar artiesten \\ \hline
+	19-12 & Er kan ook gezocht worden op artiesten, GUI werd herzien, abstractie in code toegevoegd. \\ \hline
+	xx-xx & BLOK: Todo: interne database aanmaken en mee communiceren. Ook alle bugs eruit halen. \\ \hline
+	
+	\end{tabular}
+\end{document}

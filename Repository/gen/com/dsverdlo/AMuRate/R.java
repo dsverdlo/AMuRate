@@ -24,17 +24,18 @@ public final class R {
         public static final int loginbg_no_watermark_crop=0x7f02000a;
         public static final int loginbg_no_watermark_crop2=0x7f02000b;
         public static final int logo_black_star=0x7f02000c;
-        public static final int star_red_empty=0x7f02000d;
-        public static final int star_red_empty2=0x7f02000e;
-        public static final int star_red_full=0x7f02000f;
-        public static final int star_red_full2=0x7f020010;
-        public static final int star_red_half=0x7f020011;
-        public static final int star_red_half2=0x7f020012;
-        public static final int track_background=0x7f020013;
-        public static final int track_background_2=0x7f020014;
-        public static final int track_background_shorter=0x7f020015;
-        public static final int track_background_wider=0x7f020016;
-        public static final int track_background_wider_small=0x7f020017;
+        public static final int not_available=0x7f02000d;
+        public static final int star_red_empty=0x7f02000e;
+        public static final int star_red_empty2=0x7f02000f;
+        public static final int star_red_full=0x7f020010;
+        public static final int star_red_full2=0x7f020011;
+        public static final int star_red_half=0x7f020012;
+        public static final int star_red_half2=0x7f020013;
+        public static final int track_background=0x7f020014;
+        public static final int track_background_2=0x7f020015;
+        public static final int track_background_shorter=0x7f020016;
+        public static final int track_background_wider=0x7f020017;
+        public static final int track_background_wider_small=0x7f020018;
     }
     public static final class id {
         public static final int back=0x7f070006;
