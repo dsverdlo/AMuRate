@@ -57,7 +57,8 @@ public class SearchResultsActivity extends Activity {
 				
 				System.out.println("Try to get array[" + i + "]");
 				final JSONObject oneResult = tracks.getJSONObject(i);
-				Track track = new Track(oneResult);
+				Track track = new Track();
+				track.loadFromSearch(oneResult);
 
 				// Create a layout for the track
 				final LinearLayout horizontalLayout = new LinearLayout(getApplicationContext());
@@ -86,10 +87,11 @@ public class SearchResultsActivity extends Activity {
 				TextView next = new TextView(getApplicationContext());
 				next.setGravity(Gravity.RIGHT);
 
+				artist.setTextColor(Color.BLACK);
 				artist.setText(track.getArtist());
 				
 				// if possible set image in pictureview
-				String imageUrl = track.getImage("s");
+				String imageUrl = track.getImage("l");
 				if(imageUrl.length() != 0) { 
 					connection.loadImage(imageUrl, picture);
 				} else {

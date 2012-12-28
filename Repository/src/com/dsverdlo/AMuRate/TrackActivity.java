@@ -8,9 +8,11 @@ import org.json.JSONObject;
 import org.omg.CORBA.portable.Streamable;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
@@ -24,6 +26,7 @@ public class TrackActivity extends Activity {
 	private MyConnection connection;
 	private TextView streamText;
 	private RatingBar ratingBar;
+	private Button back;
 	 
 	
 	/** Called when the activity is first created. */
@@ -37,23 +40,29 @@ public class TrackActivity extends Activity {
 		ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 		ratingBar.setPadding(5, 10, 0, 0); 
 		
+		back = (Button) findViewById(R.id.track_back_button);
+		back.setText("New search");
+		back.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				finish();
+				Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+				startActivity(mainIntent);
+			}
+		});
+		
 		streamText = (TextView) findViewById(R.id.textView3);
 		streamText.setPadding(0, 300, 0, 0);
 		connection = new MyConnection();
 		
-		try {
-			JSONObject JSONobject = new JSONObject(getIntent().getStringExtra("track"));
-			JSONObject JSONtrack = JSONobject.getJSONObject("track");
-			Iterator<?> keys = JSONtrack.keys();
-			while(keys.hasNext()) {
-				String key = (String) keys.next();
-				System.out.println("*-* " + key);
-			}
+			//JSONObject JSONobject = new JSONObject(getIntent().getStringExtra("track"));
+			Track track = new Track();
+			//track.loadFromInfo(JSONobject.getJSONObject("track"));
+			track.loadFromInfo(getIntent().getStringExtra("track"));
 			
-			String trackName = JSONtrack.getString("name");
-			int[] trackDuration = convertDuration(JSONtrack.getInt("duration"));
+			String trackName = track.getTitle();
+			//int[] trackDuration = convertDuration(JSONtrack.getInt("duration"));
 			
-
+			/* START STREAMABLE SHIT 
 			JSONObject JSONstreamable = JSONtrack.getJSONObject("streamable");
 			Iterator<?> it = JSONstreamable.keys();
 			while(it.hasNext()) {
@@ -73,23 +82,35 @@ public class TrackActivity extends Activity {
 					}
 					
 				});
-			}
+			} */
 			
-			JSONObject JSONartist = JSONtrack.getJSONObject("artist");
-			String trackArtist = JSONartist.getString("name");
+			//JSONObject JSONartist = JSONtrack.getJSONObject("artist");
+			//String trackArtist = JSONartist.getString("name");
 			
-			JSONObject JSONalbum = JSONtrack.getJSONObject("album");
-			String trackAlbum = JSONalbum.getString("title");
+			
+			//JSONObject JSONalbum = JSONtrack.getJSONObject("album");
+			//String trackAlbum = JSONalbum.getString("title");
 			
 
-			title.setText(trackName + " - " + trackArtist + "  (" + convertDurationToString(trackDuration) + ")");
+			title.setText(track.getTitle() + " - " + track.getArtist() + "  (" + track.getDuration() + ")");
 			title.setPadding(0, 10, 0, 20);
 
-			JSONArray JSONimage = JSONalbum.getJSONArray("image");
+			/*JSONArray JSONimage = JSONalbum.getJSONArray("image");
 			JSONObject JSONimageLarge = JSONimage.getJSONObject(2);
-			String url = JSONimageLarge.getString("#text");
-			connection.loadImage(url, image);
-			album.setText("From album: " + trackAlbum);
+			String url = JSONimageLarge.getString("#text");*/
+			String imageUrl = track.getImage("l");
+			if(imageUrl.length() > 0) {
+				connection.loadImage(imageUrl, image);
+			} else {
+				// Else try a medium picture?
+				String OtherImageUrl = track.getImage("m");
+				if(OtherImageUrl.length() > 0) {
+					connection.loadImage(OtherImageUrl, image);
+				} else image.setImageResource(R.drawable.not_available);
+			}
+			
+			// TODO: add clickable to album songs 
+			album.setText("From album: " + track.getAlbum());
 			
 			ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 				public void onRatingChanged(RatingBar ratingBar, float rating,
@@ -101,34 +122,9 @@ public class TrackActivity extends Activity {
 			});
 			
 			
-		} catch (JSONException e) {
-			System.out.println("JSON Exception in TrackActivity(onCreate)");
-			e.printStackTrace();
-		}
 		
 		
 	}
 	
-	private int[] convertDuration(double milliseconds) {
-		int time[] = new int[3];
-		int seconds = (int) (milliseconds / 1000) % 60 ;
-		int minutes = (int) ((milliseconds / (1000*60)) % 60);
-		int hours = (int) ((milliseconds / (1000*60*60)) % 24);
-		
-		time[0] = seconds;
-		time[1] = minutes;
-		time[2] = hours;
-		return time;
-	}
-	
-	private String convertDurationToString(int[] time) {
-		int hours = time[2];
-		int minutes = time[1];
-		int seconds = time[0];
-		boolean hoursExtra = hours < 9;
-		boolean minsExtra = minutes < 9;
-		boolean secsExtra = seconds < 9;
-		if(hours == 0) return "" + (minsExtra ? "0": "") + minutes + ":" + (secsExtra ? "0" : "") + seconds; 
-		return "" + (hoursExtra ? "0" : "") + hours + ":" + (minsExtra ? "0" : "") + minutes + ":" + (secsExtra ? "0" : "") + seconds;
-	}
+
 }

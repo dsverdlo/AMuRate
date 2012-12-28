@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.8.11)  27 DEC 2012 20:32
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.8.11)  28 DEC 2012 02:35
 entering extended mode
 **Bachelorproef.tex
 
@@ -539,26 +539,33 @@ Overfull \hbox (3.35803pt too wide) in paragraph at lines 43--46
  []
 
 [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 73.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 75.
 
-Overfull \hbox (57.3063pt too wide) in paragraph at lines 62--73
+Overfull \hbox (57.3063pt too wide) in paragraph at lines 64--75
 [] 
  []
 
 [4] [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 73.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 75.
 
 (C:\Users\david\Documents\Studies\VUB\2012-2013\Bachelorproef\AMuRate\Log\LaTeX
 \Bachelorproef.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 73.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 73.
-Package rerunfilecheck Info: File `Bachelorproef.out' has not changed.
-(rerunfilecheck)             Checksum: B1F65293AE716B08CE8D2205B7E25E7B;1062.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 73.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 75.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 75.
+
+
+Package rerunfilecheck Warning: File `Bachelorproef.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Bachelorproef.out':
+(rerunfilecheck)             Before: B1F65293AE716B08CE8D2205B7E25E7B;1062
+(rerunfilecheck)             After:  888C5DCF02468F66CA7119CA445DB17D;1108.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 75.
  ) 
 Here is how much of TeX's memory you used:
- 5956 strings out of 494045
- 84249 string characters out of 3148387
+ 5957 strings out of 494045
+ 84258 string characters out of 3148387
  164209 words of memory out of 3000000
  9171 multiletter control sequences out of 15000+200000
  11520 words of font info for 44 fonts, out of 3000000 for 9000
@@ -570,9 +577,9 @@ les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmtt10.pfb>
-Output written on Bachelorproef.pdf (5 pages, 231121 bytes).
+Output written on Bachelorproef.pdf (5 pages, 231431 bytes).
 PDF statistics:
- 156 PDF objects out of 1000 (max. 8388607)
- 25 named destinations out of 1000 (max. 500000)
+ 157 PDF objects out of 1000 (max. 8388607)
+ 26 named destinations out of 1000 (max. 500000)
  155 words of extra memory for PDF output out of 10000 (max. 10000000)
 

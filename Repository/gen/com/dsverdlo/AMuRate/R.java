@@ -45,10 +45,10 @@ public final class R {
         public static final int enterTitle=0x7f070009;
         public static final int info=0x7f070003;
         public static final int mainlayout=0x7f070007;
-        public static final int menu_settings=0x7f070018;
+        public static final int menu_settings=0x7f070019;
         public static final int picture=0x7f070004;
         public static final int questionmark=0x7f070008;
-        public static final int ratingBar=0x7f070017;
+        public static final int ratingBar=0x7f070018;
         public static final int ratingBar1=0x7f070005;
         public static final int results=0x7f07000d;
         public static final int searchResultsLayout=0x7f070001;
@@ -56,11 +56,12 @@ public final class R {
         public static final int tableRow1=0x7f070010;
         public static final int tableRow2=0x7f070013;
         public static final int tableRow3=0x7f070015;
-        public static final int tableRow4=0x7f070016;
+        public static final int tableRow4=0x7f070017;
         public static final int textView1=0x7f07000f;
         public static final int textView2=0x7f070011;
         public static final int textView3=0x7f070014;
         public static final int title=0x7f070002;
+        public static final int track_back_button=0x7f070016;
         public static final int track_image=0x7f070012;
         public static final int view=0x7f07000e;
     }
