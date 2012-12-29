@@ -2,9 +2,17 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{xcolor}
 \usepackage{amssymb}
+%\usepackage{colortbl}
 \usepackage{hyperref}
 \usepackage{graphicx}
+
+\newcommand{\boxgreen}{\colorbox{green}{\color{black}done}}
+\newcommand{\boxyellow}{\colorbox{yellow}{\color{black}in progress}}
+\newcommand{\boxred}{\colorbox{red}{\color{black}NYI}}
+
+
 \author{David Sverdlov \\ dsverdlo@vub.ac.be}
 \title{Bachelorproef AMuRate\\ 3e Bachelor Computerwetenschappen}
 \begin{document}
@@ -29,6 +37,8 @@
 Het doel van dit project is om een applicatie te ontwikkelen voor het mobiele platform Android. Deze bachelorproef werd gepromote door prof. De applicatie moet gebruikers in staat stellen om muzieknummers op te zoeken en een beoordeling te kunnen geven. Deze scores worden dan opgeslagen in een database. Er wordt gewerkt met een lokale en een externe database. De applicatie zal ontwikkeld worden voor Android versie 4.0 (Ice Cream Sandwich) om het grootste doelpubliek aan te spreken.
 
 	\subsection{Referenties}
+		\subsubsection{AMuRate}
+			\url{http://dsverdlo.github.com/AMuRate}
 		\subsubsection{Android}
 			\url{http://www.android.com/}
 		\subsubsection{Ice Cream Sandwich}
@@ -54,10 +64,24 @@ Om methoden (zoekopdrachten) van de API aan te vragen, moet er een call (oproep)
 \section{Voorgrond}
 	\subsection{Website}
 		In dit project wordt er gebruik gemaakt van Git als versiebeheersysteem, omdat het een gratis, eenvoudige en betrouwbare manier is om de broncode te beheren. Nog een voordeel is, dat Github de mogelijkheid biedt om snel en simpele websites te maken voor projecten. De website voor dit project is dus terug te vinden op: \url{http://dsverdlo.github.com/AMuRate/}. Hier kan men de open-source broncode bekijken, het logboek of dit document raadplegen, en de applicatie (.apk) downloaden voor Android 4.0 toestellen.
-	\subsection{NYI}
-	NYI
+	\subsection{Naam en logo}
+		De naam van het project moet een kleine beschrijving geven van wat de applicatie doet/ waar hij voor dient. AMuRate komt van "Android Music Rating". Omdat het project vooral geïmplementeerd zou worden via een Android emulator, en simpelweg "AMR" te kort en onduidelijk zou zijn, werd er gekozen voor AMuRate. Het logo (zoals te zien op de voorpagina) is een gecomponeerde ster in een bol die iets weg heeft van een "dragon ball" (uit de Japanse animatieserie Dragonball Z). In de serie bestaan er maar 7 bollen op de hele wereld en wanneer die allemaal verzameld zijn, mag er een wens gedaan worden. Gelijkaardig aan hoe elke artiest hoopt 5 sterren (/ 7 dragon balls) te verzamelen. 
+	In de ster zelf zijn drie letters gekleurd ("AMR"), naar de naam van de applicatie.
 \section{Vereisten}
 	% Get a nice table with colors running here, bro
+	\begin{tabular}{| l | c | r |}
+	\hline
+	ID 	& 	Beschrijving						& Status \\ \hline \hline
+	1	&	Titel (en artiest) opzoeken			& \colorbox{green}{\color{green}ignore} \\ \hline
+	2	& 	Enkel op artiest opzoeken 			& \boxyellow \\ \hline
+	3 	& 	Album tonen 						& \boxyellow \\ \hline
+	4	& 	Score opslagen in database 			& \boxred  \\ \hline
+	5 	& 	Score ophalen in lokale database 	& \boxred \\ \hline
+	6	& 	Score opsturen naar remote db		& \boxred \\ \hline
+	7	&	Stream$/$preview 30sec songs		& \boxred \\ \hline
+	
+	\hline	
+	\end{tabular}
 \section{Implementatie}
 \section{Problemen}
 \section{Voortgang}
