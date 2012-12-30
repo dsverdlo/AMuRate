@@ -9,11 +9,11 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop= "15sp"
-        android:layout_marginBottom="10sp"
-        android:textColor="@android:color/white" 
         android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginBottom="10sp"
+        android:layout_marginTop="15sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -30,10 +30,10 @@
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-        		android:textColor="@android:color/white"
                 android:layout_gravity="left"
                 android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
 
             <ImageView
                 android:id="@+id/track_image"
@@ -46,48 +46,47 @@
         <TableRow
             android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="10sp"
-            android:layout_height="wrap_content" >
-
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0sp" >
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-        		android:textColor="@android:color/white"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="0sp"
-            android:layout_height="wrap_content" >
-                       <Button 
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0sp" >
+
+            <Button
                 android:id="@+id/track_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-        		android:background="@layout/rounded_corners"
-        		android:paddingBottom="6sp"
-        		android:paddingLeft="10sp"
-        		android:paddingRight="10sp"
-        		android:paddingTop="6sp"
-        		android:textColor="@android:color/white"
-        		android:textSize="20sp" 
-                 />
+                android:background="@layout/rounded_corners"
+                android:paddingBottom="6sp"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:paddingTop="6sp"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow4"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="10sp"
-            android:layout_height="wrap_content" >
-            
-            <RatingBar 
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp" >
+
+            <RatingBar
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></RatingBar>
+                android:layout_height="wrap_content" >
+            </RatingBar>
         </TableRow>
     </TableLayout>
 

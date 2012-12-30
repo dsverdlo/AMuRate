@@ -214,6 +214,7 @@ public class MyConnection  {
 			@Override
 			protected void onPostExecute(String result) {
 				super.onPostExecute(result); 
+				System.out.println("Sending httpget result back :-)");
 				main.searchResultsTitleAndArtist(result);
 			}			
 		}

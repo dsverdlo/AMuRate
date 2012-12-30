@@ -12,6 +12,11 @@
 \newcommand{\boxyellow}{\colorbox{yellow}{\color{black}in progress}}
 \newcommand{\boxred}{\colorbox{red}{\color{black}NYI}}
 
+\newcounter{reqc}
+\newcommand{\reqID} {%
+   \stepcounter{reqc}%
+   \thereqc}
+
 
 \author{David Sverdlov \\ dsverdlo@vub.ac.be}
 \title{Bachelorproef AMuRate\\ 3e Bachelor Computerwetenschappen}
@@ -72,13 +77,15 @@ Om methoden (zoekopdrachten) van de API aan te vragen, moet er een call (oproep)
 	\begin{tabular}{| l | c | r |}
 	\hline
 	ID 	& 	Beschrijving						& Status \\ \hline \hline
-	1	&	Titel (en artiest) opzoeken			& \colorbox{green}{\color{green}ignore} \\ \hline
-	2	& 	Enkel op artiest opzoeken 			& \boxyellow \\ \hline
-	3 	& 	Album tonen 						& \boxyellow \\ \hline
-	4	& 	Score opslagen in database 			& \boxred  \\ \hline
-	5 	& 	Score ophalen in lokale database 	& \boxred \\ \hline
-	6	& 	Score opsturen naar remote db		& \boxred \\ \hline
-	7	&	Stream$/$preview 30sec songs		& \boxred \\ \hline
+	\reqID	&	Titel (en artiest) opzoeken			& \boxgreen \\ \hline
+	\reqID 	& 	Track volledig weergeven			& \boxgreen \\ \hline
+	\reqID	& 	Enkel op artiest opzoeken 			& \boxyellow \\ \hline
+	\reqID 	& 	Album tonen 						& \boxgreen \\ \hline
+	\reqID	& 	Score opslagen in database 			& \boxred  \\ \hline
+	\reqID 	& 	Score ophalen in lokale database 	& \boxred \\ \hline
+	\reqID	& 	Score opsturen naar remote db		& \boxred \\ \hline
+	\reqID	&	Stream$/$preview 30sec songs		& \boxred \\ \hline
+	\reqID 	& 	Onderzoek uitbreidbaarheid (ios?)	& \boxred \\ \hline
 	
 	\hline	
 	\end{tabular}

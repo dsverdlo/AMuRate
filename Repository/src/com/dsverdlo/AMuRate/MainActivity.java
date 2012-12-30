@@ -96,7 +96,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			results.setText("");
 			view.setVisibility(Button.INVISIBLE);
 			searchArtist.setText("");
-			searchTitle.setText("");
+			searchTitle.setText(""); 
 
 			break;
 
