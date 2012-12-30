@@ -41,6 +41,11 @@
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        <activity
+            android:name="com.dsverdlo.AMuRate.AlbumActivity"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

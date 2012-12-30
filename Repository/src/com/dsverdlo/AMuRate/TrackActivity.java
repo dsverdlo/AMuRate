@@ -1,12 +1,5 @@
 package com.dsverdlo.AMuRate;
 
-import java.util.Iterator;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.omg.CORBA.portable.Streamable;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class TrackActivity extends Activity {
+	private TrackActivity trackActivity;
+	
 	private TextView title;
 	private TextView album;
 	private ImageView image;
@@ -33,6 +28,7 @@ public class TrackActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.track_activity);
+		trackActivity = this;
 		
 		title = (TextView) findViewById(R.id.textView1);
 		album = (TextView) findViewById(R.id.textView2);
@@ -42,20 +38,13 @@ public class TrackActivity extends Activity {
 		
 		back = (Button) findViewById(R.id.track_back_button);
 		back.setText("New search");
-		back.setOnClickListener(new OnClickListener() {
-			public void onClick(View arg0) {
-				finish();
-				Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-				startActivity(mainIntent);
-			}
-		});
 		
 		streamText = (TextView) findViewById(R.id.textView3);
 		streamText.setPadding(0, 300, 0, 0);
 		connection = new MyConnection();
 		
 			//JSONObject JSONobject = new JSONObject(getIntent().getStringExtra("track"));
-			Track track = new Track();
+			final Track track = new Track();
 			//track.loadFromInfo(JSONobject.getJSONObject("track"));
 			track.loadFromInfo(getIntent().getStringExtra("track"));
 			
@@ -83,6 +72,17 @@ public class TrackActivity extends Activity {
 					
 				});
 			} */
+
+
+			back.setOnClickListener(new OnClickListener() {
+				public void onClick(View arg0) {
+					/*finish();
+					Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+					startActivity(mainIntent);*/
+					MyConnection conn = new MyConnection();
+					conn.getFromAlbum(trackActivity, track.albumMBID);
+				}
+			});
 			
 			//JSONObject JSONartist = JSONtrack.getJSONObject("artist");
 			//String trackArtist = JSONartist.getString("name");
@@ -120,11 +120,15 @@ public class TrackActivity extends Activity {
 					
 				}
 			});
-			
-			
-		
-		
 	}
+	
+	public void onPostExecute(String album) {
+		Intent mainIntent = new Intent(getApplicationContext(), AlbumActivity.class);
+		mainIntent.putExtra("album", album);
+		startActivity(mainIntent);
+	}
+		
+		
 	
 
 }
