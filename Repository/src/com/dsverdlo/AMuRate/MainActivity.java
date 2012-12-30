@@ -29,17 +29,17 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button view;
 	private JSONObject artist;
 	private MyConnection connection; 
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_test);	
-		
+
 		connection = new MyConnection();
-		
+
 		searchArtist = (EditText) findViewById(R.id.enterArtist);
 		searchTitle = (EditText) findViewById(R.id.enterTitle);
-		
+
 		// TODO: remove hack
 		searchTitle.setText("hunter");
 		searchArtist.setText("Dido");
@@ -77,9 +77,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			String givenTitle = searchTitle.getText().toString();
 			int nArtist = givenArtist.length();
 			int nTitle = givenTitle.length();
-			
+
 			System.out.println("Given artist[" + givenArtist + "], given title[" + givenTitle + "]");
-			
+
 			if(nArtist == 0 && nTitle == 0 ) {
 				Toast.makeText(getApplicationContext(), "Please enter an artist, song or both", Toast.LENGTH_LONG).show();
 			} else {
@@ -121,65 +121,79 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 
 
-		//case R.id.tex : 
+			//case R.id.tex : 
 			// String get = artistEdit.getText().toString();
 			//break;
 		}
 	}
 
 	public void searchResultsTitle(String resultString) {
-		try {
-			if(!resultString.substring(2, 7).equals("error")) {
-				JSONObject JSONobject = new JSONObject(resultString);
-				JSONObject JSONresults = JSONobject.getJSONObject("results");
-				int nResults = JSONresults.getInt("opensearch:totalResults");
-				if(nResults>0) {
-					results.setText("" + nResults + " results found...");
-					artist = JSONresults.getJSONObject("trackmatches");
-					view.setVisibility(Button.VISIBLE);
-				}
+		if(resultString == null) {
+			Toast.makeText(getApplicationContext(), "No internet connection... Please try again later", Toast.LENGTH_SHORT).show();
+			results.setText("Results...");
+		} else {
+			try {
+				if(!resultString.substring(2, 7).equals("error")) {
+					JSONObject JSONobject = new JSONObject(resultString);
+					JSONObject JSONresults = JSONobject.getJSONObject("results");
+					int nResults = JSONresults.getInt("opensearch:totalResults");
+					if(nResults>0) {
+						results.setText("" + nResults + " results found...");
+						artist = JSONresults.getJSONObject("trackmatches");
+						view.setVisibility(Button.VISIBLE);
+					}
 
+				}
+			} catch (JSONException je) {
+				System.out.println("JSON Exception in MainAcitivty(searchResultsTitle):");
+				je.printStackTrace();
 			}
-		} catch (JSONException je) {
-			System.out.println("JSON Exception in MainAcitivty(searchResultsTitle):");
-			je.printStackTrace();
 		}
 	}
 
 	public void searchResultsArtist(String resultString) {
-		try {
-			if(!resultString.substring(2, 7).equals("error")) {
-				JSONObject JSONobject = new JSONObject(resultString);
-				JSONObject JSONresults = JSONobject.getJSONObject("results");
-				int nResults = JSONresults.getInt("opensearch:totalResults");
-				if(nResults>0) {
-					results.setText("" + nResults + " results found...");
-					artist = JSONresults.getJSONObject("artistmatches");
-					view.setVisibility(Button.VISIBLE);
-				}	
+		if(resultString == null) {
+			Toast.makeText(getApplicationContext(), "No internet connection... Please connect and try again", Toast.LENGTH_SHORT).show();
+			results.setText("Results...");
+		} else {
+			try {
+				if(!resultString.substring(2, 7).equals("error")) {
+					JSONObject JSONobject = new JSONObject(resultString);
+					JSONObject JSONresults = JSONobject.getJSONObject("results");
+					int nResults = JSONresults.getInt("opensearch:totalResults");
+					if(nResults>0) {
+						results.setText("" + nResults + " results found...");
+						artist = JSONresults.getJSONObject("artistmatches");
+						view.setVisibility(Button.VISIBLE);
+					}	
+				}
+			} catch (JSONException je) {
+				System.out.println("JSON Exception in MainAcitivty(searchResultsArtist):");
+				je.printStackTrace();
 			}
-		} catch (JSONException je) {
-			System.out.println("JSON Exception in MainAcitivty(searchResultsArtist):");
-			je.printStackTrace();
 		}
 	}
 
 	public void searchResultsTitleAndArtist(String resultString) {
-		try {
-			if(!resultString.substring(2, 7).equals("error")) {
-				JSONObject JSONobject = new JSONObject(resultString);
-				JSONObject JSONresults = JSONobject.getJSONObject("results");
-				int nResults = JSONresults.getInt("opensearch:totalResults");
-				if(nResults>0) {
-					results.setText("" + nResults + " results found...");
-					artist = JSONresults.getJSONObject("trackmatches");
-					view.setVisibility(Button.VISIBLE);
+		if(resultString == null || resultString.length() < 7) {
+			Toast.makeText(getApplicationContext(), "No internet connection... Please ensure your connection", Toast.LENGTH_SHORT).show();
+			results.setText("Results...");
+		} else {
+			try {
+				if(!resultString.substring(2, 7).equals("error")) {
+					JSONObject JSONobject = new JSONObject(resultString);
+					JSONObject JSONresults = JSONobject.getJSONObject("results");
+					int nResults = JSONresults.getInt("opensearch:totalResults");
+					if(nResults>0) {
+						results.setText("" + nResults + " results found...");
+						artist = JSONresults.getJSONObject("trackmatches");
+						view.setVisibility(Button.VISIBLE);
+					}
 				}
-
+			} catch (JSONException je) {
+				System.out.println("JSON Exception in MainAcitivty(searchResultsTitleAndArtist):");
+				je.printStackTrace();
 			}
-		} catch (JSONException je) {
-			System.out.println("JSON Exception in MainAcitivty(searchResultsTitleAndArtist):");
-			je.printStackTrace();
 		}
 	}
 
