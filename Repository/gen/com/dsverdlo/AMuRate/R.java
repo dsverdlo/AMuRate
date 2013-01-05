@@ -53,24 +53,27 @@ public final class R {
         public static final int enterTitle=0x7f070010;
         public static final int info=0x7f07000a;
         public static final int mainlayout=0x7f07000e;
-        public static final int menu_settings=0x7f070020;
+        public static final int menu_settings=0x7f070023;
         public static final int picture=0x7f07000b;
         public static final int questionmark=0x7f07000f;
-        public static final int ratingBar=0x7f07001f;
         public static final int ratingBar1=0x7f07000c;
         public static final int results=0x7f070014;
         public static final int searchResultsLayout=0x7f070008;
         public static final int searchScrollView=0x7f070007;
         public static final int tableRow1=0x7f070017;
         public static final int tableRow2=0x7f07001a;
-        public static final int tableRow3=0x7f07001c;
-        public static final int tableRow4=0x7f07001e;
-        public static final int textView1=0x7f070016;
-        public static final int textView2=0x7f070018;
-        public static final int textView3=0x7f07001b;
+        public static final int tableRow2_5=0x7f07001c;
+        public static final int tableRow2_75=0x7f07001d;
+        public static final int tableRow3=0x7f07001f;
+        public static final int tableRow4=0x7f070021;
         public static final int title=0x7f070009;
-        public static final int track_back_button=0x7f07001d;
+        public static final int track_album=0x7f070018;
+        public static final int track_back_button=0x7f070022;
         public static final int track_image=0x7f070019;
+        public static final int track_ratingBar=0x7f070020;
+        public static final int track_ratingBar_info=0x7f07001e;
+        public static final int track_stream=0x7f07001b;
+        public static final int track_title=0x7f070016;
         public static final int view=0x7f070015;
     }
     public static final class layout {

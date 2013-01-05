@@ -76,21 +76,29 @@ Om methoden (zoekopdrachten) van de API aan te vragen, moet er een call (oproep)
 	% Get a nice table with colors running here, bro
 	\begin{tabular}{| l | c | r |}
 	\hline
-	ID 	& 	Beschrijving						& Status \\ \hline \hline
+	ID 		& 	Beschrijving						& Status \\ \hline \hline
 	\reqID	&	Titel (en artiest) opzoeken			& \boxgreen \\ \hline
 	\reqID 	& 	Track volledig weergeven			& \boxgreen \\ \hline
 	\reqID	& 	Enkel op artiest opzoeken 			& \boxyellow \\ \hline
 	\reqID 	& 	Album tonen 						& \boxgreen \\ \hline
-	\reqID	& 	Score opslagen in database 			& \boxred  \\ \hline
-	\reqID 	& 	Score ophalen in lokale database 	& \boxred \\ \hline
+	\reqID	& 	Score opslagen in database 			& \boxgreen  \\ \hline
+	\reqID 	& 	Score ophalen in lokale database 	& \boxgreen \\ \hline
 	\reqID	& 	Score opsturen naar remote db		& \boxred \\ \hline
-	\reqID	&	Stream$/$preview 30sec songs		& \boxred \\ \hline
+	\reqID	& 	Zoek geschiedenis opslagen			& \boxyellow \\ \hline
+	\reqID	&	Stream$/$preview 30sec songs		& \boxyellow \\ \hline
 	\reqID 	& 	Onderzoek uitbreidbaarheid (ios?)	& \boxred \\ \hline
+	\reqID 	&	Informatie ophalen van andere media & \boxred \\ \hline
 	
 	\hline	
 	\end{tabular}
 \section{Implementatie}
+	\subsection{Database}
+	Insert UML database layout here
 \section{Problemen}
+	\subsection{Synchronious tasks}
+	\subsection{Tracks verschillende JSON versies}
+	\subsection{Database layout}
+	Een record per track, met een counter, maar kan geen goed gemiddelde maken dan. Ook id
 \section{Voortgang}
 	\begin{tabular}{| c | p{\linewidth} | }
 	\hline

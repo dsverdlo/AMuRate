@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/track_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -27,12 +27,12 @@
             android:baselineAligned="true" >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/track_album"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
 
             <ImageView
@@ -50,18 +50,61 @@
             android:layout_marginBottom="0sp" >
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/track_stream"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
         </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow2_5"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_marginBottom="0sp" >
+			
+			<FrameLayout
+            android:layout_width="fill_parent" 
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+        	</FrameLayout>
+        </TableRow>
 
+        <TableRow
+            android:id="@+id/tableRow2_75"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0sp" >
+
+            <TextView
+                android:id="@+id/track_ratingBar_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
+        </TableRow>
+        
         <TableRow
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0sp" >
+
+            <RatingBar
+                android:id="@+id/track_ratingBar"
+                android:numStars="5" 
+                android:stepSize="0.5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </RatingBar>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp" >
 
             <Button
                 android:id="@+id/track_back_button"
@@ -72,21 +115,9 @@
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
                 android:paddingTop="6sp"
+                android:layout_marginBottom="10sp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp" >
-
-            <RatingBar
-                android:id="@+id/ratingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </RatingBar>
         </TableRow>
     </TableLayout>
 

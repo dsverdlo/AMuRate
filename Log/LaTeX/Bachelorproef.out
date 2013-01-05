@@ -16,5 +16,9 @@
 \BOOKMARK [2][-]{subsection.3.2}{Naam en logo}{section.3}% 16
 \BOOKMARK [1][-]{section.4}{Vereisten}{}% 17
 \BOOKMARK [1][-]{section.5}{Implementatie}{}% 18
-\BOOKMARK [1][-]{section.6}{Problemen}{}% 19
-\BOOKMARK [1][-]{section.7}{Voortgang}{}% 20
+\BOOKMARK [2][-]{subsection.5.1}{Database}{section.5}% 19
+\BOOKMARK [1][-]{section.6}{Problemen}{}% 20
+\BOOKMARK [2][-]{subsection.6.1}{Synchronious tasks}{section.6}% 21
+\BOOKMARK [2][-]{subsection.6.2}{Tracks verschillende JSON versies}{section.6}% 22
+\BOOKMARK [2][-]{subsection.6.3}{Database layout}{section.6}% 23
+\BOOKMARK [1][-]{section.7}{Voortgang}{}% 24
