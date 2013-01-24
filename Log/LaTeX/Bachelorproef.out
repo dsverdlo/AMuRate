@@ -17,8 +17,10 @@
 \BOOKMARK [1][-]{section.4}{Vereisten}{}% 17
 \BOOKMARK [1][-]{section.5}{Implementatie}{}% 18
 \BOOKMARK [2][-]{subsection.5.1}{Database}{section.5}% 19
-\BOOKMARK [1][-]{section.6}{Problemen}{}% 20
-\BOOKMARK [2][-]{subsection.6.1}{Synchronious tasks}{section.6}% 21
-\BOOKMARK [2][-]{subsection.6.2}{Tracks verschillende JSON versies}{section.6}% 22
-\BOOKMARK [2][-]{subsection.6.3}{Database layout}{section.6}% 23
-\BOOKMARK [1][-]{section.7}{Voortgang}{}% 24
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Lokale Database}{subsection.5.1}% 20
+\BOOKMARK [3][-]{subsubsection.5.1.2}{Externe Database}{subsection.5.1}% 21
+\BOOKMARK [1][-]{section.6}{Problemen}{}% 22
+\BOOKMARK [2][-]{subsection.6.1}{Synchronious tasks}{section.6}% 23
+\BOOKMARK [2][-]{subsection.6.2}{Tracks omzetten van verschillende representaties}{section.6}% 24
+\BOOKMARK [2][-]{subsection.6.3}{Database layout}{section.6}% 25
+\BOOKMARK [1][-]{section.7}{Voortgang}{}% 26
