@@ -63,7 +63,7 @@ public class SearchResultsActivity extends Activity {
 			System.out.println("" + tracks.length() + " objects in JSONArray");
 			for(int i = 0; i < tracks.length(); i++ ) {
 				
-				System.out.println("Try to get array[" + i + "]");
+				//System.out.println("Try to get array[" + i + "]");
 				final JSONObject oneResult = tracks.getJSONObject(i);
 				Track track = new Track();
 				track.loadFromSearch(oneResult);

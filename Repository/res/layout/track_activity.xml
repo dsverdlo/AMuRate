@@ -40,6 +40,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:contentDescription="Image of album"
                 android:layout_weight="1" />
         </TableRow>
 
@@ -70,7 +71,14 @@
             android:layout_weight="1">
         	</FrameLayout>
         </TableRow>
-
+		
+		<TableRow
+            android:id="@+id/tableRow2_675"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0sp" >
+        </TableRow>
+        
         <TableRow
             android:id="@+id/tableRow2_75"
             android:layout_width="wrap_content"

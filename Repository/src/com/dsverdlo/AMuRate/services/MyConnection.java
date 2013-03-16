@@ -1,9 +1,13 @@
 package com.dsverdlo.AMuRate.services;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -15,10 +19,12 @@ import com.dsverdlo.AMuRate.gui.AlbumActivity;
 import com.dsverdlo.AMuRate.gui.MainActivity;
 import com.dsverdlo.AMuRate.gui.SearchResultsActivity;
 import com.dsverdlo.AMuRate.gui.TrackActivity;
+import com.sun.xml.internal.ws.util.ByteArrayBuffer;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.widget.ImageView;
 
 /**
@@ -409,5 +415,118 @@ public class MyConnection  {
 		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
 		httpGetAsyncTask.execute(givenArtist); 
 	}
+	
+	// LOAD PREVIEW
+	public void getPreviewFromId(final TrackActivity trackActivity, final int id, final String fileName) {		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+		@Override
+		protected String doInBackground(String...params) {
+			String out = Environment.getExternalStorageDirectory().getAbsolutePath() + "/h_" + fileName + ".mp3";
+			try { 
+				System.out.println("URLTest: init");
+				URL url = new URL("http://play.last.fm/preview/" + id + ".mp3"); //you can write here any link
+				File file = new File(out);
 
+				/* Open a connection to that URL. */
+				URLConnection ucon = url.openConnection();
+
+				System.out.println("URLTest: opened connection");
+				/*
+				 * Define InputStreams to read from the URLConnection.
+				 */
+				InputStream is = ucon.getInputStream();
+				BufferedInputStream bis = new BufferedInputStream(is);
+
+				System.out.println("URLTest: bis created");
+				/*
+				 * Read bytes to the Buffer until there is nothing more to read(-1).
+				 */
+				ByteArrayBuffer baf = new ByteArrayBuffer(50);
+				int current = 0;
+				while ((current = bis.read()) != -1) {
+					baf.write((byte) current);
+				}
+
+				System.out.println("URLTest: loop done");
+
+				/* Convert the Bytes read to a String. */
+				FileOutputStream fos = new FileOutputStream(file);
+				fos.write(baf.toByteArray());
+				fos.close();
+				bis.close();
+
+				System.out.println("URLTest: finish up");
+				trackActivity.previewAvailable(out);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return out;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result); 
+			trackActivity.previewAvailable(result);
+		}
+	}
+	HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+	httpGetAsyncTask.execute(); 
+	}
 }
+/*
+		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+			@Override
+			protected String doInBackground(String...params) {
+				String outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/g_" + fileName + ".mp3";
+				System.out.println("paramId is :" + id + "\nlocation: " + outputFile);
+				try { 
+					//Get inputstream
+					URLConnection conn = new URL("http://play.last.fm/preview/" + id + ".mp3").openConnection();
+					InputStream is = conn.getInputStream();
+					
+					//Get outputstream
+					System.out.println("LOAD: 1");
+					File myFile = new File(outputFile);
+					System.out.println("LOAD: 2");
+					if(myFile.exists()) return outputFile; 
+					myFile.createNewFile();
+					System.out.println("LOAD: 3");
+					FileOutputStream outstream = new FileOutputStream(myFile);
+					System.out.println("LOAD: 4");
+					
+					//Context context = trackActivity.getApplicationContext();
+					//FileOutputStream outstream = 
+					//		context.openFileOutput(outputFile, context.MODE_WORLD_WRITEABLE);
+					OutputStreamWriter myOutWriter = new OutputStreamWriter(outstream);
+					
+					byte[] buffer = new byte[2];
+					int len;
+					while ((len = is.read(buffer)) > 0) {
+						//myOutWriter.append(buffer, 0, len);
+						String s = new String(buffer);
+						myOutWriter.append(s); 
+						System.out.println("Downloaded and written " + len + " bytes");
+					}
+					is.close();
+					myOutWriter.close();
+					outstream.close(); 
+
+				} catch (MalformedURLException mURLe) {
+					System.out.println("Malformed URL Exception in MyConnection(getPreviewFromId)");
+					mURLe.printStackTrace();
+				} catch (IOException e) {
+					System.out.println("IOException in MyConnection(getPReviewFromId)");
+					e.printStackTrace();
+				}
+				return outputFile;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result); 
+				trackActivity.previewAvailable(result);
+			}
+		}
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		httpGetAsyncTask.execute(); 
+	}*/
+

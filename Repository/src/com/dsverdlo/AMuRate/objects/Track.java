@@ -21,6 +21,7 @@ import android.os.Parcelable;
  */
 public class Track implements Parcelable {
 	// Private vars
+	int id;
 	String trackTitle, trackUrl; 
 	private String albumTitle;
 	String albumUrl;
@@ -53,6 +54,7 @@ public class Track implements Parcelable {
 	}
 	
 	public void InitializeTrack() {
+		id = 0;
 		trackTitle = "";
 		mbid = "";
 		trackUrl = "";
@@ -137,6 +139,9 @@ public class Track implements Parcelable {
 				//System.out.println("one:" + key);
 
 				switch(TrackKeys.valueOf(key)) {
+				case id:
+					id = json.getInt("id");
+					break;
 				case name:
 					trackTitle = json.getString("name");
 					break;
@@ -299,6 +304,14 @@ public class Track implements Parcelable {
 		boolean secsExtra = seconds < 9;
 		if(hours == 0) return "" + (minsExtra ? "0": "") + minutes + ":" + (secsExtra ? "0" : "") + seconds; 
 		return "" + (hoursExtra ? "0" : "") + hours + ":" + (minsExtra ? "0" : "") + minutes + ":" + (secsExtra ? "0" : "") + seconds;
+	}
+
+	public boolean getStreamable() {
+		return streamable;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 
