@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
+import com.dsverdlo.AMuRate.objects.HistoryAdapter;
 import com.dsverdlo.AMuRate.services.MyConnection;
 
 import android.app.Activity;
@@ -30,6 +31,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button view;
 	private JSONObject artist;
 	private MyConnection connection; 
+	private HistoryAdapter ha;
+
+	private int search_option = 0; // 
+	private static final int SEARCH_ARTIST = 1;
+	private static final int SEARCH_TITLE = 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.main_test);	
 
 		connection = new MyConnection();
+		ha = new HistoryAdapter(this);
 
 		searchArtist = (EditText) findViewById(R.id.enterArtist);
 		searchTitle = (EditText) findViewById(R.id.enterTitle);
@@ -87,6 +94,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				results.setText("Loading...");
 				view.setVisibility(Button.INVISIBLE);
 
+				ha.addHistorySearch(givenArtist, givenTitle);
+				
 				if(nArtist > 0 && nTitle == 0) connection.getFromArtist(this, givenArtist);	
 				if(nArtist == 0 && nTitle > 0) connection.getFromTitle(this, givenTitle);	
 				if(nArtist > 0 && nTitle > 0) connection.getFromTitleAndArtist(this, givenTitle, givenArtist);	
@@ -115,10 +124,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 
 		case R.id.view : 
-
+			if (search_option == SEARCH_ARTIST) {
+				Intent newpage = new Intent(this, SearchArtistActivity.class);
+				newpage.putExtra("searchResults", artist.toString());
+				startActivity(newpage);				
+			} else {
 			Intent newpage = new Intent(this, SearchResultsActivity.class);
 			newpage.putExtra("searchResults", artist.toString());
-			startActivity(newpage);
+			startActivity(newpage); 
+			}
 			break;
 
 
@@ -139,6 +153,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					JSONObject JSONresults = JSONobject.getJSONObject("results");
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
+						search_option = SEARCH_TITLE;
 						results.setText("" + nResults + " results found...");
 						artist = JSONresults.getJSONObject("trackmatches");
 						view.setVisibility(Button.VISIBLE);
@@ -163,6 +178,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					JSONObject JSONresults = JSONobject.getJSONObject("results");
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
+						search_option = SEARCH_ARTIST;
 						results.setText("" + nResults + " results found...");
 						artist = JSONresults.getJSONObject("artistmatches");
 						view.setVisibility(Button.VISIBLE);
@@ -186,6 +202,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					JSONObject JSONresults = JSONobject.getJSONObject("results");
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
+						search_option = SEARCH_TITLE;
 						results.setText("" + nResults + " results found...");
 						artist = JSONresults.getJSONObject("trackmatches");
 						view.setVisibility(Button.VISIBLE);

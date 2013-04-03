@@ -39,9 +39,9 @@ public class HistoryAdapter {
 	private final static String COLUMN_NAME = "name";
 	private final static String COLUMN_TITLE = "title";
 	private final static String COLUMN_MBID = "mbid";
-	private final static String COLUMN_RATING = "rating";
 	
-	private final static String SQL_TABLE_CREATE = "create table " + TABLE_HISTORY + " (" +
+	private final static String SQL_TABLE_CREATE = "create table IF NOT EXISTS " + 
+			TABLE_HISTORY + " ( " +
 			COLUMN_ID + " integer primary key autoincrement, " + 
 			COLUMN_HISTORY_KEY + " integer not null, " + 
 			COLUMN_DATE + " date not null," +
@@ -49,6 +49,8 @@ public class HistoryAdapter {
 			COLUMN_TITLE + " text not null," +
 			COLUMN_MBID + " text not null" +
 			");";
+	
+	public final static String SQL_GET_ALL = "select * from history";
 	
 	public HistoryAdapter(Context context) {
 		dbm = new DatabaseManager(context);
@@ -68,7 +70,6 @@ public class HistoryAdapter {
 	    values.put(COLUMN_MBID, "");
 	    values.put(COLUMN_NAME, name);
 	    values.put(COLUMN_TITLE, title);
-	    values.put(COLUMN_RATING, 0);
 	    Date curr_date = new Date();
 	    values.put(COLUMN_DATE, curr_date.toString());
 	    long insertId = database.insert(TABLE_HISTORY, null, values);
@@ -92,7 +93,6 @@ public class HistoryAdapter {
 	    values.put(COLUMN_MBID, mbid);
 	    values.put(COLUMN_NAME, name);
 	    values.put(COLUMN_TITLE, title);
-	    values.put(COLUMN_RATING, 0);
 	    Date curr_date = new Date();
 	    values.put(COLUMN_DATE, curr_date.toString());
 	    long insertId = database.insert(TABLE_HISTORY, null, values);
@@ -100,10 +100,20 @@ public class HistoryAdapter {
 		return insertId;
 	}
 	
-	public Cursor getSearchHistory(String query) {
+	public String getSearchHistory(String query) {
 		database = dbm.getReadableDatabase();
-		// NYI: TODO:
-		return database.rawQuery(query, null);
+		// works! TODO: you know what!
+		String result = "";
+		Cursor cursor = database.rawQuery(query, null);
+		if(cursor != null && cursor.moveToFirst()) {
+			for(int i = 0; i < cursor.getCount(); i++) {
+				result += "Row " + i + ": " + cursor.getString(3) + " - " + cursor.getString(4) + "\n";
+				cursor.moveToNext();
+			}
+		}
+		cursor.close();
+		database.close();
+		return result;
 
 	}
 	

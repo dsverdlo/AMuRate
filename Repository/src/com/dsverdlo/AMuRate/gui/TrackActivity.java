@@ -4,9 +4,11 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 
 import com.dsverdlo.AMuRate.R;
+import com.dsverdlo.AMuRate.objects.HistoryAdapter;
 import com.dsverdlo.AMuRate.objects.RatingAdapter;
 import com.dsverdlo.AMuRate.objects.Track;
 import com.dsverdlo.AMuRate.services.MyConnection;
+import com.dsverdlo.AMuRate.services.ServerManager;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -50,6 +52,8 @@ public class TrackActivity extends Activity {
 	private boolean streaming;
 	
 	private RatingAdapter ra;
+	private HistoryAdapter ha;
+	private ServerManager sm; //TODO
 
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,13 @@ public class TrackActivity extends Activity {
 		
 		// DB communication
 		ra = new RatingAdapter(this);
+		
+		// Server communication TODO: remove here?
+		sm = new ServerManager();
+		
+		// Save in history
+		ha = new HistoryAdapter(this);
+		ha.addHistoryTrack(track.getMBID(), track.getArtist(), track.getTitle());
 
 		title = (TextView) findViewById(R.id.track_title);
 		album = (TextView) findViewById(R.id.track_album);
@@ -78,8 +89,11 @@ public class TrackActivity extends Activity {
 		ratingBar.setNumStars(5); // TODO: remove here
 		ratingBar.setStepSize((float) 0.5);
 
+		System.out.println("Starting reading rating avg");
 		final float ratingBarRating = ra.readRatingAvg(track.getMBID());
+		System.out.println("Finished reading rating avg");
 		final int ratingBarAmount = ra.readRatingAmount(track.getMBID());
+		System.out.println("Finished reading rating amount");
 		ratingBarInfo = (TextView) findViewById(R.id.track_ratingBar_info);
 		final String ratingBarInfoString = "Average: %.1f (based on %d reviews)";
 		ratingBarInfo.setText(String.format(ratingBarInfoString, Math.ceil(ratingBarRating * 2) / 2.0, ratingBarAmount));
@@ -90,11 +104,15 @@ public class TrackActivity extends Activity {
 
 		back.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
-				mPlayer.release();
-				mPlayer = null;
-				finish();
+				/*finish();
 				Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-				startActivity(mainIntent);
+				startActivity(mainIntent);*/
+				
+				/*String all = ha.getSearchHistory(HistoryAdapter.SQL_GET_ALL);
+				System.out.println(all);*/
+				int amt = sm.getRatingAmt("23");
+				float avg = sm.getRatingAvg("23");
+				System.out.println("\nThe server avg is: " + avg + " on " + amt + " reviews");
 			}
 		});
 
@@ -158,28 +176,27 @@ public class TrackActivity extends Activity {
 			}
 		});
 		
-		mPlayer = new MediaPlayer();
 		streaming = false;
 		if(track.getStreamable()) { // TODO: why negated?
 			TableRow tr = (TableRow) findViewById(R.id.tableRow2_675);
 			tr.setVisibility(TableRow.VISIBLE);
 			// Hide until stream ready?
-			togglePlayer = new Button(trackActivity);
-			togglePlayer.setText("        .");
+			//togglePlayer = new Button(trackActivity);
+			//togglePlayer.setText("        .");
 			/*LinearLayout.LayoutParams horizontalLayoutParams = new LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 			togglePlayer.setLayoutParams(horizontalLayoutParams);*/
-			togglePlayer.setBackgroundResource(R.drawable.mplayer_start);
-			togglePlayer.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					togglePlayer();
-				}
-			});
-			tr.addView(togglePlayer);
-			String fileName = "preview_" + track.getArtist() + "_" + track.getTitle();
-			System.out.println("MP: download");
+			//togglePlayer.setBackgroundResource(R.drawable.mplayer_start);
+			//togglePlayer.setOnClickListener(new OnClickListener() {
+				//public void onClick(View v) {
+					//togglePlayer();
+				//}
+			//});
+			//tr.addView(togglePlayer);
+			//String fileName = "preview_" + track.getArtist() + "_" + track.getTitle();
+			//System.out.println("MP: download");
 			//connection.getPreviewFromId(trackActivity, track.getId(), fileName);
-			previewAvailable("http://play.last.fm/preview/" + track.getId() + ".mp3");
+			//previewAvailable("http://play.last.fm/preview/" + track.getId() + ".mp3");
 		}
 	}
 
@@ -187,8 +204,8 @@ public class TrackActivity extends Activity {
 		Intent albumIntent = new Intent(getApplicationContext(), AlbumActivity.class);
 		albumIntent.putExtra("album", album);
 		System.out.println("Starting AlbumActivity intent");
-		mPlayer.release();
-		mPlayer = null;
+		//mPlayer.release();
+		//mPlayer = null;
 		startActivity(albumIntent);
 	}
 	
@@ -197,27 +214,27 @@ public class TrackActivity extends Activity {
 		
 		try {
 			// works
-		mPlayer.setDataSource("mnt/sdcard/Music/Mix/13 Asleep.mp3");//outputFile);
+		//mPlayer.setDataSource("mnt/sdcard/Music/Mix/13 Asleep.mp3");//outputFile);
 			
-			FileDescriptor fd = new FileDescriptor();
+			//FileDescriptor fd = new FileDescriptor();
 
 			//mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 			//mPlayer.setDataSource(outputFile);
 			System.out.println("MP source set to: " + outputFile);
 			
 			
-			mPlayer.setOnPreparedListener(new OnPreparedListener() {
-				public void onPrepared(MediaPlayer mp) {
-					trackActivity.togglePlayer.setBackgroundResource(R.drawable.mplayer_stop);
-					mp.start();
-				}
-			});
-			mPlayer.setOnCompletionListener(new OnCompletionListener() {
+			//mPlayer.setOnPreparedListener(new OnPreparedListener() {
+				//public void onPrepared(MediaPlayer mp) {
+					//trackActivity.togglePlayer.setBackgroundResource(R.drawable.mplayer_stop);
+					//mp.start();
+				//}
+			//});
+			/*mPlayer.setOnCompletionListener(new OnCompletionListener() {
 				public void onCompletion(MediaPlayer mp) {
 					trackActivity.togglePlayer.setBackgroundResource(R.drawable.mplayer_play);
 				} 
 			});
-			
+			*/
 
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
@@ -226,9 +243,6 @@ public class TrackActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

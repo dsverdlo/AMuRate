@@ -51,31 +51,32 @@ public final class R {
         public static final int album_summary=0x7f070004;
         public static final int album_title=0x7f070000;
         public static final int album_tracks=0x7f070006;
-        public static final int button_cancel=0x7f07000e;
-        public static final int button_submit=0x7f07000d;
-        public static final int enterArtist=0x7f07000c;
-        public static final int enterTitle=0x7f07000b;
-        public static final int mainlayout=0x7f070009;
-        public static final int menu_settings=0x7f07001f;
-        public static final int questionmark=0x7f07000a;
-        public static final int results=0x7f07000f;
-        public static final int searchResultsLayout=0x7f070008;
+        public static final int button_cancel=0x7f07000f;
+        public static final int button_submit=0x7f07000e;
+        public static final int enterArtist=0x7f07000d;
+        public static final int enterTitle=0x7f07000c;
+        public static final int mainlayout=0x7f07000a;
+        public static final int menu_settings=0x7f070020;
+        public static final int questionmark=0x7f07000b;
+        public static final int results=0x7f070010;
+        public static final int searchArtistLayout=0x7f070008;
+        public static final int searchResultsLayout=0x7f070009;
         public static final int searchScrollView=0x7f070007;
-        public static final int tableRow1=0x7f070012;
-        public static final int tableRow2=0x7f070015;
-        public static final int tableRow2_5=0x7f070017;
-        public static final int tableRow2_675=0x7f070018;
-        public static final int tableRow2_75=0x7f070019;
-        public static final int tableRow3=0x7f07001b;
-        public static final int tableRow4=0x7f07001d;
-        public static final int track_album=0x7f070013;
-        public static final int track_back_button=0x7f07001e;
-        public static final int track_image=0x7f070014;
-        public static final int track_ratingBar=0x7f07001c;
-        public static final int track_ratingBar_info=0x7f07001a;
-        public static final int track_stream=0x7f070016;
-        public static final int track_title=0x7f070011;
-        public static final int view=0x7f070010;
+        public static final int tableRow1=0x7f070013;
+        public static final int tableRow2=0x7f070016;
+        public static final int tableRow2_5=0x7f070018;
+        public static final int tableRow2_675=0x7f070019;
+        public static final int tableRow2_75=0x7f07001a;
+        public static final int tableRow3=0x7f07001c;
+        public static final int tableRow4=0x7f07001e;
+        public static final int track_album=0x7f070014;
+        public static final int track_back_button=0x7f07001f;
+        public static final int track_image=0x7f070015;
+        public static final int track_ratingBar=0x7f07001d;
+        public static final int track_ratingBar_info=0x7f07001b;
+        public static final int track_stream=0x7f070017;
+        public static final int track_title=0x7f070012;
+        public static final int view=0x7f070011;
     }
     public static final class layout {
         public static final int activity_album=0x7f030000;
@@ -91,7 +92,8 @@ public final class R {
     public static final class menu {
         public static final int activity_album=0x7f060000;
         public static final int activity_main=0x7f060001;
-        public static final int activity_search_results=0x7f060002;
+        public static final int activity_search_for_artist=0x7f060002;
+        public static final int activity_search_results=0x7f060003;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
@@ -105,6 +107,7 @@ public final class R {
         public static final int submit=0x7f040003;
         public static final int title_activity_album=0x7f04000c;
         public static final int title_activity_main=0x7f04000b;
+        public static final int title_activity_search_artist=0x7f04000d;
         public static final int title_activity_search_results=0x7f04000a;
         public static final int view=0x7f040006;
     }

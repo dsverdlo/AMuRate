@@ -33,18 +33,18 @@ public class RatingAdapter {
 	private static final String COLUMN_DATE = "date";
 	
 
-	private static final String TABLE_CREATE = "create IF NOT EXISTS table " + 
-			TABLE_RATINGS + "(" + 
+	private static final String TABLE_CREATE = "create table IF NOT EXISTS " + 
+			TABLE_RATINGS + " ( " + 
 			COLUMN_ID + " integer primary key autoincrement, " + 
 			COLUMN_MBID + " text not null, " + 
 			COLUMN_NAME + " text not null, " +
 			COLUMN_TITLE + " text not null, " +
-			COLUMN_RATING + " real not null," + 
-			COLUMN_DATE + " date not null," +
+			COLUMN_RATING + " real not null, " + 
+			COLUMN_DATE + " date not null " +
 			")";
 
 	// SQL Statements
-	private static final String SQL_READ_RATING = "SELECT AVG(rating) FROM ratings WHERE mbid='%s';";
+	private static final String SQL_READ_RATING_AVG = "SELECT AVG(rating) FROM ratings WHERE mbid='%s';";
 	private static final String SQL_READ_RATING_AMOUNT = "SELECT COUNT(*) FROM ratings WHERE mbid='%s';";
 	
 	
@@ -64,12 +64,25 @@ public class RatingAdapter {
 	public float readRatingAvg(String mbid) {
 		database = dbm.getWritableDatabase();
 		System.out.println("DB: reading avg rating");
-		Cursor results = database.rawQuery(String.format(SQL_READ_RATING, mbid), null);
-		database.close();
+		Cursor results = database.rawQuery(String.format(SQL_READ_RATING_AVG, mbid), null);
+		System.out.println("before close?");
+		//database.close();
+		System.out.println("after close?");
 		if(results != null) {
-			return (results.moveToFirst()) ? results.getFloat(0) : -1;
+			System.out.println("it is move to first.. right?");
+			System.out.println(results.getCount());
+			//return (results.moveToFirst()) ? results.getFloat(0) : -1;
+			if(results.moveToFirst()) {
+				System.out.println("Fuck everyone and everything!");
+				database.close();
+				return results.getFloat(0);
+			} else {
+				database.close();
+				return -1; 
+			}
 		} else {
 			// Sql error
+			database.close();
 			System.out.println("SQL error in readRating");
 			return -1;
 		}
@@ -84,8 +97,12 @@ public class RatingAdapter {
 		database = dbm.getWritableDatabase();
 		System.out.println("DB: reading amount ratings");
 		Cursor results = database.rawQuery(String.format(SQL_READ_RATING_AMOUNT, mbid), null);
+		if(results != null && results.moveToFirst()) {
+			int ret = results.getInt(0);
+			database.close();
+			return ret;
+		}
 		database.close();
-		if(results != null && results.moveToFirst()) return results.getInt(0);
 		return -1;
 	}
 

@@ -17,6 +17,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.dsverdlo.AMuRate.gui.AlbumActivity;
 import com.dsverdlo.AMuRate.gui.MainActivity;
+import com.dsverdlo.AMuRate.gui.SearchArtistActivity;
 import com.dsverdlo.AMuRate.gui.SearchResultsActivity;
 import com.dsverdlo.AMuRate.gui.TrackActivity;
 import com.sun.xml.internal.ws.util.ByteArrayBuffer;
@@ -453,6 +454,7 @@ public class MyConnection  {
 				fos.write(baf.toByteArray());
 				fos.close();
 				bis.close();
+				baf.close();
 
 				System.out.println("URLTest: finish up");
 				trackActivity.previewAvailable(out);

@@ -21,16 +21,16 @@ import android.os.Parcelable;
  */
 public class Track implements Parcelable {
 	// Private vars
-	int id;
-	String trackTitle, trackUrl; 
+	private int id;
+	private String trackTitle, trackUrl; 
 	private String albumTitle;
-	String albumUrl;
+	private String albumUrl;
 	private String albumMBID;
-	String artistName, artistUrl, artistMBID;
-	String imageS, imageM, imageL;
-	String mbid, url;
-	int duration, listeners, playcount;
-	boolean streamable;
+	private String artistName, artistUrl, artistMBID;
+	private String imageS, imageM, imageL;
+	private String mbid, url;
+	private int duration, listeners, playcount;
+	private boolean streamable;
 	
 
 	private enum TrackKeys
