@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.8.11)  16 FEB 2013 15:47
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.8.11)  10 APR 2013 18:58
 entering extended mode
 **Bachelorproef.tex
 
@@ -648,95 +648,95 @@ Underfull \hbox (badness 10000) in paragraph at lines 117--118
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 120--144
+Underfull \hbox (badness 10000) in paragraph at lines 120--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 120--144
+Underfull \hbox (badness 10000) in paragraph at lines 120--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 120--144
+Underfull \hbox (badness 10000) in paragraph at lines 120--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 120--144
+Underfull \hbox (badness 10000) in paragraph at lines 120--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 145--147
+Underfull \hbox (badness 10000) in paragraph at lines 146--148
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 145--147
+Underfull \hbox (badness 10000) in paragraph at lines 146--148
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 148--149
+Underfull \hbox (badness 10000) in paragraph at lines 149--150
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 160--161
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 162--168
+Underfull \hbox (badness 10000) in paragraph at lines 163--169
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 169--173
+Underfull \hbox (badness 10000) in paragraph at lines 170--174
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 174--177
+Underfull \hbox (badness 10000) in paragraph at lines 175--178
 
  []
 
 [8]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 188.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 189.
 
  ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 188.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 189.
 
-Underfull \hbox (badness 10000) in paragraph at lines 200--201
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 215--216
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 221--233
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 234--235
+Underfull \hbox (badness 10000) in paragraph at lines 222--234
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 235--236
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 264--266
+Underfull \hbox (badness 10000) in paragraph at lines 265--267
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 264--266
+Underfull \hbox (badness 10000) in paragraph at lines 265--267
 
  []
 
@@ -744,35 +744,35 @@ Underfull \hbox (badness 10000) in paragraph at lines 264--266
 File: GUI_0124_startscreen.png Graphic file (type png)
 
 <use GUI_0124_startscreen.png>
-Package pdftex.def Info: GUI_0124_startscreen.png used on input line 269.
+Package pdftex.def Info: GUI_0124_startscreen.png used on input line 270.
 (pdftex.def)             Requested size: 127.07248pt x 209.8804pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 269--271
+Underfull \hbox (badness 10000) in paragraph at lines 270--272
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 269--271
+Underfull \hbox (badness 10000) in paragraph at lines 270--272
 
  []
 
 
-Overfull \hbox (14.08307pt too wide) in paragraph at lines 267--277
+Overfull \hbox (14.08307pt too wide) in paragraph at lines 268--278
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 267--277
+Underfull \hbox (badness 10000) in paragraph at lines 268--278
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 267--277
+Underfull \hbox (badness 10000) in paragraph at lines 268--278
 
  []
 
 
-Underfull \hbox (badness 2478) in paragraph at lines 282--283
+Underfull \hbox (badness 2478) in paragraph at lines 283--284
 \OT1/cmr/m/n/10.95 zoek-ter-men "Bo-hemian Rhap-sody" en
  []
 
@@ -780,30 +780,30 @@ Underfull \hbox (badness 2478) in paragraph at lines 282--283
 File: GUI_0124_startsearch.png Graphic file (type png)
 
 <use GUI_0124_startsearch.png>
-Package pdftex.def Info: GUI_0124_startsearch.png used on input line 286.
+Package pdftex.def Info: GUI_0124_startsearch.png used on input line 287.
 (pdftex.def)             Requested size: 127.37361pt x 209.57928pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 286--288
+Underfull \hbox (badness 10000) in paragraph at lines 287--289
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 286--288
+Underfull \hbox (badness 10000) in paragraph at lines 287--289
 
  []
 
 
-Overfull \hbox (50.88583pt too wide) in paragraph at lines 280--290
+Overfull \hbox (50.88583pt too wide) in paragraph at lines 281--291
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 280--290
+Underfull \hbox (badness 10000) in paragraph at lines 281--291
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 280--290
+Underfull \hbox (badness 10000) in paragraph at lines 281--291
 
  []
 
@@ -813,30 +813,30 @@ aTeX/GUI_0124_startscreen.png>]
 File: GUI_0124_startresults.png Graphic file (type png)
 
 <use GUI_0124_startresults.png>
-Package pdftex.def Info: GUI_0124_startresults.png used on input line 295.
+Package pdftex.def Info: GUI_0124_startresults.png used on input line 296.
 (pdftex.def)             Requested size: 127.67473pt x 208.3748pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 295--297
+Underfull \hbox (badness 10000) in paragraph at lines 296--298
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 295--297
+Underfull \hbox (badness 10000) in paragraph at lines 296--298
 
  []
 
 
-Overfull \hbox (14.08307pt too wide) in paragraph at lines 293--303
+Overfull \hbox (14.08307pt too wide) in paragraph at lines 294--304
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
+Underfull \hbox (badness 10000) in paragraph at lines 294--304
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
+Underfull \hbox (badness 10000) in paragraph at lines 294--304
 
  []
 
@@ -844,30 +844,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 293--303
 File: GUI_0124_results.png Graphic file (type png)
 
 <use GUI_0124_results.png>
-Package pdftex.def Info: GUI_0124_results.png used on input line 312.
+Package pdftex.def Info: GUI_0124_results.png used on input line 313.
 (pdftex.def)             Requested size: 126.77138pt x 208.67592pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 312--314
+Underfull \hbox (badness 10000) in paragraph at lines 313--315
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 312--314
+Underfull \hbox (badness 10000) in paragraph at lines 313--315
 
  []
 
 
-Overfull \hbox (50.88583pt too wide) in paragraph at lines 306--316
+Overfull \hbox (50.88583pt too wide) in paragraph at lines 307--317
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--316
+Underfull \hbox (badness 10000) in paragraph at lines 307--317
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--316
+Underfull \hbox (badness 10000) in paragraph at lines 307--317
 
  []
 
@@ -878,40 +878,40 @@ Bachelorproef/AMuRate/Log/LaTeX/GUI_0124_startresults.png>]
 File: GUI_0124_track.png Graphic file (type png)
 
 <use GUI_0124_track.png>
-Package pdftex.def Info: GUI_0124_track.png used on input line 321.
+Package pdftex.def Info: GUI_0124_track.png used on input line 322.
 (pdftex.def)             Requested size: 126.77138pt x 208.97704pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 321--323
+Underfull \hbox (badness 10000) in paragraph at lines 322--324
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 321--323
+Underfull \hbox (badness 10000) in paragraph at lines 322--324
 \OT1/cmr/m/it/10 Af-beeld-ing 5: Gede-tailleerd
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 321--323
+Underfull \hbox (badness 10000) in paragraph at lines 322--324
 
  []
 
 
-Overfull \hbox (14.08307pt too wide) in paragraph at lines 319--329
+Overfull \hbox (14.08307pt too wide) in paragraph at lines 320--330
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--329
+Underfull \hbox (badness 10000) in paragraph at lines 320--330
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--329
+Underfull \hbox (badness 10000) in paragraph at lines 320--330
 
  []
 
 
-Underfull \hbox (badness 7981) in paragraph at lines 334--335
+Underfull \hbox (badness 7981) in paragraph at lines 335--336
 []\OT1/cmr/m/n/10.95 Wanneer er meer al-bum in-for-matie
  []
 
@@ -919,32 +919,32 @@ Underfull \hbox (badness 7981) in paragraph at lines 334--335
 File: GUI_0124_album.png Graphic file (type png)
 
 <use GUI_0124_album.png>
-Package pdftex.def Info: GUI_0124_album.png used on input line 338.
+Package pdftex.def Info: GUI_0124_album.png used on input line 339.
 (pdftex.def)             Requested size: 126.77138pt x 209.27815pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 338--340
+Underfull \hbox (badness 10000) in paragraph at lines 339--341
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 338--340
+Underfull \hbox (badness 10000) in paragraph at lines 339--341
 \OT1/cmr/m/it/10 Af-beeld-ing 6: Gede-tailleerd
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 338--340
+Underfull \hbox (badness 10000) in paragraph at lines 339--341
 
  []
 
 
-Overfull \hbox (50.88583pt too wide) in paragraph at lines 332--342
+Overfull \hbox (50.88583pt too wide) in paragraph at lines 333--343
 [][] 
  []
 
 [12 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
 aTeX/GUI_0124_results.png> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bach
 elorproef/AMuRate/Log/LaTeX/GUI_0124_track.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 349--350
+Underfull \hbox (badness 10000) in paragraph at lines 350--351
 
  []
 
@@ -953,35 +953,35 @@ aTeX/GUI_0124_album.png>]
 <track_search.png, id=210, 497.60907pt x 170.13562pt>
 File: track_search.png Graphic file (type png)
  <use track_search.png>
-Package pdftex.def Info: track_search.png used on input line 352.
+Package pdftex.def Info: track_search.png used on input line 353.
 (pdftex.def)             Requested size: 426.79134pt x 145.92436pt.
 
-Overfull \hbox (66.79134pt too wide) in paragraph at lines 351--354
+Overfull \hbox (66.79134pt too wide) in paragraph at lines 352--355
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--354
+Underfull \hbox (badness 10000) in paragraph at lines 352--355
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--354
+Underfull \hbox (badness 10000) in paragraph at lines 352--355
 
  []
 
 <track_getinfo.png, id=211, 503.63156pt x 396.7322pt>
 File: track_getinfo.png Graphic file (type png)
  <use track_getinfo.png>
-Package pdftex.def Info: track_getinfo.png used on input line 356.
+Package pdftex.def Info: track_getinfo.png used on input line 357.
 (pdftex.def)             Requested size: 426.79134pt x 336.20088pt.
 
-Overfull \hbox (66.79134pt too wide) in paragraph at lines 355--358
+Overfull \hbox (66.79134pt too wide) in paragraph at lines 356--359
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 355--358
+Underfull \hbox (badness 10000) in paragraph at lines 356--359
 
  []
 
@@ -989,18 +989,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 355--358
 aTeX/track_search.png> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelor
 proef/AMuRate/Log/LaTeX/track_getinfo.png>]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 367.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 396.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 368.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 397.
  [15]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 396.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 397.
 
 (C:\Users\david\Documents\Studies\VUB\2012-2013\Bachelorproef\AMuRate\Log\LaTeX
 \Bachelorproef.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 396.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 396.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 397.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 397.
 Package rerunfilecheck Info: File `Bachelorproef.out' has not changed.
 (rerunfilecheck)             Checksum: 48B5E22D1347E23DBFE9984D6BFC5674;1519.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 396.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 397.
  ) 
 Here is how much of TeX's memory you used:
  7859 strings out of 494045
@@ -1021,7 +1021,7 @@ msfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Prog
 ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Bachelorproef.pdf (15 pages, 1682475 bytes).
+Output written on Bachelorproef.pdf (15 pages, 1682329 bytes).
 PDF statistics:
  278 PDF objects out of 1000 (max. 8388607)
  45 named destinations out of 1000 (max. 500000)
