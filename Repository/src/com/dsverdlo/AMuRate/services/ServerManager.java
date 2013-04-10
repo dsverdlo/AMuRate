@@ -82,12 +82,21 @@ public class ServerManager {
 
 
 	public int getRatingAmt(String mbid) {	
+		 try {
+			Class.forName("com.mysql.jdbc.Driver");
+			System.out.println("driver in place dude");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		 
+		
 		System.out.println("Drivers: " + DriverManager.getDrivers().toString());
 		Enumeration<Driver> en = DriverManager.getDrivers();
 		while(en.hasMoreElements()) {
 			Driver d = en.nextElement();
 			try {
-				System.out.println("\nD: " + d.acceptsURL("jdbc:mysql://localhost/amurate?user=amurate&password=AMuRate"));
+				System.out.println("\nD: " + d.acceptsURL("jdbc:mysql://10.0.2.2:3306/amurate?user=amurate&password=AMuRate"));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -112,10 +121,12 @@ public class ServerManager {
 	}
 	
 	private boolean connectServer() {
-		try {
-			conn =
-					DriverManager.getConnection("jdbc:mysql://localhost/amurate" + "?" +
-							"user=root&password=AMuRate");
+		try { 
+			String url = "jdbc:mysql://10.0.2.2/";
+			String tbl = "amurate";
+			String usr = "root";
+			String psw = "AMuRate";
+			conn = DriverManager.getConnection(url+tbl, usr, psw);
 			return true;
 		} catch (SQLException ex) {
 			// handle any errors

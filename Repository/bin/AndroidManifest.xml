@@ -32,12 +32,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dsverdlo.AMuRate.gui.ArtistActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar" >
-        </activity>
-        <activity
             android:name="com.dsverdlo.AMuRate.gui.SearchResultsActivity"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar" >
@@ -53,8 +47,14 @@
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.dsverdlo.AMuRate.SearchArtistActivity"
-            android:label="@string/title_activity_search_artist" >
+            android:name="com.dsverdlo.AMuRate.gui.SearchArtistActivity"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.dsverdlo.AMuRate.gui.ArtistActivity"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
     </application>
 

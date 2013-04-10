@@ -3,16 +3,16 @@ package com.dsverdlo.AMuRate.gui;
 import java.util.Iterator;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
-import com.dsverdlo.AMuRate.R.layout;
-import com.dsverdlo.AMuRate.R.menu;
 import com.dsverdlo.AMuRate.objects.Artist;
 import com.dsverdlo.AMuRate.services.MyConnection;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.Menu;
@@ -21,9 +21,11 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SearchArtistActivity extends Activity {
-	MyConnection connection;
+	private MyConnection connection;
+	private SearchArtistActivity thisActivity;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,8 @@ public class SearchArtistActivity extends Activity {
 		setContentView(R.layout.activity_search_artist);
 
 
-		final SearchArtistActivity thisActivity = this;
+		thisActivity = this;
+		connection = new MyConnection();
 
 		// Grab the vertical layout so we can add objects to it
 		LinearLayout ll = (LinearLayout) findViewById(R.id.searchArtistLayout);
@@ -62,7 +65,7 @@ public class SearchArtistActivity extends Activity {
 
 				//System.out.println("Try to get array[" + i + "]");
 				final JSONObject oneResult = artists.getJSONObject(i);
-				Artist artist = new Artist();
+				final Artist artist = new Artist();
 				artist.loadFromSearch(oneResult.toString()); // tostringed
 
 				// Create a layout for the artist
@@ -96,19 +99,24 @@ public class SearchArtistActivity extends Activity {
 
 				// if possible set image in pictureview
 				String imageUrl = artist.getImage("l");
-				if(imageUrl.length() != 0) { 
+				if(imageUrl == null) { System.out.println("Imageurl l stays null..."); }
+				if(imageUrl.length() > 0) { 
 					connection.loadImage(imageUrl, picture);
 				} else {
 					picture.setImageResource(R.drawable.not_available);
 				}
 
 				// Set the onClick function
-				final String mbid = "23"; //todo: 
 				horizontalLayout.setOnClickListener( new OnClickListener() {
 					public void onClick(View v) {
 						horizontalLayout.setBackgroundResource(R.drawable.track_background_2);
-						System.out.println("Someone clicked an artist! Starting connection for: " + mbid);
+						System.out.println("Someone clicked an artist! Starting connection for: " + artist.getMbid());
 						//connection.getFromMBID(thisActivity, mbid);//todo
+
+						//Intent artistIntent = new Intent(getApplicationContext(), ArtistActivity.class);
+						
+						
+						connection.getArtistInfo(artist.getMbid(), thisActivity);
 					}
 				});
 				horizontalLayout.setClickable(true);
@@ -125,7 +133,7 @@ public class SearchArtistActivity extends Activity {
 
 
 		} catch (Exception e) {
-			System.out.println("Exception in SearchResultsActivity (onCreate):");
+			System.out.println("Exception in SearchArtistActivity (onCreate):");
 			e.printStackTrace();
 		}
 	}
@@ -140,4 +148,27 @@ public class SearchArtistActivity extends Activity {
 		return true;
 	}
 
+	public void onRetrievedArtistInfo(String results) {
+		try {
+			JSONObject JSONartistInfo = new JSONObject(results);
+			if(!JSONartistInfo.has("artist")) {
+				// something went wrong.
+				Toast.makeText(getApplicationContext(), "No info could be obtained..", Toast.LENGTH_LONG).show();
+				return;
+			}
+			JSONObject JSONartist = JSONartistInfo.getJSONObject("artist");
+			//Artist artist = new Artist();
+			//artist.loadfromInfo(JSONartist);
+			
+
+			Intent nextPage = new Intent(getApplicationContext(), ArtistActivity.class);
+			nextPage.putExtra("artist", JSONartist.toString());
+			startActivity(nextPage);
+			
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

@@ -49,14 +49,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		searchTitle = (EditText) findViewById(R.id.enterTitle);
 
 		// TODO: remove hack
-		searchTitle.setText("hunter");
+		//searchTitle.setText("hunter");
 		searchArtist.setText("Dido");
 
-		sendGetReqButton = (Button) findViewById(R.id.button_submit);
+		sendGetReqButton = (Button) findViewById(R.id.button_search);
 		sendGetReqButton.setOnClickListener(this);
 		sendGetReqButton.setTextColor(Color.WHITE);
-		sendGetReqButton.setText(R.string.submit);
-
+		sendGetReqButton.setText(R.string.search);
+ 
 		cancelButton = (Button) findViewById(R.id.button_cancel);
 		cancelButton.setOnClickListener(this);
 		cancelButton.setTextColor(Color.WHITE);
@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.button_submit : 
+		case R.id.button_search : 
 
 			// Get the values given in EditText fields
 			String givenArtist = searchArtist.getText().toString();
@@ -112,8 +112,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		case R.id.questionmark :
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-			alertDialog.setTitle("Info");
-			alertDialog.setMessage("Please enter an artist, a song title or both in the search field and then press SUBMIT.");
+			alertDialog.setTitle("Instructions");
+			alertDialog.setMessage("Please enter an artist, a song title or both in the search field and then press search.");
 			// Setting OK Button
 			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {

@@ -69,11 +69,11 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/button_submit"
+            android:id="@+id/button_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@layout/rounded_corners"
-            android:hint="@string/submit"
+            android:hint="@string/search"
             android:paddingBottom="10sp"
             android:paddingLeft="10sp"
             android:paddingRight="10sp"

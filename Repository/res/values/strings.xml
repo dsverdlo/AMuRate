@@ -4,7 +4,7 @@
     <string name="app_name">AMuRate</string>
     <string name="searchTitle">Title</string>
     <string name="searchArtist">Artist</string>
-    <string name="submit"> Submit </string>
+    <string name="search"> Search </string>
     <string name="cancel"> Cancel </string>
     <string name="results">Results</string>
     <string name="view"> View </string>

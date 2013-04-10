@@ -8,10 +8,12 @@ import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.Album;
 import com.dsverdlo.AMuRate.services.MyConnection;
 
+import android.R.color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,9 +28,11 @@ public class AlbumActivity extends Activity {
 	private TextView albumTitle, albumArtist;
 	private TextView playcount, listeners;
 	private ImageView albumImage;
+	private Button albumImageClose;
 	private LinearLayout tracksLayout;
 	private TextView summary;
 	
+	private Album album;
 	private MyConnection connection;
 	
 	@Override
@@ -41,26 +45,54 @@ public class AlbumActivity extends Activity {
 		albumTitle = (TextView) findViewById(R.id.album_title);
 		albumArtist = (TextView) findViewById(R.id.album_artist);
 		albumImage = (ImageView) findViewById(R.id.album_image);
+		albumImageClose = (Button) findViewById(R.id.album_image_close);
 		playcount = (TextView) findViewById(R.id.album_playcount);
 		listeners = (TextView) findViewById(R.id.album_listeners);
 		tracksLayout = (LinearLayout) findViewById(R.id.album_tracks);
 		summary = (TextView) findViewById(R.id.album_summary);	
 		
 		connection = new MyConnection();
-				
-		final Album album = new Album(getIntent().getStringExtra("album"));
+		
+		Intent intent = getIntent();
+		if(intent.hasExtra("album")) {
+			album = new Album(intent.getStringExtra("album"));
+		} else if (intent.hasExtra("jsonalbum")) {
+			album = new Album(intent.getStringExtra("jsonalbum"));
+		}
 		
 		albumTitle.setText(album.getAlbumTitle());
+		albumTitle.setTextSize(20);
 		albumArtist.setText(album.getArtistName());
+		albumArtist.setTextSize(17);
+		
+		albumImageClose.setText(" X ");
+		
+		LinearLayout.LayoutParams closeLp = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.WRAP_CONTENT, 
+				LinearLayout.LayoutParams.WRAP_CONTENT);
+		closeLp.setMargins(120, 10, 0, 0); // 120left, top, right, bottom
+		albumImageClose.setGravity(Gravity.RIGHT);
+		albumImageClose.setLayoutParams(closeLp);
+		
+		albumImageClose.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				finish();
+				Intent next = new Intent(getApplicationContext(),MainActivity.class);
+				next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(next);
+			}
+		});
 		
 		if(album.getImageL().length() > 0) {
 			connection.loadImage(album.getImageL(), albumImage);
 		} else albumImage.setImageResource(R.drawable.not_available);
 		
-		playcount.setText("P:" + album.getPlaycount());
-		listeners.setText("L:" + album.getListeners());
+		
+		playcount.setText("Playcount: " + album.getPlaycount());
+		listeners.setText("Listeners: " + album.getListeners());
 		
 		summary.setText(Html.fromHtml(album.getSummary()));
+		summary.setBackgroundColor(color.darker_gray);
 		
 		// Set the tracks in the view TODO: abstract
 		try {
@@ -91,6 +123,8 @@ public class AlbumActivity extends Activity {
 		} catch (JSONException je) {
 			System.out.println("JSONException in AlbumActivity");
 		}
+		
+		
 		
 		
 		

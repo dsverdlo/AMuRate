@@ -31,28 +31,28 @@ public class Track implements Parcelable {
 	private String mbid, url;
 	private int duration, listeners, playcount;
 	private boolean streamable;
-	
+
 
 	private enum TrackKeys
 	{
 		streamable, listeners, image, artist, album, url, mbid, name,
 		id, duration, playcount, toptags;
 	}
-	
+
 	private enum AlbumKeys
 	{
 		title, mbid, image, url, artist
 	}
-	
+
 	private enum ArtistKeys
 	{
 		name, mbid, url
 	}
-	
+
 	public Track() {
 		InitializeTrack();
 	}
-	
+
 	public void InitializeTrack() {
 		id = 0;
 		trackTitle = "";
@@ -72,12 +72,13 @@ public class Track implements Parcelable {
 		playcount = -1;
 		streamable = false;
 	}
-	
+
 	public void loadFromSearch(JSONObject json) {
 		try {
 			Iterator<?> it = json.keys();
 			while(it.hasNext()) {
 				String key = (String) it.next();
+				System.out.println("@@@_"+key);
 				try { 			
 					switch(TrackKeys.valueOf(key)) {
 					case name: 
@@ -121,7 +122,7 @@ public class Track implements Parcelable {
 					default: break;
 					}
 				}
-				catch (IllegalArgumentException iae) {
+				catch (IllegalArgumentException iae) { 
 					System.out.println("Error: IllegalArgumentException in Track(onLoadSearch)");
 				}
 			}
@@ -137,39 +138,39 @@ public class Track implements Parcelable {
 			while(it.hasNext()) {
 				String key = (String) it.next();
 				//System.out.println("one:" + key);
-
-				switch(TrackKeys.valueOf(key)) {
-				case id:
-					id = json.getInt("id");
-					break;
-				case name:
-					trackTitle = json.getString("name");
-					break;
-				case mbid:
-					mbid = json.getString("mbid");
-					break;
-				case url:
-					trackUrl = json.getString("url");
-					break;
-				case duration:
-					duration = json.getInt("duration");
-					break;
-				case listeners:
-					listeners = json.getInt("listeners");
-					break;
-				case playcount:
-					playcount = json.getInt("playcount");
-					break;
-				case streamable:
-					JSONObject JSONstreamable = json.getJSONObject("streamable");
-					int trackStreamable = JSONstreamable.getInt("#text");
-					streamable = (trackStreamable == 1);
-					break;
-				case artist:
-					JSONObject JSONartist = json.getJSONObject("artist");
-					Iterator<?> itArtist = JSONartist.keys();
-					while(itArtist.hasNext()) {
-						switch(ArtistKeys.valueOf((String) itArtist.next())) {
+				try {
+					switch(TrackKeys.valueOf(key)) {
+					case id:
+						id = json.getInt("id");
+						break;
+					case name:
+						trackTitle = json.getString("name");
+						break;
+					case mbid:
+						mbid = json.getString("mbid");
+						break;
+					case url:
+						trackUrl = json.getString("url");
+						break;
+					case duration:
+						duration = json.getInt("duration");
+						break;
+					case listeners:
+						listeners = json.getInt("listeners");
+						break;
+					case playcount:
+						playcount = json.getInt("playcount");
+						break;
+					case streamable:
+						JSONObject JSONstreamable = json.getJSONObject("streamable");
+						int trackStreamable = JSONstreamable.getInt("#text");
+						streamable = (trackStreamable == 1);
+						break;
+					case artist:
+						JSONObject JSONartist = json.getJSONObject("artist");
+						Iterator<?> itArtist = JSONartist.keys();
+						while(itArtist.hasNext()) {
+							switch(ArtistKeys.valueOf((String) itArtist.next())) {
 							case name:
 								artistName = JSONartist.getString("name");
 								break;
@@ -180,44 +181,47 @@ public class Track implements Parcelable {
 								artistUrl = JSONartist.getString("url");
 								break;
 							default: break;
-						}
-					}
-					break;					
-					
-				case album:
-					JSONObject JSONalbum = json.getJSONObject("album");
-					Iterator<?> itAlbum = JSONalbum.keys();
-					while(itAlbum.hasNext()) {
-						try {
-						switch(AlbumKeys.valueOf((String) itAlbum.next())) {
-						case title:
-							albumTitle = JSONalbum.getString("title");
-							break;
-						case mbid:
-							albumMBID =  JSONalbum.getString("mbid");
-							break;
-						case url:
-							albumUrl = JSONalbum.getString("url");
-							break;
-						case image:
-							JSONArray imageUrls = JSONalbum.getJSONArray("image");
-							for(int i = 0; i < imageUrls.length(); i++) {
-								JSONObject imageUrl = imageUrls.getJSONObject(i);
-								String size = imageUrl.getString("size");
-								String url = imageUrl.getString("#text");
-								if(size.equals("small")) { imageS = url; }
-								else if(size.equals("medium")) { imageM = url; }
-								else if(size.equals("large")) { imageL = url; }
 							}
-							break;
-						default: break;
 						}
-						} catch (IllegalArgumentException iae) {
-							System.out.println("Error: illegal argument in Track(loadFromInfo)");
+						break;					
+
+					case album:
+						JSONObject JSONalbum = json.getJSONObject("album");
+						Iterator<?> itAlbum = JSONalbum.keys();
+						while(itAlbum.hasNext()) {
+							try {
+								switch(AlbumKeys.valueOf((String) itAlbum.next())) {
+								case title:
+									albumTitle = JSONalbum.getString("title");
+									break;
+								case mbid:
+									albumMBID =  JSONalbum.getString("mbid");
+									break;
+								case url:
+									albumUrl = JSONalbum.getString("url");
+									break;
+								case image:
+									JSONArray imageUrls = JSONalbum.getJSONArray("image");
+									for(int i = 0; i < imageUrls.length(); i++) {
+										JSONObject imageUrl = imageUrls.getJSONObject(i);
+										String size = imageUrl.getString("size");
+										String url = imageUrl.getString("#text");
+										if(size.equals("small")) { imageS = url; }
+										else if(size.equals("medium")) { imageM = url; }
+										else if(size.equals("large")) { imageL = url; }
+									}
+									break;
+								default: break;
+								}
+							} catch (IllegalArgumentException iae) {
+								System.out.println("Illegal argument in Track(loadFromInfo)");
+							}
 						}
+						break;
+					default: break;
 					}
-					break;
-				default: break;
+				} catch (IllegalArgumentException iae) {
+					System.out.println("Illegal argument exception in Track(loadFromInfo)");
 				}
 			}
 		} catch (Exception e) { 
@@ -225,7 +229,7 @@ public class Track implements Parcelable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void loadFromInfo(String stringExtra) {
 		try {
 			JSONObject JSONextra = new JSONObject(stringExtra);
@@ -234,31 +238,31 @@ public class Track implements Parcelable {
 			System.out.println("JSONException in Track(loadFromInfo(String))");
 			je.printStackTrace();
 		}
-		
+
 	}
 
 	public String getArtist() {
 		return artistName;
 	}
-	
+
 	public String getTitle() {
 		return trackTitle;
 	}
-	
+
 	public String getMBID() {
 		return mbid;
 	}
-	
+
 	public String getImage(String size) {
 		if(size.equals("s")) return imageS;
 		if(size.equals("m")) return imageM;
 		if(size.equals("l")) return imageL;
 		return "";
 	}
-	
+
 	public String getDuration() {
 		return convertDurationToString(convertDuration(duration));
-		}
+	}
 
 	public String getAlbumMBID() {
 		return albumMBID;
@@ -267,7 +271,7 @@ public class Track implements Parcelable {
 	public String getAlbumTitle() {
 		return albumTitle;
 	}
-	
+
 	public String getAlbum() {
 		return getAlbumTitle();
 	}
@@ -280,21 +284,21 @@ public class Track implements Parcelable {
 
 	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	private int[] convertDuration(double milliseconds) {
 		int time[] = new int[3];
 		int seconds = (int) (milliseconds / 1000) % 60 ;
 		int minutes = (int) ((milliseconds / (1000*60)) % 60);
 		int hours = (int) ((milliseconds / (1000*60*60)) % 24);
-		
+
 		time[0] = seconds;
 		time[1] = minutes;
 		time[2] = hours;
 		return time;
 	}
-	
+
 	private String convertDurationToString(int[] time) {
 		int hours = time[2];
 		int minutes = time[1];
@@ -317,5 +321,5 @@ public class Track implements Parcelable {
 
 
 
-	
+
 }

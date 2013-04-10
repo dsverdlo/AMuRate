@@ -1,7 +1,7 @@
 package com.dsverdlo.AMuRate.gui;
 
-import java.io.FileDescriptor;
-import java.io.IOException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.HistoryAdapter;
@@ -14,8 +14,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -65,8 +63,18 @@ public class TrackActivity extends Activity {
 		
 		// Load the track 
 		final Track track = new Track();
-		track.loadFromInfo(getIntent().getStringExtra("track"));
-		
+		if(getIntent().hasExtra("track")) {
+			track.loadFromInfo(getIntent().getStringExtra("track"));
+		} else if(getIntent().hasExtra("jsontrack")) {
+			JSONObject JSONtrack;
+			try {
+				JSONtrack = new JSONObject(getIntent().getStringExtra("jsontrack"));
+				track.loadFromInfo(JSONtrack);
+			} catch (JSONException e) {
+				System.out.println("JSON Exception in TrackActivity(constructor)");
+				e.printStackTrace();
+			}
+		}
 		// DB communication
 		ra = new RatingAdapter(this);
 		
@@ -91,7 +99,7 @@ public class TrackActivity extends Activity {
 
 		System.out.println("Starting reading rating avg");
 		final float ratingBarRating = ra.readRatingAvg(track.getMBID());
-		System.out.println("Finished reading rating avg");
+		System.out.println("Finished reading rating avg: " + ratingBarRating);
 		final int ratingBarAmount = ra.readRatingAmount(track.getMBID());
 		System.out.println("Finished reading rating amount");
 		ratingBarInfo = (TextView) findViewById(R.id.track_ratingBar_info);
@@ -104,15 +112,17 @@ public class TrackActivity extends Activity {
 
 		back.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
-				/*finish();
+				finish();
 				Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-				startActivity(mainIntent);*/
+				mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(mainIntent);
 				
 				/*String all = ha.getSearchHistory(HistoryAdapter.SQL_GET_ALL);
 				System.out.println(all);*/
-				int amt = sm.getRatingAmt("23");
+				
+				/*int amt = sm.getRatingAmt("23");
 				float avg = sm.getRatingAvg("23");
-				System.out.println("\nThe server avg is: " + avg + " on " + amt + " reviews");
+				System.out.println("\nThe server avg is: " + avg + " on " + amt + " reviews");*/
 			}
 		});
 

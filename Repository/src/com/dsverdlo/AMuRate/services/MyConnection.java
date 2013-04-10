@@ -16,12 +16,14 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.dsverdlo.AMuRate.gui.AlbumActivity;
+import com.dsverdlo.AMuRate.gui.ArtistActivity;
 import com.dsverdlo.AMuRate.gui.MainActivity;
 import com.dsverdlo.AMuRate.gui.SearchArtistActivity;
 import com.dsverdlo.AMuRate.gui.SearchResultsActivity;
 import com.dsverdlo.AMuRate.gui.TrackActivity;
 import com.sun.xml.internal.ws.util.ByteArrayBuffer;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -315,6 +317,7 @@ public class MyConnection  {
 			protected void onPostExecute(Bitmap bmp) {
 				super.onPostExecute(bmp); 
 				iv.setImageBitmap(bmp);
+				System.out.println("Done loading image!");
 			}			
 		}
 		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
@@ -473,6 +476,204 @@ public class MyConnection  {
 	HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
 	httpGetAsyncTask.execute(); 
 	}
+
+
+	public void getArtistInfo(String mbid, final SearchArtistActivity destination) {
+		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+			@Override
+			protected String doInBackground(String... params) {
+				String mbid = params[0];
+				System.out.println("Downloading info on:" + mbid);
+
+				HttpClient httpClient = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=" + mbid + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+
+				try {
+					HttpResponse httpResponse = httpClient.execute(httpGet);
+					System.out.println("httpResponse");
+
+					InputStream inputStream = httpResponse.getEntity().getContent();
+					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+					StringBuilder stringBuilder = new StringBuilder();
+					String bufferedStrChunk = null;
+					while((bufferedStrChunk = bufferedReader.readLine()) != null){
+						stringBuilder.append(bufferedStrChunk);
+					}
+					return stringBuilder.toString();
+
+				} catch (ClientProtocolException cpe) {
+					System.out.println("Exception generates caz of httpResponse :" + cpe);
+					cpe.printStackTrace();
+				} catch (IOException ioe) {
+					System.out.println("Second exception generates caz of httpResponse :" + ioe);
+					ioe.printStackTrace();
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result);
+				destination.onRetrievedArtistInfo(result);
+			}			
+		}
+
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		httpGetAsyncTask.execute(mbid); 
+	
+	}
+
+
+	public void loadTracks(String mbid, final ArtistActivity activity) {
+		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+			@Override
+			protected String doInBackground(String... params) {
+				String mbid = params[0];
+				System.out.println("Downloading tracks from:" + mbid);
+
+				HttpClient httpClient = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&mbid=" + mbid + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+
+				try {
+					HttpResponse httpResponse = httpClient.execute(httpGet);
+					System.out.println("httpResponse");
+
+					InputStream inputStream = httpResponse.getEntity().getContent();
+					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+					StringBuilder stringBuilder = new StringBuilder();
+					String bufferedStrChunk = null;
+					while((bufferedStrChunk = bufferedReader.readLine()) != null){
+						stringBuilder.append(bufferedStrChunk);
+					}
+					return stringBuilder.toString();
+
+				} catch (ClientProtocolException cpe) {
+					System.out.println("Exception generates caz of httpResponse :" + cpe);
+					cpe.printStackTrace();
+				} catch (IOException ioe) {
+					System.out.println("Second exception generates caz of httpResponse :" + ioe);
+					ioe.printStackTrace();
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result);
+				activity.loadTracks(result);
+			}			
+		}
+
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		httpGetAsyncTask.execute(mbid); 
+	
+	}
+	
+
+	public void loadAlbums(String mbid, final ArtistActivity activity) {
+		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+			@Override
+			protected String doInBackground(String... params) {
+				String mbid = params[0];
+				System.out.println("Downloading albums from:" + mbid);
+
+				HttpClient httpClient = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&mbid=" + mbid + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+
+				try {
+					HttpResponse httpResponse = httpClient.execute(httpGet);
+					System.out.println("httpResponse");
+
+					InputStream inputStream = httpResponse.getEntity().getContent();
+					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+					StringBuilder stringBuilder = new StringBuilder();
+					String bufferedStrChunk = null;
+					while((bufferedStrChunk = bufferedReader.readLine()) != null){
+						stringBuilder.append(bufferedStrChunk);
+					}
+					return stringBuilder.toString();
+
+				} catch (ClientProtocolException cpe) {
+					System.out.println("Exception generates caz of httpResponse :" + cpe);
+					cpe.printStackTrace();
+				} catch (IOException ioe) {
+					System.out.println("Second exception generates caz of httpResponse :" + ioe);
+					ioe.printStackTrace();
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result);
+				activity.loadAlbums(result);
+			}			
+		}
+
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		httpGetAsyncTask.execute(mbid); 
+	
+	}
+
+
+	public void loadFromArtistActivity(final String load, String mbid, final ArtistActivity activity) {
+		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+			@Override
+			protected String doInBackground(String... params) {
+				String mbid = params[0];
+				System.out.println("Downloading: " + load + " for ArtistActivity:" + mbid);
+
+				String httpGetUrl = "";
+				if(load.equals("loadAlbum")) {
+					httpGetUrl = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&mbid=" + mbid + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json";
+				} else if(load.equals("loadTrack")) {
+					httpGetUrl = "http://ws.audioscrobbler.com/2.0/?method=track.getinfo&mbid=" + mbid + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json";
+				}
+				HttpClient httpClient = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet(httpGetUrl);//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+
+				try {
+					HttpResponse httpResponse = httpClient.execute(httpGet);
+					System.out.println("httpResponse");
+
+					InputStream inputStream = httpResponse.getEntity().getContent();
+					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+					StringBuilder stringBuilder = new StringBuilder();
+					String bufferedStrChunk = null;
+					while((bufferedStrChunk = bufferedReader.readLine()) != null){
+						stringBuilder.append(bufferedStrChunk);
+					}
+					return stringBuilder.toString();
+
+				} catch (ClientProtocolException cpe) {
+					System.out.println("Exception generates caz of httpResponse :" + cpe);
+					cpe.printStackTrace();
+				} catch (IOException ioe) {
+					System.out.println("Second exception generates caz of httpResponse :" + ioe);
+					ioe.printStackTrace();
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result);
+				if(load.equals("loadAlbum")) {
+					activity.onAlbumLoaded(result);
+				} else if(load.equals("loadTrack")) {
+					activity.onTrackLoaded(result);
+				}
+			}			
+		}
+
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		httpGetAsyncTask.execute(mbid); 
+	}
+
 }
 /*
 		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{

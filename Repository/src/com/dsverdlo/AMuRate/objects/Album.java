@@ -19,16 +19,17 @@ public class Album {
 	private String artistName;
 	private int listeners;
 	private int playcount;
-	String imageS, imageM;
-	private String imageL;
+	private String imageS, imageM, imageL;
 	private JSONArray tracks;
 	private String summary;
 	
+	private String mbid;
+
 	private enum AlbumKeys {
 		name, artist, id, mbid, url, releasedate, image,
 		listeners, playcount, tracks, toptags, wiki
 	}
-	
+
 	private void initialize() {
 		albumTitle = "";
 		artistName = "";
@@ -38,14 +39,12 @@ public class Album {
 		imageM = "";
 		imageL = "";
 		summary = "";
+		mbid = "";
 		setTracks(new JSONArray());
 	}
-	public Album(String extraAlbum) {
-		initialize();
-		
+
+	private void switchAlbumInfo(JSONObject JSONAlbum) {
 		try {
-			JSONObject JSONobject = new JSONObject(extraAlbum);
-			JSONObject JSONAlbum = JSONobject.getJSONObject("album");
 			Iterator<?> it = JSONAlbum.keys();
 			while(it.hasNext()) {
 				try { 
@@ -55,19 +54,23 @@ public class Album {
 					case name: 
 						albumTitle = JSONAlbum.getString("name");
 						break;
-						
+
 					case artist:
 						artistName = JSONAlbum.getString("artist");
 						break;
-						
+
 					case listeners:
 						listeners = JSONAlbum.getInt("listeners");
 						break;
-						
+
 					case playcount:
 						playcount = JSONAlbum.getInt("playcount");
 						break;
-						
+					
+					case mbid:
+						mbid = JSONAlbum.getString("mbid");
+						break;
+
 					case wiki:
 						JSONObject JSONwiki = JSONAlbum.getJSONObject("wiki");
 						summary = JSONwiki.getString("summary");
@@ -75,7 +78,7 @@ public class Album {
 					case tracks:
 						setTracks(JSONAlbum.getJSONObject("tracks").getJSONArray("track"));
 						break;
-						
+
 					case image:
 						JSONArray imageUrls = JSONAlbum.getJSONArray("image");
 						for(int i = 0; i < imageUrls.length(); i++) {
@@ -90,16 +93,36 @@ public class Album {
 					default: break;
 					}
 				} catch (IllegalArgumentException iae) {
-					System.out.println("Error: illegal argument exception in Album");
+					System.out.println("Illegal argument exception in Album(switchAlbumInfo)");
 				}
 			}
+		}
+		catch (JSONException e) {
+			System.out.println("JSONException in Album(public constructor)");
+			e.printStackTrace();
+		}		
+	}
+
+	public Album(String extraAlbum) {
+		initialize();
+
+		try {
+			JSONObject JSONobject = new JSONObject(extraAlbum);
+			JSONObject JSONAlbum = JSONobject.getJSONObject("album");
+			switchAlbumInfo(JSONAlbum);
 
 		} catch (JSONException e) {
 			System.out.println("JSONException in Album(public constructor)");
 			e.printStackTrace();
 		}
-		
+
 	}
+
+	public Album (JSONObject JSONAlbum) {
+		initialize();
+		switchAlbumInfo(JSONAlbum);
+	}
+
 	public String getAlbumTitle() {
 		return albumTitle;
 	}
@@ -141,5 +164,8 @@ public class Album {
 	}
 	public void setTracks(JSONArray tracks) {
 		this.tracks = tracks;
+	}
+	public String getMbid() {
+		return mbid;
 	}
 }
