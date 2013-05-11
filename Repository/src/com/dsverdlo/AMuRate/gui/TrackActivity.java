@@ -10,7 +10,7 @@ import com.dsverdlo.AMuRate.objects.Track;
 import com.dsverdlo.AMuRate.services.AnimationView;
 import com.dsverdlo.AMuRate.services.Client;
 import com.dsverdlo.AMuRate.services.MyConnection;
-import com.dsverdlo.AMuRate.services.ServerManager;
+import com.mysql.jdbc.Connection;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -52,8 +52,6 @@ public class TrackActivity extends Activity {
 
 	private RatingAdapter ra;
 	private HistoryAdapter ha;
-	private MyConnection connection;
-	private ServerManager sm; //TODO
 	private Client client;
 
 	/** Called when the activity is first created. */
@@ -62,7 +60,6 @@ public class TrackActivity extends Activity {
 		setContentView(R.layout.track_activity);
 
 		trackActivity = this;
-		connection = new MyConnection();
 
 		// Load the track 
 		if(getIntent().hasExtra("track")) {
@@ -88,9 +85,6 @@ public class TrackActivity extends Activity {
 		isExternalDatabaseAvailable = -1; // unchecked
 		client = new Client(this);
 		//Toast.makeText(getApplicationContext(), "I can do things meanwhile", Toast.LENGTH_SHORT).show();
-
-		// Server communication TODO: remove here?
-		sm = new ServerManager();
 
 		// Save in history
 		ha = new HistoryAdapter(this);
@@ -158,7 +152,8 @@ public class TrackActivity extends Activity {
 //				Toast.makeText(getApplicationContext(), "You clicked on artist", Toast.LENGTH_SHORT).show();
 				String artistMBID = track.getArtistMBID();
 				if(artistMBID.length()>0) {
-					connection.getFromArtistMBID(trackActivity, artistMBID);
+					MyConnection conn = new MyConnection();
+					conn.getFromArtistMBID(trackActivity, artistMBID);
 				} else {
 					Toast.makeText(getApplicationContext(), "This artist did not have an ID.", Toast.LENGTH_SHORT).show();
 					
@@ -170,12 +165,14 @@ public class TrackActivity extends Activity {
 		// Check if an image can be displayed. If there is no large, try a medium.
 		String imageUrl = track.getImage("l");
 		if(imageUrl.length() > 0) {
-			connection.loadImage(imageUrl, image, loading_image);
+			MyConnection conn = new MyConnection();
+			conn.loadImage(imageUrl, image, loading_image);
 		} else {
 			// Else try a medium picture
 			String OtherImageUrl = track.getImage("m");
 			if(OtherImageUrl.length() > 0) {
-				connection.loadImage(OtherImageUrl, image, loading_image);
+				MyConnection conn = new MyConnection();
+				conn.loadImage(OtherImageUrl, image, loading_image);
 			} else image.setImageResource(R.drawable.not_available);
 		}
 
@@ -318,11 +315,11 @@ public class TrackActivity extends Activity {
 
 	private void sendToInternalDatabase() {
 
-		System.out.println("DBDB__" + "sendToInternalDatabase");
+		System.out.println("DBDB__" + "sending unsynced ToInternalDatabase");
 		//if(client.)
 		// try to store it local in rating adapter
 		float rating = ratingBar.getRating();
-		long addResult = ra.addRating(track.getMBID(), track.getArtist(), track.getTitle(), rating);
+		long addResult = ra.addRating(track.getMBID(), track.getArtist(), track.getTitle(), rating, false);
 		if(addResult < 0) {
 			Toast.makeText(getApplicationContext(), "Error sending score.", Toast.LENGTH_SHORT).show();
 		} else {
@@ -346,11 +343,25 @@ public class TrackActivity extends Activity {
 
 
 	public void onDoneLoadingArtist(String artistInfo) {
+		//TODO: get the try out of here
+		try {
+			JSONObject JSONartistInfo = new JSONObject(artistInfo);
+			if(!JSONartistInfo.has("artist")) {
+				// something went wrong.
+				Toast.makeText(getApplicationContext(), "No info could be obtained..", Toast.LENGTH_LONG).show();
+				return;
+			}
+			JSONObject JSONartist = JSONartistInfo.getJSONObject("artist");
+			
+			
 		Intent artistIntent = new Intent(getApplicationContext(), ArtistActivity.class);
-		artistIntent.putExtra("artist", artistInfo);
+		artistIntent.putExtra("artist", JSONartist.toString());
 		System.out.println("Starting ArtistActivity intent");
 		startActivity(artistIntent);
 		
+		} catch (JSONException jsone) {
+			System.err.println("JSONException in TrackActivity: onDoneLoadingArtist:\n"+jsone);
+		}
 	}
 
 	public void onDoneLoadingAlbum(String album) {

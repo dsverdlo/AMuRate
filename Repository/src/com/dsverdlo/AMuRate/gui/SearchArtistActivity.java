@@ -23,8 +23,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This class is the screen for displaying the results of Artists
+ * 
+ * @author David Sverdlov
+ *
+ */
 public class SearchArtistActivity extends Activity {
-	private MyConnection connection;
 	private SearchArtistActivity thisActivity;
 	
 	@Override
@@ -34,7 +39,6 @@ public class SearchArtistActivity extends Activity {
 
 
 		thisActivity = this;
-		connection = new MyConnection();
 
 		// Grab the vertical layout so we can add objects to it
 		LinearLayout ll = (LinearLayout) findViewById(R.id.searchArtistLayout);
@@ -100,6 +104,7 @@ public class SearchArtistActivity extends Activity {
 				// if possible set image in pictureview
 				String imageUrl = artist.getImage("l");
 				if(imageUrl == null) { System.out.println("Imageurl l stays null..."); }
+				MyConnection connection = new MyConnection();
 				if(imageUrl.length() > 0) { 
 					connection.loadImage(imageUrl, picture);
 				} else {
@@ -115,8 +120,9 @@ public class SearchArtistActivity extends Activity {
 
 						//Intent artistIntent = new Intent(getApplicationContext(), ArtistActivity.class);
 						
-						
-						connection.getArtistInfo(artist.getMbid(), thisActivity);
+
+						MyConnection conn = new MyConnection();
+						conn.getArtistInfo(artist.getMbid(), thisActivity);
 					}
 				});
 				horizontalLayout.setClickable(true);
@@ -157,9 +163,6 @@ public class SearchArtistActivity extends Activity {
 				return;
 			}
 			JSONObject JSONartist = JSONartistInfo.getJSONObject("artist");
-			//Artist artist = new Artist();
-			//artist.loadfromInfo(JSONartist);
-			
 
 			Intent nextPage = new Intent(getApplicationContext(), ArtistActivity.class);
 			nextPage.putExtra("artist", JSONartist.toString());

@@ -18,7 +18,7 @@ import android.database.sqlite.SQLiteDatabase;
  * So far 2 kinds of history items exist:
  * 1. Search history (_id, name, title, date)
  * 2. Track history (_id, name, title, mbid, date)
- * Since these three have a lot of fields in common, they will be put into one table
+ * Since these  have a lot of fields in common, they will be put into one table
  * 
  * @author David Sverdlov
  *

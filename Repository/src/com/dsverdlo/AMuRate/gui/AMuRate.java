@@ -3,7 +3,13 @@ package com.dsverdlo.AMuRate.gui;
 import com.dsverdlo.AMuRate.services.DatabaseManager;
 
 import android.app.Application;
-
+/**
+ * Not sure if this is even used...
+ * TODO: find out and delete
+ * 
+ * @author David Sverdlov
+ *
+ */
 public class AMuRate extends Application {
 	 //will be lazily loaded...
 		private DatabaseManager localConnection;

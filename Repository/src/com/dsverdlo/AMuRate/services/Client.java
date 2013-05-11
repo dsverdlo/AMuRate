@@ -4,14 +4,16 @@ import java.net.*;
 
 import com.dsverdlo.AMuRate.gui.TrackActivity;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 /**
+ * This is the client program which will communicate with the external server/database.
+ * On a different thread, a socket is attempted to connect with the server
+ * on port 2005 (for no reason, could be some other number also)
+ * 
  * Code copied from http://stackoverflow.com/questions/1776457/java-client-server-application-with-sockets
  * 
- * @author david
+ * @author David Sverdlov
  *
  */
 
@@ -28,8 +30,11 @@ public class Client extends AsyncTask<String, Void, Double> {
 	public static final int GETRATING = 2;
 	public static final int GETAMOUNT = 3;
 	
-	private String ipAddress = "134.184.120.178"; // kot 
-	//private String ipAddress = ""; // urbizone
+	private int timeOut = 7000; // 7 seconds
+	private int portNo = 2005; 
+	
+	//private String ipAddress = "134.184.120.178"; // kot 
+	private String ipAddress = "10.2.33.36"; // urbizone
 	//private String ipAddress = "134.184.108.145"; // edoroam
 	//private String ipAddress = "134.184.140.70"; // vubnet
 	//private String ipAddress = "194.168.5.43"; // 3G
@@ -42,12 +47,12 @@ public class Client extends AsyncTask<String, Void, Double> {
 		try{
 			//1. creating a socket to connect to the server
 
-			System.out.println("[c]Connecting to "+ipAddress+" in port 2005");
+			System.out.println("[c]Connecting to "+ipAddress+" in port "+portNo);
 			//here you must put your computer's IP address.
 			InetAddress serverAddr = InetAddress.getByName(ipAddress);
-			System.out.println("[c]Connectingg to "+serverAddr.toString()+" in port 2005");
-			requestSocket = new Socket(serverAddr, 2005);
-			System.out.println("[c]Connecteddd to ... in port 2005");
+			System.out.println("[c]Connectingg to "+serverAddr.toString()+" in port "+portNo);
+			requestSocket = new Socket(serverAddr, portNo);
+			System.out.println("[c]Connected to ^ in port " + portNo);
 			//2. get Input and Output streams
 			out = new ObjectOutputStream(requestSocket.getOutputStream());
 			out.flush(); 
@@ -124,16 +129,16 @@ public class Client extends AsyncTask<String, Void, Double> {
 		try{
 			//1. creating a socket to connect to the server
 
-			System.out.println("[c]Connecting to "+ipAddress+" in port 2005");
-			//here you must put your computer's IP address.
+			System.out.println("[c]Connecting to "+ipAddress+" in port "+portNo);
+
 			InetAddress serverAddr = InetAddress.getByName(ipAddress);
-			System.out.println("[c]Connectingg to "+serverAddr.toString()+" in port 2005");
+			System.out.println("[c]Connectingg to "+serverAddr.toString()+" in port "+portNo);
 
 			Socket requestSocket = new Socket();
-			requestSocket.connect(new InetSocketAddress(serverAddr, 2005), 7000);
+			requestSocket.connect(new InetSocketAddress(serverAddr, portNo), timeOut);
 			
 			/** */ //requestSocket = new Socket(serverAddr, 2005);
-			System.out.println("[c]Connecteddd to ... in port 2005");
+			System.out.println("[c]Connected to ... in port "+portNo);
 			//2. get Input and Output streams
 			out = new ObjectOutputStream(requestSocket.getOutputStream());
 			out.flush(); 
@@ -155,7 +160,7 @@ public class Client extends AsyncTask<String, Void, Double> {
 			// So far so good, we got a connection with local server
 			// Now we test if the server can reach the database
 			
-			// POST ACTION
+			// POST ACTION TEST
 			sendMessage("TEST");
 			
 			// Read server response
@@ -170,7 +175,7 @@ public class Client extends AsyncTask<String, Void, Double> {
 		}
 		System.out.println("[c]server>" + message);
 
-		// Send method (in this case: closing connection
+		// Send method (in this case: closing connection)
 		sendMessage("xxx");
 
 		tearDownConnection();
@@ -238,19 +243,6 @@ public class Client extends AsyncTask<String, Void, Double> {
 		return result;
 	}
 	
-	
-	
-	/*
-	public static void main(String args[])
-	{
-		System.out.println("A rating was clicked in artistactivity");
-		System.out.println("Starting up server connection");
-		Client client = new Client();
-		//System.out.println("Try to send A7X - Lost: 3 stars");
-		client.sendRating("55", "Flobots", "Superhero", 4, 1535, "Winamp");
-		//client.getRatingAvg("23");
-		System.out.println("Success, Returning to activity business");
-	}*/
 
 	protected void onPostExecute(Double result) {
 		System.out.println("++*++*++*++ Finished asynctask!");
@@ -271,7 +263,7 @@ public class Client extends AsyncTask<String, Void, Double> {
 	@Override
 	protected Double doInBackground(String... params) {
 		method = Integer.parseInt(params[0]);
-		System.out.println("Starting a AsyncTask method=" + method);
+		System.out.println("++*++*++*++ Starting a AsyncTask method=" + method);
 		switch(method) {
 		case SENDRATING:
 			String mbid = params[1];

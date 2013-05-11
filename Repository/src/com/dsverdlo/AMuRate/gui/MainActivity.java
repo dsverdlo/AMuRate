@@ -21,7 +21,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+/**
+ * MainActivity is the first screen users see when launching the app.
+ * It provides search fields and a help button with instructions.
+ * 
+ * 
+ * @author David Sverdlov
+ *
+ */
 public class MainActivity extends Activity implements OnClickListener {
 
 	private EditText searchArtist;
@@ -107,7 +114,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			if(nArtist == 0 && nTitle == 0 ) {
 				Toast.makeText(getApplicationContext(), "Please enter an artist, song or both\nTo quit, hold down on 'Cancel'", Toast.LENGTH_LONG).show();
 			} else {
-				//results.setText("Loading...");
 				loading.setVisibility(View.VISIBLE);
 				results.setVisibility(View.INVISIBLE);
 				view.setVisibility(Button.INVISIBLE);
@@ -154,10 +160,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 			break;
 
-
-			//case R.id.tex : 
-			// String get = artistEdit.getText().toString();
-			//break;
 		}
 	}
 

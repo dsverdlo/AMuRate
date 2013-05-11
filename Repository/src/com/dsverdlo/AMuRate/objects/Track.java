@@ -16,7 +16,7 @@ import android.os.Parcelable;
  * The class implements Parcelable so it can be passed from one Activity
  * to another.  
  * 
- * @author david
+ * @author David Sverdlov
  *
  */
 public class Track implements Parcelable {

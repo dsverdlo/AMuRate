@@ -21,6 +21,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Display the search results on the screen.
@@ -28,15 +29,14 @@ import android.widget.TextView;
  * @author David Sverdlov
  */
 public class SearchResultsActivity extends Activity {
-	private MyConnection connection;
+	// Save the clickedLayout so we can alter it when the connection returns
 	private LinearLayout clickedLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_results);
-//
-//		connection = new MyConnection();
+
 		final SearchResultsActivity thisActivity = this;
 		
 		// Grab the vertical layout so we can add objects to it
@@ -66,6 +66,7 @@ public class SearchResultsActivity extends Activity {
 			System.out.println("" + tracks.length() + " objects in JSONArray");
 			for(int i = 0; i < tracks.length(); i++ ) {
 				//
+				MyConnection connection = new MyConnection();
 				connection = new MyConnection();
 				
 				//System.out.println("Try to get array[" + i + "]");
@@ -74,7 +75,10 @@ public class SearchResultsActivity extends Activity {
 				track.loadFromSearch(oneResult);
 
 				// If the track does not come with a mbid, skip it
-				if(track.getMBID().length() == 0) continue;
+				if(track.getMBID().length() == 0) {
+					//Toast.makeText(getApplicationContext(), "No ID with track: ommitting", Toast.LENGTH_SHORT).show();
+					continue;
+				}
 				
 				// Create a layout for the track
 				final LinearLayout horizontalLayout = new LinearLayout(getApplicationContext());
@@ -87,7 +91,7 @@ public class SearchResultsActivity extends Activity {
 
 				ImageView picture = new ImageView(getApplicationContext());
 				AnimationView load_pic = new AnimationView(getApplicationContext(), null);
-				load_pic.setBackgroundResource(R.drawable.loading_black);
+				//load_pic.setBackgroundResource(R.drawable.loading_black);
 				load_pic.setLayoutParams(new LayoutParams(120, 120));
 				picture.setVisibility(View.GONE);
 
@@ -125,6 +129,8 @@ public class SearchResultsActivity extends Activity {
 						horizontalLayout.setBackgroundResource(R.drawable.track_background_2);
 						clickedLayout = horizontalLayout;
 						System.out.println("Someone clicked a track! Starting connection for: " + mbid);
+
+						MyConnection connection = new MyConnection();
 						connection.getFromMBID(thisActivity, mbid);
 					}
 				});

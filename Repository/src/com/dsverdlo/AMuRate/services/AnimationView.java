@@ -12,7 +12,16 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-
+/**
+ * This class is a solution for Android's lack of GIF support.
+ * AnimationView enables to display and animate GIF's in the 
+ * user interface. We will use this for loading animations.
+ * 
+ * Code copied from {@link http://iamvijayakumar.blogspot.be/2012/06/android-animated-gif-example.html}
+ * 
+ * @author David Sverdlov
+ *
+ */
 public class AnimationView extends View {
     private Movie mMovie;
     private long mMovieStart;

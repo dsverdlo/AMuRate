@@ -21,9 +21,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
+/**
+ * This is the screen of one Artist.
+ * It displays a picture, bio information, top tracks, top albums
+ * 
+ * TODO: Add bandmembers if they exist
+ * (sometimes in a group they are supplied)
+ * 
+ * @author David Sverdlov
+ *
+ */
 public class ArtistActivity extends Activity {
 	private LinearLayout artistStats;
 	private ImageView artistBigPic;
@@ -63,6 +72,7 @@ public class ArtistActivity extends Activity {
 		tracksTitle.setText("TRACKS");
 		albumsTitle.setText("ALBUMS");
 				
+		// TODO: add animation
 		tracksMessaging.setText("Loading tracks...");
 		tracksScroll.addView(tracksMessaging);
 
@@ -72,10 +82,6 @@ public class ArtistActivity extends Activity {
 		// Load the artist 
 		final Artist artist = new Artist();
 		artist.loadFromInfo(getIntent().getStringExtra("artist"));
-		System.out.println("### ArtistActivity verb 1/3");
-		//albumsLoading.setText("Heren, met de zomer in aantocht wordt het tijd om wat aan de gezondheid te doen. Dus zoek alvast je best voorziene vrouwelijke collega op en vraag haar om tien minuutjes voor jouw te komen zitten.Volgens de New England Journal of Medecine is er effectief een verbetering van de gezondheid bij mannen die dagelijks tien minuten naar de borsten van goed voorziene dames kijken. Die tien minuten geven hetzelfde resultaat als dertig minuten aerobics, dat zegt tenminste Karen Weatherby, een experte op het vlak van veroudering. Daarvoor voerde ze een onderzoek van maar liefst vijf jaar met een groep mannen die elke dag moesten kijken naar vrouwenborsten. Alles voor de wetenschap! " + artist.getListeners());
-
-		System.out.println("### ArtistActivity verb 2/3");
 		
 		if(artist.getImage("xl").length() > 0) {
 			System.out.println("Loading image for artist: " + artist.getImage("xl"));
@@ -83,9 +89,6 @@ public class ArtistActivity extends Activity {
 		} else {
 			artistBigPic.setImageResource(R.drawable.not_available);
 		}
-
-		System.out.println("### ArtistActivity verb 3/3: length=" + artist.getSummary().length());
-		
 		
 		longScroll.setText(Html.fromHtml(artist.getSummary()));
 		longScroll.setBackgroundColor(Color.DKGRAY);
@@ -127,8 +130,6 @@ public class ArtistActivity extends Activity {
 			buttonTrack.setText(track.getTitle());
 			buttonTrack.setBackgroundResource(R.layout.rounded_corners);
 			buttonTrack.setTextSize(13);
-			//buttonTrack.setPadding(10, 0, 10, 0);
-
  
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.FILL_PARENT, 
@@ -140,11 +141,8 @@ public class ArtistActivity extends Activity {
 				public void onClick(View v) {
 					System.out.println("Someone clicked a track in ArtistActivity!");
 					buttonTrack.setText("Loading...");
-					/*Intent nextPage = new Intent(getApplicationContext(), TrackActivity.class);
-					nextPage.putExtra("jsontrack", JSONtrack.toString());
-					startActivity(nextPage); */
-
-					conn.loadFromArtistActivity("loadTrack", track.getMBID(), thisActivity);
+					MyConnection connection = new  MyConnection();
+					connection.loadFromArtistActivity("loadTrack", track.getMBID(), thisActivity);
 				}
 			});
 			
@@ -190,10 +188,8 @@ public class ArtistActivity extends Activity {
 				public void onClick(View v) {
 					System.out.println("Someone clicked an album in ArtistActivity!");
 					buttonAlbum.setText("Loading...");
-					/*Intent nextPage = new Intent(getApplicationContext(), AlbumActivity.class);
-					nextPage.putExtra("jsonalbum", JSONalbum.toString());
-					startActivity(nextPage);*/
-					conn.loadFromArtistActivity("loadAlbum", album.getMbid(), thisActivity);
+					MyConnection connection = new MyConnection();
+					connection.loadFromArtistActivity("loadAlbum", album.getMbid(), thisActivity);
 				}
 			});
 			

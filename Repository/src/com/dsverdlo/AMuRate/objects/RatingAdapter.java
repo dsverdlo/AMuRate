@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 /**
  * This class is an adapter separating the GUI from the database code.
- * It allows to open, close and read/write from the database.
+ * It allows to read/write from the internal database.
  * We can add ratings or retrieve average ratings from unique song id's 
  * (mbid).
  * 
@@ -31,6 +31,7 @@ public class RatingAdapter {
 	private static final String COLUMN_TITLE = "title";
 	private static final String COLUMN_RATING = "rating";
 	private static final String COLUMN_DATE = "date";
+	private static final String COLUMN_SYNCED = "synced";
 	
 
 	private static final String TABLE_CREATE = "create table IF NOT EXISTS " + 
@@ -40,7 +41,8 @@ public class RatingAdapter {
 			COLUMN_NAME + " text not null, " +
 			COLUMN_TITLE + " text not null, " +
 			COLUMN_RATING + " real not null, " + 
-			COLUMN_DATE + " date not null " +
+			COLUMN_DATE + " date not null, " +
+			COLUMN_SYNCED + " integer not null " +
 			")";
 
 	// SQL Statements
@@ -107,13 +109,14 @@ public class RatingAdapter {
 	 * @param rating This float is the given rating 
 	 * @return insertID The id of the filled row.
 	 */
-	public long addRating(String mbid, String name, String title, float rating) {
+	public long addRating(String mbid, String name, String title, float rating, boolean synced) {
 		database = dbm.getWritableDatabase();
 		ContentValues values = new ContentValues();
 	    values.put(COLUMN_RATING, rating);
 	    values.put(COLUMN_MBID, mbid);
 	    values.put(COLUMN_NAME, name);
 	    values.put(COLUMN_TITLE, title);
+	    values.put(COLUMN_SYNCED, (synced) ? 1 : 0);
 	    Date curr_date = new Date();
 	    values.put(COLUMN_DATE, curr_date.toString());
 	    long insertId = database.insert(TABLE_RATINGS, null, values);

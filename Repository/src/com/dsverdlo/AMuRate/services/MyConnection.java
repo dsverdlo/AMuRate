@@ -1,14 +1,9 @@
 package com.dsverdlo.AMuRate.services;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -21,13 +16,9 @@ import com.dsverdlo.AMuRate.gui.MainActivity;
 import com.dsverdlo.AMuRate.gui.SearchArtistActivity;
 import com.dsverdlo.AMuRate.gui.SearchResultsActivity;
 import com.dsverdlo.AMuRate.gui.TrackActivity;
-import com.sun.xml.internal.ws.util.ByteArrayBuffer;
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -35,6 +26,11 @@ import android.widget.ImageView;
  * Handles all the internet/connection requests. 
  * These tasks must extend AsyncTask so they don't run
  * on the main thread.
+ * 
+ * Their structure is always more or less the same, so:
+ * 
+ * TODO: Split or merge all these aynctasks
+ * (hence all the TODO:'s belowhand)
  * 
  * @author David Sverdlov
  *

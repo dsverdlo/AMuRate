@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.TextView;
 
 /**
  * Artist abstract data type. Stores all kind of data from an artist.
@@ -72,8 +71,6 @@ public class Artist implements Parcelable {
 		initialize();
 		
 		try {
-			//JSONObject JSONobject = new JSONObject(extraArtist);
-			//JSONObject JSONArtist = JSONobject.getJSONObject("artist");
 			JSONObject JSONArtist = new JSONObject(extraArtist);
 			Iterator<?> it = JSONArtist.keys();
 			String key = "";

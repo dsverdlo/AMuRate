@@ -15,10 +15,13 @@ package com.dsverdlo.AMuRate.objects;
  *
  */
 public class Rating {
-	String mbid, title, artist, user;
-	int date;
-	float rating;
+	private String mbid, title, artist, user;
+	private int date;
+	private float rating;
 	
+	/**
+	 * Public constructor initializes fields
+	 */
 	public Rating() {
 		mbid = "";
 		title = "";

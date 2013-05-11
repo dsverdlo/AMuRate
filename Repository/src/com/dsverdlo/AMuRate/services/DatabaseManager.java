@@ -9,7 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * DatabaseManager handles the database portion of the project.
+ * DatabaseManager handles the internal database of the project.
+ * It is an extension of the class SQLiteOpenHelper.
  * 
  * @author David Sverdlov
  *
@@ -36,7 +37,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
 		Log.w(DatabaseManager.class.getName(),
 				"Upgrading database from version " + oldVersion + " to "
 						+ newVersion + ", which will destroy all old data");
-		//db.execSQL("DROP TABLE IF EXISTS " + TABLE_RATINGS);
 		onCreate(db);
 	}
 
