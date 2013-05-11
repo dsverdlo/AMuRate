@@ -76,9 +76,10 @@ public class Artist implements Parcelable {
 			//JSONObject JSONArtist = JSONobject.getJSONObject("artist");
 			JSONObject JSONArtist = new JSONObject(extraArtist);
 			Iterator<?> it = JSONArtist.keys();
+			String key = "";
 			while(it.hasNext()) {
 				try { 
-					String key = (String) it.next();
+					key = (String) it.next();
 					System.out.println("777:" + key);
 					switch(ArtistKeys.valueOf(key)) {
 					case name: 
@@ -111,7 +112,7 @@ public class Artist implements Parcelable {
 					default: break;
 					}
 				} catch (IllegalArgumentException iae) {
-					System.out.println("Error: illegal argument exception in Album");
+					System.out.println("Error: illegal argument exception in Album: " + key);
 				}
 			}
 
@@ -182,9 +183,10 @@ public class Artist implements Parcelable {
 			JSONObject JSONArtist = new JSONObject(stringExtra);
 			//JSONObject JSONArtist = JSONobject.getJSONObject("artist");
 			Iterator<?> it = JSONArtist.keys();
+			String key = "";
 			while(it.hasNext()) {
 				try { 
-					String key = (String) it.next();
+					key = (String) it.next();
 					System.out.println("8008:" + key);
 					switch(ArtistInfoKeys.valueOf(key)) {
 					case name: 
@@ -242,12 +244,12 @@ public class Artist implements Parcelable {
 					default: break;
 					}
 				} catch (IllegalArgumentException iae) {
-					System.out.println("Error: illegal argument exception in Album");
+					System.out.println("Error: illegal argument exception in Album: "+key);
 				}
 			}
 
 		} catch (JSONException e) {
-			System.out.println("JSONException in Album(public constructor)");
+			System.out.println("JSONException in Artist.java Album(public constructor)");
 			e.printStackTrace();
 		}
 	}

@@ -148,7 +148,8 @@ public class ArtistActivity extends Activity {
 				}
 			});
 			
-			tracksScroll.addView(buttonTrack);
+			// Only if MBID exists we add it to the list
+			if(track.getMBID().length() > 0) tracksScroll.addView(buttonTrack);
 			
 		}
 
@@ -195,7 +196,9 @@ public class ArtistActivity extends Activity {
 					conn.loadFromArtistActivity("loadAlbum", album.getMbid(), thisActivity);
 				}
 			});
-			albumsScroll.addView(buttonAlbum);
+			
+			// Only if album has an MBID we show it
+			if(album.getMbid().length() > 0) albumsScroll.addView(buttonAlbum);
 			
 		}
 

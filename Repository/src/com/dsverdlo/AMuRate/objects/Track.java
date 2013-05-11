@@ -318,7 +318,10 @@ public class Track implements Parcelable {
 		return id;
 	}
 
-
+	
+	public String getArtistMBID() {
+		return this.artistMBID;
+	}
 
 
 

@@ -12,6 +12,7 @@ import android.R.color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -100,7 +102,7 @@ public class AlbumActivity extends Activity {
 			for (int i = 0; i < tracks.length(); i++) {
 				JSONObject oneTrack = tracks.getJSONObject(i);
 				final String tit = oneTrack.getString("name");
-				String mbid = oneTrack.getString("mbid");
+				final String mbid = oneTrack.getString("mbid");
 				Button bt = new Button(getApplicationContext());
 				bt.setBackgroundResource(R.layout.rounded_corners);
 
@@ -113,9 +115,17 @@ public class AlbumActivity extends Activity {
 				bt.setText("" + (i+1) + ":" + tit);
 				bt.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
+						if(mbid.length() == 0) {
+							Toast.makeText(getApplicationContext(), "No MBID associated with this track.", Toast.LENGTH_SHORT).show();
+//							bt.setTextColor(Color.GRAY);
+						} else {
 						connection.getFromTitleAndArtist(albumActivity, tit, album.getArtistName());
+						}
 					}
 				});
+				
+				
+				//bt.seton
 				tracksLayout.addView(bt);
 				
 			}

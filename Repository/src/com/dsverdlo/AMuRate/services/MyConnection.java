@@ -28,6 +28,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.view.View;
 import android.widget.ImageView;
 
 /**
@@ -252,12 +253,11 @@ public class MyConnection  {
 		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
 			@Override
 			protected String doInBackground(String... params) {
-				System.out.println("Debug1");
 				String mbid = params[0];
-				System.out.println("Debug2");
 				HttpClient httpClient = new DefaultHttpClient();
 				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=track.getinfo&mbid=" + mbid + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
-				System.out.println("Debug3");
+
+
 				try {
 					HttpResponse httpResponse = httpClient.execute(httpGet);
 					System.out.println("httpResponse");
@@ -289,9 +289,7 @@ public class MyConnection  {
 				searchActivity.onPostExecute(result);
 			}			
 		}
-		System.out.println("Debug0.1 (" + mbid + ")");
 		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
-		System.out.println("Debug0.2");
 		httpGetAsyncTask.execute(mbid); 
 	}
 	
@@ -324,6 +322,36 @@ public class MyConnection  {
 		httpGetAsyncTask.execute(url); 
 	}
 	
+	// TODO yeah yeah
+	
+	public void loadImage(final String url, final ImageView iv, final AnimationView load) {
+
+		class HttpGetAsyncTask extends AsyncTask<String, Void, Bitmap>{
+			@Override
+			protected Bitmap doInBackground(String... params) {
+				try {
+					URL url = new URL(params[0]);
+					Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+					return bmp;
+				} catch (Exception e) {
+					System.out.println("Exception in MyConnection(loadImage):");
+					e.printStackTrace();
+					return null;
+				}
+			}
+
+			@Override
+			protected void onPostExecute(Bitmap bmp) {
+				super.onPostExecute(bmp);
+				load.setVisibility(View.GONE);
+				iv.setVisibility(View.VISIBLE);
+				iv.setImageBitmap(bmp);
+				System.out.println("Done loading image!");
+			}			
+		}
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		httpGetAsyncTask.execute(url); 
+	}
 	// TODO: LOLOLOL
 	
 	public void getFromAlbum(final TrackActivity ta, final String mbid) {
@@ -363,7 +391,7 @@ public class MyConnection  {
 			@Override
 			protected void onPostExecute(String album) {
 				super.onPostExecute(album); 
-				ta.onPostExecute(album);
+				ta.onDoneLoadingAlbum(album);
 			}			
 		}
 		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
@@ -420,62 +448,62 @@ public class MyConnection  {
 		httpGetAsyncTask.execute(givenArtist); 
 	}
 	
-	// LOAD PREVIEW
-	public void getPreviewFromId(final TrackActivity trackActivity, final int id, final String fileName) {		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
-		@Override
-		protected String doInBackground(String...params) {
-			String out = Environment.getExternalStorageDirectory().getAbsolutePath() + "/h_" + fileName + ".mp3";
-			try { 
-				System.out.println("URLTest: init");
-				URL url = new URL("http://play.last.fm/preview/" + id + ".mp3"); //you can write here any link
-				File file = new File(out);
-
-				/* Open a connection to that URL. */
-				URLConnection ucon = url.openConnection();
-
-				System.out.println("URLTest: opened connection");
-				/*
-				 * Define InputStreams to read from the URLConnection.
-				 */
-				InputStream is = ucon.getInputStream();
-				BufferedInputStream bis = new BufferedInputStream(is);
-
-				System.out.println("URLTest: bis created");
-				/*
-				 * Read bytes to the Buffer until there is nothing more to read(-1).
-				 */
-				ByteArrayBuffer baf = new ByteArrayBuffer(50);
-				int current = 0;
-				while ((current = bis.read()) != -1) {
-					baf.write((byte) current);
-				}
-
-				System.out.println("URLTest: loop done");
-
-				/* Convert the Bytes read to a String. */
-				FileOutputStream fos = new FileOutputStream(file);
-				fos.write(baf.toByteArray());
-				fos.close();
-				bis.close();
-				baf.close();
-
-				System.out.println("URLTest: finish up");
-				trackActivity.previewAvailable(out);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return out;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result); 
-			trackActivity.previewAvailable(result);
-		}
-	}
-	HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
-	httpGetAsyncTask.execute(); 
-	}
+//	// LOAD PREVIEW
+//	public void getPreviewFromId(final TrackActivity trackActivity, final int id, final String fileName) {		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+//		@Override
+//		protected String doInBackground(String...params) {
+//			String out = Environment.getExternalStorageDirectory().getAbsolutePath() + "/h_" + fileName + ".mp3";
+//			try { 
+//				System.out.println("URLTest: init");
+//				URL url = new URL("http://play.last.fm/preview/" + id + ".mp3"); //you can write here any link
+//				File file = new File(out);
+//
+//				/* Open a connection to that URL. */
+//				URLConnection ucon = url.openConnection();
+//
+//				System.out.println("URLTest: opened connection");
+//				/*
+//				 * Define InputStreams to read from the URLConnection.
+//				 */
+//				InputStream is = ucon.getInputStream();
+//				BufferedInputStream bis = new BufferedInputStream(is);
+//
+//				System.out.println("URLTest: bis created");
+//				/*
+//				 * Read bytes to the Buffer until there is nothing more to read(-1).
+//				 */
+//				ByteArrayBuffer baf = new ByteArrayBuffer(50);
+//				int current = 0;
+//				while ((current = bis.read()) != -1) {
+//					baf.write((byte) current);
+//				}
+//
+//				System.out.println("URLTest: loop done");
+//
+//				/* Convert the Bytes read to a String. */
+//				FileOutputStream fos = new FileOutputStream(file);
+//				fos.write(baf.toByteArray());
+//				fos.close();
+//				bis.close();
+//				baf.close();
+//
+//				System.out.println("URLTest: finish up");
+//				trackActivity.previewAvailable(out);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			return out;
+//		}
+//
+//		@Override
+//		protected void onPostExecute(String result) {
+//			super.onPostExecute(result); 
+//			trackActivity.previewAvailable(result);
+//		}
+//	}
+//	HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+//	httpGetAsyncTask.execute(); 
+//	}
 
 
 	public void getArtistInfo(String mbid, final SearchArtistActivity destination) {
@@ -483,7 +511,7 @@ public class MyConnection  {
 			@Override
 			protected String doInBackground(String... params) {
 				String mbid = params[0];
-				System.out.println("Downloading info on:" + mbid);
+				System.out.println("Downloading artist info on:" + mbid);
 
 				HttpClient httpClient = new DefaultHttpClient();
 				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=" + mbid + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
@@ -672,6 +700,52 @@ public class MyConnection  {
 
 		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
 		httpGetAsyncTask.execute(mbid); 
+	}
+
+	// TODO Auto-generated method stub
+	public void getFromArtistMBID(final TrackActivity trackActivity, final String artistMBID) {
+
+
+		class HttpGetAsyncTask extends AsyncTask<String, Void, String>{
+			@Override
+			protected String doInBackground(String... params) {
+
+				String mbid = params[0];
+				HttpClient httpClient = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=" + artistMBID + "&api_key=46d561a6de9e5daa380db343d40ffbab&format=json");//&mbid=b406e15c-0e89-40b7-99c1-39a250310b84");
+				
+				try {
+					HttpResponse httpResponse = httpClient.execute(httpGet);
+					System.out.println("httpResponse");
+
+					InputStream inputStream = httpResponse.getEntity().getContent();
+					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+					StringBuilder stringBuilder = new StringBuilder();
+					String bufferedStrChunk = null;
+					while((bufferedStrChunk = bufferedReader.readLine()) != null){
+						stringBuilder.append(bufferedStrChunk);
+					}
+					return stringBuilder.toString();
+
+				} catch (ClientProtocolException cpe) {
+					System.out.println("Exception generates caz of httpResponse :" + cpe);
+					cpe.printStackTrace();
+				} catch (IOException ioe) {
+					System.out.println("Second exception generates caz of httpResponse :" + ioe);
+					ioe.printStackTrace();
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(String artistInfo) {
+				super.onPostExecute(artistInfo); 
+				trackActivity.onDoneLoadingArtist(artistInfo);
+			}			
+		}
+		HttpGetAsyncTask httpGetAsyncTask = new HttpGetAsyncTask();
+		httpGetAsyncTask.execute(artistMBID); 
 	}
 
 }

@@ -1,0 +1,295 @@
+package com.dsverdlo.AMuRate.services;
+import java.io.*;
+import java.net.*;
+
+import com.dsverdlo.AMuRate.gui.TrackActivity;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.widget.Toast;
+
+/**
+ * Code copied from http://stackoverflow.com/questions/1776457/java-client-server-application-with-sockets
+ * 
+ * @author david
+ *
+ */
+
+public class Client extends AsyncTask<String, Void, Double> {
+	private TrackActivity activity;
+	private Socket requestSocket;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
+	private String message;
+	private int method;
+
+	public static final int ISCONNECTED = 0;
+	public static final int SENDRATING = 1;
+	public static final int GETRATING = 2;
+	public static final int GETAMOUNT = 3;
+	
+	private String ipAddress = "134.184.120.178"; // kot 
+	//private String ipAddress = ""; // urbizone
+	//private String ipAddress = "134.184.108.145"; // edoroam
+	//private String ipAddress = "134.184.140.70"; // vubnet
+	//private String ipAddress = "194.168.5.43"; // 3G
+	//private String ipAddress = "10.0.1.97"; // como
+	
+	public Client(TrackActivity activity){ this.activity = activity; }
+
+
+	private void setUpConnection() {
+		try{
+			//1. creating a socket to connect to the server
+
+			System.out.println("[c]Connecting to "+ipAddress+" in port 2005");
+			//here you must put your computer's IP address.
+			InetAddress serverAddr = InetAddress.getByName(ipAddress);
+			System.out.println("[c]Connectingg to "+serverAddr.toString()+" in port 2005");
+			requestSocket = new Socket(serverAddr, 2005);
+			System.out.println("[c]Connecteddd to ... in port 2005");
+			//2. get Input and Output streams
+			out = new ObjectOutputStream(requestSocket.getOutputStream());
+			out.flush(); 
+			in = new ObjectInputStream(requestSocket.getInputStream());
+			//3: Communicating with the server
+		}
+		catch(UnknownHostException unknownHost){
+			System.err.println("You are trying to connect to an unknown host!");
+		}
+		catch(IOException ioe){
+//			ioException.printStackTrace();
+			//Toast.makeText(activity.getApplicationContext(), "Exception in Client.java [setUpConnection]", Toast.LENGTH_SHORT).show();
+			System.out.println("Exception in Client.java [setUpConnection]\n"+ioe);
+		}
+	}
+
+	private void tearDownConnection() {
+		//4: Closing connection
+		try{
+			if(in != null) in.close();
+			if(out != null) out.close();
+			if(requestSocket != null) requestSocket.close();
+		}
+		catch(IOException ioException){
+			ioException.printStackTrace();
+		}
+	}
+
+	private boolean sendRating(String mbid, String artist, String title, double rating, int date, String user)
+	{
+		boolean result = false;
+		setUpConnection();
+		try{
+			// Read connection status
+			message = (String)in.readObject();
+			System.out.println("[c]server>" + message);
+
+			// Send request method
+			sendMessage("POST");
+
+			// Send parameters
+			sendMessage(mbid);
+			sendMessage(artist);
+			sendMessage(title);
+			sendMessage("" + rating);
+			sendMessage("" + date);
+			sendMessage(user);
+
+			// Read result					
+			result = ((String)in.readObject()).equals("true");
+			System.out.println("[c]server>" + result);
+
+			// Close connection
+			message = "xxx";
+			sendMessage(message);
+		}
+		catch(ClassNotFoundException classNot){
+			System.err.println("data received in unknown format");
+		} catch (OptionalDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			tearDownConnection();
+		}
+		return result;
+	}
+
+	private boolean testConnection() {
+		boolean isOnline = false;
+	//
+		try{
+			//1. creating a socket to connect to the server
+
+			System.out.println("[c]Connecting to "+ipAddress+" in port 2005");
+			//here you must put your computer's IP address.
+			InetAddress serverAddr = InetAddress.getByName(ipAddress);
+			System.out.println("[c]Connectingg to "+serverAddr.toString()+" in port 2005");
+
+			Socket requestSocket = new Socket();
+			requestSocket.connect(new InetSocketAddress(serverAddr, 2005), 7000);
+			
+			/** */ //requestSocket = new Socket(serverAddr, 2005);
+			System.out.println("[c]Connecteddd to ... in port 2005");
+			//2. get Input and Output streams
+			out = new ObjectOutputStream(requestSocket.getOutputStream());
+			out.flush(); 
+			in = new ObjectInputStream(requestSocket.getInputStream());
+			//3: Communicating with the server
+		}
+		catch(UnknownHostException unknownHost){
+			System.err.println("You are trying to connect to an unknown host!");
+		}
+		catch(IOException ioe){
+//			ioException.printStackTrace();
+			//Toast.makeText(activity.getApplicationContext(), "Exception in Client.java [setUpConnection]", Toast.LENGTH_SHORT).show();
+			System.out.println("Exception in Client.java [setUpConnection]\n"+ioe);
+		}
+		//
+		// Read connection status
+		try {
+			message = (String)in.readObject();
+			// So far so good, we got a connection with local server
+			// Now we test if the server can reach the database
+			
+			// POST ACTION
+			sendMessage("TEST");
+			
+			// Read server response
+			String result = (String)in.readObject();
+			
+			// if result == "true", ext. db is online
+			isOnline = result.equals("true");
+			
+		} catch (Exception e) {
+			System.out.println("Exception in Client.java[testConnection]");
+			return isOnline; 
+		}
+		System.out.println("[c]server>" + message);
+
+		// Send method (in this case: closing connection
+		sendMessage("xxx");
+
+		tearDownConnection();
+		return isOnline;
+	}
+
+	private void sendMessage(String msg)
+	{
+		try{
+			out.writeObject(msg);
+			out.flush();
+			System.out.println("[c]client>" + msg);
+		}
+		catch(IOException ioException){
+			ioException.printStackTrace();
+		}
+	}
+
+	private double getRatingAvg(String mbid) {
+		double result = -1;
+		setUpConnection();
+		try{
+			// read connection status
+			message = (String)in.readObject();
+			System.out.println("[c]server>" + message);
+
+			// send request method
+			sendMessage("GET");
+			sendMessage("average");
+
+			// send parameters
+			sendMessage(mbid);
+
+			// read results
+			result = Double.parseDouble((String)in.readObject());
+			System.out.println("[c]server>" + result);
+			
+			// read second results TODO: remove here!!
+			int amt = Integer.parseInt((String)in.readObject());
+			// Since an avg rating is < 10, we can multiply the amount by 10
+			// before we add it with the average to transport 2 numbers in 1
+			// E.g; 512 ratings average to 3.5 --> 512*10 + 3.5 = 5123.5
+			// to extract numbers: avg= mod( X, 10 )
+			// amount = (X - avg) / 10
+			
+			result = result + (amt * 10) ;
+					
+			// close connection
+			String message = "xxx";
+			message = "xxx";
+			sendMessage(message);
+		}
+		catch(ClassNotFoundException classNot){
+			System.err.println("data received in unknown format");
+		}
+		catch(UnknownHostException unknownHost){
+			System.err.println("You are trying to connect to an unknown host!");
+		}
+		catch(IOException ioException){
+			ioException.printStackTrace();
+		}
+		finally{
+			tearDownConnection();
+		}
+		return result;
+	}
+	
+	
+	
+	/*
+	public static void main(String args[])
+	{
+		System.out.println("A rating was clicked in artistactivity");
+		System.out.println("Starting up server connection");
+		Client client = new Client();
+		//System.out.println("Try to send A7X - Lost: 3 stars");
+		client.sendRating("55", "Flobots", "Superhero", 4, 1535, "Winamp");
+		//client.getRatingAvg("23");
+		System.out.println("Success, Returning to activity business");
+	}*/
+
+	protected void onPostExecute(Double result) {
+		System.out.println("++*++*++*++ Finished asynctask!");
+		
+		switch(method) {
+		case SENDRATING: activity.onDoneSendingExternal(); break;
+		case GETRATING: activity.onDoneGettingExternal(result); break;
+		case ISCONNECTED: 
+
+			System.out.println("? Test connection resulted in: " + result);
+			activity.onDoneTestingExternalConnection(result); break;
+		//case GETAMOUNT: activity.onDoneGettingExternalAmount(result); break;
+		default: return;
+		}
+		
+	}
+
+	@Override
+	protected Double doInBackground(String... params) {
+		method = Integer.parseInt(params[0]);
+		System.out.println("Starting a AsyncTask method=" + method);
+		switch(method) {
+		case SENDRATING:
+			String mbid = params[1];
+			String artist = params[2];
+			String title = params[3];
+			float rating = Float.parseFloat(params[4]);
+			int date = Integer.parseInt(params[5]);
+			String user = params[6];
+			if(sendRating(mbid, artist, title, rating, date, user)) return (double) 1;
+			return (double) -1;
+		case GETRATING:
+			return getRatingAvg(params[1]);
+
+		case ISCONNECTED:
+			return (testConnection()) ? (double) 1 : (double) -1 ;
+		default:
+			return (double) -1;
+
+		}
+	}
+}

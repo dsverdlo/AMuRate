@@ -63,17 +63,10 @@ public class RatingAdapter {
 	 */
 	public float readRatingAvg(String mbid) {
 		database = dbm.getWritableDatabase();
-		System.out.println("DB: reading avg rating");
+		System.out.println("internal DB: reading avg rating");
 		Cursor results = database.rawQuery(String.format(SQL_READ_RATING_AVG, mbid), null);
-		System.out.println("before close?");
-		//database.close();
-		System.out.println("after close?");
 		if(results != null) {
-			System.out.println("it is move to first.. right?");
-			System.out.println(results.getCount());
-			//return (results.moveToFirst()) ? results.getFloat(0) : -1;
 			if(results.moveToFirst()) {
-				System.out.println("Fuck everyone and everything!");
 				database.close();
 				return results.getFloat(0);
 			} else {
@@ -95,7 +88,7 @@ public class RatingAdapter {
 	 */
 	public int readRatingAmount(String mbid) {
 		database = dbm.getWritableDatabase();
-		System.out.println("DB: reading amount ratings");
+		System.out.println("internal DB: reading amount ratings");
 		Cursor results = database.rawQuery(String.format(SQL_READ_RATING_AMOUNT, mbid), null);
 		if(results != null && results.moveToFirst()) {
 			int ret = results.getInt(0);

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.HistoryAdapter;
+import com.dsverdlo.AMuRate.services.AnimationView;
 import com.dsverdlo.AMuRate.services.MyConnection;
 
 import android.app.Activity;
@@ -15,6 +16,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private TextView results;
 	private TextView questionMark;
 	private Button view;
+	private AnimationView loading;
 	private JSONObject artist;
 	private MyConnection connection; 
 	private HistoryAdapter ha;
@@ -49,14 +52,17 @@ public class MainActivity extends Activity implements OnClickListener {
 		searchTitle = (EditText) findViewById(R.id.enterTitle);
 
 		// TODO: remove hack
-		//searchTitle.setText("hunter");
+		searchTitle.setText("hunter");
 		searchArtist.setText("Dido");
+
+		loading = (AnimationView) findViewById(R.id.gif_loading);
+		loading.setVisibility(View.GONE);
 
 		sendGetReqButton = (Button) findViewById(R.id.button_search);
 		sendGetReqButton.setOnClickListener(this);
 		sendGetReqButton.setTextColor(Color.WHITE);
 		sendGetReqButton.setText(R.string.search);
- 
+
 		cancelButton = (Button) findViewById(R.id.button_cancel);
 		cancelButton.setOnClickListener(this);
 		cancelButton.setTextColor(Color.WHITE);
@@ -67,12 +73,22 @@ public class MainActivity extends Activity implements OnClickListener {
 		questionMark.setTextColor(Color.LTGRAY);
 		questionMark.setText(" ? ");
 
+
+
 		view = (Button) findViewById(R.id.view);
 		view.setOnClickListener(this);
 		view.setVisibility(View.INVISIBLE);
 		view.setText("View");
 
 		results = (TextView) findViewById(R.id.results);
+
+		OnLongClickListener quitAction = new OnLongClickListener() {
+			public boolean onLongClick(View v) {
+				finish();
+				return false;
+			}};
+			cancelButton.setOnLongClickListener(quitAction);
+
 	}
 
 
@@ -89,13 +105,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			System.out.println("Given artist[" + givenArtist + "], given title[" + givenTitle + "]");
 
 			if(nArtist == 0 && nTitle == 0 ) {
-				Toast.makeText(getApplicationContext(), "Please enter an artist, song or both", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Please enter an artist, song or both\nTo quit, hold down on 'Cancel'", Toast.LENGTH_LONG).show();
 			} else {
-				results.setText("Loading...");
+				//results.setText("Loading...");
+				loading.setVisibility(View.VISIBLE);
+				results.setVisibility(View.INVISIBLE);
 				view.setVisibility(Button.INVISIBLE);
 
 				ha.addHistorySearch(givenArtist, givenTitle);
-				
+
 				if(nArtist > 0 && nTitle == 0) connection.getFromArtist(this, givenArtist);	
 				if(nArtist == 0 && nTitle > 0) connection.getFromTitle(this, givenTitle);	
 				if(nArtist > 0 && nTitle > 0) connection.getFromTitleAndArtist(this, givenTitle, givenArtist);	
@@ -104,6 +122,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		case R.id.button_cancel :
 			results.setText("");
+			loading.setVisibility(View.GONE);
 			view.setVisibility(Button.INVISIBLE);
 			searchArtist.setText("");
 			searchTitle.setText(""); 
@@ -129,9 +148,9 @@ public class MainActivity extends Activity implements OnClickListener {
 				newpage.putExtra("searchResults", artist.toString());
 				startActivity(newpage);				
 			} else {
-			Intent newpage = new Intent(this, SearchResultsActivity.class);
-			newpage.putExtra("searchResults", artist.toString());
-			startActivity(newpage); 
+				Intent newpage = new Intent(this, SearchResultsActivity.class);
+				newpage.putExtra("searchResults", artist.toString());
+				startActivity(newpage); 
 			}
 			break;
 
@@ -145,7 +164,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void searchResultsTitle(String resultString) {
 		if(resultString == null) {
 			Toast.makeText(getApplicationContext(), "No internet connection... Please try again later", Toast.LENGTH_SHORT).show();
+			loading.setVisibility(View.GONE);
 			results.setText("Results...");
+			results.setVisibility(View.VISIBLE);
 		} else {
 			try {
 				if(!resultString.substring(2, 7).equals("error")) {
@@ -154,8 +175,15 @@ public class MainActivity extends Activity implements OnClickListener {
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
 						search_option = SEARCH_TITLE;
-						results.setText("" + nResults + " results found...");
+						String resultsMessage = " results found!";
+						if(nResults>30) {
+							results.setText("Lots of" + resultsMessage); }
+						else {
+							results.setText("" + nResults + resultsMessage);
+						}
 						artist = JSONresults.getJSONObject("trackmatches");
+						loading.setVisibility(View.GONE);
+						results.setVisibility(View.VISIBLE);
 						view.setVisibility(Button.VISIBLE);
 					}
 
@@ -170,7 +198,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void searchResultsArtist(String resultString) {
 		if(resultString == null) {
 			Toast.makeText(getApplicationContext(), "No internet connection... Please connect and try again", Toast.LENGTH_SHORT).show();
+			loading.setVisibility(View.GONE);
 			results.setText("Results...");
+			results.setVisibility(View.VISIBLE);
 		} else {
 			try {
 				if(!resultString.substring(2, 7).equals("error")) {
@@ -179,8 +209,15 @@ public class MainActivity extends Activity implements OnClickListener {
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
 						search_option = SEARCH_ARTIST;
-						results.setText("" + nResults + " results found...");
+						String resultsMessage = " results found!";
+						if(nResults>30) {
+							results.setText("Lots of" + resultsMessage); }
+						else {
+							results.setText("" + nResults + resultsMessage);
+						}
 						artist = JSONresults.getJSONObject("artistmatches");
+						loading.setVisibility(View.GONE);
+						results.setVisibility(View.VISIBLE);
 						view.setVisibility(Button.VISIBLE);
 					}	
 				}
@@ -194,7 +231,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void searchResultsTitleAndArtist(String resultString) {
 		if(resultString == null || resultString.length() < 7) {
 			Toast.makeText(getApplicationContext(), "No internet connection... Please ensure your connection", Toast.LENGTH_SHORT).show();
+			loading.setVisibility(View.GONE);
 			results.setText("Results...");
+			results.setVisibility(View.VISIBLE);
 		} else {
 			try {
 				if(!resultString.substring(2, 7).equals("error")) {
@@ -203,9 +242,16 @@ public class MainActivity extends Activity implements OnClickListener {
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
 						search_option = SEARCH_TITLE;
-						results.setText("" + nResults + " results found...");
+						String resultsMessage = " results found!";
+						if(nResults>30) {
+							results.setText("Lots of" + resultsMessage); }
+						else {
+							results.setText("" + nResults + resultsMessage);
+						}
 						artist = JSONresults.getJSONObject("trackmatches");
+						loading.setVisibility(View.GONE);
 						view.setVisibility(Button.VISIBLE);
+						results.setVisibility(View.VISIBLE);
 					}
 				}
 			} catch (JSONException je) {

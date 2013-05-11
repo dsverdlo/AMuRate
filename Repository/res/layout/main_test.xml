@@ -97,6 +97,12 @@
         </Button>
     </LinearLayout>
 
+    <com.dsverdlo.AMuRate.services.AnimationView
+        android:id="@+id/gif_loading"
+        android:layout_width="178dp"
+        android:layout_height="130dp"
+        android:visibility="invisible" />
+
     <TextView
         android:id="@+id/results"
         android:layout_width="wrap_content"
@@ -120,5 +126,6 @@
         android:paddingTop="6sp"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
+    
     
 </LinearLayout>

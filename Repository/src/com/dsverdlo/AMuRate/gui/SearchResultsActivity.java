@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.Track;
+import com.dsverdlo.AMuRate.services.AnimationView;
 import com.dsverdlo.AMuRate.services.MyConnection;
 
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,13 +29,14 @@ import android.widget.TextView;
  */
 public class SearchResultsActivity extends Activity {
 	private MyConnection connection;
+	private LinearLayout clickedLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_results);
-
-		connection = new MyConnection();
+//
+//		connection = new MyConnection();
 		final SearchResultsActivity thisActivity = this;
 		
 		// Grab the vertical layout so we can add objects to it
@@ -62,12 +65,17 @@ public class SearchResultsActivity extends Activity {
 			JSONArray tracks = searchResults.getJSONArray(getKey);
 			System.out.println("" + tracks.length() + " objects in JSONArray");
 			for(int i = 0; i < tracks.length(); i++ ) {
+				//
+				connection = new MyConnection();
 				
 				//System.out.println("Try to get array[" + i + "]");
 				final JSONObject oneResult = tracks.getJSONObject(i);
 				Track track = new Track();
 				track.loadFromSearch(oneResult);
 
+				// If the track does not come with a mbid, skip it
+				if(track.getMBID().length() == 0) continue;
+				
 				// Create a layout for the track
 				final LinearLayout horizontalLayout = new LinearLayout(getApplicationContext());
 				horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -78,6 +86,10 @@ public class SearchResultsActivity extends Activity {
 				horizontalLayout.setPadding(5, 5, 5, 5);
 
 				ImageView picture = new ImageView(getApplicationContext());
+				AnimationView load_pic = new AnimationView(getApplicationContext(), null);
+				load_pic.setBackgroundResource(R.drawable.loading_black);
+				load_pic.setLayoutParams(new LayoutParams(120, 120));
+				picture.setVisibility(View.GONE);
 
 				LinearLayout titleLayout = new LinearLayout(getApplicationContext());
 				titleLayout.setOrientation(LinearLayout.VERTICAL); 
@@ -101,7 +113,7 @@ public class SearchResultsActivity extends Activity {
 				// if possible set image in pictureview
 				String imageUrl = track.getImage("l");
 				if(imageUrl.length() != 0) { 
-					connection.loadImage(imageUrl, picture);
+					connection.loadImage(imageUrl, picture, load_pic);
 				} else {
 					picture.setImageResource(R.drawable.not_available);
 				}
@@ -111,6 +123,7 @@ public class SearchResultsActivity extends Activity {
 				horizontalLayout.setOnClickListener( new OnClickListener() {
 					public void onClick(View v) {
 						horizontalLayout.setBackgroundResource(R.drawable.track_background_2);
+						clickedLayout = horizontalLayout;
 						System.out.println("Someone clicked a track! Starting connection for: " + mbid);
 						connection.getFromMBID(thisActivity, mbid);
 					}
@@ -119,6 +132,7 @@ public class SearchResultsActivity extends Activity {
 				
 				// Add single items to horizontal layout
 				horizontalLayout.addView(picture);
+				horizontalLayout.addView(load_pic);
 				titleLayout.addView(artist);
 				horizontalLayout.addView(titleLayout);
 				horizontalLayout.addView(next);
@@ -135,6 +149,8 @@ public class SearchResultsActivity extends Activity {
 	}
 
 	public void onPostExecute(String results) {
+		clickedLayout.setBackgroundResource(R.drawable.track_background_wider_small);
+		
 		Intent nextPage = new Intent(getApplicationContext(), TrackActivity.class);
 		nextPage.putExtra("track", results);
 		startActivity(nextPage);
