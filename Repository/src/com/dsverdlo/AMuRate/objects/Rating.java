@@ -75,4 +75,11 @@ public class Rating {
 		return date;
 	}
 
+	public void setDate(int date) {
+		this.date = date;
+	}
+	public void setDate(long date) {
+		this.date =  (int) (date / 1000L);
+	}
+
 }

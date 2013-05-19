@@ -6,10 +6,12 @@ import org.json.JSONObject;
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.HistoryAdapter;
 import com.dsverdlo.AMuRate.services.AnimationView;
+import com.dsverdlo.AMuRate.services.DatabaseSyncer;
 import com.dsverdlo.AMuRate.services.MyConnection;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,6 +38,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private EditText searchTitle;
 	private Button cancelButton;
 	private Button sendGetReqButton;
+	private Button historyButton;
 	private TextView results;
 	private TextView questionMark;
 	private Button view;
@@ -61,6 +65,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		// TODO: remove hack
 		searchTitle.setText("hunter");
 		searchArtist.setText("Dido");
+		if(getIntent().hasExtra("title") && getIntent().hasExtra("artist")) {
+			searchTitle.setText(getIntent().getStringExtra("title"));
+			searchArtist.setText(getIntent().getStringExtra("artist"));
+		}
 
 		loading = (AnimationView) findViewById(R.id.gif_loading);
 		loading.setVisibility(View.GONE);
@@ -80,12 +88,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		questionMark.setTextColor(Color.LTGRAY);
 		questionMark.setText(" ? ");
 
-
-
 		view = (Button) findViewById(R.id.view);
 		view.setOnClickListener(this);
 		view.setVisibility(View.INVISIBLE);
 		view.setText("View");
+		
+		historyButton = (Button)findViewById(R.id.main_button_history);
+		historyButton.setOnClickListener(this);
+		historyButton.setTextColor(Color.WHITE);
 
 		results = (TextView) findViewById(R.id.results);
 
@@ -93,8 +103,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			public boolean onLongClick(View v) {
 				finish();
 				return false;
-			}};
-			cancelButton.setOnLongClickListener(quitAction);
+			}
+		};
+		cancelButton.setOnLongClickListener(quitAction);
+
+		new DatabaseSyncer(getApplicationContext()).execute();
 
 	}
 
@@ -114,6 +127,13 @@ public class MainActivity extends Activity implements OnClickListener {
 			if(nArtist == 0 && nTitle == 0 ) {
 				Toast.makeText(getApplicationContext(), "Please enter an artist, song or both\nTo quit, hold down on 'Cancel'", Toast.LENGTH_LONG).show();
 			} else {
+				// The following four lines hdie the soft keyboard
+				InputMethodManager inputManager = 
+				        (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE); 
+				inputManager.hideSoftInputFromWindow(
+				        this.getCurrentFocus().getWindowToken(),
+				        InputMethodManager.HIDE_NOT_ALWAYS);
+				
 				loading.setVisibility(View.VISIBLE);
 				results.setVisibility(View.INVISIBLE);
 				view.setVisibility(Button.INVISIBLE);
@@ -160,6 +180,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 			break;
 
+		case R.id.main_button_history :
+			Intent newpage = new Intent(this, HistoryActivity.class);
+			startActivity(newpage);
 		}
 	}
 

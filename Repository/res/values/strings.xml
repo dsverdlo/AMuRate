@@ -15,5 +15,6 @@
     <string name="title_activity_main">RateTrackActivity</string>
     <string name="title_activity_album">AlbumActivity</string>
     <string name="title_activity_search_artist">SearchArtistActivity</string>
+    <string name="title_activity_history">HistoryActivity</string>
 
 </resources>

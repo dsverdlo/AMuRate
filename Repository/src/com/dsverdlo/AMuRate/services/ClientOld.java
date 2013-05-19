@@ -1,14 +1,10 @@
 package com.dsverdlo.AMuRate.services;
-
 import java.io.*;
 import java.net.*;
 
-import android.os.AsyncTask;
-
 import com.dsverdlo.AMuRate.gui.TrackActivity;
 
-
-
+import android.os.AsyncTask;
 
 /**
  * This is the client program which will communicate with the external server/database.
@@ -21,60 +17,45 @@ import com.dsverdlo.AMuRate.gui.TrackActivity;
  *
  */
 
-public class Client extends AsyncTask<String, Void, Double> {
-
-	// private members
+public class ClientOld extends AsyncTask<String, Void, Double> {
 	private TrackActivity activity;
-	private DatabaseSyncer syncer;
 	private Socket requestSocket;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private String message;
 	private int method;
 
-	// request methods
+	// Requests that the client supports
 	public static final int ISCONNECTED = 0;
 	public static final int SENDRATING = 1;
 	public static final int GETRATING = 2;
 	public static final int GETAMOUNT = 3;
-
-	private int timeOut = 6000; // 6 seconds
+	
+	private int timeOut = 7000; // 7 seconds
 	private int portNo = 2005; 
-	private String[] params; 
-
-
-	//	private String ipAddress = "localhost"; // local
-	private String ipAddress = "81.164.229.51"; // thuis
+	
+	private String ipAddress = "localhost"; // local
 	//private String ipAddress = "134.184.120.178"; // kot 
-	//private String ipAddress = "10.2.33.36"; // urbizone
+//	private String ipAddress = "10.2.33.36"; // urbizone
 	//private String ipAddress = "134.184.108.145"; // edoroam
 	//private String ipAddress = "134.184.140.70"; // vubnet
 	//private String ipAddress = "194.168.5.43"; // 3G
 	//private String ipAddress = "10.0.1.97"; // como
-
-	public Client(TrackActivity activity){ 
-		this.activity = activity;
-	}
-
-
-	public Client(DatabaseSyncer databaseSyncer) {
-		this.syncer = databaseSyncer;
-	}
+	
+	public ClientOld(TrackActivity activity){ this.activity = activity; }
 
 
 	private void setUpConnection() {
 		try{
-			//1. creating a socket to connect to the server
-
-			System.out.println("[c]Connecting to "+ipAddress+" in port "+portNo);
-			//here you must put your computer's IP address.
+			
+			System.out.println("[c] Creating a socket to connect to "+ipAddress+" in port "+portNo);
+			
 			InetAddress serverAddr = InetAddress.getByName(ipAddress);
-			System.out.println("[c]Connectingg to "+serverAddr.toString()+" in port "+portNo);
-			//			requestSocket = new Socket(serverAddr, portNo);
-
-			Socket requestSocket = new Socket();
+			System.out.println("[c] Connecting to "+serverAddr.toString()+" in port "+portNo);
+			
+			requestSocket = new Socket();
 			requestSocket.connect(new InetSocketAddress(serverAddr, portNo), timeOut);
-
+			
 			System.out.println("[c]Connected to ^ in port " + portNo);
 			//2. get Input and Output streams
 			out = new ObjectOutputStream(requestSocket.getOutputStream());
@@ -86,11 +67,9 @@ public class Client extends AsyncTask<String, Void, Double> {
 			System.err.println("You are trying to connect to an unknown host!");
 		}
 		catch(IOException ioe){
-			//			ioException.printStackTrace();
+//			ioException.printStackTrace();
 			//Toast.makeText(activity.getApplicationContext(), "Exception in Client.java [setUpConnection]", Toast.LENGTH_SHORT).show();
 			System.out.println("Exception in Client.java [setUpConnection]\n"+ioe);
-		} catch(Exception e) {
-			System.out.println("Exception in Client.java [setUpConnection]\n"+e);
 		}
 	}
 
@@ -106,10 +85,11 @@ public class Client extends AsyncTask<String, Void, Double> {
 		}
 	}
 
-	private boolean sendRating(String mbid, String artist, String title, double rating, int date, String user) {
+	private boolean sendRating(String mbid, String artist, String title, double rating, int date, String user)
+	{
 		boolean result = false;
+		setUpConnection();
 		try{
-			setUpConnection();
 			// Read connection status
 			message = (String)in.readObject();
 			System.out.println("[c]server>" + message);
@@ -132,7 +112,11 @@ public class Client extends AsyncTask<String, Void, Double> {
 		}
 		catch(ClassNotFoundException classNot){
 			System.err.println("data received in unknown format");
-		}  catch (Exception e) {
+		} catch (OptionalDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
 			tearDownConnection();
@@ -142,50 +126,24 @@ public class Client extends AsyncTask<String, Void, Double> {
 
 	private boolean testConnection() {
 		boolean isOnline = false;
-		//
-		try{
-			//1. creating a socket to connect to the server
-
-			System.out.println("[c]Connecting to "+ipAddress+" in port "+portNo);
-
-			InetAddress serverAddr = InetAddress.getByName(ipAddress);
-			System.out.println("[c]Connectingg to "+serverAddr.toString()+" in port "+portNo);
-
-			Socket requestSocket = new Socket();
-			requestSocket.connect(new InetSocketAddress(serverAddr, portNo), timeOut);
-
-			/** */ //requestSocket = new Socket(serverAddr, 2005);
-			System.out.println("[c]Connected to ... in port "+portNo);
-			//2. get Input and Output streams
-			out = new ObjectOutputStream(requestSocket.getOutputStream());
-			out.flush(); 
-			in = new ObjectInputStream(requestSocket.getInputStream());
-			//3: Communicating with the server
-		}
-		catch(UnknownHostException unknownHost){
-			System.err.println("You are trying to connect to an unknown host!");
-		}
-		catch(IOException ioe){
-			//			ioException.printStackTrace();
-			//Toast.makeText(activity.getApplicationContext(), "Exception in Client.java [setUpConnection]", Toast.LENGTH_SHORT).show();
-			System.out.println("Exception in Client.java [setUpConnection]\n"+ioe);
-		}
-		//
-		// Read connection status
+		setUpConnection();
+		
 		try {
+			// Read connection status
 			message = (String)in.readObject();
+			
 			// So far so good, we got a connection with local server
 			// Now we test if the server can reach the database
-
+			
 			// POST ACTION TEST
 			sendMessage("TEST");
-
+			
 			// Read server response
 			String result = (String)in.readObject();
-
+			
 			// if result == "true", ext. db is online
 			isOnline = result.equals("true");
-
+			
 		} catch (Exception e) {
 			System.out.println("Exception in Client.java[testConnection]");
 			return isOnline; 
@@ -226,7 +184,7 @@ public class Client extends AsyncTask<String, Void, Double> {
 			// read results
 			result = Double.parseDouble((String)in.readObject());
 			System.out.println("[c]server>" + result);
-
+			
 			// read second results TODO: remove here!!
 			int amt = Integer.parseInt((String)in.readObject());
 			// Since an avg rating is < 10, we can multiply the amount by 10
@@ -234,9 +192,9 @@ public class Client extends AsyncTask<String, Void, Double> {
 			// E.g; 512 ratings average to 3.5 --> 512*10 + 3.5 = 5123.5
 			// to extract numbers: avg= mod( X, 10 )
 			// amount = (X - avg) / 10
-
+			
 			result = result + (amt * 10) ;
-
+					
 		}
 		catch(ClassNotFoundException classNot){
 			System.err.println("data received in unknown format");
@@ -244,35 +202,32 @@ public class Client extends AsyncTask<String, Void, Double> {
 		catch(UnknownHostException unknownHost){
 			System.err.println("You are trying to connect to an unknown host!");
 		}
-		catch(Exception xception){
-			xception.printStackTrace();
+		catch(IOException ioException){
+			ioException.printStackTrace();
 		}
 		finally{
 			tearDownConnection();
 		}
 		return result;
 	}
-
+	
 
 	protected void onPostExecute(Double result) {
-		System.out.println("++*++*++*++ Finished asynctask! "+result);
-
+		System.out.println("++*++*++*++ Finished asynctask!");
+		
 		switch(method) {
-		case SENDRATING: 
-			// Send rating could alse be done by the DatabaseSyncer
-			if(activity != null) { activity.onDoneSendingExternal(); break; }
-			if(syncer != null) { syncer.onDoneSendingSynced(result); break; }
-
+		case SENDRATING: activity.onDoneSendingExternal(); break;
 		case GETRATING: activity.onDoneGettingExternal(result); break;
 		case ISCONNECTED: 
-			if(activity != null) {activity.onDoneTestingExternalConnection(result); break; }
-			if(syncer != null) { syncer.onDoneTestingExternalConnection(result); break; }
-			//case GETAMOUNT: activity.onDoneGettingExternalAmount(result); break;
+			System.out.println("? Test connection resulted in: " + result);
+			activity.onDoneTestingExternalConnection(result); break;
+		//case GETAMOUNT: activity.onDoneGettingExternalAmount(result); break;
 		default: return;
 		}
-
+		
 	}
 
+	@Override
 	protected Double doInBackground(String... params) {
 		method = Integer.parseInt(params[0]);
 		System.out.println("++*++*++*++ Starting a AsyncTask method=" + method);
@@ -284,23 +239,16 @@ public class Client extends AsyncTask<String, Void, Double> {
 			float rating = Float.parseFloat(params[4]);
 			int date = Integer.parseInt(params[5]);
 			String user = params[6];
-			if(sendRating(mbid, artist, title, rating, date, user)) {
-				return (double) 1;
-			} else {
-				return (double) -1;
-			}
+			if(sendRating(mbid, artist, title, rating, date, user)) return (double) 1;
+			return (double) -1;
 		case GETRATING:
 			return getRatingAvg(params[1]);
 
 		case ISCONNECTED:
 			return (testConnection()) ? (double) 1 : (double) -1 ;
-
 		default:
 			return (double) -1;
 
-
 		}
 	}
-
-
 }

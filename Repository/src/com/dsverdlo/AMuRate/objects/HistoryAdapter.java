@@ -28,8 +28,8 @@ public class HistoryAdapter {
 	private SQLiteDatabase database;
 	private DatabaseManager dbm;
 	
-	private final static int KEY_SEARCH = 1;
-	private final static int KEY_TRACK = 2;
+	public final static int KEY_SEARCH = 1;
+	public final static int KEY_TRACK = 2;
 
 	private final static String TABLE_HISTORY = "history";
 	
@@ -44,7 +44,7 @@ public class HistoryAdapter {
 			TABLE_HISTORY + " ( " +
 			COLUMN_ID + " integer primary key autoincrement, " + 
 			COLUMN_HISTORY_KEY + " integer not null, " + 
-			COLUMN_DATE + " date not null," +
+			COLUMN_DATE + " int not null," +
 			COLUMN_NAME + " text not null," +
 			COLUMN_TITLE + " text not null," +
 			COLUMN_MBID + " text not null" +
@@ -57,7 +57,8 @@ public class HistoryAdapter {
 	}
 
 	/**
-	 * addHistorySearch adds a value to the local search history table.
+	 * addHistorySearch adds a pair (name, title) from the search fields
+	 * to the local search history table.
 	 * 
 	 * @param name Given name
 	 * @param title Given title
@@ -70,8 +71,7 @@ public class HistoryAdapter {
 	    values.put(COLUMN_MBID, "");
 	    values.put(COLUMN_NAME, name);
 	    values.put(COLUMN_TITLE, title);
-	    Date curr_date = new Date();
-	    values.put(COLUMN_DATE, curr_date.toString());
+	    values.put(COLUMN_DATE, (int) (System.currentTimeMillis() /1000L));
 	    long insertId = database.insert(TABLE_HISTORY, null, values);
 		database.close();
 		return insertId;
@@ -79,7 +79,7 @@ public class HistoryAdapter {
 	
 	/**
 	 * This function is called when a user views a track page.
-	 * The details are kept in a table.
+	 * We store the information of the page (artist, title)
 	 * 
 	 * @param mbid
 	 * @param name
@@ -93,29 +93,38 @@ public class HistoryAdapter {
 	    values.put(COLUMN_MBID, mbid);
 	    values.put(COLUMN_NAME, name);
 	    values.put(COLUMN_TITLE, title);
-	    Date curr_date = new Date();
-	    values.put(COLUMN_DATE, curr_date.toString());
+	    values.put(COLUMN_DATE, (int) (System.currentTimeMillis() / 1000L));
 	    long insertId = database.insert(TABLE_HISTORY, null, values);
 		database.close();
 		return insertId;
 	}
 	
-	public String getSearchHistory(String query) {
+	public History[] getSearchHistory(String query) {
+		History[] histories = null;
+		
 		database = dbm.getReadableDatabase();
-		// works! TODO: you know what!
-		String result = "";
+
 		Cursor cursor = database.rawQuery(query, null);
 		if(cursor != null && cursor.moveToFirst()) {
+			histories = new History[cursor.getCount()];
 			for(int i = 0; i < cursor.getCount(); i++) {
-				result += "Row " + i + ": " + cursor.getString(3) + " - " + cursor.getString(4) + "\n";
+				History h = new History();
+				h.setArtist(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
+				h.setDate(cursor.getInt(cursor.getColumnIndex(COLUMN_DATE)));
+				h.setKey(cursor.getInt(cursor.getColumnIndex(COLUMN_HISTORY_KEY)));
+				h.setMbid(cursor.getString(cursor.getColumnIndex(COLUMN_MBID)));
+				h.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
+				
+				histories[i] = h;
 				cursor.moveToNext();
 			}
 		}
 		cursor.close();
 		database.close();
-		return result;
+		return histories;
 
 	}
+	
 	
 	public static String getSQLTableCreate() {
 		return SQL_TABLE_CREATE;

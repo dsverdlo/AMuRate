@@ -236,7 +236,8 @@ public class TrackActivity extends Activity {
 		
 
 		// Check if ext database is connectable
-		client.execute(""+Client.ISCONNECTED);
+		Client c = new Client(trackActivity);
+		c.execute(""+Client.ISCONNECTED);
 		
 
 	}
@@ -272,7 +273,8 @@ public class TrackActivity extends Activity {
 		Toast.makeText(getApplicationContext(), "Rating succesfully sent to remote db.", Toast.LENGTH_SHORT).show();
 
 		// get new avg
-		new Client(trackActivity).execute(""+Client.GETRATING, track.getMBID());
+		Client c = new Client(trackActivity);
+		c.execute(""+Client.GETRATING, track.getMBID());
 	}
 
 	public void onDoneTestingExternalConnection(Double result) {
@@ -283,15 +285,17 @@ public class TrackActivity extends Activity {
 		// and now we know this, we can get appropriate readings
 		if(isExternalDatabaseAvailable > 0){
 			// if external available, read from it
-			new Client(trackActivity).execute(""+Client.GETRATING, track.getMBID());
+			Client c = new Client(trackActivity);
+			c.execute(""+Client.GETRATING, track.getMBID());
 		} else {
 			// manually set it with info from local database
 //			onDoneGettingExternal((double) ra.readRatingAvg(track.getMBID()));
 			// TODO: unsplit
 
-			Double avg = (double) ra.readRatingAvg(track.getMBID());
+			/*Double avg = (double) ra.readRatingAvg(track.getMBID());
 			int amt = ra.readRatingAmount(track.getMBID());
-			onDoneGettingExternal(avg + (amt*10));
+			onDoneGettingExternal(avg + (amt*10));*/
+			ratingBarInfo.setText("No connection with server..");
 		}
 	}
 
@@ -309,7 +313,8 @@ public class TrackActivity extends Activity {
 		String user = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 		System.out.println("\nuserID; " + user);
 
-		new Client(trackActivity).execute(""+method, mbid, artist, title, ""+rating, ""+date, user);
+		Client c = new Client(trackActivity);
+		c.execute(""+method, mbid, artist, title, ""+rating, ""+date, user);
 
 	}
 

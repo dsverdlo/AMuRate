@@ -127,5 +127,19 @@
         android:textColor="@android:color/white"
         android:textSize="20sp" />
     
+       <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_button_history"
+        android:layout_marginTop="30sp"
+        android:layout_marginRight="20sp"
+        android:background="@layout/rounded_corners"
+        android:paddingBottom="6sp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:paddingTop="6sp"
+        android:text=" History "
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
     
 </LinearLayout>

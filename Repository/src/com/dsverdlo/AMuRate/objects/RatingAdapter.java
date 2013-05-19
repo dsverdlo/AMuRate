@@ -1,7 +1,5 @@
 package com.dsverdlo.AMuRate.objects;
 
-import java.util.Date;
-
 import com.dsverdlo.AMuRate.services.DatabaseManager;
 
 import android.content.ContentValues;
@@ -41,13 +39,15 @@ public class RatingAdapter {
 			COLUMN_NAME + " text not null, " +
 			COLUMN_TITLE + " text not null, " +
 			COLUMN_RATING + " real not null, " + 
-			COLUMN_DATE + " date not null, " +
+			COLUMN_DATE + " int not null, " +
 			COLUMN_SYNCED + " integer not null " +
 			")";
 
 	// SQL Statements
 	private static final String SQL_READ_RATING_AVG = "SELECT AVG(rating) FROM ratings WHERE mbid='%s';";
 	private static final String SQL_READ_RATING_AMOUNT = "SELECT COUNT(*) FROM ratings WHERE mbid='%s';";
+	private static final String SQL_GET_UNSYNCED_RATINGS = "SELECT * FROM ratings WHERE synced = 0;";
+	private static final String SQL_SET_RATINGS_SYNCED = "UPDATE ratings SET synced = '1' WHERE synced = '0';";
 	
 	
 	/**
@@ -117,13 +117,63 @@ public class RatingAdapter {
 	    values.put(COLUMN_NAME, name);
 	    values.put(COLUMN_TITLE, title);
 	    values.put(COLUMN_SYNCED, (synced) ? 1 : 0);
-	    Date curr_date = new Date();
-	    values.put(COLUMN_DATE, curr_date.toString());
+	    values.put(COLUMN_DATE, (int) (System.currentTimeMillis() / 1000L));
 	    long insertId = database.insert(TABLE_RATINGS, null, values);
 	    database.close();
 	    return insertId;
 	}
 
+	
+	/**
+	 * getUnsyncedRatings Get all the unsynced ratings
+	 * @param 
+	 * @return 
+	 */
+	public Rating[] getUnsyncedRatings() {
+		database = dbm.getWritableDatabase();
+		System.out.println("internal DB: getting unsynced ratings");
+		Cursor results = database.rawQuery(SQL_GET_UNSYNCED_RATINGS, null);
+		Rating[] ratings = null;
+		
+		// if there are results and we can begin from a first:
+		if(results != null && results.moveToFirst()) {
+			
+			// Make the array as big as the count of results
+			ratings = new Rating[results.getCount()];
+			System.out.println("[iDB] " + results.getCount() + " unsynced");
+			
+			// For every result: extract the rating and put it in ratings
+			for(int i = 0; i < ratings.length; i++) {
+				Rating r = new Rating();
+				r.setArtist(results.getString(results.getColumnIndex(COLUMN_NAME)));
+				r.setMbid(results.getString(results.getColumnIndex(COLUMN_MBID)));
+				r.setRating(results.getFloat(results.getColumnIndex(COLUMN_RATING)));
+				r.setTitle(results.getString(results.getColumnIndex(COLUMN_TITLE)));
+				r.setDate(results.getInt(results.getColumnIndex(COLUMN_DATE)));
+				r.setUser(results.getString(results.getColumnIndex(COLUMN_ID)));
+				ratings[i] = r;
+				results.moveToNext();
+			}
+		}
+		database.close(); 
+		return ratings;
+	}
+	
+	/**
+	 * setAllRatingsSynced Set all the ratings in the database synced
+	 * @param 
+	 * @return boolean depending on success or failure
+	 */
+	public boolean setAllRatingsSynced() {
+		database = dbm.getWritableDatabase();
+		System.out.println("internal DB: flaggin all unsynced ratings synced");
+		database.execSQL(RatingAdapter.SQL_SET_RATINGS_SYNCED);
+	
+		database.close();
+		return true;
+	}
+	
+	
 	/**
 	 * getSQLTableCreate Retrieve the SQL script to create the table.
 	 * @return SQL_TABLE_CREATE

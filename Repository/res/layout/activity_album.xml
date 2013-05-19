@@ -72,12 +72,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:background="@layout/rounded_corners"
+                android:textColor="@android:color/white"
                 android:paddingBottom="6sp"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
                 android:paddingTop="6sp"
-                android:text="X"
-                android:textColor="@android:color/white" />
+                android:text="X" />
 
             <ImageView
                 android:id="@+id/album_image"
