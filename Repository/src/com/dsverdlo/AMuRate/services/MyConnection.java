@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.dsverdlo.AMuRate.gui.AlbumActivity;
+import com.dsverdlo.AMuRate.gui.AnimationView;
 import com.dsverdlo.AMuRate.gui.ArtistActivity;
 import com.dsverdlo.AMuRate.gui.HistoryActivity;
 import com.dsverdlo.AMuRate.gui.MainActivity;

@@ -37,6 +37,7 @@ public class Client extends AsyncTask<String, Void, Double> {
 	public static final int SENDRATING = 1;
 	public static final int GETRATING = 2;
 	public static final int GETAMOUNT = 3;
+	public static final int HASRATED = 4;
 
 	private int timeOut = 6000; // 6 seconds
 	private int portNo = 2005; 
@@ -44,7 +45,7 @@ public class Client extends AsyncTask<String, Void, Double> {
 
 
 	//	private String ipAddress = "localhost"; // local
-	private String ipAddress = "81.164.229.51"; // thuis
+	private String ipAddress = "81.164.233.130"; // thuis
 	//private String ipAddress = "134.184.120.178"; // kot 
 	//private String ipAddress = "10.2.33.36"; // urbizone
 	//private String ipAddress = "134.184.108.145"; // edoroam
@@ -140,6 +141,34 @@ public class Client extends AsyncTask<String, Void, Double> {
 		return result;
 	}
 
+	private double hasRated(String mbid, String user) {
+		double result = -1;
+		try{
+			// Try setting up a connection
+			setUpConnection();
+
+			// Read connection status
+			message = (String)in.readObject();
+			System.out.println("[c]server>" + message);
+
+			// Send request method
+			sendMessage("HASRATED");
+
+			// Send parameters
+			sendMessage(mbid);
+			sendMessage(user);
+
+			// Read result					
+			result = Float.parseFloat((String)in.readObject());
+			System.out.println("[c]server>" + result);
+
+		}
+		catch (Exception e) {	e.printStackTrace();} 
+		finally{ tearDownConnection(); }
+		
+		return result;
+	}
+
 	private boolean testConnection() {
 		boolean isOnline = false;
 		//
@@ -162,13 +191,8 @@ public class Client extends AsyncTask<String, Void, Double> {
 			in = new ObjectInputStream(requestSocket.getInputStream());
 			//3: Communicating with the server
 		}
-		catch(UnknownHostException unknownHost){
-			System.err.println("You are trying to connect to an unknown host!");
-		}
-		catch(IOException ioe){
-			//			ioException.printStackTrace();
-			//Toast.makeText(activity.getApplicationContext(), "Exception in Client.java [setUpConnection]", Toast.LENGTH_SHORT).show();
-			System.out.println("Exception in Client.java [setUpConnection]\n"+ioe);
+		catch(IOException e){
+			System.out.println("Exception in Client.java [setUpConnection]\n"+e);
 		}
 		//
 		// Read connection status
@@ -260,7 +284,7 @@ public class Client extends AsyncTask<String, Void, Double> {
 		switch(method) {
 		case SENDRATING: 
 			// Send rating could alse be done by the DatabaseSyncer
-			if(activity != null) { activity.onDoneSendingExternal(); break; }
+			if(activity != null) { activity.onDoneSendingExternal(result); break; }
 			if(syncer != null) { syncer.onDoneSendingSynced(result); break; }
 
 		case GETRATING: activity.onDoneGettingExternal(result); break;
@@ -268,6 +292,7 @@ public class Client extends AsyncTask<String, Void, Double> {
 			if(activity != null) {activity.onDoneTestingExternalConnection(result); break; }
 			if(syncer != null) { syncer.onDoneTestingExternalConnection(result); break; }
 			//case GETAMOUNT: activity.onDoneGettingExternalAmount(result); break;
+		case HASRATED: { activity.onDoneCheckingHasRated(result); break; }
 		default: return;
 		}
 
@@ -295,12 +320,18 @@ public class Client extends AsyncTask<String, Void, Double> {
 		case ISCONNECTED:
 			return (testConnection()) ? (double) 1 : (double) -1 ;
 
+		case HASRATED:
+			return hasRated(params[1], params[2]);
+			
 		default:
 			return (double) -1;
 
 
 		}
 	}
+
+
+
 
 
 }

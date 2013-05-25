@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.HistoryAdapter;
-import com.dsverdlo.AMuRate.services.AnimationView;
 import com.dsverdlo.AMuRate.services.DatabaseSyncer;
 import com.dsverdlo.AMuRate.services.MyConnection;
 
@@ -285,5 +284,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		}
 	}
+	
+	
+	
+	
+	
 
 }

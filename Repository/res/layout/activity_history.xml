@@ -14,36 +14,94 @@
         <TextView
             android:id="@+id/history_title"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="History"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
             android:id="@+id/history_back"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginBottom="8dp"
             android:background="@layout/rounded_corners"
+            android:minHeight="30dp"
+            android:text="Back"
             android:textColor="@android:color/white" />
     </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/history_scroll_options"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/history_linlay_top" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/history_button_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="10dp"
+                android:minWidth="120dp"
+                android:text=" Search " />
+
+            <Button
+                android:id="@+id/history_button_track"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="10dp"
+                android:minWidth="120dp"
+                android:text=" Tracks " />
+
+            <Button
+                android:id="@+id/history_button_ratings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/white"
+                android:minWidth="120dp"
+                android:text=" Ratings " />
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <Button
         android:id="@+id/history_button_remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:background="@layout/rounded_corners"
+        android:gravity="center_horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
         android:textColor="@android:color/white" />
-    
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/history_linlay_top"
-        android:layout_above="@id/history_button_remove" >
+        android:layout_above="@id/history_button_remove"
+        android:layout_below="@id/history_scroll_options" >
 
         <LinearLayout
             android:id="@+id/history_linlay"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
         </LinearLayout>
     </ScrollView>
-
-
 
 </RelativeLayout>

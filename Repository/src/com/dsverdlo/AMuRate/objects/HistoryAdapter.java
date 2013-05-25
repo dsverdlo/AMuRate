@@ -1,7 +1,5 @@
 package com.dsverdlo.AMuRate.objects;
 
-import java.util.Date;
-
 import com.dsverdlo.AMuRate.services.DatabaseManager;
 
 import android.content.ContentValues;
@@ -49,8 +47,18 @@ public class HistoryAdapter {
 			COLUMN_TITLE + " text not null," +
 			COLUMN_MBID + " text not null" +
 			");";
+
+	public final static String SQL_GET_ALL = "SELECT * FROM " + TABLE_HISTORY;
+	public final static String SQL_GET_ALL_SEARCH = 
+			String.format("SELECT %s FROM %s WHERE %s", "*", TABLE_HISTORY, COLUMN_HISTORY_KEY + " = " + KEY_SEARCH);
+	public final static String SQL_GET_ALL_TRACKS = 
+			String.format("SELECT %s FROM %s WHERE %s", "*", TABLE_HISTORY, COLUMN_HISTORY_KEY + " = " + KEY_TRACK);
 	
-	public final static String SQL_GET_ALL = "select * from history";
+	public final static String SQL_DELETE_ALL = "DELETE FROM " + TABLE_HISTORY;
+	public final static String SQL_DELETE_SEARCH = 
+			String.format("DELETE FROM %s WHERE %s", TABLE_HISTORY, COLUMN_HISTORY_KEY + " = " + KEY_SEARCH);
+	public final static String SQL_DELETE_TRACK = 
+			String.format("DELETE FROM %s WHERE %s", TABLE_HISTORY, COLUMN_HISTORY_KEY + " = " + KEY_TRACK);
 	
 	public HistoryAdapter(Context context) {
 		dbm = new DatabaseManager(context);
@@ -101,6 +109,9 @@ public class HistoryAdapter {
 	
 	public History[] getSearchHistory(String query) {
 		History[] histories = null;
+
+		// If not a select query; return empty
+		if(!query.startsWith("SELECT")) return histories; 
 		
 		database = dbm.getReadableDatabase();
 
@@ -125,6 +136,14 @@ public class HistoryAdapter {
 
 	}
 	
+	public void deleteHistory(String sql) {
+		database = dbm.getWritableDatabase();
+		
+		// small check to see if correct sql was provided
+		if(sql.startsWith("DELETE")) database.execSQL(sql);
+		
+		database.close();
+	}
 	
 	public static String getSQLTableCreate() {
 		return SQL_TABLE_CREATE;

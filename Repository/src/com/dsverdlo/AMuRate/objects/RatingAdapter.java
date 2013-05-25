@@ -20,7 +20,7 @@ public class RatingAdapter {
 
 	private SQLiteDatabase database;
 	private DatabaseManager dbm;
-	
+
 	// SQL Statements
 	private static final String TABLE_RATINGS = "ratings";
 	private static final String COLUMN_ID = "_id";
@@ -30,7 +30,7 @@ public class RatingAdapter {
 	private static final String COLUMN_RATING = "rating";
 	private static final String COLUMN_DATE = "date";
 	private static final String COLUMN_SYNCED = "synced";
-	
+
 
 	private static final String TABLE_CREATE = "create table IF NOT EXISTS " + 
 			TABLE_RATINGS + " ( " + 
@@ -44,12 +44,14 @@ public class RatingAdapter {
 			")";
 
 	// SQL Statements
-	private static final String SQL_READ_RATING_AVG = "SELECT AVG(rating) FROM ratings WHERE mbid='%s';";
+	private static final String SQL_READ_RATING = "SELECT Rating FROM ratings WHERE mbid='%s';";
 	private static final String SQL_READ_RATING_AMOUNT = "SELECT COUNT(*) FROM ratings WHERE mbid='%s';";
 	private static final String SQL_GET_UNSYNCED_RATINGS = "SELECT * FROM ratings WHERE synced = 0;";
 	private static final String SQL_SET_RATINGS_SYNCED = "UPDATE ratings SET synced = '1' WHERE synced = '0';";
+	public static final String SQL_GET_ALL_RATINGS = "SELECT * FROM "+TABLE_RATINGS;
+	private static final String SQL_DELETE_ALL_RATINGS = "DELETE FROM "+TABLE_RATINGS;
 	
-	
+
 	/**
 	 * RatingAdapter Public constructor for the class.
 	 * @param context Context of the application
@@ -59,14 +61,14 @@ public class RatingAdapter {
 	}
 
 	/**
-	 * readRatingAvg Reads the average rating of a song from the local database.
+	 * readRating Reads the rating of a song from the local database.
 	 * @param mbid Unique identifier of the song.
 	 * @return float Rating Average. Value is -1 in case something went wrong.
 	 */
-	public float readRatingAvg(String mbid) {
+	public float readRating(String mbid) {
 		database = dbm.getWritableDatabase();
-		System.out.println("internal DB: reading avg rating");
-		Cursor results = database.rawQuery(String.format(SQL_READ_RATING_AVG, mbid), null);
+		System.out.println("internal DB: reading a rating");
+		Cursor results = database.rawQuery(String.format(SQL_READ_RATING, mbid), null);
 		if(results != null) {
 			if(results.moveToFirst()) {
 				database.close();
@@ -82,23 +84,23 @@ public class RatingAdapter {
 			return -1;
 		}
 	}
-	
+
 	/**
 	 * readRatingAmount Get the amount of ratings for a particular song
 	 * @param mbid The unique identifier of the song.
-	 * @return int The total amount of ratings for the song. If not found -1.
+	 * @return boolean True if already rated, false if not
 	 */
-	public int readRatingAmount(String mbid) {
+	public boolean hasRatedBefore(String mbid) {
 		database = dbm.getWritableDatabase();
-		System.out.println("internal DB: reading amount ratings");
+		System.out.println("internal DB: checking if already rated");
 		Cursor results = database.rawQuery(String.format(SQL_READ_RATING_AMOUNT, mbid), null);
 		if(results != null && results.moveToFirst()) {
-			int ret = results.getInt(0);
+			boolean ret = results.getInt(0) > 0;
 			database.close();
 			return ret;
 		}
 		database.close();
-		return -1;
+		return false;
 	}
 
 	/**
@@ -107,23 +109,24 @@ public class RatingAdapter {
 	 * @param name The name of the artist of the song
 	 * @param title The title of the song to be added
 	 * @param rating This float is the given rating 
-	 * @return insertID The id of the filled row.
+	 * @return insertID The id of the filled row. OR -1 is rated before
 	 */
 	public long addRating(String mbid, String name, String title, float rating, boolean synced) {
+		if(hasRatedBefore(mbid)) return -1;
 		database = dbm.getWritableDatabase();
 		ContentValues values = new ContentValues();
-	    values.put(COLUMN_RATING, rating);
-	    values.put(COLUMN_MBID, mbid);
-	    values.put(COLUMN_NAME, name);
-	    values.put(COLUMN_TITLE, title);
-	    values.put(COLUMN_SYNCED, (synced) ? 1 : 0);
-	    values.put(COLUMN_DATE, (int) (System.currentTimeMillis() / 1000L));
-	    long insertId = database.insert(TABLE_RATINGS, null, values);
-	    database.close();
-	    return insertId;
+		values.put(COLUMN_RATING, rating);
+		values.put(COLUMN_MBID, mbid);
+		values.put(COLUMN_NAME, name);
+		values.put(COLUMN_TITLE, title);
+		values.put(COLUMN_SYNCED, (synced) ? 1 : 0);
+		values.put(COLUMN_DATE, (int) (System.currentTimeMillis() / 1000L));
+		long insertId = database.insert(TABLE_RATINGS, null, values);
+		database.close();
+		return insertId;
 	}
 
-	
+
 	/**
 	 * getUnsyncedRatings Get all the unsynced ratings
 	 * @param 
@@ -134,14 +137,14 @@ public class RatingAdapter {
 		System.out.println("internal DB: getting unsynced ratings");
 		Cursor results = database.rawQuery(SQL_GET_UNSYNCED_RATINGS, null);
 		Rating[] ratings = null;
-		
+
 		// if there are results and we can begin from a first:
 		if(results != null && results.moveToFirst()) {
-			
+
 			// Make the array as big as the count of results
 			ratings = new Rating[results.getCount()];
 			System.out.println("[iDB] " + results.getCount() + " unsynced");
-			
+
 			// For every result: extract the rating and put it in ratings
 			for(int i = 0; i < ratings.length; i++) {
 				Rating r = new Rating();
@@ -158,7 +161,7 @@ public class RatingAdapter {
 		database.close(); 
 		return ratings;
 	}
-	
+
 	/**
 	 * setAllRatingsSynced Set all the ratings in the database synced
 	 * @param 
@@ -168,12 +171,12 @@ public class RatingAdapter {
 		database = dbm.getWritableDatabase();
 		System.out.println("internal DB: flaggin all unsynced ratings synced");
 		database.execSQL(RatingAdapter.SQL_SET_RATINGS_SYNCED);
-	
+
 		database.close();
 		return true;
 	}
-	
-	
+
+
 	/**
 	 * getSQLTableCreate Retrieve the SQL script to create the table.
 	 * @return SQL_TABLE_CREATE
@@ -182,4 +185,41 @@ public class RatingAdapter {
 		return TABLE_CREATE;
 	}
 
-} 
+	public Rating[] getRatings(String sql) {
+		database = dbm.getWritableDatabase();
+		Cursor results = database.rawQuery(SQL_GET_ALL_RATINGS, null);
+		Rating[] ratings = null;
+		if(results != null && results.moveToFirst()) {
+			ratings = new Rating[results.getCount()];
+			for(int i = 0; i < results.getCount(); i++) {
+				Rating r = new Rating();
+				r.setArtist(results.getString(results.getColumnIndex(COLUMN_NAME)));
+				r.setDate(results.getInt(results.getColumnIndex(COLUMN_DATE)));
+				r.setMbid(results.getString(results.getColumnIndex(COLUMN_MBID)));
+				r.setRating(results.getFloat(results.getColumnIndex(COLUMN_RATING)));
+				r.setTitle(results.getString(results.getColumnIndex(COLUMN_TITLE)));
+				
+				ratings[i] = r;
+				results.moveToNext();
+			}
+
+			database.close();
+			return ratings;
+
+		} else {
+			// Sql error
+			database.close();
+			System.out.println("SQL error in readRating");
+			return ratings;
+		}
+	}
+	
+	public void deleteRatings() {
+		database = dbm.getWritableDatabase();
+		
+		database.execSQL(SQL_DELETE_ALL_RATINGS);
+		
+		database.close();
+	}
+}
+

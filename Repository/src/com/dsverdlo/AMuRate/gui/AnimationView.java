@@ -1,4 +1,4 @@
-package com.dsverdlo.AMuRate.services;
+package com.dsverdlo.AMuRate.gui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

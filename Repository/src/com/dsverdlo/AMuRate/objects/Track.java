@@ -303,9 +303,9 @@ public class Track implements Parcelable {
 		int hours = time[2];
 		int minutes = time[1];
 		int seconds = time[0];
-		boolean hoursExtra = hours < 9;
-		boolean minsExtra = minutes < 9;
-		boolean secsExtra = seconds < 9;
+		boolean hoursExtra = hours < 10;
+		boolean minsExtra = minutes < 10;
+		boolean secsExtra = seconds < 10;
 		if(hours == 0) return "" + (minsExtra ? "0": "") + minutes + ":" + (secsExtra ? "0" : "") + seconds; 
 		return "" + (hoursExtra ? "0" : "") + hours + ":" + (minsExtra ? "0" : "") + minutes + ":" + (secsExtra ? "0" : "") + seconds;
 	}

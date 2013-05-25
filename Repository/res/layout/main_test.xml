@@ -97,7 +97,7 @@
         </Button>
     </LinearLayout>
 
-    <com.dsverdlo.AMuRate.services.AnimationView
+    <com.dsverdlo.AMuRate.gui.AnimationView
         android:id="@+id/gif_loading"
         android:layout_width="178dp"
         android:layout_height="130dp"
@@ -140,6 +140,6 @@
         android:paddingTop="6sp"
         android:text=" History "
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
     
 </LinearLayout>

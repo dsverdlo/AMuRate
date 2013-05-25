@@ -7,7 +7,6 @@ import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.Track;
-import com.dsverdlo.AMuRate.services.AnimationView;
 import com.dsverdlo.AMuRate.services.MyConnection;
 
 import android.os.Bundle;
