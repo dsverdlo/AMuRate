@@ -15,14 +15,14 @@ import com.dsverdlo.AMuRate.gui.TrackActivity;
  * On a different thread, a socket is attempted to connect with the server
  * on port 2005 (for no reason, could be some other number also)
  * 
- * Code copied from http://stackoverflow.com/questions/1776457/java-client-server-application-with-sockets
+ * Code based on http://stackoverflow.com/questions/1776457/java-client-server-application-with-sockets
  * 
  * @author David Sverdlov
  *
  */
 
-public class Client extends AsyncTask<String, Void, Double> {
-
+public class ExternalDatabaseConnect extends AsyncTask<String, Void, Double> {
+	
 	// private members
 	private TrackActivity activity;
 	private DatabaseSyncer syncer;
@@ -39,27 +39,21 @@ public class Client extends AsyncTask<String, Void, Double> {
 	public static final int GETAMOUNT = 3;
 	public static final int HASRATED = 4;
 
-	private int timeOut = 6000; // 6 seconds
+	private int timeOut = 3000; // 3 seconds as i am inpatient
 	private int portNo = 2005; 
-	private String[] params; 
 
 
-	//	private String ipAddress = "localhost"; // local
-	private String ipAddress = "81.164.233.130"; // thuis
-	//private String ipAddress = "134.184.120.178"; // kot 
-	//private String ipAddress = "10.2.33.36"; // urbizone
-	//private String ipAddress = "134.184.108.145"; // edoroam
-	//private String ipAddress = "134.184.140.70"; // vubnet
-	//private String ipAddress = "194.168.5.43"; // 3G
-	//private String ipAddress = "10.0.1.97"; // como
+	private String ipAddress;
 
-	public Client(TrackActivity activity){ 
+	public ExternalDatabaseConnect(TrackActivity activity, String ip){ 
 		this.activity = activity;
+		this.ipAddress = ip;
 	}
 
 
-	public Client(DatabaseSyncer databaseSyncer) {
+	public ExternalDatabaseConnect(DatabaseSyncer databaseSyncer, String ip) {
 		this.syncer = databaseSyncer;
+		this.ipAddress = ip;
 	}
 
 

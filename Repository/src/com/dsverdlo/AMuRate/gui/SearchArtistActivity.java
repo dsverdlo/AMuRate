@@ -7,8 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
+import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Artist;
-import com.dsverdlo.AMuRate.services.MyConnection;
+import com.dsverdlo.AMuRate.services.HttpConnect;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -30,6 +31,8 @@ import android.widget.Toast;
  *
  */
 public class SearchArtistActivity extends Activity {
+	private AMuRate amr;
+	
 	private SearchArtistActivity thisActivity;
 	
 	@Override
@@ -37,9 +40,9 @@ public class SearchArtistActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_artist);
 
-
 		thisActivity = this;
-
+		amr = (AMuRate)getApplicationContext();
+		
 		// Grab the vertical layout so we can add objects to it
 		LinearLayout ll = (LinearLayout) findViewById(R.id.searchArtistLayout);
 
@@ -73,7 +76,7 @@ public class SearchArtistActivity extends Activity {
 				artist.loadFromSearch(oneResult.toString()); // tostringed
 
 				// Create a layout for the artist
-				final LinearLayout horizontalLayout = new LinearLayout(getApplicationContext());
+				final LinearLayout horizontalLayout = new LinearLayout(amr);
 				horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
 				horizontalLayout.setGravity(Gravity.CENTER_VERTICAL);
 				//Because i can
@@ -81,21 +84,21 @@ public class SearchArtistActivity extends Activity {
 				horizontalLayout.setBackgroundResource(R.drawable.track_background_wider_small);
 				horizontalLayout.setPadding(5, 5, 5, 5);
 
-				ImageView picture = new ImageView(getApplicationContext());
+				ImageView picture = new ImageView(amr);
 
-				LinearLayout titleLayout = new LinearLayout(getApplicationContext());
+				LinearLayout titleLayout = new LinearLayout(amr);
 				titleLayout.setOrientation(LinearLayout.VERTICAL); 
 				titleLayout.setPadding(20, 0, 20, 0);
 
-				TextView artistView = new TextView(getApplicationContext());
+				TextView artistView = new TextView(amr);
 
-				TextView artistName = new TextView(getApplicationContext());
+				TextView artistName = new TextView(amr);
 				artistName.setTextColor(Color.BLACK);
 				artistName.setText(artist.getArtistName());
 				titleLayout.addView(artistName);
 				//
 
-				TextView next = new TextView(getApplicationContext());
+				TextView next = new TextView(amr);
 				next.setGravity(Gravity.RIGHT);
 
 				artistView.setTextColor(Color.BLACK);
@@ -104,7 +107,7 @@ public class SearchArtistActivity extends Activity {
 				// if possible set image in pictureview
 				String imageUrl = artist.getImage("l");
 				if(imageUrl == null) { System.out.println("Imageurl l stays null..."); }
-				MyConnection connection = new MyConnection();
+				HttpConnect connection = new HttpConnect();
 				if(imageUrl.length() > 0) { 
 					connection.loadImage(imageUrl, picture);
 				} else {
@@ -118,10 +121,10 @@ public class SearchArtistActivity extends Activity {
 						System.out.println("Someone clicked an artist! Starting connection for: " + artist.getMbid());
 						//connection.getFromMBID(thisActivity, mbid);//todo
 
-						//Intent artistIntent = new Intent(getApplicationContext(), ArtistActivity.class);
+						//Intent artistIntent = new Intent(amr, ArtistActivity.class);
 						
 
-						MyConnection conn = new MyConnection();
+						HttpConnect conn = new HttpConnect();
 						conn.getArtistInfo(artist.getMbid(), thisActivity);
 					}
 				});
@@ -159,12 +162,12 @@ public class SearchArtistActivity extends Activity {
 			JSONObject JSONartistInfo = new JSONObject(results);
 			if(!JSONartistInfo.has("artist")) {
 				// something went wrong.
-				Toast.makeText(getApplicationContext(), "No info could be obtained..", Toast.LENGTH_LONG).show();
+				Toast.makeText(amr, "No info could be obtained..", Toast.LENGTH_LONG).show();
 				return;
 			}
 			JSONObject JSONartist = JSONartistInfo.getJSONObject("artist");
 
-			Intent nextPage = new Intent(getApplicationContext(), ArtistActivity.class);
+			Intent nextPage = new Intent(amr, ArtistActivity.class);
 			nextPage.putExtra("artist", JSONartist.toString());
 			startActivity(nextPage);
 			

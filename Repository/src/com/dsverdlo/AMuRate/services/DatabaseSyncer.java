@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.dsverdlo.AMuRate.objects.Rating;
-import com.dsverdlo.AMuRate.objects.RatingAdapter;
 
 /**
  * This class will check if the local database has unsynced ratings
@@ -17,17 +16,19 @@ import com.dsverdlo.AMuRate.objects.RatingAdapter;
 public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 
 	// private members 
-	private RatingAdapter ra;
+	private InternalDatabaseRatingAdapter ra;
 	private Context context;
 	private int amtOfSyncs;
 	private int amtOfSyncsReceived;
 	private int amtOfSyncsReceivedGood;
 	private Rating[] unsynced;
+	private String ip;
 
 	// public constuctor instantiates members
-	public DatabaseSyncer(Context context) {
+	public DatabaseSyncer(Context context, String ip) {
 		this.context = context;
-		ra = new RatingAdapter(context);
+		this.ip = ip;
+		ra = new InternalDatabaseRatingAdapter(context);
 		amtOfSyncs = 0;
 		amtOfSyncsReceived = 0;
 		amtOfSyncsReceivedGood = 0;
@@ -44,7 +45,8 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 		if(unsynced != null && unsynced.length > 0) {
 
 			amtOfSyncs = unsynced.length;
-			new Client(this).execute(""+Client.ISCONNECTED); 
+			
+			new ExternalDatabaseConnect(this, ip).execute(""+ExternalDatabaseConnect.ISCONNECTED); 
 
 
 		} else {
@@ -104,7 +106,7 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 				Rating r = unsynced[i];  
 				System.out.println("DatabaseSyncer: executing unsynced request");
 				// Execute the client thread
-				new Client(this).execute(""+Client.SENDRATING,
+				new ExternalDatabaseConnect(this, ip).execute(""+ExternalDatabaseConnect.SENDRATING,
 						r.getMbid(),
 						r.getArtist(),
 						r.getTitle(),

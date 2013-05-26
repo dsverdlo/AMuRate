@@ -5,14 +5,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
+import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Album;
-import com.dsverdlo.AMuRate.services.MyConnection;
+import com.dsverdlo.AMuRate.services.HttpConnect;
 
 import android.R.color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.Menu;
@@ -22,10 +22,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 public class AlbumActivity extends Activity {
+	private AMuRate amr;
+	
 	private AlbumActivity albumActivity;
 	private TextView albumTitle, albumArtist;
 	private TextView playcount, listeners;
@@ -35,12 +36,14 @@ public class AlbumActivity extends Activity {
 	private TextView summary;
 	
 	private Album album;
-	private MyConnection connection;
+	private HttpConnect connection;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_album);
+		
+		amr = (AMuRate)getApplicationContext();
 		
 		albumActivity = this;
 		
@@ -53,7 +56,7 @@ public class AlbumActivity extends Activity {
 		tracksLayout = (LinearLayout) findViewById(R.id.album_tracks);
 		summary = (TextView) findViewById(R.id.album_summary);	
 		
-		connection = new MyConnection();
+		connection = new HttpConnect();
 		
 		Intent intent = getIntent();
 		if(intent.hasExtra("album")) {
@@ -79,7 +82,7 @@ public class AlbumActivity extends Activity {
 		albumImageClose.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				finish();
-				Intent next = new Intent(getApplicationContext(),MainActivity.class);
+				Intent next = new Intent(amr,MainActivity.class);
 				next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(next);
 			}
@@ -103,7 +106,7 @@ public class AlbumActivity extends Activity {
 				JSONObject oneTrack = tracks.getJSONObject(i);
 				final String tit = oneTrack.getString("name");
 				final String mbid = oneTrack.getString("mbid");
-				Button bt = new Button(getApplicationContext());
+				Button bt = new Button(amr);
 				bt.setBackgroundResource(R.layout.rounded_corners);
 
 				LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -116,7 +119,7 @@ public class AlbumActivity extends Activity {
 				bt.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
 						if(mbid.length() == 0) {
-							Toast.makeText(getApplicationContext(), "No MBID associated with this track.", Toast.LENGTH_SHORT).show();
+							Toast.makeText(amr, "No MBID associated with this track.", Toast.LENGTH_SHORT).show();
 //							bt.setTextColor(Color.GRAY);
 						} else {
 						connection.getFromTitleAndArtist(albumActivity, tit, album.getArtistName());
@@ -148,7 +151,7 @@ public class AlbumActivity extends Activity {
 	}
 	
 	public void searchResultsTitleAndArtist(String extraString) {
-		Intent trackActivity = new Intent(getApplicationContext(), TrackActivity.class);
+		Intent trackActivity = new Intent(amr, TrackActivity.class);
 		trackActivity.putExtra("track", extraString);
 		startActivity(trackActivity);
 	}

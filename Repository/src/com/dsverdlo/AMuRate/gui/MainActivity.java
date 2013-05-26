@@ -4,9 +4,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
-import com.dsverdlo.AMuRate.objects.HistoryAdapter;
+import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.services.DatabaseSyncer;
-import com.dsverdlo.AMuRate.services.MyConnection;
+import com.dsverdlo.AMuRate.services.InternalDatabaseHistoryAdapter;
+import com.dsverdlo.AMuRate.services.HttpConnect;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,6 +34,7 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity implements OnClickListener {
 
+	private AMuRate amr;
 	private EditText searchArtist;
 	private EditText searchTitle;
 	private Button cancelButton;
@@ -43,8 +45,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button view;
 	private AnimationView loading;
 	private JSONObject artist;
-	private MyConnection connection; 
-	private HistoryAdapter ha;
+	private HttpConnect connection; 
+	private InternalDatabaseHistoryAdapter ha;
 
 	private int search_option = 0; // 
 	private static final int SEARCH_ARTIST = 1;
@@ -55,8 +57,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_test);	
 
-		connection = new MyConnection();
-		ha = new HistoryAdapter(this);
+		// Get global vars
+		amr = (AMuRate)getApplicationContext();
+		
+		connection = new HttpConnect();
+		ha = new InternalDatabaseHistoryAdapter(this);
 
 		searchArtist = (EditText) findViewById(R.id.enterArtist);
 		searchTitle = (EditText) findViewById(R.id.enterTitle);
@@ -86,7 +91,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		questionMark.setOnClickListener(this);
 		questionMark.setTextColor(Color.LTGRAY);
 		questionMark.setText(" ? ");
-
+		questionMark.setOnLongClickListener(new OnLongClickListener() {
+				public boolean onLongClick(View v) {
+					String ip = searchTitle.getText().toString();
+					if(ip != null) {
+						amr.setIp(ip);
+						Toast.makeText(amr, "Ip set!", Toast.LENGTH_SHORT).show();
+					}
+					return false;
+		}});
+		
 		view = (Button) findViewById(R.id.view);
 		view.setOnClickListener(this);
 		view.setVisibility(View.INVISIBLE);
@@ -106,11 +120,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		};
 		cancelButton.setOnLongClickListener(quitAction);
 
-		new DatabaseSyncer(getApplicationContext()).execute();
+		new DatabaseSyncer(amr, amr.getIp()).execute();
 
 	}
 
-
+	
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.button_search : 
@@ -124,11 +138,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			System.out.println("Given artist[" + givenArtist + "], given title[" + givenTitle + "]");
 
 			if(nArtist == 0 && nTitle == 0 ) {
-				Toast.makeText(getApplicationContext(), "Please enter an artist, song or both\nTo quit, hold down on 'Cancel'", Toast.LENGTH_LONG).show();
+				Toast.makeText(amr, "Please enter an artist, song or both\nTo quit, hold down on 'Cancel'", Toast.LENGTH_LONG).show();
 			} else {
 				// The following four lines hdie the soft keyboard
 				InputMethodManager inputManager = 
-				        (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE); 
+				        (InputMethodManager) amr.getSystemService(Context.INPUT_METHOD_SERVICE); 
 				inputManager.hideSoftInputFromWindow(
 				        this.getCurrentFocus().getWindowToken(),
 				        InputMethodManager.HIDE_NOT_ALWAYS);
@@ -187,7 +201,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public void searchResultsTitle(String resultString) {
 		if(resultString == null) {
-			Toast.makeText(getApplicationContext(), "No internet connection... Please try again later", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, "No internet connection... Please try again later", Toast.LENGTH_SHORT).show();
 			loading.setVisibility(View.GONE);
 			results.setText("Results...");
 			results.setVisibility(View.VISIBLE);
@@ -221,7 +235,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public void searchResultsArtist(String resultString) {
 		if(resultString == null) {
-			Toast.makeText(getApplicationContext(), "No internet connection... Please connect and try again", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, "No internet connection... Please connect and try again", Toast.LENGTH_SHORT).show();
 			loading.setVisibility(View.GONE);
 			results.setText("Results...");
 			results.setVisibility(View.VISIBLE);
@@ -254,7 +268,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public void searchResultsTitleAndArtist(String resultString) {
 		if(resultString == null || resultString.length() < 7) {
-			Toast.makeText(getApplicationContext(), "No internet connection... Please ensure your connection", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, "No internet connection... Please ensure your connection", Toast.LENGTH_SHORT).show();
 			loading.setVisibility(View.GONE);
 			results.setText("Results...");
 			results.setVisibility(View.VISIBLE);

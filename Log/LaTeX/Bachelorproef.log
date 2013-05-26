@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.8.11)  25 MAY 2013 22:45
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.8.11)  26 MAY 2013 22:24
 entering extended mode
 **Bachelorproef.tex
 
@@ -343,26 +343,34 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 )
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\array.sty"
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen112
+\extrarowheight=\dimen113
+\NC@list=\toks21
+\extratabsurround=\skip46
+\backup@length=\skip47
+)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
 Package: amssymb 2009/06/22 v3.00
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty"
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
-\KV@toks@=\toks21
+\KV@toks@=\toks22
 )
 \lst@mode=\count100
 \lst@gtempboxa=\box28
-\lst@token=\toks22
+\lst@token=\toks23
 \lst@length=\count101
-\lst@currlwidth=\dimen112
+\lst@currlwidth=\dimen114
 \lst@column=\count102
 \lst@pos=\count103
-\lst@lostspace=\dimen113
-\lst@width=\dimen114
+\lst@lostspace=\dimen115
+\lst@width=\dimen116
 \lst@newlines=\count104
 \lst@lineno=\count105
-\lst@maxwidth=\dimen115
+\lst@maxwidth=\dimen117
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
@@ -429,7 +437,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
-\@linkdim=\dimen116
+\@linkdim=\dimen118
 \Hy@linkcounter=\count108
 \Hy@pagecounter=\count109
 
@@ -458,8 +466,8 @@ Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4653.
 \Fld@menulength=\count112
-\Field@Width=\dimen117
-\Fld@charsize=\dimen118
+\Field@Width=\dimen119
+\Fld@charsize=\dimen120
 Package hyperref Info: Hyper figures OFF on input line 5773.
 Package hyperref Info: Link nesting OFF on input line 5778.
 Package hyperref Info: Hyper index ON on input line 5781.
@@ -486,7 +494,7 @@ Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip46
+\Hy@SectionHShift=\skip48
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
@@ -502,8 +510,8 @@ File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 )
-\Gin@req@height=\dimen119
-\Gin@req@width=\dimen120
+\Gin@req@height=\dimen121
+\Gin@req@width=\dimen122
 )
 \c@reqc=\count118
 \c@figc=\count119
@@ -511,37 +519,37 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 
 (C:\Users\david\Documents\Studies\VUB\2012-2013\Bachelorproef\AMuRate\Log\LaTeX
 \Bachelorproef.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
  ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count121
-\scratchdimen=\dimen121
+\scratchdimen=\dimen123
 \scratchbox=\box30
 \nofMPsegments=\count122
 \nofMParguments=\count123
-\everyMPshowfont=\toks23
+\everyMPshowfont=\toks24
 \MPscratchCnt=\count124
-\MPscratchDim=\dimen122
+\MPscratchDim=\dimen124
 \MPnumerator=\count125
 \makeMPintoPDFobject=\count126
-\everyMPtoPDFconversion=\toks24
+\everyMPtoPDFconversion=\toks25
 )
 \c@lstlisting=\count127
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring OFF on input line 41.
+Package hyperref Info: Link coloring OFF on input line 42.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 
@@ -550,500 +558,482 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count128
 )
-LaTeX Info: Redefining \ref on input line 41.
-LaTeX Info: Redefining \pageref on input line 41.
-LaTeX Info: Redefining \nameref on input line 41.
+LaTeX Info: Redefining \ref on input line 42.
+LaTeX Info: Redefining \pageref on input line 42.
+LaTeX Info: Redefining \nameref on input line 42.
 
 (C:\Users\david\Documents\Studies\VUB\2012-2013\Bachelorproef\AMuRate\Log\LaTeX
 \Bachelorproef.out)
 (C:\Users\david\Documents\Studies\VUB\2012-2013\Bachelorproef\AMuRate\Log\LaTeX
 \Bachelorproef.out)
 \@outlinefile=\write3
- <vub_logo.jpg, id=147, 1683.28876pt x 532.99126pt>
-File: vub_logo.jpg Graphic file (type jpg)
 
-<use vub_logo.jpg>
-Package pdftex.def Info: vub_logo.jpg used on input line 44.
+<Pictures/vub_logo.jpg, id=135, 1683.28876pt x 532.99126pt>
+File: Pictures/vub_logo.jpg Graphic file (type jpg)
+
+<use Pictures/vub_logo.jpg>
+Package pdftex.def Info: Pictures/vub_logo.jpg used on input line 45.
 (pdftex.def)             Requested size: 216.0022pt x 68.38855pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 46.
- ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+LaTeX Font Info:    Try loading font information for U+msa on input line 47.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 46.
+LaTeX Font Info:    Try loading font information for U+msb on input line 47.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-<amr_gold_thick.png, id=148, 401.5pt x 376.40625pt>
-File: amr_gold_thick.png Graphic file (type png)
- <use amr_gold_thick.png>
-Package pdftex.def Info: amr_gold_thick.png used on input line 49.
-(pdftex.def)             Requested size: 113.81102pt x 106.6968pt.
+<Pictures/amr_gold_thick.png, id=136, 401.5pt x 376.40625pt>
+File: Pictures/amr_gold_thick.png Graphic file (type png)
 
-[1
+<use Pictures/amr_gold_thick.png>
+Package pdftex.def Info: Pictures/amr_gold_thick.png used on input line 50.
+(pdftex.def)             Requested size: 113.81102pt x 106.6968pt.
+ [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/david/Documents/
-Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/vub_logo.jpg> <C:/Users/d
-avid/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/amr_gold_t
-hick.png>]
+Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/vub_logo.jpg> <C
+:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/P
+ictures/amr_gold_thick.png>]
 (C:\Users\david\Documents\Studies\VUB\2012-2013\Bachelorproef\AMuRate\Log\LaTeX
 \Bachelorproef.toc)
 \tf@toc=\write4
  [2]
-Underfull \hbox (badness 10000) in paragraph at lines 65--67
+Underfull \hbox (badness 10000) in paragraph at lines 66--68
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 68--70
+Underfull \hbox (badness 10000) in paragraph at lines 69--71
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 71--73
+Underfull \hbox (badness 10000) in paragraph at lines 72--74
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 74--76
+Underfull \hbox (badness 10000) in paragraph at lines 75--77
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 77--78
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 79--83
+Underfull \hbox (badness 10000) in paragraph at lines 81--83
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--86
+Underfull \hbox (badness 10000) in paragraph at lines 84--88
 
  []
 
 
-Overfull \hbox (3.35803pt too wide) in paragraph at lines 94--97
+Underfull \hbox (badness 10000) in paragraph at lines 89--91
+
+ []
+
+[4]
+Overfull \hbox (3.35803pt too wide) in paragraph at lines 101--104
 \OT1/cmr/m/n/10.95 bruikte op-maak-talen, die gestruc-tureerde gegevens kun-nen
  omzetten in platte
  []
 
-[4]
-Overfull \hbox (9.13586pt too wide) in paragraph at lines 107--112
-\OT1/cmr/m/n/10.95 De API ver-schaft tien-tallen meth-odes zoals artist.search,
- artist.getTopAlbums,
- []
 
-
-Overfull \hbox (3.75328pt too wide) in paragraph at lines 107--112
+Overfull \hbox (3.75328pt too wide) in paragraph at lines 114--122
 \OT1/cmr/m/n/10.95 artist.getTopTracks, track.getInfo, track.search, track.getT
 ags, al-bum.search,
  []
 
 [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 126--127
+Overfull \hbox (7.00792pt too wide) in paragraph at lines 136--137
+\OT1/cmr/m/n/10.95 Hieronder volgt een tabel die alle vereis-ten op-somt, met h
+un geim-ple-menteerde
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--158
+Underfull \hbox (badness 10000) in paragraph at lines 139--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--158
+Underfull \hbox (badness 10000) in paragraph at lines 139--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--158
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 129--158
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 169--170
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 171--180
+Underfull \hbox (badness 10000) in paragraph at lines 139--168
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 181--189
+Underfull \hbox (badness 10000) in paragraph at lines 179--180
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 190--195
+Underfull \hbox (badness 10000) in paragraph at lines 181--190
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 191--198
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 199--206
 
  []
 
 [8]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 209.
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
 
- ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+ []
+
+<Pictures/Dataflow2.png, id=226, 366.6498pt x 166.7028pt>
+File: Pictures/Dataflow2.png Graphic file (type png)
+
+<use Pictures/Dataflow2.png>
+Package pdftex.def Info: Pictures/Dataflow2.png used on input line 214.
+(pdftex.def)             Requested size: 366.64888pt x 166.70238pt.
+
+Overfull \hbox (23.64888pt too wide) in paragraph at lines 214--216
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--216
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--221
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--221
+
+ []
+
+[9 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/La
+TeX/Pictures/Dataflow2.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 222--223
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 225.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 209.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 225.
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--223
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 224--236
+Underfull \hbox (badness 10000) in paragraph at lines 225--242
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 242--254
+Underfull \hbox (badness 10000) in paragraph at lines 243--257
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 264--278
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 255--256
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 265--266
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 265--266
-
- []
-
-<Pictures/device-2013-05-25-213538.png, id=244, 481.8pt x 803.0pt>
+[11] <Pictures/device-2013-05-25-213538.png, id=240, 481.8pt x 803.0pt>
 File: Pictures/device-2013-05-25-213538.png Graphic file (type png)
 
 <use Pictures/device-2013-05-25-213538.png>
 Package pdftex.def Info: Pictures/device-2013-05-25-213538.png used on input li
-ne 269.
-(pdftex.def)             Requested size: 192.71658pt x 321.1943pt.
+ne 309.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Overfull \hbox (50.4528pt too wide) in paragraph at lines 269--271
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 269--271
-
- []
-
-
-Overfull \hbox (14.08307pt too wide) in paragraph at lines 267--277
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 267--277
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 267--277
-
- []
-
-
-Underfull \hbox (badness 2478) in paragraph at lines 282--283
-\OT1/cmr/m/n/10.95 zoek-ter-men "Bo-hemian Rhap-sody" en
- []
-
-<Pictures/Screenshot_2013-05-24-21-16-07.png, id=245, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-16-07.png, id=241, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-16-07.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-16-07.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-16-07.png used on in
-put line 286.
-(pdftex.def)             Requested size: 192.71658pt x 321.1943pt.
+put line 309.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Overfull \hbox (50.4528pt too wide) in paragraph at lines 286--288
-[][]
+Underfull \hbox (badness 2478) in paragraph at lines 309--309
+\OT1/cmr/m/n/10.95 zoek-ter-men "Bo-hemian Rhap-sody" en
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 286--288
-
- []
-
-
-Overfull \hbox (50.88583pt too wide) in paragraph at lines 280--290
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 280--290
+Underfull \hbox (badness 10000) in paragraph at lines 289--310
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 280--290
+Underfull \hbox (badness 10000) in paragraph at lines 289--310
 
  []
 
-[10 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/device-2013-05-25-213538.png (PNG copy)>]
-<GUI_0124_startresults.png, id=250, 319.1925pt x 520.94624pt>
-File: GUI_0124_startresults.png Graphic file (type png)
+<Pictures/GUI_0124_startresults.png, id=242, 319.1925pt x 520.94624pt>
+File: Pictures/GUI_0124_startresults.png Graphic file (type png)
 
-<use GUI_0124_startresults.png>
-Package pdftex.def Info: GUI_0124_startresults.png used on input line 295.
+<use Pictures/GUI_0124_startresults.png>
+Package pdftex.def Info: Pictures/GUI_0124_startresults.png used on input line 
+327.
 (pdftex.def)             Requested size: 127.67473pt x 208.3748pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 295--297
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 295--297
-
- []
-
-
-Overfull \hbox (14.08307pt too wide) in paragraph at lines 293--303
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-
- []
-
-[11 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/Screenshot_2013-05-24-21-16-07.png>]
-<Pictures/Screenshot_2013-05-24-21-17-57.png, id=255, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-17-57.png, id=243, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-17-57.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-17-57.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-17-57.png used on in
-put line 312.
-(pdftex.def)             Requested size: 96.35829pt x 160.59715pt.
+put line 327.
+(pdftex.def)             Requested size: 125.26503pt x 208.77507pt.
 
-Underfull \hbox (badness 7595) in paragraph at lines 312--314
-[][] \OT1/cmr/m/it/10 Af-beeld-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 312--314
-
- []
-
-
-Overfull \hbox (50.88583pt too wide) in paragraph at lines 306--316
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 306--316
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 306--316
-
- []
-
-<Pictures/Screenshot_2013-05-24-21-18-48.png, id=256, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-18-48.png, id=244, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-18-48.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-18-48.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-18-48.png used on in
-put line 321.
-(pdftex.def)             Requested size: 96.35829pt x 160.59715pt.
+put line 344.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Underfull \hbox (badness 7595) in paragraph at lines 321--323
-[][] \OT1/cmr/m/it/10 Af-beeld-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 321--323
-
- []
-
-
-Overfull \hbox (14.08307pt too wide) in paragraph at lines 319--329
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 319--329
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 319--329
-
- []
-
-[12 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/GUI_0124_startresults.png> <C:/Users/david/Documents/Studies/VUB/2012-2013
-/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-17-57.png>]
-Underfull \hbox (badness 7981) in paragraph at lines 334--335
-[]\OT1/cmr/m/n/10.95 Wanneer er meer al-bum in-for-matie
- []
-
-<Pictures/Screenshot_2013-05-24-21-20-57.png, id=261, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-20-57.png, id=245, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-20-57.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-20-57.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-20-57.png used on in
-put line 338.
-(pdftex.def)             Requested size: 96.35829pt x 160.59715pt.
+put line 344.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Underfull \hbox (badness 7595) in paragraph at lines 338--340
-[][] \OT1/cmr/m/it/10 Af-beeld-
+Underfull \hbox (badness 7981) in paragraph at lines 344--344
+[]|\OT1/cmr/m/n/10.95 Wanneer er meer al-bum in-for-matie
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 338--340
-
- []
-
-
-Overfull \hbox (50.88583pt too wide) in paragraph at lines 332--342
-[][] 
- []
-
-<Pictures/Screenshot_2013-05-24-21-23-29.png, id=262, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-23-29.png, id=246, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-23-29.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-23-29.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-23-29.png used on in
-put line 343.
-(pdftex.def)             Requested size: 96.35829pt x 160.59715pt.
+put line 361.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Overfull \hbox (2.44553pt too wide) in paragraph at lines 343--345
-[][] \OT1/cmr/m/it/10 Af-beeld-ing 7: We willen hier enkel op arti-est-naam zoe
-ken. 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 343--345
-
- []
-
-<Pictures/Screenshot_2013-05-24-21-23-51.png, id=263, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-23-51.png, id=247, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-23-51.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-23-51.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-23-51.png used on in
-put line 347.
-(pdftex.def)             Requested size: 96.35829pt x 160.59715pt.
+put line 361.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--349
-
+Underfull \hbox (badness 4686) in paragraph at lines 361--361
+[]|\OT1/cmr/m/n/10.95 De Artist-SearchAc-tiv-ity is zeer geli-
  []
 
-[13 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/Screenshot_2013-05-24-21-18-48.png> <C:/Users/david/Documents/Stu
-dies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-
-24-21-20-57.png> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/
-AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-23-29.png>]
-<Pictures/Screenshot_2013-05-24-21-23-02.png, id=269, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-23-02.png, id=248, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-23-02.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-23-02.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-23-02.png used on in
-put line 350.
-(pdftex.def)             Requested size: 96.35829pt x 160.59715pt.
+put line 378.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 350--352
+<Pictures/Screenshot_2013-05-24-21-19-44.png, id=249, 481.8pt x 803.0pt>
+File: Pictures/Screenshot_2013-05-24-21-19-44.png Graphic file (type png)
+
+<use Pictures/Screenshot_2013-05-24-21-19-44.png>
+Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-19-44.png used on in
+put line 378.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+Underfull \hbox (badness 1466) in paragraph at lines 378--378
+\OT1/cmr/m/n/10.95 de youtube knop klikt, zal de lokale
+ []
+
+<Pictures/Screenshot_2013-05-24-21-24-20.png, id=250, 481.8pt x 803.0pt>
+File: Pictures/Screenshot_2013-05-24-21-24-20.png Graphic file (type png)
+
+<use Pictures/Screenshot_2013-05-24-21-24-20.png>
+Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-24-20.png used on in
+put line 395.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+<Pictures/device-2013-05-26-192153.png, id=251, 361.35pt x 602.25pt>
+File: Pictures/device-2013-05-26-192153.png Graphic file (type png)
+
+<use Pictures/device-2013-05-26-192153.png>
+Package pdftex.def Info: Pictures/device-2013-05-26-192153.png used on input li
+ne 395.
+(pdftex.def)             Requested size: 133.6974pt x 222.82901pt.
+
+Underfull \hbox (badness 2237) in paragraph at lines 395--395
+\OT1/cmr/m/n/10.95 boven hoek klikt, komt deze pop-up
+ []
+
+<Pictures/Screenshot_2013-05-24-21-26-47.png, id=252, 481.8pt x 803.0pt>
+File: Pictures/Screenshot_2013-05-24-21-26-47.png Graphic file (type png)
+
+<use Pictures/Screenshot_2013-05-24-21-26-47.png>
+Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-26-47.png used on in
+put line 412.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+<Pictures/Screenshot_2013-05-24-21-24-56.png, id=253, 481.8pt x 803.0pt>
+File: Pictures/Screenshot_2013-05-24-21-24-56.png Graphic file (type png)
+
+<use Pictures/Screenshot_2013-05-24-21-24-56.png>
+Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-24-56.png used on in
+put line 412.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+Underfull \hbox (badness 1102) in paragraph at lines 412--412
+[]|\OT1/cmr/m/n/10.95 Deze tab geeft een overzicht van alle
+ []
+
+
+Overfull \hbox (12.0pt too wide) in paragraph at lines 312--415
+[]| [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--415
 
  []
 
-[14 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/Screenshot_2013-05-24-21-23-51.png> <C:/Users/david/Documents/Stu
-dies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-
-24-21-23-02.png>]
-Overfull \hbox (6.76459pt too wide) in paragraph at lines 371--372
-\OT1/cmr/m/n/10.95 zoekop-dracht gedaan wor-den naar alle arti-esten/-groepen m
-et een geli-jkaardige
+[12 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
+aTeX/Pictures/device-2013-05-25-213538.png (PNG copy)> <C:/Users/david/Document
+s/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_201
+3-05-24-21-16-07.png>] [13 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bach
+elorproef/AMuRate/Log/LaTeX/Pictures/GUI_0124_startresults.png> <C:/Users/david
+/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Scree
+nshot_2013-05-24-21-17-57.png>] [14 <C:/Users/david/Documents/Studies/VUB/2012-
+2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-18-48.pn
+g> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/La
+TeX/Pictures/Screenshot_2013-05-24-21-20-57.png>] [15 <C:/Users/david/Documents
+/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013
+-05-24-21-23-29.png> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorpr
+oef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-23-51.png>] [16 <C:/Use
+rs/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictur
+es/Screenshot_2013-05-24-21-23-02.png> <C:/Users/david/Documents/Studies/VUB/20
+12-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-19-44
+.png>] [17 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRat
+e/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-24-20.png> <C:/Users/david/Docume
+nts/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/device-2013-
+05-26-192153.png>] [18 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelor
+proef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-26-47.png> <C:/Users/
+david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/
+Screenshot_2013-05-24-21-24-56.png>]
+<Pictures/datacollection.png, id=286, 356.532pt x 155.6214pt>
+File: Pictures/datacollection.png Graphic file (type png)
+
+<use Pictures/datacollection.png>
+Package pdftex.def Info: Pictures/datacollection.png used on input line 424.
+(pdftex.def)             Requested size: 356.53111pt x 155.621pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 423--426
+
  []
 
-[15] [16]
-Underfull \hbox (badness 10000) in paragraph at lines 402--403
+[19 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
+aTeX/Pictures/datacollection.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 434--436
 
  []
 
-<track_search.png, id=287, 497.60907pt x 170.13562pt>
-File: track_search.png Graphic file (type png)
- <use track_search.png>
-Package pdftex.def Info: track_search.png used on input line 405.
+
+Underfull \hbox (badness 10000) in paragraph at lines 437--439
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 440--442
+
+ []
+
+[20] [21]
+Underfull \hbox (badness 10000) in paragraph at lines 474--475
+
+ []
+
+<Pictures/track_search.png, id=303, 497.60907pt x 170.13562pt>
+File: Pictures/track_search.png Graphic file (type png)
+
+<use Pictures/track_search.png>
+Package pdftex.def Info: Pictures/track_search.png used on input line 477.
 (pdftex.def)             Requested size: 426.79134pt x 145.92436pt.
 
-Overfull \hbox (66.79134pt too wide) in paragraph at lines 404--407
+Overfull \hbox (66.79134pt too wide) in paragraph at lines 476--479
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 404--407
+Underfull \hbox (badness 10000) in paragraph at lines 476--479
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 404--407
+Underfull \hbox (badness 10000) in paragraph at lines 476--479
 
  []
 
-<track_getinfo.png, id=288, 503.63156pt x 396.7322pt>
-File: track_getinfo.png Graphic file (type png)
- <use track_getinfo.png>
-Package pdftex.def Info: track_getinfo.png used on input line 409.
+<Pictures/track_getinfo.png, id=304, 503.63156pt x 396.7322pt>
+File: Pictures/track_getinfo.png Graphic file (type png)
+
+<use Pictures/track_getinfo.png>
+Package pdftex.def Info: Pictures/track_getinfo.png used on input line 481.
 (pdftex.def)             Requested size: 426.79134pt x 336.20088pt.
 
-Overfull \hbox (66.79134pt too wide) in paragraph at lines 408--411
+Overfull \hbox (66.79134pt too wide) in paragraph at lines 480--483
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 408--411
+Underfull \hbox (badness 10000) in paragraph at lines 480--483
 
  []
 
-[17 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/track_search.png>]
+[22 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
+aTeX/Pictures/track_search.png>] [23 <C:/Users/david/Documents/Studies/VUB/2012
+-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/track_getinfo.png>]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 420.
- [18 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/
-LaTeX/track_getinfo.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 449.
- [19]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 449.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 492.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 529.
+ [24]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 529.
 
 (C:\Users\david\Documents\Studies\VUB\2012-2013\Bachelorproef\AMuRate\Log\LaTeX
 \Bachelorproef.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 449.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 449.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 529.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 529.
 Package rerunfilecheck Info: File `Bachelorproef.out' has not changed.
-(rerunfilecheck)             Checksum: E70F0090529F511B3FE2C49BB0BCFFB6;2380.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 449.
+(rerunfilecheck)             Checksum: 48EF1054D2D1E53233B3360F97C33724;2106.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 529.
  ) 
 Here is how much of TeX's memory you used:
- 7906 strings out of 494045
- 111911 string characters out of 3148387
- 206209 words of memory out of 3000000
- 11037 multiletter control sequences out of 15000+200000
+ 7985 strings out of 494045
+ 113909 string characters out of 3148387
+ 210899 words of memory out of 3000000
+ 11103 multiletter control sequences out of 15000+200000
  15932 words of font info for 62 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 29i,13n,35p,962b,391s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,14n,35p,962b,341s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKT
@@ -1055,9 +1045,9 @@ msfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Prog
 ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Bachelorproef.pdf (19 pages, 1979299 bytes).
+Output written on Bachelorproef.pdf (24 pages, 2597427 bytes).
 PDF statistics:
- 365 PDF objects out of 1000 (max. 8388607)
- 62 named destinations out of 1000 (max. 500000)
- 354 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 382 PDF objects out of 1000 (max. 8388607)
+ 65 named destinations out of 1000 (max. 500000)
+ 365 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -3,16 +3,16 @@ package com.dsverdlo.AMuRate.gui;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.dsverdlo.AMuRate.R;
+import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.History;
-import com.dsverdlo.AMuRate.objects.HistoryAdapter;
 import com.dsverdlo.AMuRate.objects.Rating;
-import com.dsverdlo.AMuRate.objects.RatingAdapter;
-import com.dsverdlo.AMuRate.services.MyConnection;
+import com.dsverdlo.AMuRate.services.InternalDatabaseHistoryAdapter;
+import com.dsverdlo.AMuRate.services.HttpConnect;
+import com.dsverdlo.AMuRate.services.InternalDatabaseRatingAdapter;
 
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,10 +27,11 @@ import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class HistoryActivity extends Activity {
-	private HistoryAdapter ha;
-	private RatingAdapter ra;
+	private AMuRate amr;
+	
+	private InternalDatabaseHistoryAdapter ha;
+	private InternalDatabaseRatingAdapter ra;
 	private HistoryActivity activity;
-	private Context context;
 	private String textBeforeLoading;
 	private Button buttonLoading;
 
@@ -55,9 +56,9 @@ public class HistoryActivity extends Activity {
 		setContentView(R.layout.activity_history);
 
 		activity = this;
-		context = getApplicationContext();
-		ha = new HistoryAdapter(context);
-		ra = new RatingAdapter(context);
+		amr = (AMuRate)getApplicationContext();
+		ha = new InternalDatabaseHistoryAdapter(amr);
+		ra = new InternalDatabaseRatingAdapter(amr);
 
 		// Load the layout 
 		lv = (LinearLayout)findViewById(R.id.history_linlay);
@@ -73,11 +74,11 @@ public class HistoryActivity extends Activity {
 			public void onClick(View v) {
 				switch(currentOption) {
 				case optionSearch:
-					ha.deleteHistory(HistoryAdapter.SQL_DELETE_SEARCH);
+					ha.deleteHistory(InternalDatabaseHistoryAdapter.SQL_DELETE_SEARCH);
 					lv.removeAllViews();
 					break;
 				case optionTracks:
-					ha.deleteHistory(HistoryAdapter.SQL_DELETE_TRACK);
+					ha.deleteHistory(InternalDatabaseHistoryAdapter.SQL_DELETE_TRACK);
 					lv.removeAllViews();
 					break;
 				case optionRating:
@@ -106,7 +107,7 @@ public class HistoryActivity extends Activity {
 					lv.removeAllViews();
 					loadRatings();
 				} else {
-					Toast.makeText(context, "Already showing ratings...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, "Already showing ratings...", Toast.LENGTH_SHORT).show();
 				} 
 			}
 		} );
@@ -119,7 +120,7 @@ public class HistoryActivity extends Activity {
 					lv.removeAllViews();
 					loadTracks();
 				}else {
-					Toast.makeText(context, "Already showing tracks...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, "Already showing tracks...", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -132,7 +133,7 @@ public class HistoryActivity extends Activity {
 					lv.removeAllViews();
 					loadSearch();
 				} else {
-					Toast.makeText(context, "Already showing search...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, "Already showing search...", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -180,15 +181,15 @@ public class HistoryActivity extends Activity {
 	public void onDoneLoadingTrackinfo(String trackInfo) {
 		buttonLoading.setText(textBeforeLoading);
 
-		Intent nextPage = new Intent(context, TrackActivity.class);
+		Intent nextPage = new Intent(amr, TrackActivity.class);
 		nextPage.putExtra("track", trackInfo);
 		startActivity(nextPage);
 	}
 
 	private void loadRatings() {
-		Rating[] ratings = ra.getRatings(RatingAdapter.SQL_GET_ALL_RATINGS);
+		Rating[] ratings = ra.getRatings(InternalDatabaseRatingAdapter.SQL_GET_ALL_RATINGS);
 		if(ratings == null) {
-			TextView tv = new TextView(context);
+			TextView tv = new TextView(amr);
 			tv.setText("No history yet.");
 			lv.addView(tv);
 			return;
@@ -197,7 +198,7 @@ public class HistoryActivity extends Activity {
 		System.out.println("HistoryActivity says: " + ratings.length);
 		// Otherwise, for every rating we make a view in the listview
 		for(int i = ratings.length; i > 0; i--) {
-			Button b = new Button(context);
+			Button b = new Button(amr);
 			b.setBackgroundResource(R.layout.rounded_corners);
 
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -216,7 +217,7 @@ public class HistoryActivity extends Activity {
 
 			b.setOnClickListener(new OnClickListener() {
 				public void onClick(View arg0) {
-					Toast.makeText(context, "On: "+dateToString(date), Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, "On: "+dateToString(date), Toast.LENGTH_SHORT).show();
 				}
 			});
 			lv.addView(b);
@@ -226,11 +227,11 @@ public class HistoryActivity extends Activity {
 
 
 	private void loadSearch() {
-		History[] histories = ha.getSearchHistory(HistoryAdapter.SQL_GET_ALL_SEARCH);
+		History[] histories = ha.getSearchHistory(InternalDatabaseHistoryAdapter.SQL_GET_ALL_SEARCH);
 
 		// If there is no search history yet, display a textview saying that
 		if(histories == null) {
-			TextView tv = new TextView(context);
+			TextView tv = new TextView(amr);
 			tv.setText("No searches performed yet.");
 			lv.addView(tv);
 			return;
@@ -239,7 +240,7 @@ public class HistoryActivity extends Activity {
 		System.out.println("HistoryActivity says: " + histories.length);
 		// Otherwise, for every history we make a button in the listview
 		for(int i = histories.length; i > 0; i--) {
-			Button b = new Button(context);
+			Button b = new Button(amr);
 			b.setBackgroundResource(R.layout.rounded_corners);
 
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -257,13 +258,13 @@ public class HistoryActivity extends Activity {
 
 			b.setOnLongClickListener(new OnLongClickListener() {
 				public boolean onLongClick(View v) {
-					Toast.makeText(context, "On: "+dateToString(date), Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, "On: "+dateToString(date), Toast.LENGTH_SHORT).show();
 					return true;
 				}
 			});
 			b.setOnClickListener(new OnClickListener() {
 				public void onClick(View arg0) {
-					Intent next = new Intent(context, MainActivity.class);
+					Intent next = new Intent(amr, MainActivity.class);
 					next.putExtra("title", title);
 					next.putExtra("artist", artist);
 					finish();
@@ -277,11 +278,11 @@ public class HistoryActivity extends Activity {
 	}
 
 	private void loadTracks() {
-		History[] histories = ha.getSearchHistory(HistoryAdapter.SQL_GET_ALL_TRACKS);
+		History[] histories = ha.getSearchHistory(InternalDatabaseHistoryAdapter.SQL_GET_ALL_TRACKS);
 
 		// If there is no track history yet, display a textview saying that
 		if(histories == null) {
-			TextView tv = new TextView(context);
+			TextView tv = new TextView(amr);
 			tv.setText("No tracks viewed yet.");
 			lv.addView(tv);
 			return;
@@ -290,7 +291,7 @@ public class HistoryActivity extends Activity {
 		System.out.println("HistoryActivity says: " + histories.length);
 		// Otherwise, for every history we make a button in the listview
 		for(int i = histories.length; i > 0; i--) {
-			final Button b = new Button(context);
+			final Button b = new Button(amr);
 			b.setBackgroundResource(R.layout.rounded_corners);
 
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -309,13 +310,13 @@ public class HistoryActivity extends Activity {
 			
 			b.setOnLongClickListener(new OnLongClickListener() {
 				public boolean onLongClick(View v) {
-					Toast.makeText(context, "On: "+dateToString(date), Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, "On: "+dateToString(date), Toast.LENGTH_SHORT).show();
 					return true;
 				}
 			});
 			b.setOnClickListener(new OnClickListener() {
 				public void onClick(View arg0) {
-					MyConnection conn = new MyConnection();
+					HttpConnect conn = new HttpConnect();
 					textBeforeLoading = (String) b.getText();
 					buttonLoading = b;
 					b.setText("Track: loading...");

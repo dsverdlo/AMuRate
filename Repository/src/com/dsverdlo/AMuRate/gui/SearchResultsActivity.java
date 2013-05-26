@@ -6,8 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
+import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Track;
-import com.dsverdlo.AMuRate.services.MyConnection;
+import com.dsverdlo.AMuRate.services.HttpConnect;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -20,7 +21,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Display the search results on the screen.
@@ -30,13 +30,15 @@ import android.widget.Toast;
 public class SearchResultsActivity extends Activity {
 	// Save the clickedLayout so we can alter it when the connection returns
 	private LinearLayout clickedLayout;
-
+	private AMuRate amr;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_results);
 
 		final SearchResultsActivity thisActivity = this;
+		amr = (AMuRate)getApplicationContext();
 		
 		// Grab the vertical layout so we can add objects to it
 		LinearLayout ll = (LinearLayout) findViewById(R.id.searchResultsLayout);
@@ -65,8 +67,8 @@ public class SearchResultsActivity extends Activity {
 			System.out.println("" + tracks.length() + " objects in JSONArray");
 			for(int i = 0; i < tracks.length(); i++ ) {
 				//
-				MyConnection connection = new MyConnection();
-				connection = new MyConnection();
+				HttpConnect connection = new HttpConnect();
+				connection = new HttpConnect();
 				
 				//System.out.println("Try to get array[" + i + "]");
 				final JSONObject oneResult = tracks.getJSONObject(i);
@@ -80,7 +82,7 @@ public class SearchResultsActivity extends Activity {
 				}
 				
 				// Create a layout for the track
-				final LinearLayout horizontalLayout = new LinearLayout(getApplicationContext());
+				final LinearLayout horizontalLayout = new LinearLayout(amr);
 				horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
 				horizontalLayout.setGravity(Gravity.CENTER_VERTICAL);
 				//Because i can
@@ -88,26 +90,26 @@ public class SearchResultsActivity extends Activity {
 				horizontalLayout.setBackgroundResource(R.drawable.track_background_wider_small);
 				horizontalLayout.setPadding(5, 5, 5, 5);
 
-				ImageView picture = new ImageView(getApplicationContext());
-				AnimationView load_pic = new AnimationView(getApplicationContext(), null);
+				ImageView picture = new ImageView(amr);
+				AnimationView load_pic = new AnimationView(amr, null);
 				//load_pic.setBackgroundResource(R.drawable.loading_black);
 				load_pic.setLayoutParams(new LayoutParams(120, 120));
 				picture.setVisibility(View.GONE);
 
-				LinearLayout titleLayout = new LinearLayout(getApplicationContext());
+				LinearLayout titleLayout = new LinearLayout(amr);
 				titleLayout.setOrientation(LinearLayout.VERTICAL); 
 				titleLayout.setPadding(20, 0, 20, 0);
 
-				TextView artist = new TextView(getApplicationContext());
+				TextView artist = new TextView(amr);
 
 				//if(getKey.equals("track")) {
-				TextView title = new TextView(getApplicationContext());
+				TextView title = new TextView(amr);
 				title.setTextColor(Color.BLACK);
 				title.setText(track.getTitle());
 				titleLayout.addView(title);
 					//
 				
-				TextView next = new TextView(getApplicationContext());
+				TextView next = new TextView(amr);
 				next.setGravity(Gravity.RIGHT);
 
 				artist.setTextColor(Color.BLACK);
@@ -129,7 +131,7 @@ public class SearchResultsActivity extends Activity {
 						clickedLayout = horizontalLayout;
 						System.out.println("Someone clicked a track! Starting connection for: " + mbid);
 
-						MyConnection connection = new MyConnection();
+						HttpConnect connection = new HttpConnect();
 						connection.getFromMBID(thisActivity, mbid);
 					}
 				});
@@ -156,7 +158,7 @@ public class SearchResultsActivity extends Activity {
 	public void onPostExecute(String results) {
 		clickedLayout.setBackgroundResource(R.drawable.track_background_wider_small);
 		
-		Intent nextPage = new Intent(getApplicationContext(), TrackActivity.class);
+		Intent nextPage = new Intent(amr, TrackActivity.class);
 		nextPage.putExtra("track", results);
 		startActivity(nextPage);
 	}

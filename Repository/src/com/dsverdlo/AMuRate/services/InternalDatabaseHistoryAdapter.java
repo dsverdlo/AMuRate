@@ -1,6 +1,6 @@
-package com.dsverdlo.AMuRate.objects;
+package com.dsverdlo.AMuRate.services;
 
-import com.dsverdlo.AMuRate.services.DatabaseManager;
+import com.dsverdlo.AMuRate.objects.History;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,10 +21,10 @@ import android.database.sqlite.SQLiteDatabase;
  * @author David Sverdlov
  *
  */
-public class HistoryAdapter {
+public class InternalDatabaseHistoryAdapter {
 
 	private SQLiteDatabase database;
-	private DatabaseManager dbm;
+	private InternalDatabaseManager dbm;
 	
 	public final static int KEY_SEARCH = 1;
 	public final static int KEY_TRACK = 2;
@@ -60,8 +60,8 @@ public class HistoryAdapter {
 	public final static String SQL_DELETE_TRACK = 
 			String.format("DELETE FROM %s WHERE %s", TABLE_HISTORY, COLUMN_HISTORY_KEY + " = " + KEY_TRACK);
 	
-	public HistoryAdapter(Context context) {
-		dbm = new DatabaseManager(context);
+	public InternalDatabaseHistoryAdapter(Context context) {
+		dbm = new InternalDatabaseManager(context);
 	}
 
 	/**

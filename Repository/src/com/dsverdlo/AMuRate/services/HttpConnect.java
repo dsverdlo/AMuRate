@@ -37,7 +37,7 @@ import android.widget.ImageView;
  * @author David Sverdlov
  *
  */
-public class MyConnection  {
+public class HttpConnect  {
 
 	public void getFromTitle(final MainActivity main, final String givenTitle) {
 

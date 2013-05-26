@@ -4,12 +4,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
-import com.dsverdlo.AMuRate.objects.HistoryAdapter;
-import com.dsverdlo.AMuRate.objects.RatingAdapter;
+import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Track;
-import com.dsverdlo.AMuRate.services.Client;
+import com.dsverdlo.AMuRate.services.ExternalDatabaseConnect;
 import com.dsverdlo.AMuRate.services.DatabaseSyncer;
-import com.dsverdlo.AMuRate.services.MyConnection;
+import com.dsverdlo.AMuRate.services.InternalDatabaseHistoryAdapter;
+import com.dsverdlo.AMuRate.services.HttpConnect;
+import com.dsverdlo.AMuRate.services.InternalDatabaseRatingAdapter;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,6 +35,8 @@ import android.widget.Toast;
  */
 
 public class TrackActivity extends Activity {
+	private AMuRate amr;
+	
 	private TrackActivity trackActivity;
 	private final Track track = new Track();
 	final String ratingBarInfoString = "Average: %.1f (based on %d reviews)";
@@ -49,8 +53,8 @@ public class TrackActivity extends Activity {
 	private TextView title;
 	private TextView ratingBarInfo;
 
-	private RatingAdapter ra;
-	private HistoryAdapter ha;
+	private InternalDatabaseRatingAdapter ra;
+	private InternalDatabaseHistoryAdapter ha;
 
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class TrackActivity extends Activity {
 		setContentView(R.layout.track_activity);
 
 		trackActivity = this;
+		amr = (AMuRate) getApplicationContext();
 
 		// Load the track 
 		if(getIntent().hasExtra("track")) {
@@ -77,13 +82,13 @@ public class TrackActivity extends Activity {
 		loading_image.setVisibility(View.VISIBLE);
 		
 		// DB communication
-		ra = new RatingAdapter(this);
+		ra = new InternalDatabaseRatingAdapter(this);
 
 		// External DB communication
 		isExternalDatabaseAvailable = -1; // unchecked
 
 		// Save in history
-		ha = new HistoryAdapter(this);
+		ha = new InternalDatabaseHistoryAdapter(this);
 		ha.addHistoryTrack(track.getMBID(), track.getArtist(), track.getTitle());
 
 		title = (TextView) findViewById(R.id.track_title);
@@ -99,13 +104,14 @@ public class TrackActivity extends Activity {
 		ratingBar.setNumStars(5); // TODO: remove here
 		ratingBar.setStepSize((float) 0.5);
 
-		ratingBarInfo = (TextView) findViewById(R.id.track_ratingbarinfo); 		ratingBarInfo2 = (TextView) findViewById(R.id.track_ratingbarinfo2);
+		ratingBarInfo = (TextView) findViewById(R.id.track_ratingbarinfo); 		
+		ratingBarInfo2 = (TextView) findViewById(R.id.track_ratingbarinfo2);
 
 		youtube = (ImageButton) findViewById(R.id.track_youtube);
 
 		youtube.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {	
-				PackageManager pm = getApplicationContext().getPackageManager();
+				PackageManager pm = amr.getPackageManager();
 				try {
 					// Semi check to see if youtube app is installed:
 					pm.getPackageInfo("com.google.android.youtube", PackageManager.GET_ACTIVITIES);
@@ -118,7 +124,7 @@ public class TrackActivity extends Activity {
 				}
 				catch (Exception ex){
 					// if not installed it will raise exception so we show a Toast
-					Toast.makeText(getApplicationContext(), "Youtube app not found...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, "Youtube app not found...", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -127,7 +133,7 @@ public class TrackActivity extends Activity {
 		back.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				finish();
-				Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+				Intent mainIntent = new Intent(amr, MainActivity.class);
 				mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(mainIntent);
 			}
@@ -144,10 +150,10 @@ public class TrackActivity extends Activity {
 			public void onClick(View arg0) {
 				String artistMBID = track.getArtistMBID();
 				if(artistMBID.length()>0) {
-					MyConnection conn = new MyConnection();
+					HttpConnect conn = new HttpConnect();
 					conn.getFromArtistMBID(trackActivity, artistMBID);
 				} else {
-					Toast.makeText(getApplicationContext(), "This artist did not have an ID.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, "This artist did not have an ID.", Toast.LENGTH_SHORT).show();
 					
 				
 				}
@@ -157,13 +163,13 @@ public class TrackActivity extends Activity {
 		// Check if an image can be displayed. If there is no large, try a medium.
 		String imageUrl = track.getImage("l");
 		if(imageUrl.length() > 0) {
-			MyConnection conn = new MyConnection();
+			HttpConnect conn = new HttpConnect();
 			conn.loadImage(imageUrl, image, loading_image);
 		} else {
 			// Else try a medium picture
 			String OtherImageUrl = track.getImage("m");
 			if(OtherImageUrl.length() > 0) {
-				MyConnection conn = new MyConnection();
+				HttpConnect conn = new HttpConnect();
 				conn.loadImage(OtherImageUrl, image, loading_image);
 			} else image.setImageResource(R.drawable.not_available);
 		}
@@ -177,7 +183,7 @@ public class TrackActivity extends Activity {
 				public void onClick(View arg0) {
 					//album.setTextColor(Color.DKGRAY);
 					System.out.println("You click on the album");
-					MyConnection conn = new MyConnection();
+					HttpConnect conn = new HttpConnect();
 					conn.getFromAlbum(trackActivity, track.getAlbumMBID());
 					//album.setTextColor(Color.CYAN);
 				}
@@ -191,17 +197,17 @@ public class TrackActivity extends Activity {
 			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 				switch(isExternalDatabaseAvailable) {
 				case -1: //check hasnt registered yet, stall time until Asynctask is done
-					Toast.makeText(getApplicationContext(), "Testing connection, please try again", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, "Testing connection, please try again", Toast.LENGTH_SHORT).show();
 					break;
 				case 1: sendToExternalDatabase(); 
-				Toast.makeText(getApplicationContext(), "Sending to ext DB", Toast.LENGTH_SHORT).show();
+				Toast.makeText(amr, "Sending to ext DB", Toast.LENGTH_SHORT).show();
 				ratingBar.setClickable(false);
 				ratingBar.setEnabled(false);
 				ratingBarInfo2.setText("You rated this track: "+rating);
 				ratingBarInfo2.setVisibility(View.VISIBLE);
 				break;
 				case 0: sendToInternalDatabase(); 
-				Toast.makeText(getApplicationContext(), "Sending to int DB", Toast.LENGTH_SHORT).show();		
+				Toast.makeText(amr, "Sending to int DB", Toast.LENGTH_SHORT).show();		
 				ratingBar.setClickable(false);
 				ratingBar.setEnabled(false);
 				ratingBarInfo2.setText("You rated this track: "+rating);
@@ -219,7 +225,7 @@ public class TrackActivity extends Activity {
 			ratingBar.setEnabled(false);
 			ratingBar.setOnClickListener(new OnClickListener() {
 				public void onClick(View arg0) {
-					Toast.makeText(getApplicationContext(), "This track does not have an mbid associated with it", Toast.LENGTH_SHORT).show();					
+					Toast.makeText(amr, "This track does not have an mbid associated with it", Toast.LENGTH_SHORT).show();					
 				}
 			});
 		}
@@ -227,10 +233,10 @@ public class TrackActivity extends Activity {
 		title.setSelected(true);
 		
 		// Check if ext database is connectable
-		new Client(trackActivity).execute(""+Client.ISCONNECTED);
+		new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.ISCONNECTED);
 		
 		// Try syncing aswell
-		new DatabaseSyncer(getApplicationContext()).execute();
+		new DatabaseSyncer(amr, amr.getIp()).execute();
 	}
 
 
@@ -259,19 +265,19 @@ public class TrackActivity extends Activity {
 
 		if(result > 0) { // Sent succesfully
 			
-			Toast.makeText(getApplicationContext(), "Rating succesfully sent to remote db.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, "Rating succesfully sent to remote db.", Toast.LENGTH_SHORT).show();
 
 			// get new avg
-			new Client(trackActivity).execute(""+Client.GETRATING, track.getMBID());
+			new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.GETRATING, track.getMBID());
 		} else {
 			// Sending did not succeed so send it unsynced to int database
-			Toast.makeText(getApplicationContext(), "Rating sending to remote db failed.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, "Rating sending to remote db failed.", Toast.LENGTH_SHORT).show();
 			
 			sendToInternalDatabase(); 
 			
 			// Also retest connection
-			Toast.makeText(getApplicationContext(), "Retesting connection...", Toast.LENGTH_SHORT).show();
-			new Client(trackActivity).execute(""+Client.ISCONNECTED);
+			Toast.makeText(amr, "Retesting connection...", Toast.LENGTH_SHORT).show();
+			new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.ISCONNECTED);
 		}
 	}
 
@@ -283,11 +289,11 @@ public class TrackActivity extends Activity {
 		// and now we know this, we can get appropriate readings
 		if(isExternalDatabaseAvailable > 0){
 			// if external available, read from it
-			new Client(trackActivity).execute(""+Client.GETRATING, track.getMBID());
+			new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.GETRATING, track.getMBID());
 			
 			// and check if user has already rated this
 			String user = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-			new Client(trackActivity).execute(""+Client.HASRATED, track.getMBID(), user);
+			new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.HASRATED, track.getMBID(), user);
 			
 			
 		} else {
@@ -317,7 +323,7 @@ public class TrackActivity extends Activity {
 	private void sendToExternalDatabase() {
 		System.out.println("DBDB__" + "sendToExternalDB");
 		// Prepare params for AsyncTask
-		int method = Client.SENDRATING;
+		int method = ExternalDatabaseConnect.SENDRATING;
 		String mbid = track.getMBID();
 		String artist = track.getArtist();
 		String title = track.getTitle();
@@ -331,7 +337,7 @@ public class TrackActivity extends Activity {
 		ra.addRating(track.getMBID(), track.getArtist(), track.getTitle(), rating, true);
 		
 		// Finally send to ext db
-		new Client(trackActivity).execute(""+method, mbid, artist, title, ""+rating, ""+date, user);
+		new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+method, mbid, artist, title, ""+rating, ""+date, user);
 		
 		
 	}
@@ -344,14 +350,14 @@ public class TrackActivity extends Activity {
 		float rating = ratingBar.getRating();
 		long addResult = ra.addRating(track.getMBID(), track.getArtist(), track.getTitle(), rating, false);
 		if(addResult < 0) {
-			Toast.makeText(getApplicationContext(), "You already rated this", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, "You already rated this", Toast.LENGTH_SHORT).show();
 		} else {
 			float avg = ra.readRating(track.getMBID());
 			int amt = 1;//ra.readRating(track.getMBID());
 			onDoneGettingExternal((double) avg + (amt * 10) );
 			//int amt = ra.readRatingAmount(track.getMBID());
 			//ratingBarInfo.setText(String.format(ratingBarInfoString, Math.ceil(avg * 2) / 2.0, amt));
-			//Toast.makeText(getApplicationContext(), "Thank you for your rating!", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(amr, "Thank you for your rating!", Toast.LENGTH_SHORT).show();
 			ratingBar.setClickable(false);
 			ratingBar.setEnabled(false);
 		}
@@ -371,13 +377,13 @@ public class TrackActivity extends Activity {
 			JSONObject JSONartistInfo = new JSONObject(artistInfo);
 			if(!JSONartistInfo.has("artist")) {
 				// something went wrong.
-				Toast.makeText(getApplicationContext(), "No info could be obtained..", Toast.LENGTH_LONG).show();
+				Toast.makeText(amr, "No info could be obtained..", Toast.LENGTH_LONG).show();
 				return;
 			}
 			JSONObject JSONartist = JSONartistInfo.getJSONObject("artist");
 			
 			
-		Intent artistIntent = new Intent(getApplicationContext(), ArtistActivity.class);
+		Intent artistIntent = new Intent(amr, ArtistActivity.class);
 		artistIntent.putExtra("artist", JSONartist.toString());
 		System.out.println("Starting ArtistActivity intent");
 		startActivity(artistIntent);
@@ -388,7 +394,7 @@ public class TrackActivity extends Activity {
 	}
 
 	public void onDoneLoadingAlbum(String album) {
-		Intent albumIntent = new Intent(getApplicationContext(), AlbumActivity.class);
+		Intent albumIntent = new Intent(amr, AlbumActivity.class);
 		albumIntent.putExtra("album", album);
 		System.out.println("Starting AlbumActivity intent");
 

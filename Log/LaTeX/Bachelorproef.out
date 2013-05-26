@@ -14,23 +14,20 @@
 \BOOKMARK [2][-]{subsection.2.4}{Naam en logo}{section.2}% 14
 \BOOKMARK [1][-]{section.3}{Vereisten}{}% 15
 \BOOKMARK [1][-]{section.4}{Implementatie}{}% 16
-\BOOKMARK [2][-]{subsection.4.1}{Package onderverdeling}{section.4}% 17
-\BOOKMARK [2][-]{subsection.4.2}{Database}{section.4}% 18
-\BOOKMARK [3][-]{subsubsection.4.2.1}{Lokale Database}{subsection.4.2}% 19
-\BOOKMARK [3][-]{subsubsection.4.2.2}{Externe Database}{subsection.4.2}% 20
-\BOOKMARK [1][-]{section.5}{GUI}{}% 21
-\BOOKMARK [1][-]{section.6}{Technische details}{}% 22
-\BOOKMARK [2][-]{subsection.6.1}{Data collection}{section.6}% 23
-\BOOKMARK [2][-]{subsection.6.2}{Unieke records}{section.6}% 24
-\BOOKMARK [2][-]{subsection.6.3}{Verschillende zoekopdrachten}{section.6}% 25
-\BOOKMARK [3][-]{subsubsection.6.3.1}{Geen artiest en geen titel}{subsection.6.3}% 26
-\BOOKMARK [3][-]{subsubsection.6.3.2}{Wel artiest en geen titel}{subsection.6.3}% 27
-\BOOKMARK [3][-]{subsubsection.6.3.3}{Geen artiest en wel titel}{subsection.6.3}% 28
-\BOOKMARK [3][-]{subsubsection.6.3.4}{Wel artiest en wel titel}{subsection.6.3}% 29
-\BOOKMARK [2][-]{subsection.6.4}{Database Syncing}{section.6}% 30
-\BOOKMARK [2][-]{subsection.6.5}{Uitbreidbaarheid}{section.6}% 31
-\BOOKMARK [2][-]{subsection.6.6}{Installatie}{section.6}% 32
-\BOOKMARK [1][-]{section.7}{Problemen}{}% 33
-\BOOKMARK [2][-]{subsection.7.1}{Synchronious tasks}{section.7}% 34
-\BOOKMARK [2][-]{subsection.7.2}{Tracks omzetten van verschillende representaties}{section.7}% 35
-\BOOKMARK [1][-]{section.8}{Bronnen, tools en referenties}{}% 36
+\BOOKMARK [2][-]{subsection.4.1}{Android applicatie}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.2}{Data flow}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.3}{Databases}{section.4}% 19
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Lokale Database}{subsection.4.3}% 20
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Externe Database}{subsection.4.3}% 21
+\BOOKMARK [1][-]{section.5}{GUI}{}% 22
+\BOOKMARK [1][-]{section.6}{Technische details}{}% 23
+\BOOKMARK [2][-]{subsection.6.1}{Data collection}{section.6}% 24
+\BOOKMARK [2][-]{subsection.6.2}{Unieke records}{section.6}% 25
+\BOOKMARK [2][-]{subsection.6.3}{Verschillende zoekopdrachten}{section.6}% 26
+\BOOKMARK [2][-]{subsection.6.4}{Database Syncing}{section.6}% 27
+\BOOKMARK [2][-]{subsection.6.5}{Uitbreidbaarheid}{section.6}% 28
+\BOOKMARK [2][-]{subsection.6.6}{Installatie}{section.6}% 29
+\BOOKMARK [1][-]{section.7}{Tegengekomen problemen}{}% 30
+\BOOKMARK [2][-]{subsection.7.1}{Synchronious tasks}{section.7}% 31
+\BOOKMARK [2][-]{subsection.7.2}{Tracks omzetten van verschillende representaties}{section.7}% 32
+\BOOKMARK [1][-]{section.8}{Bronnen, tools en referenties}{}% 33

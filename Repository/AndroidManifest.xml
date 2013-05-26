@@ -20,6 +20,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/amr_gold_thick"
+        android:name="com.dsverdlo.AMuRate.objects.AMuRate"
         android:label="AMuRate"
         android:theme="@style/AppTheme" >
         <activity

@@ -1,6 +1,6 @@
-package com.dsverdlo.AMuRate.objects;
+package com.dsverdlo.AMuRate.services;
 
-import com.dsverdlo.AMuRate.services.DatabaseManager;
+import com.dsverdlo.AMuRate.objects.Rating;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,10 +16,10 @@ import android.database.sqlite.SQLiteDatabase;
  * @author David Sverdlov
  *
  */
-public class RatingAdapter {
+public class InternalDatabaseRatingAdapter {
 
 	private SQLiteDatabase database;
-	private DatabaseManager dbm;
+	private InternalDatabaseManager dbm;
 
 	// SQL Statements
 	private static final String TABLE_RATINGS = "ratings";
@@ -56,8 +56,8 @@ public class RatingAdapter {
 	 * RatingAdapter Public constructor for the class.
 	 * @param context Context of the application
 	 */
-	public RatingAdapter(Context context) {
-		dbm = new DatabaseManager(context);
+	public InternalDatabaseRatingAdapter(Context context) {
+		dbm = new InternalDatabaseManager(context);
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class RatingAdapter {
 	public boolean setAllRatingsSynced() {
 		database = dbm.getWritableDatabase();
 		System.out.println("internal DB: flaggin all unsynced ratings synced");
-		database.execSQL(RatingAdapter.SQL_SET_RATINGS_SYNCED);
+		database.execSQL(InternalDatabaseRatingAdapter.SQL_SET_RATINGS_SYNCED);
 
 		database.close();
 		return true;

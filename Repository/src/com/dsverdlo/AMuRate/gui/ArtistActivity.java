@@ -5,13 +5,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dsverdlo.AMuRate.R;
+import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Album;
 import com.dsverdlo.AMuRate.objects.Artist;
 import com.dsverdlo.AMuRate.objects.Track;
-import com.dsverdlo.AMuRate.services.MyConnection;
+import com.dsverdlo.AMuRate.services.HttpConnect;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -34,6 +34,8 @@ import android.widget.TextView;
  *
  */
 public class ArtistActivity extends Activity {
+	private AMuRate amr;
+	
 	private LinearLayout artistStats;
 	private ImageView artistBigPic;
 	private TextView longScroll;
@@ -45,8 +47,7 @@ public class ArtistActivity extends Activity {
 	private TextView tracksMessaging;
 	private TextView albumsMessaging;
 	
-	private Context context;
-	private MyConnection conn;
+	private HttpConnect conn;
 	private ArtistActivity thisActivity;
 	
 	/** Called when the activity is first created. */
@@ -54,8 +55,8 @@ public class ArtistActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.artist_activity);
 
-		conn = new MyConnection();		
-		this.context = getApplicationContext();
+		conn = new HttpConnect();		
+		this.amr = (AMuRate) getApplicationContext();
 		thisActivity = this;
 		
 		artistStats = (LinearLayout)findViewById(R.id.artistStats);
@@ -66,8 +67,8 @@ public class ArtistActivity extends Activity {
 		albumsTitle = (TextView)findViewById(R.id.row1col2);
 		albumsScroll = (LinearLayout)findViewById(R.id.row2col2);
 		
-		tracksMessaging = new TextView(getApplicationContext());
-		albumsMessaging = new TextView(getApplicationContext());
+		tracksMessaging = new TextView(amr);
+		albumsMessaging = new TextView(amr);
 		
 		tracksTitle.setText("TRACKS");
 		albumsTitle.setText("ALBUMS");
@@ -126,7 +127,7 @@ public class ArtistActivity extends Activity {
 			final Track track = new Track();
 			track.loadFromInfo(JSONtrack);
 			
-			final Button buttonTrack = new Button(getApplicationContext());
+			final Button buttonTrack = new Button(amr);
 			buttonTrack.setText(track.getTitle());
 			buttonTrack.setBackgroundResource(R.layout.rounded_corners);
 			buttonTrack.setTextSize(13);
@@ -141,7 +142,7 @@ public class ArtistActivity extends Activity {
 				public void onClick(View v) {
 					System.out.println("Someone clicked a track in ArtistActivity!");
 					buttonTrack.setText("Loading...");
-					MyConnection connection = new  MyConnection();
+					HttpConnect connection = new  HttpConnect();
 					connection.loadFromArtistActivity("loadTrack", track.getMBID(), thisActivity);
 				}
 			});
@@ -173,7 +174,7 @@ public class ArtistActivity extends Activity {
 			final JSONObject JSONalbum = JSONalbums.getJSONObject(i);
 			final Album album = new Album(JSONalbum);
 			
-			final Button buttonAlbum = new Button(getApplicationContext());
+			final Button buttonAlbum = new Button(amr);
 			buttonAlbum.setText(album.getAlbumTitle());
 			buttonAlbum.setBackgroundResource(R.layout.rounded_corners);
 			buttonAlbum.setTextSize(13);
@@ -188,7 +189,7 @@ public class ArtistActivity extends Activity {
 				public void onClick(View v) {
 					System.out.println("Someone clicked an album in ArtistActivity!");
 					buttonAlbum.setText("Loading...");
-					MyConnection connection = new MyConnection();
+					HttpConnect connection = new HttpConnect();
 					connection.loadFromArtistActivity("loadAlbum", album.getMbid(), thisActivity);
 				}
 			});
@@ -206,14 +207,14 @@ public class ArtistActivity extends Activity {
 	
 
 	public void onTrackLoaded(String track) {
-		Intent trackIntent = new Intent(getApplicationContext(), TrackActivity.class);
+		Intent trackIntent = new Intent(amr, TrackActivity.class);
 		trackIntent.putExtra("track", track);
 		System.out.println("Starting TrackActivity intent");
 		startActivity(trackIntent);
 	}
 	
 	public void onAlbumLoaded(String album) {
-		Intent albumIntent = new Intent(getApplicationContext(), AlbumActivity.class);
+		Intent albumIntent = new Intent(amr, AlbumActivity.class);
 		albumIntent.putExtra("album", album);
 		System.out.println("Starting AlbumActivity intent");
 		startActivity(albumIntent);

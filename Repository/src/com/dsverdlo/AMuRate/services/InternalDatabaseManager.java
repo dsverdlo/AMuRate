@@ -1,7 +1,5 @@
 package com.dsverdlo.AMuRate.services;
 
-import com.dsverdlo.AMuRate.objects.HistoryAdapter;
-import com.dsverdlo.AMuRate.objects.RatingAdapter;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,26 +13,26 @@ import android.util.Log;
  * @author David Sverdlov
  *
  */
-public class DatabaseManager extends SQLiteOpenHelper {
+public class InternalDatabaseManager extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "AMuRate" + ".db";
 	private static final int DATABASE_VERSION = 1;
 
 
-	public DatabaseManager(Context context) {
+	public InternalDatabaseManager(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 
 	@Override
 	public void onCreate(SQLiteDatabase database) {
-		database.execSQL(RatingAdapter.getSQLTableCreate());
-		database.execSQL(HistoryAdapter.getSQLTableCreate());
+		database.execSQL(InternalDatabaseRatingAdapter.getSQLTableCreate());
+		database.execSQL(InternalDatabaseHistoryAdapter.getSQLTableCreate());
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Log.w(DatabaseManager.class.getName(),
+		Log.w(InternalDatabaseManager.class.getName(),
 				"Upgrading database from version " + oldVersion + " to "
 						+ newVersion + ", which will destroy all old data");
 		onCreate(db);
