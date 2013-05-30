@@ -312,7 +312,12 @@ public class HttpConnect  {
 			@Override
 			protected void onPostExecute(Bitmap bmp) {
 				super.onPostExecute(bmp); 
-				iv.setImageBitmap(bmp);
+				int maxheight = 250;
+				if(bmp.getHeight() > maxheight) {
+					iv.setImageBitmap(Bitmap.createScaledBitmap(bmp, (int) bmp.getWidth()*maxheight/bmp.getHeight(), maxheight, false));
+				} else {
+					iv.setImageBitmap(bmp);
+				}
 				System.out.println("Done loading image!");
 			}			
 		}

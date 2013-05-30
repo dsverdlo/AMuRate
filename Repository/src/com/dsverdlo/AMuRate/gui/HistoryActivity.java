@@ -62,6 +62,8 @@ public class HistoryActivity extends Activity {
 
 		// Load the layout 
 		lv = (LinearLayout)findViewById(R.id.history_linlay);
+
+		
 		buttonBack = (Button)findViewById(R.id.history_back);
 		textTitle = (TextView)findViewById(R.id.history_title);
 		buttonDelete = (Button)findViewById(R.id.history_button_remove);
@@ -69,7 +71,7 @@ public class HistoryActivity extends Activity {
 		buttonOptionSearch = (Button)findViewById(R.id.history_button_search);
 		buttonOptionTracks = (Button) findViewById(R.id.history_button_track);
 
-		buttonDelete.setText(" Delete history ");
+		buttonDelete.setText(R.string.history_delete);
 		buttonDelete.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				switch(currentOption) {
@@ -89,13 +91,13 @@ public class HistoryActivity extends Activity {
 			}
 		});
 
-		buttonBack.setText("Back");
+		buttonBack.setText(R.string.back);
 		buttonBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				finish();
 			}
 		});
-		textTitle.setText("~History~");
+		textTitle.setText(R.string.history_history);
 
 		// Load the options' onclicklisteners
 		
@@ -107,7 +109,7 @@ public class HistoryActivity extends Activity {
 					lv.removeAllViews();
 					loadRatings();
 				} else {
-					Toast.makeText(amr, "Already showing ratings...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, R.string.history_showing_ratings, Toast.LENGTH_SHORT).show();
 				} 
 			}
 		} );
@@ -120,7 +122,7 @@ public class HistoryActivity extends Activity {
 					lv.removeAllViews();
 					loadTracks();
 				}else {
-					Toast.makeText(amr, "Already showing tracks...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, R.string.history_showing_tracks, Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -133,7 +135,7 @@ public class HistoryActivity extends Activity {
 					lv.removeAllViews();
 					loadSearch();
 				} else {
-					Toast.makeText(amr, "Already showing search...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, R.string.history_showing_search, Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -190,12 +192,12 @@ public class HistoryActivity extends Activity {
 		Rating[] ratings = ra.getRatings(InternalDatabaseRatingAdapter.SQL_GET_ALL_RATINGS);
 		if(ratings == null) {
 			TextView tv = new TextView(amr);
-			tv.setText("No history yet.");
+			tv.setText(R.string.history_no_ratings_yet);
 			lv.addView(tv);
 			return;
 		}
 		
-		System.out.println("HistoryActivity says: " + ratings.length);
+		
 		// Otherwise, for every rating we make a view in the listview
 		for(int i = ratings.length; i > 0; i--) {
 			Button b = new Button(amr);
@@ -212,12 +214,12 @@ public class HistoryActivity extends Activity {
 			final int date = r.getDate();
 			float rating = r.getRating();
 
-			String format = "Rating: %s - %s (%.1f stars)";
+			String format = amr.getString(R.string.history_one_rating) + "%s - %s (%.1f " + amr.getString(R.string.stars) + ")";
 			b.setText(String.format(format, artist, title, rating));
 
 			b.setOnClickListener(new OnClickListener() {
 				public void onClick(View arg0) {
-					Toast.makeText(amr, "On: "+dateToString(date), Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, amr.getString(R.string.history_on)+dateToString(date), Toast.LENGTH_SHORT).show();
 				}
 			});
 			lv.addView(b);
@@ -232,12 +234,12 @@ public class HistoryActivity extends Activity {
 		// If there is no search history yet, display a textview saying that
 		if(histories == null) {
 			TextView tv = new TextView(amr);
-			tv.setText("No searches performed yet.");
+			tv.setText(R.string.history_no_search_yet);
 			lv.addView(tv);
 			return;
 		}
 
-		System.out.println("HistoryActivity says: " + histories.length);
+	
 		// Otherwise, for every history we make a button in the listview
 		for(int i = histories.length; i > 0; i--) {
 			Button b = new Button(amr);
@@ -253,12 +255,12 @@ public class HistoryActivity extends Activity {
 			final String title = h.getTitle();
 			final int date = h.getDate();
 
-			String format = "Search: %s - %s";
+			String format =  amr.getString(R.string.history_one_search) + "%s - %s";
 			b.setText(String.format(format, artist, title));
 
 			b.setOnLongClickListener(new OnLongClickListener() {
 				public boolean onLongClick(View v) {
-					Toast.makeText(amr, "On: "+dateToString(date), Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, amr.getString(R.string.history_on)+dateToString(date), Toast.LENGTH_SHORT).show();
 					return true;
 				}
 			});
@@ -283,12 +285,12 @@ public class HistoryActivity extends Activity {
 		// If there is no track history yet, display a textview saying that
 		if(histories == null) {
 			TextView tv = new TextView(amr);
-			tv.setText("No tracks viewed yet.");
+			tv.setText(R.string.history_no_tracks_yet);
 			lv.addView(tv);
 			return;
 		}
 
-		System.out.println("HistoryActivity says: " + histories.length);
+		
 		// Otherwise, for every history we make a button in the listview
 		for(int i = histories.length; i > 0; i--) {
 			final Button b = new Button(amr);
@@ -305,12 +307,12 @@ public class HistoryActivity extends Activity {
 			final String mbid = h.getMbid();
 			final int date = h.getDate();
 
-			String format = "Track: %s - %s";
+			String format = amr.getString(R.string.history_one_track) + "%s - %s";
 			b.setText(String.format(format, artist, title));
 			
 			b.setOnLongClickListener(new OnLongClickListener() {
 				public boolean onLongClick(View v) {
-					Toast.makeText(amr, "On: "+dateToString(date), Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, amr.getString(R.string.history_on)+dateToString(date), Toast.LENGTH_SHORT).show();
 					return true;
 				}
 			});
@@ -319,7 +321,7 @@ public class HistoryActivity extends Activity {
 					HttpConnect conn = new HttpConnect();
 					textBeforeLoading = (String) b.getText();
 					buttonLoading = b;
-					b.setText("Track: loading...");
+					b.setText(amr.getString(R.string.history_one_track) + amr.getString(R.string.loading));
 					conn.loadTrackActivity(activity, mbid);
 				}
 			});

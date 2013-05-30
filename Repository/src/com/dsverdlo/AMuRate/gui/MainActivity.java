@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -55,11 +56,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_test);	
+		setContentView(R.layout.activity_main);	
 
 		// Get global vars
 		amr = (AMuRate)getApplicationContext();
-		
+		DisplayMetrics displaymetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+		amr.setSCREENHEIGHT(displaymetrics.heightPixels);
+		amr.setSCREENWIDTH(displaymetrics.widthPixels);
+		System.out.println("Screen w="+amr.getSCREENWIDTH()+" h="+amr.getSCREENHEIGHT());
 		connection = new HttpConnect();
 		ha = new InternalDatabaseHistoryAdapter(this);
 
@@ -67,8 +72,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		searchTitle = (EditText) findViewById(R.id.enterTitle);
 
 		// TODO: remove hack
-		searchTitle.setText("hunter");
-		searchArtist.setText("Dido");
+		//searchTitle.setText("hunter");
+		//searchArtist.setText("Dido");
 		if(getIntent().hasExtra("title") && getIntent().hasExtra("artist")) {
 			searchTitle.setText(getIntent().getStringExtra("title"));
 			searchArtist.setText(getIntent().getStringExtra("artist"));
@@ -90,7 +95,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		questionMark = (Button) findViewById(R.id.questionmark);
 		questionMark.setOnClickListener(this);
 		questionMark.setTextColor(Color.LTGRAY);
-		questionMark.setText(" ? ");
+		questionMark.setText(R.string.questionmark);
 		questionMark.setOnLongClickListener(new OnLongClickListener() {
 				public boolean onLongClick(View v) {
 					String ip = searchTitle.getText().toString();
@@ -104,7 +109,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		view = (Button) findViewById(R.id.view);
 		view.setOnClickListener(this);
 		view.setVisibility(View.INVISIBLE);
-		view.setText("View");
+		view.setText(R.string.view);
 		
 		historyButton = (Button)findViewById(R.id.main_button_history);
 		historyButton.setOnClickListener(this);
@@ -120,7 +125,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		};
 		cancelButton.setOnLongClickListener(quitAction);
 
-		new DatabaseSyncer(amr, amr.getIp()).execute();
+		new DatabaseSyncer(amr, amr.getIp(), amr.getUser()).execute();
 
 	}
 
@@ -138,7 +143,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			System.out.println("Given artist[" + givenArtist + "], given title[" + givenTitle + "]");
 
 			if(nArtist == 0 && nTitle == 0 ) {
-				Toast.makeText(amr, "Please enter an artist, song or both\nTo quit, hold down on 'Cancel'", Toast.LENGTH_LONG).show();
+				Toast.makeText(amr, R.string.main_msg_empty, Toast.LENGTH_LONG).show();
 			} else {
 				// The following four lines hdie the soft keyboard
 				InputMethodManager inputManager = 
@@ -170,10 +175,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		case R.id.questionmark :
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-			alertDialog.setTitle("Instructions");
-			alertDialog.setMessage("Please enter an artist, a song title or both in the search field and then press search.");
+			alertDialog.setTitle(R.string.main_instructions);
+			alertDialog.setMessage(amr.getString(R.string.main_instruction_text));
 			// Setting OK Button
-			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			alertDialog.setButton(amr.getString(R.string.OK), new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					// Write your code here to execute after dialog closed
 				}
@@ -201,9 +206,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public void searchResultsTitle(String resultString) {
 		if(resultString == null) {
-			Toast.makeText(amr, "No internet connection... Please try again later", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, amr.getString(R.string.main_no_internet_conn), Toast.LENGTH_SHORT).show();
 			loading.setVisibility(View.GONE);
-			results.setText("Results...");
+			results.setText(amr.getString(R.string.results) + "...");
 			results.setVisibility(View.VISIBLE);
 		} else {
 			try {
@@ -213,9 +218,9 @@ public class MainActivity extends Activity implements OnClickListener {
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
 						search_option = SEARCH_TITLE;
-						String resultsMessage = " results found!";
+						String resultsMessage = amr.getString(R.string.main_results_found);
 						if(nResults>30) {
-							results.setText("Lots of" + resultsMessage); }
+							results.setText(amr.getString(R.string.main_many) + resultsMessage); }
 						else {
 							results.setText("" + nResults + resultsMessage);
 						}
@@ -235,9 +240,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public void searchResultsArtist(String resultString) {
 		if(resultString == null) {
-			Toast.makeText(amr, "No internet connection... Please connect and try again", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, R.string.main_no_internet_conn, Toast.LENGTH_SHORT).show();
 			loading.setVisibility(View.GONE);
-			results.setText("Results...");
+			results.setText(amr.getString(R.string.results) + "...");
 			results.setVisibility(View.VISIBLE);
 		} else {
 			try {
@@ -247,9 +252,9 @@ public class MainActivity extends Activity implements OnClickListener {
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
 						search_option = SEARCH_ARTIST;
-						String resultsMessage = " results found!";
+						String resultsMessage = amr.getString(R.string.main_results_found);
 						if(nResults>30) {
-							results.setText("Lots of" + resultsMessage); }
+							results.setText(amr.getString(R.string.main_many) + resultsMessage); }
 						else {
 							results.setText("" + nResults + resultsMessage);
 						}
@@ -268,9 +273,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public void searchResultsTitleAndArtist(String resultString) {
 		if(resultString == null || resultString.length() < 7) {
-			Toast.makeText(amr, "No internet connection... Please ensure your connection", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, R.string.main_no_internet_conn, Toast.LENGTH_SHORT).show();
 			loading.setVisibility(View.GONE);
-			results.setText("Results...");
+			results.setText(amr.getString(R.string.results) + "...");
 			results.setVisibility(View.VISIBLE);
 		} else {
 			try {
@@ -280,9 +285,9 @@ public class MainActivity extends Activity implements OnClickListener {
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
 						search_option = SEARCH_TITLE;
-						String resultsMessage = " results found!";
+						String resultsMessage = amr.getString(R.string.main_results_found);
 						if(nResults>30) {
-							results.setText("Lots of" + resultsMessage); }
+							results.setText(R.string.main_many + resultsMessage); }
 						else {
 							results.setText("" + nResults + resultsMessage);
 						}

@@ -39,8 +39,8 @@ public class TrackActivity extends Activity {
 	
 	private TrackActivity trackActivity;
 	private final Track track = new Track();
-	final String ratingBarInfoString = "Average: %.1f (based on %d reviews)";
-
+	private final static String ratingBarInfoString = "Average: %.1f (based on %d reviews)";
+	
 	private int isExternalDatabaseAvailable; // unchecked, no, yes
 	private AnimationView loading_image;
 	private Button back;
@@ -59,7 +59,7 @@ public class TrackActivity extends Activity {
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.track_activity);
+		setContentView(R.layout.activity_track);
 
 		trackActivity = this;
 		amr = (AMuRate) getApplicationContext();
@@ -98,7 +98,7 @@ public class TrackActivity extends Activity {
 		album = (Button) findViewById(R.id.track_butt_on_album);	
 
 		back = (Button) findViewById(R.id.track_newsearch);
-		back.setText("New search"); 
+		back.setText(R.string.track_new_search); 
 
 		ratingBar = (RatingBar) findViewById(R.id.track_ratingBar);
 		ratingBar.setNumStars(5); // TODO: remove here
@@ -124,7 +124,7 @@ public class TrackActivity extends Activity {
 				}
 				catch (Exception ex){
 					// if not installed it will raise exception so we show a Toast
-					Toast.makeText(amr, "Youtube app not found...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, R.string.track_youtube_not_found , Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -153,7 +153,7 @@ public class TrackActivity extends Activity {
 					HttpConnect conn = new HttpConnect();
 					conn.getFromArtistMBID(trackActivity, artistMBID);
 				} else {
-					Toast.makeText(amr, "This artist did not have an ID.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, R.string.msg_no_mbid_artist, Toast.LENGTH_SHORT).show();
 					
 				
 				}
@@ -190,27 +190,28 @@ public class TrackActivity extends Activity {
 			});
 		} 
 
-		ratingBarInfo.setText("Loading ratings...");
-		ratingBarInfo2.setText("Checking if rated before");
+		ratingBarInfo.setText(R.string.track_loading_ratings);
+		ratingBarInfo2.setText(R.string.track_checking_rated);
 
 		ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 				switch(isExternalDatabaseAvailable) {
 				case -1: //check hasnt registered yet, stall time until Asynctask is done
-					Toast.makeText(amr, "Testing connection, please try again", Toast.LENGTH_SHORT).show();
+					Toast.makeText(amr, R.string.msg_testing_connection, Toast.LENGTH_SHORT).show();
 					break;
-				case 1: sendToExternalDatabase(); 
-				Toast.makeText(amr, "Sending to ext DB", Toast.LENGTH_SHORT).show();
+				case 1: 
+				Toast.makeText(amr, R.string.msg_sending_external, Toast.LENGTH_SHORT).show();
+				sendToExternalDatabase(); 
 				ratingBar.setClickable(false);
 				ratingBar.setEnabled(false);
-				ratingBarInfo2.setText("You rated this track: "+rating);
+				ratingBarInfo2.setText(amr.getString(R.string.track_you_rated) + rating);
 				ratingBarInfo2.setVisibility(View.VISIBLE);
 				break;
 				case 0: sendToInternalDatabase(); 
-				Toast.makeText(amr, "Sending to int DB", Toast.LENGTH_SHORT).show();		
+				Toast.makeText(amr, R.string.msg_sending_internal, Toast.LENGTH_SHORT).show();		
 				ratingBar.setClickable(false);
 				ratingBar.setEnabled(false);
-				ratingBarInfo2.setText("You rated this track: "+rating);
+				ratingBarInfo2.setText(amr.getString(R.string.track_you_rated) + rating);
 				ratingBarInfo2.setVisibility(View.VISIBLE);
 				ratingBarInfo.setVisibility(View.GONE);
 				break;
@@ -225,7 +226,7 @@ public class TrackActivity extends Activity {
 			ratingBar.setEnabled(false);
 			ratingBar.setOnClickListener(new OnClickListener() {
 				public void onClick(View arg0) {
-					Toast.makeText(amr, "This track does not have an mbid associated with it", Toast.LENGTH_SHORT).show();					
+					Toast.makeText(amr,R.string.msg_no_mbid_track, Toast.LENGTH_SHORT).show();					
 				}
 			});
 		}
@@ -236,7 +237,7 @@ public class TrackActivity extends Activity {
 		new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.ISCONNECTED);
 		
 		// Try syncing aswell
-		new DatabaseSyncer(amr, amr.getIp()).execute();
+		new DatabaseSyncer(amr, amr.getIp(), amr.getUser()).execute();
 	}
 
 
@@ -265,18 +266,18 @@ public class TrackActivity extends Activity {
 
 		if(result > 0) { // Sent succesfully
 			
-			Toast.makeText(amr, "Rating succesfully sent to remote db.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, R.string.msg_sending_success, Toast.LENGTH_SHORT).show();
 
 			// get new avg
 			new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.GETRATING, track.getMBID());
 		} else {
 			// Sending did not succeed so send it unsynced to int database
-			Toast.makeText(amr, "Rating sending to remote db failed.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, R.string.msg_sending_failed, Toast.LENGTH_SHORT).show();
 			
 			sendToInternalDatabase(); 
 			
 			// Also retest connection
-			Toast.makeText(amr, "Retesting connection...", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, R.string.msg_connection_retest, Toast.LENGTH_SHORT).show();
 			new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.ISCONNECTED);
 		}
 	}
@@ -301,8 +302,8 @@ public class TrackActivity extends Activity {
 			// TODO: unsplit
 			if(ra.hasRatedBefore(track.getMBID())){
 				float rating = ra.readRating(track.getMBID());
-				ratingBarInfo.setText("No connection with server for getting average rating.");
-				ratingBarInfo2.setText("You have rated this track "+rating);
+				ratingBarInfo.setText(R.string.msg_no_server_connection);
+				ratingBarInfo2.setText(amr.getString(R.string.track_you_rated) + rating);
 				// change listener swap trick
 				OnRatingBarChangeListener orbcl = ratingBar.getOnRatingBarChangeListener();
 				ratingBar.setOnRatingBarChangeListener(null);
@@ -312,7 +313,7 @@ public class TrackActivity extends Activity {
 				ratingBar.setEnabled(false);
 				ratingBar.setClickable(true);
 			} else {
-				ratingBarInfo.setText("No connection with server. If you rate now, the rating will be sent when a connection could be made.");
+				ratingBarInfo.setText(R.string.msg_can_send_later);
 				ratingBarInfo2.setVisibility(View.GONE);
 				ratingBar.setEnabled(true);
 				ratingBar.setClickable(true);
@@ -350,7 +351,7 @@ public class TrackActivity extends Activity {
 		float rating = ratingBar.getRating();
 		long addResult = ra.addRating(track.getMBID(), track.getArtist(), track.getTitle(), rating, false);
 		if(addResult < 0) {
-			Toast.makeText(amr, "You already rated this", Toast.LENGTH_SHORT).show();
+			Toast.makeText(amr, R.string.msg_already_rated, Toast.LENGTH_SHORT).show();
 		} else {
 			float avg = ra.readRating(track.getMBID());
 			int amt = 1;//ra.readRating(track.getMBID());
@@ -377,7 +378,7 @@ public class TrackActivity extends Activity {
 			JSONObject JSONartistInfo = new JSONObject(artistInfo);
 			if(!JSONartistInfo.has("artist")) {
 				// something went wrong.
-				Toast.makeText(amr, "No info could be obtained..", Toast.LENGTH_LONG).show();
+				Toast.makeText(amr, R.string.msg_couldnt_obtain, Toast.LENGTH_LONG).show();
 				return;
 			}
 			JSONObject JSONartist = JSONartistInfo.getJSONObject("artist");
@@ -403,11 +404,11 @@ public class TrackActivity extends Activity {
 
 	public void onDoneCheckingHasRated(Double result) {
 		if(result > 0) {
-			ratingBarInfo2.setText("You rated this track: "+result);
+			ratingBarInfo2.setText(amr.getString(R.string.track_you_rated) + result);
 			ratingBar.setEnabled(false);
 			ratingBar.setClickable(false);
 		} else {
-			ratingBarInfo2.setText("You have not rated this track yet");
+			ratingBarInfo2.setText(R.string.track_not_rated);
 		}
 	}
 }

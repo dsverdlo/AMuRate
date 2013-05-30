@@ -13,14 +13,15 @@ import com.dsverdlo.AMuRate.services.HttpConnect;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -35,7 +36,8 @@ import android.widget.TextView;
  */
 public class ArtistActivity extends Activity {
 	private AMuRate amr;
-	
+
+	private LinearLayout mainLayout;
 	private LinearLayout artistStats;
 	private ImageView artistBigPic;
 	private TextView longScroll;
@@ -55,6 +57,9 @@ public class ArtistActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.artist_activity);
 
+		mainLayout = (LinearLayout)findViewById(R.id.artistMainLayout);
+		mainLayout.setBackgroundResource(R.drawable.new62);
+		
 		conn = new HttpConnect();		
 		this.amr = (AMuRate) getApplicationContext();
 		thisActivity = this;
@@ -70,14 +75,14 @@ public class ArtistActivity extends Activity {
 		tracksMessaging = new TextView(amr);
 		albumsMessaging = new TextView(amr);
 		
-		tracksTitle.setText("TRACKS");
-		albumsTitle.setText("ALBUMS");
+		tracksTitle.setText(R.string.artist_TRACKS);
+		albumsTitle.setText(R.string.artist_ALBUMS);
 				
 		// TODO: add animation
-		tracksMessaging.setText("Loading tracks...");
+		tracksMessaging.setText(R.string.artist_loading_tracks);
 		tracksScroll.addView(tracksMessaging);
 
-		albumsMessaging.setText("Loading albums...");
+		albumsMessaging.setText(R.string.artist_loading_albums);
 		albumsScroll.addView(albumsMessaging);
 
 		// Load the artist 
@@ -92,7 +97,29 @@ public class ArtistActivity extends Activity {
 		}
 		
 		longScroll.setText(Html.fromHtml(artist.getSummary()));
-		longScroll.setBackgroundColor(Color.DKGRAY);
+		longScroll.setMovementMethod(LinkMovementMethod.getInstance());
+		longScroll.setMaxHeight(160);
+		
+		Button buttonBack = new Button(amr);
+		buttonBack.setBackgroundResource(R.layout.rounded_corners);
+		buttonBack.setText(" X ");
+		buttonBack.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				finish();
+				Intent next = new Intent(amr,MainActivity.class);
+				next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(next);
+			}
+		});
+//		buttonBack.setMaxHeight(30);
+//		buttonBack.setMaxWidth(30);
+		RelativeLayout backLayout = new RelativeLayout(amr);
+		RelativeLayout.LayoutParams backParams = 
+                new RelativeLayout.LayoutParams(60, 50);
+		backParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		buttonBack.setLayoutParams(backParams);
+		backLayout.addView(buttonBack);
+		buttonBack.setTextSize(13);
 		
 		TextView textViewArtistName = new TextView(this);
 		textViewArtistName.setTextSize(25);
@@ -100,7 +127,9 @@ public class ArtistActivity extends Activity {
 		
 		TextView textViewUrlOut = new TextView(this);
 		textViewUrlOut.setText(Html.fromHtml(artist.getUrlOut()));
+		textViewUrlOut.setMovementMethod(LinkMovementMethod.getInstance());
 		
+		artistStats.addView(backLayout);
 		artistStats.addView(textViewArtistName);
 		artistStats.addView(textViewUrlOut);
 		
@@ -114,7 +143,7 @@ public class ArtistActivity extends Activity {
 		try {
 			JSONObject JSONloaded = new JSONObject(loadedTracks);
 			if(!JSONloaded.has("toptracks")) {
-				tracksMessaging.setText("Unable to fetch tracks..."); // TODO child
+				tracksMessaging.setText(R.string.artist_loading_tracks_failed); // TODO child
 				return;
 			}
 
@@ -141,7 +170,7 @@ public class ArtistActivity extends Activity {
 			buttonTrack.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					System.out.println("Someone clicked a track in ArtistActivity!");
-					buttonTrack.setText("Loading...");
+					buttonTrack.setText(R.string.loading);
 					HttpConnect connection = new  HttpConnect();
 					connection.loadFromArtistActivity("loadTrack", track.getMBID(), thisActivity);
 				}
@@ -162,7 +191,7 @@ public class ArtistActivity extends Activity {
 		try {
 			JSONObject JSONloaded = new JSONObject(loadedAlbums);
 			if(!JSONloaded.has("topalbums")) {
-				albumsMessaging.setText("Unable to fetch albums..."); // TODO child
+				albumsMessaging.setText(R.string.artist_loading_albums_failed); // TODO child
 				return;
 			}
 
@@ -188,7 +217,7 @@ public class ArtistActivity extends Activity {
 			buttonAlbum.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					System.out.println("Someone clicked an album in ArtistActivity!");
-					buttonAlbum.setText("Loading...");
+					buttonAlbum.setText(R.string.loading);
 					HttpConnect connection = new HttpConnect();
 					connection.loadFromArtistActivity("loadAlbum", album.getMbid(), thisActivity);
 				}

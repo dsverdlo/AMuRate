@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -29,7 +30,7 @@ import android.widget.TextView;
  */
 public class SearchResultsActivity extends Activity {
 	// Save the clickedLayout so we can alter it when the connection returns
-	private LinearLayout clickedLayout;
+	private RelativeLayout clickedLayout;
 	private AMuRate amr;
 	
 	@Override
@@ -68,7 +69,6 @@ public class SearchResultsActivity extends Activity {
 			for(int i = 0; i < tracks.length(); i++ ) {
 				//
 				HttpConnect connection = new HttpConnect();
-				connection = new HttpConnect();
 				
 				//System.out.println("Try to get array[" + i + "]");
 				final JSONObject oneResult = tracks.getJSONObject(i);
@@ -77,14 +77,12 @@ public class SearchResultsActivity extends Activity {
 
 				// If the track does not come with a mbid, skip it
 				if(track.getMBID().length() == 0) {
-					//Toast.makeText(getApplicationContext(), "No ID with track: ommitting", Toast.LENGTH_SHORT).show();
 					continue;
 				}
 				
 				// Create a layout for the track
-				final LinearLayout horizontalLayout = new LinearLayout(amr);
-				horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
-				horizontalLayout.setGravity(Gravity.CENTER_VERTICAL);
+				final RelativeLayout horizontalLayout = new RelativeLayout(amr);
+				horizontalLayout.setGravity(Gravity.LEFT); // TODO; center verical
 				//Because i can
 				horizontalLayout.setPadding(0, 0, 0, 0);
 				horizontalLayout.setBackgroundResource(R.drawable.track_background_wider_small);
@@ -92,10 +90,16 @@ public class SearchResultsActivity extends Activity {
 
 				ImageView picture = new ImageView(amr);
 				AnimationView load_pic = new AnimationView(amr, null);
-				//load_pic.setBackgroundResource(R.drawable.loading_black);
-				load_pic.setLayoutParams(new LayoutParams(120, 120));
-				picture.setVisibility(View.GONE);
-
+				load_pic.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+				load_pic.setMinimumHeight(200);
+				load_pic.setMinimumWidth(120);
+				load_pic.setVisibility(View.GONE);
+				load_pic.setId(100);
+				int k = load_pic.getWidth();
+				int j = load_pic.getHeight();
+				picture.setVisibility(View.GONE); // TODO:
+				picture.setId(105);
+				
 				LinearLayout titleLayout = new LinearLayout(amr);
 				titleLayout.setOrientation(LinearLayout.VERTICAL); 
 				titleLayout.setPadding(20, 0, 20, 0);
@@ -137,13 +141,37 @@ public class SearchResultsActivity extends Activity {
 				});
 				horizontalLayout.setClickable(true);
 				
-				// Add single items to horizontal layout
-				horizontalLayout.addView(picture);
-				horizontalLayout.addView(load_pic);
-				titleLayout.addView(artist);
-				horizontalLayout.addView(titleLayout);
-				horizontalLayout.addView(next);
+				RelativeLayout.LayoutParams loadParams = 
+		                new RelativeLayout.LayoutParams(
+		                    RelativeLayout.LayoutParams.WRAP_CONTENT, 
+		                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+				loadParams.addRule(RelativeLayout.ALIGN_LEFT);
+				loadParams.addRule(RelativeLayout.LEFT_OF, 105);
 				
+				RelativeLayout.LayoutParams imageParams = 
+		                new RelativeLayout.LayoutParams(
+		                    RelativeLayout.LayoutParams.WRAP_CONTENT, 
+		                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+				imageParams.addRule(RelativeLayout.ALIGN_LEFT);
+				
+				RelativeLayout.LayoutParams titleParams = 
+		                new RelativeLayout.LayoutParams(
+		                    RelativeLayout.LayoutParams.WRAP_CONTENT, 
+		                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+		      titleParams.addRule(RelativeLayout.CENTER_VERTICAL);
+		      titleParams.addRule(RelativeLayout.RIGHT_OF, 105);
+				
+				
+				// Add single items to horizontal layout
+				horizontalLayout.addView(load_pic,loadParams);
+				horizontalLayout.addView(picture, imageParams);
+				titleLayout.addView(artist);
+				horizontalLayout.addView(titleLayout, titleParams);
+				horizontalLayout.addView(next);
+
+				//load_pic.bringToFront();
+				System.out.println("Loadpic width="+k+ " and height="+j);
 				// Add finished product to vertical linear layout
 				ll.addView(horizontalLayout, horizontalLayoutParams);
 			}

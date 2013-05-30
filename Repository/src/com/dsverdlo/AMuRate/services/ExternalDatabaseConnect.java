@@ -1,5 +1,6 @@
 package com.dsverdlo.AMuRate.services;
 
+
 import java.io.*;
 import java.net.*;
 
@@ -104,6 +105,7 @@ public class ExternalDatabaseConnect extends AsyncTask<String, Void, Double> {
 	private boolean sendRating(String mbid, String artist, String title, double rating, int date, String user) {
 		boolean result = false;
 		try{
+		     
 			setUpConnection();
 			// Read connection status
 			message = (String)in.readObject();

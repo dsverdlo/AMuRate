@@ -162,7 +162,7 @@ public class SearchArtistActivity extends Activity {
 			JSONObject JSONartistInfo = new JSONObject(results);
 			if(!JSONartistInfo.has("artist")) {
 				// something went wrong.
-				Toast.makeText(amr, "No info could be obtained..", Toast.LENGTH_LONG).show();
+				Toast.makeText(amr, R.string.msg_couldnt_obtain, Toast.LENGTH_LONG).show();
 				return;
 			}
 			JSONObject JSONartist = JSONartistInfo.getJSONObject("artist");

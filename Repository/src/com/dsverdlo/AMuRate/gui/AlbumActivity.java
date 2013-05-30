@@ -9,7 +9,6 @@ import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Album;
 import com.dsverdlo.AMuRate.services.HttpConnect;
 
-import android.R.color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -70,7 +69,7 @@ public class AlbumActivity extends Activity {
 		albumArtist.setText(album.getArtistName());
 		albumArtist.setTextSize(17);
 		
-		albumImageClose.setText(" X ");
+		albumImageClose.setText(R.string.album_x);
 		
 		LinearLayout.LayoutParams closeLp = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.WRAP_CONTENT, 
@@ -93,11 +92,11 @@ public class AlbumActivity extends Activity {
 		} else albumImage.setImageResource(R.drawable.not_available);
 		
 		
-		playcount.setText("Playcount: " + album.getPlaycount());
-		listeners.setText("Listeners: " + album.getListeners());
+		playcount.setText(amr.getString(R.string.album_playcount) + album.getPlaycount());
+		listeners.setText(amr.getString(R.string.album_listeners) + album.getListeners());
 		
 		summary.setText(Html.fromHtml(album.getSummary()));
-		summary.setBackgroundColor(color.darker_gray);
+
 		
 		// Set the tracks in the view TODO: abstract
 		try {
@@ -119,7 +118,7 @@ public class AlbumActivity extends Activity {
 				bt.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
 						if(mbid.length() == 0) {
-							Toast.makeText(amr, "No MBID associated with this track.", Toast.LENGTH_SHORT).show();
+							Toast.makeText(amr, R.string.msg_no_mbid_track, Toast.LENGTH_SHORT).show();
 //							bt.setTextColor(Color.GRAY);
 						} else {
 						connection.getFromTitleAndArtist(albumActivity, tit, album.getArtistName());

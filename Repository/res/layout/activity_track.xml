@@ -10,17 +10,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:ellipsize="marquee"
+        android:focusable="false"
+        android:marqueeRepeatLimit="marquee_forever"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="Title (mm:ss)"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="@string/track_marquee"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white"
-        android:textSize="28sp"
-        android:singleLine="true"
-android:ellipsize="marquee"
-android:marqueeRepeatLimit="marquee_forever"
-android:focusable="false"
-android:scrollHorizontally="true" />
+        android:textSize="28sp" />
 
     <Button
         android:id="@+id/track_newsearch"
@@ -35,7 +35,7 @@ android:scrollHorizontally="true" />
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:paddingTop="10dp"
-        android:text="New search"
+        android:text="@string/track_new_search"
         android:textColor="@android:color/white"
         android:textSize="22sp" />
 
@@ -59,7 +59,7 @@ android:scrollHorizontally="true" />
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="10dp"
-        android:text="Album"
+        android:text="@string/track_album"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
@@ -70,18 +70,17 @@ android:scrollHorizontally="true" />
         android:layout_alignParentRight="true"
         android:layout_below="@+id/track_title"
         android:src="@drawable/void_black" />
-    
-        <TextView
+
+    <TextView
         android:id="@+id/track_ratingbarinfo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/track_newsearch"
         android:layout_centerHorizontal="true"
-        android:text="You have not rated this yet"
+        android:text="@string/track_not_rated"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
-
 
     <RatingBar
         android:id="@+id/track_ratingBar"
@@ -99,17 +98,16 @@ android:scrollHorizontally="true" />
         android:layout_above="@+id/track_butt_on_album"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/track_title"
+        android:layout_marginBottom="10dp"
         android:layout_toLeftOf="@+id/track_albumimage"
         android:background="@layout/rounded_corners"
         android:paddingBottom="0dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="0dp"
-        android:layout_marginBottom="40dp"
-        android:text="Artist"
+        android:text="@string/track_artist"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
-         />
+        android:textSize="20sp" />
 
     <com.dsverdlo.AMuRate.gui.AnimationView
         android:id="@+id/track_loading_image"
@@ -124,7 +122,6 @@ android:scrollHorizontally="true" />
         android:layout_height="wrap_content"
         android:layout_above="@+id/track_ratingbarinfo2"
         android:layout_centerHorizontal="true"
-        android:text="Average: 0.0 (based on 0 ratings)"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white"
         android:textSize="20sp" />

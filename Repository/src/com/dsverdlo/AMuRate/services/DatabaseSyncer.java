@@ -23,11 +23,13 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 	private int amtOfSyncsReceivedGood;
 	private Rating[] unsynced;
 	private String ip;
+	private String user;
 
 	// public constuctor instantiates members
-	public DatabaseSyncer(Context context, String ip) {
+	public DatabaseSyncer(Context context, String ip, String user) {
 		this.context = context;
 		this.ip = ip;
+		this.user = user;
 		ra = new InternalDatabaseRatingAdapter(context);
 		amtOfSyncs = 0;
 		amtOfSyncsReceived = 0;
@@ -46,7 +48,8 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 
 			amtOfSyncs = unsynced.length;
 			
-			new ExternalDatabaseConnect(this, ip).execute(""+ExternalDatabaseConnect.ISCONNECTED); 
+			//new ExternalDatabaseConnect(this, ip).execute(""+ExternalDatabaseConnect.ISCONNECTED);
+			onDoneTestingExternalConnection((double) 1);
 
 
 		} else {
@@ -113,7 +116,7 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 						""+r.getRating(),
 						""+r.getDate(),
 						(String) android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID));
-			}
+				}
 		}
 	}
 }

@@ -256,7 +256,7 @@ public class Artist implements Parcelable {
 	}
 
 	public String getUrlOut() {
-		return this.urlOut;
+		return "<a href="+this.urlOut+"> Wiki </a>";
 	}
 
 	public String getSummary() {
