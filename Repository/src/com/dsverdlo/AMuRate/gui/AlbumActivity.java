@@ -7,7 +7,8 @@ import org.json.JSONObject;
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Album;
-import com.dsverdlo.AMuRate.services.HttpConnect;
+import com.dsverdlo.AMuRate.services.DownloadImageTask;
+import com.dsverdlo.AMuRate.services.DownloadLastFM;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -23,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.TextView;
 
-public class AlbumActivity extends Activity {
+public class AlbumActivity extends BlankActivity {
 	private AMuRate amr;
 	
 	private AlbumActivity albumActivity;
@@ -35,7 +36,6 @@ public class AlbumActivity extends Activity {
 	private TextView summary;
 	
 	private Album album;
-	private HttpConnect connection;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,6 @@ public class AlbumActivity extends Activity {
 		tracksLayout = (LinearLayout) findViewById(R.id.album_tracks);
 		summary = (TextView) findViewById(R.id.album_summary);	
 		
-		connection = new HttpConnect();
 		
 		Intent intent = getIntent();
 		if(intent.hasExtra("album")) {
@@ -88,7 +87,8 @@ public class AlbumActivity extends Activity {
 		});
 		
 		if(album.getImageL().length() > 0) {
-			connection.loadImage(album.getImageL(), albumImage);
+			DownloadImageTask download = new DownloadImageTask(albumImage);
+			download.execute(album.getImageL());
 		} else albumImage.setImageResource(R.drawable.not_available);
 		
 		
@@ -121,7 +121,8 @@ public class AlbumActivity extends Activity {
 							Toast.makeText(amr, R.string.msg_no_mbid_track, Toast.LENGTH_SHORT).show();
 //							bt.setTextColor(Color.GRAY);
 						} else {
-						connection.getFromTitleAndArtist(albumActivity, tit, album.getArtistName());
+							new DownloadLastFM(albumActivity).execute(""+DownloadLastFM.operations.dl_album_track_info, tit, album.getArtistName());
+							
 						}
 					}
 				});

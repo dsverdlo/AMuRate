@@ -9,7 +9,8 @@ import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Album;
 import com.dsverdlo.AMuRate.objects.Artist;
 import com.dsverdlo.AMuRate.objects.Track;
-import com.dsverdlo.AMuRate.services.HttpConnect;
+import com.dsverdlo.AMuRate.services.DownloadImageTask;
+import com.dsverdlo.AMuRate.services.DownloadLastFM;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -34,7 +35,7 @@ import android.widget.TextView;
  * @author David Sverdlov
  *
  */
-public class ArtistActivity extends Activity {
+public class ArtistActivity extends BlankActivity {
 	private AMuRate amr;
 
 	private LinearLayout mainLayout;
@@ -49,7 +50,6 @@ public class ArtistActivity extends Activity {
 	private TextView tracksMessaging;
 	private TextView albumsMessaging;
 	
-	private HttpConnect conn;
 	private ArtistActivity thisActivity;
 	
 	/** Called when the activity is first created. */
@@ -60,7 +60,6 @@ public class ArtistActivity extends Activity {
 		mainLayout = (LinearLayout)findViewById(R.id.artistMainLayout);
 		mainLayout.setBackgroundResource(R.drawable.new62);
 		
-		conn = new HttpConnect();		
 		this.amr = (AMuRate) getApplicationContext();
 		thisActivity = this;
 		
@@ -91,7 +90,9 @@ public class ArtistActivity extends Activity {
 		
 		if(artist.getImage("xl").length() > 0) {
 			System.out.println("Loading image for artist: " + artist.getImage("xl"));
-			conn.loadImage(artist.getImage("xl"), artistBigPic); 
+			DownloadImageTask download = new DownloadImageTask(artistBigPic);
+			download.execute(artist.getImage("xl"));
+			
 		} else {
 			artistBigPic.setImageResource(R.drawable.not_available);
 		}
@@ -133,8 +134,8 @@ public class ArtistActivity extends Activity {
 		artistStats.addView(textViewArtistName);
 		artistStats.addView(textViewUrlOut);
 		
-		conn.loadTracks(artist.getMbid(), thisActivity);
-		conn.loadAlbums(artist.getMbid(), thisActivity);
+		new DownloadLastFM(thisActivity).execute(""+DownloadLastFM.operations.dl_artist_load_tracks, artist.getMbid());
+		new DownloadLastFM(thisActivity).execute(""+DownloadLastFM.operations.dl_artist_load_albums, artist.getMbid());
 	}
 	
 	
@@ -171,8 +172,8 @@ public class ArtistActivity extends Activity {
 				public void onClick(View v) {
 					System.out.println("Someone clicked a track in ArtistActivity!");
 					buttonTrack.setText(R.string.loading);
-					HttpConnect connection = new  HttpConnect();
-					connection.loadFromArtistActivity("loadTrack", track.getMBID(), thisActivity);
+
+					new DownloadLastFM(thisActivity).execute(""+DownloadLastFM.operations.dl_artist_track_info, track.getMBID());
 				}
 			});
 			
@@ -218,8 +219,7 @@ public class ArtistActivity extends Activity {
 				public void onClick(View v) {
 					System.out.println("Someone clicked an album in ArtistActivity!");
 					buttonAlbum.setText(R.string.loading);
-					HttpConnect connection = new HttpConnect();
-					connection.loadFromArtistActivity("loadAlbum", album.getMbid(), thisActivity);
+					new DownloadLastFM(thisActivity).execute(""+DownloadLastFM.operations.dl_artist_album_info, album.getMbid());
 				}
 			});
 			

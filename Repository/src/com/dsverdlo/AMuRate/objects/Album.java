@@ -46,10 +46,10 @@ public class Album {
 	private void switchAlbumInfo(JSONObject JSONAlbum) {
 		try {
 			Iterator<?> it = JSONAlbum.keys();
+			String key = "";
 			while(it.hasNext()) {
 				try { 
-					String key = (String) it.next();
-					System.out.println("888:" + key);
+					key = (String) it.next();
 					switch(AlbumKeys.valueOf(key)) {
 					case name: 
 						albumTitle = JSONAlbum.getString("name");
@@ -93,7 +93,7 @@ public class Album {
 					default: break;
 					}
 				} catch (IllegalArgumentException iae) {
-					System.out.println("Illegal argument exception in Album(switchAlbumInfo)");
+					System.out.println("Illegal argument exception in Album(switchAlbumInfo):" + key);
 				}
 			}
 		}

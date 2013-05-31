@@ -115,23 +115,25 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_album=0x7f030000;
-        public static final int activity_history=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int activity_search_artist=0x7f030003;
-        public static final int activity_search_results=0x7f030004;
-        public static final int activity_track=0x7f030005;
-        public static final int artist_activity=0x7f030006;
-        public static final int button_youtube=0x7f030007;
-        public static final int rounded_corners=0x7f030008;
-        public static final int rounded_corners_r=0x7f030009;
-        public static final int rounded_corners_s=0x7f03000a;
+        public static final int activity_blank=0x7f030001;
+        public static final int activity_history=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_search_artist=0x7f030004;
+        public static final int activity_search_results=0x7f030005;
+        public static final int activity_track=0x7f030006;
+        public static final int artist_activity=0x7f030007;
+        public static final int button_youtube=0x7f030008;
+        public static final int rounded_corners=0x7f030009;
+        public static final int rounded_corners_r=0x7f03000a;
+        public static final int rounded_corners_s=0x7f03000b;
     }
     public static final class menu {
         public static final int activity_album=0x7f060000;
-        public static final int activity_history=0x7f060001;
-        public static final int activity_main=0x7f060002;
-        public static final int activity_search_for_artist=0x7f060003;
-        public static final int activity_search_results=0x7f060004;
+        public static final int activity_blank=0x7f060001;
+        public static final int activity_history=0x7f060002;
+        public static final int activity_main=0x7f060003;
+        public static final int activity_search_for_artist=0x7f060004;
+        public static final int activity_search_results=0x7f060005;
     }
     public static final class string {
         public static final int OK=0x7f040044;
@@ -195,6 +197,7 @@ public final class R {
         public static final int searchTitle=0x7f040001;
         public static final int stars=0x7f04000a;
         public static final int title_activity_album=0x7f040010;
+        public static final int title_activity_blank=0x7f04004b;
         public static final int title_activity_history=0x7f040012;
         public static final int title_activity_main=0x7f04000f;
         public static final int title_activity_search_artist=0x7f040011;
@@ -240,9 +243,20 @@ public final class R {
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         
+
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
          */
         public static final int AppBaseTheme=0x7f050000;
         /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 

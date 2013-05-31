@@ -6,10 +6,11 @@ import org.json.JSONObject;
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Track;
+import com.dsverdlo.AMuRate.services.DownloadImageTask;
+import com.dsverdlo.AMuRate.services.DownloadLastFM;
 import com.dsverdlo.AMuRate.services.ExternalDatabaseConnect;
 import com.dsverdlo.AMuRate.services.DatabaseSyncer;
 import com.dsverdlo.AMuRate.services.InternalDatabaseHistoryAdapter;
-import com.dsverdlo.AMuRate.services.HttpConnect;
 import com.dsverdlo.AMuRate.services.InternalDatabaseRatingAdapter;
 
 import android.app.Activity;
@@ -34,7 +35,7 @@ import android.widget.Toast;
  *
  */
 
-public class TrackActivity extends Activity {
+public class TrackActivity extends BlankActivity {
 	private AMuRate amr;
 	
 	private TrackActivity trackActivity;
@@ -150,8 +151,7 @@ public class TrackActivity extends Activity {
 			public void onClick(View arg0) {
 				String artistMBID = track.getArtistMBID();
 				if(artistMBID.length()>0) {
-					HttpConnect conn = new HttpConnect();
-					conn.getFromArtistMBID(trackActivity, artistMBID);
+					new DownloadLastFM(trackActivity).execute(""+DownloadLastFM.operations.dl_track_artist_info, artistMBID);
 				} else {
 					Toast.makeText(amr, R.string.msg_no_mbid_artist, Toast.LENGTH_SHORT).show();
 					
@@ -163,14 +163,14 @@ public class TrackActivity extends Activity {
 		// Check if an image can be displayed. If there is no large, try a medium.
 		String imageUrl = track.getImage("l");
 		if(imageUrl.length() > 0) {
-			HttpConnect conn = new HttpConnect();
-			conn.loadImage(imageUrl, image, loading_image);
+			DownloadImageTask download = new DownloadImageTask(image, loading_image);
+			download.execute(imageUrl);
 		} else {
 			// Else try a medium picture
 			String OtherImageUrl = track.getImage("m");
 			if(OtherImageUrl.length() > 0) {
-				HttpConnect conn = new HttpConnect();
-				conn.loadImage(OtherImageUrl, image, loading_image);
+				DownloadImageTask download = new DownloadImageTask(image, loading_image);
+				download.execute(OtherImageUrl);
 			} else image.setImageResource(R.drawable.not_available);
 		}
 
@@ -183,8 +183,7 @@ public class TrackActivity extends Activity {
 				public void onClick(View arg0) {
 					//album.setTextColor(Color.DKGRAY);
 					System.out.println("You click on the album");
-					HttpConnect conn = new HttpConnect();
-					conn.getFromAlbum(trackActivity, track.getAlbumMBID());
+					new DownloadLastFM(trackActivity).execute(""+DownloadLastFM.operations.dl_track_album_info, track.getAlbumMBID());
 					//album.setTextColor(Color.CYAN);
 				}
 			});

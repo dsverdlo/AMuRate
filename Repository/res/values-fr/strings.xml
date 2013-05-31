@@ -6,7 +6,7 @@
     <string name="searchArtist">Artiste</string>
     <string name="search"> Recherche </string>
     <string name="cancel"> Annuler </string>
-    <string name="results">Results</string>
+    <string name="results">Resultats</string>
     <string name="OK">OK</string>
     <string name="questionmark"> \? </string>
     <string name="view"> Regarder </string>
@@ -56,10 +56,10 @@
     <string name="history_delete"> Supprimer historique </string>
     <string name="track_marquee">Titre (mm:ss)</string>
     <string name="track_new_search">Nouvelle Recherche</string>
-    <string name="track_album">Album</string>
+    <string name="track_album">"Pas d'album"</string>
     <string name="track_not_rated">Vous ne l\'avez pas encore evaluée</string>
     <string name="track_you_rated">Vous avez évalué cette piste: </string>
-    <string name="track_artist">Artiste</string>
+    <string name="track_artist">"Pas d'artiste"</string>
     <string name="track_checking_rated">"Vérifier si vous avez déjà evalué&#8230;"</string>
     <string name="track_youtube_not_found">"Application Youtube non trouvée&#8230;"</string>
     <string name="msg_couldnt_obtain">"Aucune information n'a pu être obtenue.."</string>

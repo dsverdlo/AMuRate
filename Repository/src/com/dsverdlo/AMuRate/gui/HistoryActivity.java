@@ -6,8 +6,8 @@ import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.History;
 import com.dsverdlo.AMuRate.objects.Rating;
+import com.dsverdlo.AMuRate.services.DownloadLastFM;
 import com.dsverdlo.AMuRate.services.InternalDatabaseHistoryAdapter;
-import com.dsverdlo.AMuRate.services.HttpConnect;
 import com.dsverdlo.AMuRate.services.InternalDatabaseRatingAdapter;
 
 import android.os.Bundle;
@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
-public class HistoryActivity extends Activity {
+public class HistoryActivity extends BlankActivity {
 	private AMuRate amr;
 	
 	private InternalDatabaseHistoryAdapter ha;
@@ -318,11 +318,10 @@ public class HistoryActivity extends Activity {
 			});
 			b.setOnClickListener(new OnClickListener() {
 				public void onClick(View arg0) {
-					HttpConnect conn = new HttpConnect();
 					textBeforeLoading = (String) b.getText();
 					buttonLoading = b;
 					b.setText(amr.getString(R.string.history_one_track) + amr.getString(R.string.loading));
-					conn.loadTrackActivity(activity, mbid);
+					new DownloadLastFM(activity).execute(""+DownloadLastFM.operations.dl_history_track_info, mbid);
 				}
 			});
 			lv.addView(b);

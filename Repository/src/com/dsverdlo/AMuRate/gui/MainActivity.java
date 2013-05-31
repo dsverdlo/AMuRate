@@ -6,8 +6,8 @@ import org.json.JSONObject;
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.services.DatabaseSyncer;
+import com.dsverdlo.AMuRate.services.DownloadLastFM;
 import com.dsverdlo.AMuRate.services.InternalDatabaseHistoryAdapter;
-import com.dsverdlo.AMuRate.services.HttpConnect;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,7 +33,7 @@ import android.widget.Toast;
  * @author David Sverdlov
  *
  */
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends BlankActivity implements OnClickListener {
 
 	private AMuRate amr;
 	private EditText searchArtist;
@@ -46,7 +46,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button view;
 	private AnimationView loading;
 	private JSONObject artist;
-	private HttpConnect connection; 
 	private InternalDatabaseHistoryAdapter ha;
 
 	private int search_option = 0; // 
@@ -58,6 +57,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);	
 
+		// If called to exit; finish (called from settings menu)
+		if(getIntent().hasExtra("EXIT")) finish();
+		
 		// Get global vars
 		amr = (AMuRate)getApplicationContext();
 		DisplayMetrics displaymetrics = new DisplayMetrics();
@@ -65,7 +67,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		amr.setSCREENHEIGHT(displaymetrics.heightPixels);
 		amr.setSCREENWIDTH(displaymetrics.widthPixels);
 		System.out.println("Screen w="+amr.getSCREENWIDTH()+" h="+amr.getSCREENHEIGHT());
-		connection = new HttpConnect();
 		ha = new InternalDatabaseHistoryAdapter(this);
 
 		searchArtist = (EditText) findViewById(R.id.enterArtist);
@@ -158,9 +159,15 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				ha.addHistorySearch(givenArtist, givenTitle);
 
-				if(nArtist > 0 && nTitle == 0) connection.getFromArtist(this, givenArtist);	
-				if(nArtist == 0 && nTitle > 0) connection.getFromTitle(this, givenTitle);	
-				if(nArtist > 0 && nTitle > 0) connection.getFromTitleAndArtist(this, givenTitle, givenArtist);	
+				if(nArtist > 0 && nTitle == 0) {
+					new DownloadLastFM(this).execute(""+DownloadLastFM.operations.dl_main_search_artist, givenArtist);
+				}
+				if(nArtist == 0 && nTitle > 0) {
+					new DownloadLastFM(this).execute(""+DownloadLastFM.operations.dl_main_search_title, givenTitle);
+				}
+				if(nArtist > 0 && nTitle > 0) {
+					new DownloadLastFM(this).execute(""+DownloadLastFM.operations.dl_main_search_title_artist, givenTitle, givenArtist);	
+				}
 			}
 			break;
 
@@ -303,8 +310,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		}
 	}
-	
-	
 	
 	
 	

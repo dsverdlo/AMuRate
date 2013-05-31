@@ -9,8 +9,10 @@ import org.json.JSONObject;
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Artist;
-import com.dsverdlo.AMuRate.services.HttpConnect;
+import com.dsverdlo.AMuRate.services.DownloadImageTask;
+import com.dsverdlo.AMuRate.services.DownloadLastFM;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -30,8 +32,9 @@ import android.widget.Toast;
  * @author David Sverdlov
  *
  */
-public class SearchArtistActivity extends Activity {
+public class SearchArtistActivity extends BlankActivity {
 	private AMuRate amr;
+	private AsyncTask[] tasks;
 	
 	private SearchArtistActivity thisActivity;
 	
@@ -42,6 +45,7 @@ public class SearchArtistActivity extends Activity {
 
 		thisActivity = this;
 		amr = (AMuRate)getApplicationContext();
+		tasks = new AsyncTask[30];
 		
 		// Grab the vertical layout so we can add objects to it
 		LinearLayout ll = (LinearLayout) findViewById(R.id.searchArtistLayout);
@@ -107,9 +111,10 @@ public class SearchArtistActivity extends Activity {
 				// if possible set image in pictureview
 				String imageUrl = artist.getImage("l");
 				if(imageUrl == null) { System.out.println("Imageurl l stays null..."); }
-				HttpConnect connection = new HttpConnect();
+				
 				if(imageUrl.length() > 0) { 
-					connection.loadImage(imageUrl, picture);
+					DownloadImageTask download = new DownloadImageTask(picture);
+					tasks[i] = download.execute(imageUrl);
 				} else {
 					picture.setImageResource(R.drawable.not_available);
 				}
@@ -122,10 +127,15 @@ public class SearchArtistActivity extends Activity {
 						//connection.getFromMBID(thisActivity, mbid);//todo
 
 						//Intent artistIntent = new Intent(amr, ArtistActivity.class);
-						
+						// First kill other loading images
+						for(int idx = 0; idx < tasks.length; idx++) {
+							// If not null and not cancelled --> cancel
+							if(tasks[idx] != null && !tasks[idx].isCancelled())
+								tasks[idx].cancel(true);
+						}
 
-						HttpConnect conn = new HttpConnect();
-						conn.getArtistInfo(artist.getMbid(), thisActivity);
+						new DownloadLastFM(thisActivity).execute(""+DownloadLastFM.operations.dl_search_artist_artist, artist.getMbid());
+
 					}
 				});
 				horizontalLayout.setClickable(true);
@@ -150,12 +160,7 @@ public class SearchArtistActivity extends Activity {
 
 
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_search_for_artist, menu);
-		return true;
-	}
+
 
 	public void onRetrievedArtistInfo(String results) {
 		try {

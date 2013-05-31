@@ -56,10 +56,10 @@
     <string name="history_delete"> Delete history </string>
     <string name="track_marquee">Title (mm:ss)</string>
     <string name="track_new_search">New search</string>
-    <string name="track_album">Album</string>
+    <string name="track_album">No Album</string>
     <string name="track_not_rated">You have not rated this yet</string>
     <string name="track_you_rated">You rated this track: </string>
-    <string name="track_artist">Artist</string>
+    <string name="track_artist">No Artist</string>
     <string name="track_checking_rated">"Checking if you have rated before&#8230;"</string>
     <string name="track_youtube_not_found">"Youtube app not found&#8230;"</string>
     <string name="msg_couldnt_obtain">No info could be obtained..</string>

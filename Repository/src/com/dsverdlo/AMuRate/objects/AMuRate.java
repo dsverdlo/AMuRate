@@ -6,6 +6,8 @@ import com.dsverdlo.AMuRate.services.InternalDatabaseManager;
 
 import android.app.Application;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.view.View;
 /**
  * Not sure if this is even used...
  * TODO: find out and delete
@@ -41,7 +43,7 @@ public class AMuRate extends Application {
 		    
 			
 			Configuration config = new Configuration();
-		     config.locale = Locale.FRENCH;
+		     config.locale = Locale.ENGLISH;
 		    getResources().updateConfiguration(config, null);
 		}
 		/**
@@ -75,5 +77,6 @@ public class AMuRate extends Application {
 		public void setSCREENHEIGHT(int sCREENHEIGHT) {
 			SCREENHEIGHT = sCREENHEIGHT;
 		}
+
 
 }

@@ -48,8 +48,7 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 
 			amtOfSyncs = unsynced.length;
 			
-			//new ExternalDatabaseConnect(this, ip).execute(""+ExternalDatabaseConnect.ISCONNECTED);
-			onDoneTestingExternalConnection((double) 1);
+			new ExternalDatabaseConnect(this, ip).execute(""+ExternalDatabaseConnect.ISCONNECTED);
 
 
 		} else {
@@ -66,10 +65,12 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 		// Update with new result info		
 		if(result > 0) {
 			// Rating got sent succesfully to ext db, so we add1 to received and good
+			System.out.println("DatabaseSyncer: succes");
 			amtOfSyncsReceived++;
 			amtOfSyncsReceivedGood++; 
 		} else {
 			// Rating got lost or something so don't add1 the good count
+			System.out.println("DatabaseSyncer: fail");
 			amtOfSyncsReceived++;		
 		}
 

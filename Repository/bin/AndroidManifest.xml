@@ -18,9 +18,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name="com.dsverdlo.AMuRate.objects.AMuRate"
         android:allowBackup="true"
         android:icon="@drawable/amr_gold_thick"
-        android:name="com.dsverdlo.AMuRate.objects.AMuRate"
         android:label="AMuRate"
         android:theme="@style/AppTheme" >
         <activity
@@ -62,7 +62,11 @@
         <activity
             android:name="com.dsverdlo.AMuRate.gui.HistoryActivity"
             android:launchMode="singleTop"
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.dsverdlo.AMuRate.BlankActivity"
+            android:label="@string/title_activity_blank" >
         </activity>
     </application>
 

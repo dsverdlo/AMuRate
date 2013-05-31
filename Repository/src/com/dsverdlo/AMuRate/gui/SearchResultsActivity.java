@@ -8,8 +8,10 @@ import org.json.JSONObject;
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Track;
-import com.dsverdlo.AMuRate.services.HttpConnect;
+import com.dsverdlo.AMuRate.services.DownloadImageTask;
+import com.dsverdlo.AMuRate.services.DownloadLastFM;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -28,18 +30,21 @@ import android.widget.TextView;
  * 
  * @author David Sverdlov
  */
-public class SearchResultsActivity extends Activity {
+public class SearchResultsActivity extends BlankActivity {
+	private SearchResultsActivity thisActivity;
 	// Save the clickedLayout so we can alter it when the connection returns
 	private RelativeLayout clickedLayout;
 	private AMuRate amr;
+	private AsyncTask[] tasks;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_results);
-
+		thisActivity = this;
 		final SearchResultsActivity thisActivity = this;
 		amr = (AMuRate)getApplicationContext();
+		tasks = new AsyncTask[30];
 		
 		// Grab the vertical layout so we can add objects to it
 		LinearLayout ll = (LinearLayout) findViewById(R.id.searchResultsLayout);
@@ -68,7 +73,6 @@ public class SearchResultsActivity extends Activity {
 			System.out.println("" + tracks.length() + " objects in JSONArray");
 			for(int i = 0; i < tracks.length(); i++ ) {
 				//
-				HttpConnect connection = new HttpConnect();
 				
 				//System.out.println("Try to get array[" + i + "]");
 				final JSONObject oneResult = tracks.getJSONObject(i);
@@ -122,7 +126,8 @@ public class SearchResultsActivity extends Activity {
 				// if possible set image in pictureview
 				String imageUrl = track.getImage("l");
 				if(imageUrl.length() != 0) { 
-					connection.loadImage(imageUrl, picture, load_pic);
+					DownloadImageTask down = new DownloadImageTask(picture, load_pic);
+					tasks[i] = down.execute(imageUrl);
 				} else {
 					picture.setImageResource(R.drawable.not_available);
 				}
@@ -134,9 +139,16 @@ public class SearchResultsActivity extends Activity {
 						horizontalLayout.setBackgroundResource(R.drawable.track_background_2);
 						clickedLayout = horizontalLayout;
 						System.out.println("Someone clicked a track! Starting connection for: " + mbid);
-
-						HttpConnect connection = new HttpConnect();
-						connection.getFromMBID(thisActivity, mbid);
+						
+						// before we download the info, cancel other downloads
+						for(int idx = 0; idx < tasks.length; idx++) {
+							// if task is not null and not finished: cancel
+							if(tasks[idx] != null && !tasks[idx].isCancelled()) {
+								tasks[idx].cancel(true);
+								tasks[idx] = null;
+							}
+						}
+						new DownloadLastFM(thisActivity).execute(""+DownloadLastFM.operations.dl_search_results_track, mbid);
 					}
 				});
 				horizontalLayout.setClickable(true);
