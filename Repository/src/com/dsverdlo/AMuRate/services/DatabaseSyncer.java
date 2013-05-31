@@ -48,7 +48,7 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 
 			amtOfSyncs = unsynced.length;
 			
-			new ExternalDatabaseConnect(this, ip).execute(""+ExternalDatabaseConnect.ISCONNECTED);
+			new ServerConnect(this, ip, ServerConnect.ISCONNECTED).execute();
 
 
 		} else {
@@ -110,13 +110,13 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 				Rating r = unsynced[i];  
 				System.out.println("DatabaseSyncer: executing unsynced request");
 				// Execute the client thread
-				new ExternalDatabaseConnect(this, ip).execute(""+ExternalDatabaseConnect.SENDRATING,
+				new ServerConnect(this, ip, ServerConnect.SENDRATING).execute(
 						r.getMbid(),
 						r.getArtist(),
 						r.getTitle(),
 						""+r.getRating(),
 						""+r.getDate(),
-						(String) android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID));
+						user);
 				}
 		}
 	}

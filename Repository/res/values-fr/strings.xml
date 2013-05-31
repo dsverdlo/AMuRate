@@ -8,11 +8,12 @@
     <string name="cancel"> Annuler </string>
     <string name="results">Resultats</string>
     <string name="OK">OK</string>
-    <string name="questionmark"> \? </string>
+    <string name="questionmark">   \?   </string>
     <string name="view"> Regarder </string>
     <string name="back"> Retour </string>
     <string name="hello_world">Hello world!</string>
     <string name="loading">Chargement&#8230;</string>
+    <string name="language">Changer la langue</string>
     <string name="stars"> Etoiles </string>
     <string name="menu_settings"> Configuration </string>
     <string name="main_history"> Historique </string>
@@ -54,6 +55,9 @@
     <string name="history_no_ratings_yet">"Vous n'avez pas encore evaluer."</string>
     <string name="history_on">Date: </string>
     <string name="history_delete"> Supprimer historique </string>
+    <string name="history_deleted_synced_ratings">"Supprimé les évaluations synchronisé!"</string>
+    <string name="history_deleted_tracks">"Supprimé les pistes vu!"</string>
+    <string name="history_deleted_search">"Supprimé l'historique de recherche!"</string>
     <string name="track_marquee">Titre (mm:ss)</string>
     <string name="track_new_search">Nouvelle Recherche</string>
     <string name="track_album">"Pas d'album"</string>

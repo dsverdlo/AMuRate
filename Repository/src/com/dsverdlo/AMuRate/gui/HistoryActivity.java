@@ -12,10 +12,7 @@ import com.dsverdlo.AMuRate.services.InternalDatabaseRatingAdapter;
 
 import android.os.Bundle;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -24,7 +21,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
 
 public class HistoryActivity extends BlankActivity {
 	private AMuRate amr;
@@ -77,14 +73,17 @@ public class HistoryActivity extends BlankActivity {
 				switch(currentOption) {
 				case optionSearch:
 					ha.deleteHistory(InternalDatabaseHistoryAdapter.SQL_DELETE_SEARCH);
+					Toast.makeText(amr, R.string.history_deleted_search, Toast.LENGTH_SHORT).show();
 					lv.removeAllViews();
 					break;
 				case optionTracks:
 					ha.deleteHistory(InternalDatabaseHistoryAdapter.SQL_DELETE_TRACK);
+					Toast.makeText(amr, R.string.history_deleted_tracks, Toast.LENGTH_SHORT).show();
 					lv.removeAllViews();
 					break;
 				case optionRating:
 					ra.deleteRatings();
+					Toast.makeText(amr, R.string.history_deleted_synced_ratings, Toast.LENGTH_SHORT).show();
 					lv.removeAllViews();
 					break;
 				}
@@ -149,29 +148,6 @@ public class HistoryActivity extends BlankActivity {
 
 
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_history, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 
 	@SuppressLint("SimpleDateFormat")
 	private String dateToString(int seconds) {
@@ -214,7 +190,7 @@ public class HistoryActivity extends BlankActivity {
 			final int date = r.getDate();
 			float rating = r.getRating();
 
-			String format = amr.getString(R.string.history_one_rating) + "%s - %s (%.1f " + amr.getString(R.string.stars) + ")";
+			String format = "%s - %s (%.1f " + amr.getString(R.string.stars) + ")";
 			b.setText(String.format(format, artist, title, rating));
 
 			b.setOnClickListener(new OnClickListener() {
@@ -255,7 +231,7 @@ public class HistoryActivity extends BlankActivity {
 			final String title = h.getTitle();
 			final int date = h.getDate();
 
-			String format =  amr.getString(R.string.history_one_search) + "%s - %s";
+			String format =  amr.getString(R.string.history_one_search) + " %s - %s";
 			b.setText(String.format(format, artist, title));
 
 			b.setOnLongClickListener(new OnLongClickListener() {
@@ -307,7 +283,7 @@ public class HistoryActivity extends BlankActivity {
 			final String mbid = h.getMbid();
 			final int date = h.getDate();
 
-			String format = amr.getString(R.string.history_one_track) + "%s - %s";
+			String format = amr.getString(R.string.history_one_track) + " %s - %s";
 			b.setText(String.format(format, artist, title));
 			
 			b.setOnLongClickListener(new OnLongClickListener() {

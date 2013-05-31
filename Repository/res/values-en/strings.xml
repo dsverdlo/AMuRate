@@ -8,11 +8,12 @@
     <string name="cancel"> Cancel </string>
     <string name="results">Results</string>
     <string name="OK">OK</string>
-    <string name="questionmark"> \? </string>
+    <string name="questionmark">   \?   </string>
     <string name="view"> View </string>
     <string name="back"> Back </string>
     <string name="hello_world">Hello world!</string>
     <string name="loading">Loading&#8230;</string>
+    <string name="language">Set language</string>
     <string name="stars">stars</string>
     <string name="menu_settings">Settings</string>
     <string name="main_history"> History </string>
@@ -54,6 +55,9 @@
     <string name="history_no_ratings_yet">No ratings given yet.</string>
     <string name="history_on">On: </string>
     <string name="history_delete"> Delete history </string>
+    <string name="history_deleted_synced_ratings">Deleted synchronized ratings!</string>
+    <string name="history_deleted_tracks">Track history deleted!</string>
+    <string name="history_deleted_search">Search history deleted!</string>
     <string name="track_marquee">Title (mm:ss)</string>
     <string name="track_new_search">New search</string>
     <string name="track_album">No Album</string>

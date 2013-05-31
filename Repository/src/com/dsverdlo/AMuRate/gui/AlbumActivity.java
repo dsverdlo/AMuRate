@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import com.dsverdlo.AMuRate.R;
 import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Album;
+import com.dsverdlo.AMuRate.objects.Track;
 import com.dsverdlo.AMuRate.services.DownloadImageTask;
 import com.dsverdlo.AMuRate.services.DownloadLastFM;
 
@@ -101,10 +102,21 @@ public class AlbumActivity extends BlankActivity {
 		// Set the tracks in the view TODO: abstract
 		try {
 			JSONArray tracks = album.getTracks();
+			int skipped = 0;
 			for (int i = 0; i < tracks.length(); i++) {
 				JSONObject oneTrack = tracks.getJSONObject(i);
 				final String tit = oneTrack.getString("name");
 				final String mbid = oneTrack.getString("mbid");
+				
+				Track track = new Track();
+				track.loadFromSearch(oneTrack);
+				
+				// If no duration and no mbid: filter away
+				if(track.getDurationInt() <= 0 &&  mbid != null && mbid.equals("")) {
+					skipped ++; 
+					continue;
+				}
+				
 				Button bt = new Button(amr);
 				bt.setBackgroundResource(R.layout.rounded_corners);
 
@@ -114,12 +126,11 @@ public class AlbumActivity extends BlankActivity {
 				lp.setMargins(8, 10, 8, 4); // left, top, right, bottom
 				bt.setLayoutParams(lp);
 				
-				bt.setText("" + (i+1) + ":" + tit);
+				bt.setText("" + (i+1-skipped) + ":" + tit);
 				bt.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
 						if(mbid.length() == 0) {
 							Toast.makeText(amr, R.string.msg_no_mbid_track, Toast.LENGTH_SHORT).show();
-//							bt.setTextColor(Color.GRAY);
 						} else {
 							new DownloadLastFM(albumActivity).execute(""+DownloadLastFM.operations.dl_album_track_info, tit, album.getArtistName());
 							

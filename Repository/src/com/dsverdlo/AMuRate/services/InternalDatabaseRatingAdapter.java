@@ -49,7 +49,7 @@ public class InternalDatabaseRatingAdapter {
 	private static final String SQL_GET_UNSYNCED_RATINGS = "SELECT * FROM ratings WHERE synced = 0;";
 	private static final String SQL_SET_RATINGS_SYNCED = "UPDATE ratings SET synced = '1' WHERE synced = '0';";
 	public static final String SQL_GET_ALL_RATINGS = "SELECT * FROM "+TABLE_RATINGS;
-	private static final String SQL_DELETE_ALL_RATINGS = "DELETE FROM "+TABLE_RATINGS;
+	private static final String SQL_DELETE_ALL_RATINGS = "DELETE FROM "+TABLE_RATINGS+ " WHERE "+COLUMN_SYNCED+" = '1'";
 	
 
 	/**

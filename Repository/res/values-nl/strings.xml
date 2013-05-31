@@ -7,10 +7,11 @@
     <string name="search"> Zoeken </string>
     <string name="cancel"> Annuleren </string>
     <string name="results">Resultaten</string>
-    <string name="questionmark">  \?  </string>
+    <string name="questionmark">   \?   </string>
     <string name="view"> Bekijk </string>
     <string name="back"> Terug </string>
     <string name="loading">Laden&#8230;</string>
+    <string name="language">Taal aanpassen</string>
     <string name="stars">stars</string>
     <string name="menu_settings">Instellingen</string>
     <string name="main_history"> Geschiedenis </string>
@@ -47,6 +48,9 @@
     <string name="history_no_ratings_yet">Nog geen scores gegeven.</string>
     <string name="history_on">Op: </string>
     <string name="history_delete"> Verwijder geschiedenis </string>
+    <string name="history_deleted_synced_ratings">Geregistreerde scores gewist!</string>
+    <string name="history_deleted_tracks">Bekeken liedjes gewist!</string>
+    <string name="history_deleted_search">Zoekgeschiedenis gewist!</string>
     <string name="track_marquee">Titel (mm:ss)</string>
     <string name="track_new_search">Nieuwe zoekopdracht</string>
     <string name="track_album">Geen Album</string>

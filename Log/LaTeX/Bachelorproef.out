@@ -8,27 +8,30 @@
 \BOOKMARK [3][-]{subsubsection.1.3.4}{GUI}{subsection.1.3}% 8
 \BOOKMARK [2][-]{subsection.1.4}{MBID}{section.1}% 9
 \BOOKMARK [2][-]{subsection.1.5}{REST}{section.1}% 10
-\BOOKMARK [1][-]{section.2}{Achtergrond}{}% 11
-\BOOKMARK [2][-]{subsection.2.1}{Last.fm/API: REST}{section.2}% 12
-\BOOKMARK [2][-]{subsection.2.2}{REST architectuur}{section.2}% 13
-\BOOKMARK [2][-]{subsection.2.3}{Website en repository}{section.2}% 14
-\BOOKMARK [2][-]{subsection.2.4}{Naam en logo}{section.2}% 15
+\BOOKMARK [2][-]{subsection.1.6}{JDBC}{section.1}% 11
+\BOOKMARK [1][-]{section.2}{Achtergrond}{}% 12
+\BOOKMARK [2][-]{subsection.2.1}{Last.fm API}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.2}{Codebeheer}{section.2}% 14
+\BOOKMARK [2][-]{subsection.2.3}{Naam en logo}{section.2}% 15
 \BOOKMARK [1][-]{section.3}{Vereisten}{}% 16
 \BOOKMARK [1][-]{section.4}{Implementatie}{}% 17
 \BOOKMARK [2][-]{subsection.4.1}{Android applicatie}{section.4}% 18
-\BOOKMARK [2][-]{subsection.4.2}{Data flow}{section.4}% 19
-\BOOKMARK [2][-]{subsection.4.3}{Databases}{section.4}% 20
-\BOOKMARK [3][-]{subsubsection.4.3.1}{Lokale Database}{subsection.4.3}% 21
-\BOOKMARK [3][-]{subsubsection.4.3.2}{Externe Database}{subsection.4.3}% 22
-\BOOKMARK [1][-]{section.5}{GUI}{}% 23
-\BOOKMARK [1][-]{section.6}{Technische details}{}% 24
-\BOOKMARK [2][-]{subsection.6.1}{Data collection}{section.6}% 25
-\BOOKMARK [2][-]{subsection.6.2}{Unieke records}{section.6}% 26
-\BOOKMARK [2][-]{subsection.6.3}{Verschillende zoekopdrachten}{section.6}% 27
-\BOOKMARK [2][-]{subsection.6.4}{Database Syncing}{section.6}% 28
-\BOOKMARK [2][-]{subsection.6.5}{Uitbreidbaarheid}{section.6}% 29
-\BOOKMARK [2][-]{subsection.6.6}{Installatie}{section.6}% 30
-\BOOKMARK [1][-]{section.7}{Tegengekomen problemen}{}% 31
-\BOOKMARK [2][-]{subsection.7.1}{Synchronious tasks}{section.7}% 32
-\BOOKMARK [2][-]{subsection.7.2}{Tracks omzetten van verschillende representaties}{section.7}% 33
-\BOOKMARK [1][-]{section.8}{Bronnen, tools en referenties}{}% 34
+\BOOKMARK [2][-]{subsection.4.2}{Java server}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.3}{Data flow}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.4}{Databases}{section.4}% 21
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Lokale Database}{subsection.4.4}% 22
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Server Database}{subsection.4.4}% 23
+\BOOKMARK [1][-]{section.5}{Technische beschrijving}{}% 24
+\BOOKMARK [2][-]{subsection.5.1}{Netwerkverbinding}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.2}{Uniek datamodel}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.3}{Verschillende zoekopdrachten}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.4}{Last.fm en hun data}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.5}{Beveiliging}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.6}{Database Syncing}{section.5}% 30
+\BOOKMARK [2][-]{subsection.5.7}{Uitbreidbaarheid}{section.5}% 31
+\BOOKMARK [2][-]{subsection.5.8}{Installatie}{section.5}% 32
+\BOOKMARK [1][-]{section.6}{Graphical User Interface}{}% 33
+\BOOKMARK [1][-]{section.7}{Tegengekomen problemen}{}% 34
+\BOOKMARK [2][-]{subsection.7.1}{Synchronious tasks}{section.7}% 35
+\BOOKMARK [2][-]{subsection.7.2}{Veranderende MBID's}{section.7}% 36
+\BOOKMARK [1][-]{section.8}{Bronnen, tools en referenties}{}% 37

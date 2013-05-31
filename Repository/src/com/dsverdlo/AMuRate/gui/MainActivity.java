@@ -9,7 +9,6 @@ import com.dsverdlo.AMuRate.services.DatabaseSyncer;
 import com.dsverdlo.AMuRate.services.DownloadLastFM;
 import com.dsverdlo.AMuRate.services.InternalDatabaseHistoryAdapter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -294,7 +293,7 @@ public class MainActivity extends BlankActivity implements OnClickListener {
 						search_option = SEARCH_TITLE;
 						String resultsMessage = amr.getString(R.string.main_results_found);
 						if(nResults>30) {
-							results.setText(R.string.main_many + resultsMessage); }
+							results.setText(amr.getString(R.string.main_many) + resultsMessage); }
 						else {
 							results.setText("" + nResults + resultsMessage);
 						}

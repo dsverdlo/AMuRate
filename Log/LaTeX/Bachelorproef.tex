@@ -67,7 +67,7 @@ De promotor van dit project is Dr. Peter Vranckx en wordt geassisteerd door Maar
 
 	\subsection{Projectbeschrijving}
 	\label{sec:Projectbeschrijving}
-Hier gaan we het gebruik van de applicatie in dieper detail bespreken. Voor een visuele voorstelling refereer ik door naar sectie GUI \ref{sec:GUIpics}.
+Hier gaan we het gebruik van de applicatie in dieper detail bespreken. Voor een visuele voorstelling refereer ik door naar sectie \ref{sec:GUIpics}: GUI.
 \\
 Gebruikers moeten eerst en vooral muziek kunnen opzoeken. Hier zal een scherm voor zorgen, waar men de zoekgegevens kan invullen. Er is een veld voor de titel van een lied in te vullen, en een veld voor de artiest- of groepsnaam. Beide velden hoeven niet tesamen ingevuld te zijn, het volstaat dat er maar een veld ingevuld is. Wanneer een gebruiker op de zoekknop duwt zonder enige gegevens ingevuld te hebben, zal hij/zij een melding krijgen dat er eerst een zoekterm opgegeven moet worden.
 \\ 
@@ -125,28 +125,21 @@ Vanaf het beginscherm kan de gebruiker ook op de knop 'History' klikken om zijn 
 	
 		\subsection{REST}
 		\label{sec:REST}
-		tekst
+		REST staat voor Representational State Transfer en is een type van architectuur voor gedistribueerde systemen (zoals het World Wide Web), waarin een duidelijke onderscheiding wordt gemaakt tussen client en server. Clients kunnen oproepen doen naar de server, die de oproepen analyseert, een antwoord formuleert, en dat antwoord terug naar de client stuurt. De standaard sleutelwoorden voor oproepen in een RESTful architectuur zijn GET, POST, PUT en DELETE. Deze dienen om data te kunnen verkrijgen, aanmaken, wijzigen of opsturen.
+		
+		\subsection{JDBC}
+		JDBC staat voor Java Database Connectivity is een API van Oracle die abstractie brengt in het verbinden en beheren van databases. De API maakt het ook eenvoudig om informatie uit databases te filteren en de resultaten te gebruiken voor eender welke operaties.
 		
 \section{Achtergrond}
 \label{sec:Achtergrond}
-	\subsection{Last.fm/API: REST}
-	\label{sec:Last.fm/API: REST}
-Om informatie (over muziek in dit geval) op te kunnen zoeken, moet er gebruik gemaakt worden van een online database met een openbare en hanteerbare API. \textit{Last.fm} is een muziek recommendation service met een enorme online muziek database, die  een gratis (lees: voor geregistreerde gebruikers) API aanbiedt, die iedereen toelaat om mobiele/desktop programma's of web services te bouwen met hun data.
-\newline
-Die procedure verloopt als volgt: om data uit de database te halen moet er een call (oproep) gestuurd worden. Deze gebeurt via HTTP GET naar de Last.fm server die op zijn beurt antwoordt met een XML object (of JSON op aanvraag). De architectuur van client$<->$server die hier gebruikt wordt heet 'REST(ful)'. 
-\newline
-De link van de aanvraag wordt opgebouwd uit 3 delen$;$ de basis van de API, de methode en de api-key. Een api-key is te verkrijgen door te registeren bij Last.fm. De basis is altijd 'ws.audioscrobbler.com/2.0/' en de methode van de vorm '?method=category.function'. 
-De API biedt tientallen methodes aan, zoals bijvoorbeeld artist.search, artist.getTopAlbums, artist.getTopTracks, track.getInfo, track.search, track.getTags, album.search, album.getBuyLinks, ... . 
-\\ %TODO :
-De 'x.search' en 'x.getInfo' oproepen zullen het meeste gebruikt worden in dit project. 
+	\subsection{Last.fm API}
+	\label{sec:Last.fm API}
+Om informatie (over muziek in dit geval) op te kunnen zoeken, moet er gebruik gemaakt worden van een online database met een openbare API. \textit{Last.fm} is een muziek recommendation service met een enorme online muziek database, die geregistreerde gebruikers een gratis API aanbiedt. Zo mogen programmeurs mobiele/desktop programma's of web services bouwen, die beroep doen op hun data. De werking en gebruik hiervan wordt in detail besproken in sectie \ref{sec:Tracks omzetten}.
 
-	\subsection{REST architectuur}
-	\label{sec:REST architectuur}
-	REST staat voor Representational State Transfer en is een type van architectuur voor gedistribueerde systemen (zoals het World Wide Web), waarin een duidelijke onderscheiding wordt gemaakt tussen client en server. Clients kunnen oproepen doen naar de server, die de oproepen analyseert, een antwoord formuleert, en dat antwoord terug naar de klant stuurt. De standaard sleutelwoorden van een REST architectuur zijn GET, POST, PUT en DELETE. Deze dienen om data te kunnen verkrijgen, aanmaken, wijzigen of opsturen.
 	
 	\subsection{Codebeheer}
 	\label{sec:Codebeheer}
-		Voor dit project werd er gebruik gemaakt van Git als versiebeheersysteem, omdat het een gratis, eenvoudige en betrouwbare manier is om de broncode te beheren. Om updates in het project naar de repository te sturen wordt er gebruikt gemaakt van Github voor Windows. Nog een voordeel van deze dienst is dat Github de mogelijkheid biedt om snel en simpel websites te maken voor de bestaande projecten. Zo werd er een kleine website voor dit project opgesteld, die terug te vinden is op: \url{http://dsverdlo.github.com/AMuRate/}. Hier kan men de open-source broncode bekijken, het logboek of dit document raadplegen en de applicatie (.apk) downloaden voor Android 4.0+ toestellen. (Zie sectie Technische Details voor meer informatie over het installeren)
+		Voor dit project werd er gebruik gemaakt van Git als versiebeheersysteem, omdat het een gratis, eenvoudige en betrouwbare manier is om de broncode te beheren. Om updates in het project naar de repository te sturen wordt er gebruikt gemaakt van Github voor Windows. Nog een voordeel van deze dienst is dat Github de mogelijkheid biedt om snel en simpel websites te maken voor de bestaande projecten. Zo werd er een kleine website voor dit project opgesteld, die terug te vinden is op: \url{http://dsverdlo.github.com/AMuRate/}. Hier kan men de open-source broncode bekijken, het logboek of dit document raadplegen en de applicatie (.apk) downloaden voor Android 4.0+ toestellen. (Zie sectie \ref{sec:Installatie}:Installatie voor meer informatie over het installeren)
 		
 	\subsection{Naam en logo}
 	\label{sec:Naam en logo}
@@ -210,6 +203,7 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 		 \pack{AlbumActivity}
 		 \pack{AnimationView}
 		 \pack{ArtistActivity}
+		 \pack{BlankActivity}
 		 \pack{HistoryActivity}
 		 \pack{MainActivity}
 		 \pack{SearchArtistActivity}
@@ -226,11 +220,12 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 		
 		\textbf{com.dsverdlo.AMuRate.services} \newline
 		\pack{DatabaseSyncer}
-		\pack{ExternalDatabaseConnect}
-		\pack{HttpConnect}
+		\pack{DownloadImageTask}
+		\pack{DownloadLastFM}
 		\pack{InternalDatabaseHistoryAdapter}
 		\pack{InternalDatabaseManager}
 		\pack{InternalDatabaseRatingAdapter}
+		\pack{ServerConnect}
 		
 		 In het \textit{GUI} package zitten alle activities\footnote{Dit is de naam van een scherm in Android} en alle klassen die te maken hebben met het uiterlijk van de applicatie. Elk scherm om iets op weer te geven heeft een eigen activity nodig. \\
 		In het \textit{objects} package zitten de objecten/units/simpele java klassen, die abstractie brengen in het project. Het is ook hier dat de globale applicatie 'AMuRate.java' zit.  \\
@@ -238,7 +233,13 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 
 	\subsection{Java server}
 	\label{sec:Java server}
-	tekst enzo	
+	De server code bestaat uit drie bestanden in een package. De 'Server.java' is het bestand dat eenmalig opgestart moet worden, om de server te doen draaien. De server draait standaard op poort 2005. Een ander poortnummer kan meegegeven worden door de server in commendline op te starten en een nieuw poortnummer mee te geven. \\
+	Wanneer een client probeert te verbinden met de server, zal de server een aparte task opstarten hiervoor. Op die manier kunnen er meerdere clients tegelijk hun informatie van de server krijgen zonder dat ze op elkaar moeten wachten. Zo een aparte task is een instantie van 'ServerConnectionTask.java'. Die task kan dan aan de 'ExternalDatabaseConnection.java' vragen om dingen in- of uit de database te halen. Alle SQL is dus behouden in één klasse.
+	
+	\textbf{com.dsverdlo.AMuRate.server} \newline
+	\pack{ExternalDatabaseConnection.java}
+	\pack{Server.java}
+	\pack{ServerConnectionTask.java}
 	
 	\subsection{Data flow}
 	\label{sec:Data flow}
@@ -312,6 +313,7 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 		 User		& text 		& 				\\
 		\hline
 		\end{tabular}
+		\label{tab:extDB}
 	
 	\small \textit{Tabel \tabID : De Rating tabel layout van de database op de server.} \\ \normalsize
 		
@@ -330,21 +332,25 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 
 	\subsection{Netwerkverbinding}
 	\label{sec:Netwerkverbinding}
-	De AMuRate data collection server is een combinatie van een Java server en een MySQL database, die momenteel lokaal op mijn laptop draaien. Die externe database bevat één grote tabel, zoals hier \ref{sec:Extdb} te zien is. Wanneer een score gegeven zou worden op de applicatie, stuurt die de score via sockets\footnote{Standaard communicatiemiddel tussen programma's en computerprocessen} naar de Java server. Wanneer die een verbinding binnen krijgt, wordt er een nieuwe thread aangemaakt (multithreading) die ook een socket verbinding gaat maken met de MySQL database op poort 3306. De database slaagt alle records bij op, tenzij er al een unieke combinatie bestaat (mbid+user).
+	De AMuRate data collection server is een combinatie van een Java server en een MySQL database, die momenteel lokaal op mijn laptop draait. Die externe database bevat één grote tabel, zoals in deze tabel:\ref{tab:extDB} te zien is. Wanneer een score gegeven zou worden op de applicatie, probeert de applicatie een socket\footnote{Standaard communicatiemiddel tussen programma's en computerprocessen} te openen met de server. Als de server draait, is er een serversocket die constant luistert naar nieuwe verbindingen. Als die serversocket een oproep van de applicatie opmerkt, zal die een nieuwe Thread aanmaken voor die verbinding vast te maken. De applicatie zet de score op de out-stream van zijn socket, waarna de serversocket de score van zijn in-stream afhaalt. De score is nu op de server. \\
+De server geeft de score dan mee aan zijn ExternalDatabaseConnection klasse, die de nodige SQL instructies zal opstellen om de score in de database te kunnen voegen. Om de SQL op te sturen, maken we gebruik van een JDBC. Dit is een Java API die het makkelijk maakt om Java programma's te verbinden met databases, data te query-en en resultaten van queries te behandelen. \\
+
 	\includegraphics[scale=1]{Pictures/datacollection.png} \newline
 	\small \textit{Afbeelding \figID : Overzicht van de score verbindingen.} \\ \normalsize
 
+	
+
 	\subsection{Uniek datamodel}
 	\label{sec:Uniek datamodel}
-	Gebruikers mogen maar 1 score per lied geven. Records in de database hebben dus 'MBID' en 'User' als primaire sleutel. Dit is deels om SPAM te voorkomen en deels om een eerlijke gemiddeldes te kunnen maken van scores. Wanneer een lied wordt geladen in de applicatie, wordt er in de databases gekeken of de gebruiker al een score heeft gegeven voor de MBID geassocieerd met het gekozen lied. Wanneer de gebruiker al een score heeft gegeven, zal hij/zij geinformeerd worden met de gegeven score. 
-	Als er geen verbinding is met de externe database, kunnen we op die moment niet achterhalen of de gebruiker al eens een score heeft gegeven op dat lied. We slagen de score dan even lokaal op tot er terug een verbinding op stand kan komen en updateten dan de gegeven score. Zie sectie Database Syncing.
+	Gebruikers mogen maar één score per lied geven. Records in de database hebben dus 'MBID' en 'User' als primaire sleutel. Dit is deels om SPAM te voorkomen en deels om een eerlijke gemiddeldes te kunnen maken van scores. Wanneer een lied wordt geladen in de applicatie, wordt er in de databases gekeken of de gebruiker al een score heeft gegeven voor de MBID geassocieerd met het gekozen lied. Wanneer de gebruiker al een score heeft gegeven, zal hij/zij geinformeerd worden met de gegeven score. 
+	Als er geen verbinding is met de externe database, kunnen we op die moment niet achterhalen of de gebruiker al eens een score heeft gegeven op dat lied. We slagen de score dan even lokaal op tot er terug een verbinding op stand kan komen en updateten dan de gegeven score. Zie sectie\ref{sec:Database Syncing} Database Syncing.
 	
 	\subsection{Verschillende zoekopdrachten}
 	\label{sec:Verschillende zoekopdrachten}
-	Op de homepagina zijn er twee inputvelden; 'artist' en 'title'. Gebruikers kunnen kiezen welke velden ze wel en niet willen/kunnen invullen om te vinden wat ze zoeken. Dat levert ons 4 opties;
+	Op het hoofdscherm zijn er twee inputvelden; 'artiest' en 'titel'. Gebruikers kunnen kiezen welke velden ze wel en niet willen invullen om te vinden wat ze zoeken. Dat levert ons 4 opties;
 		\begin{itemize}
 			\item \textbf{Geen artiest en geen titel} \\
-		Aangezien er niets is ingevuld, kan er ook niets opgezocht worden. De gebruiker krijgt een boodschap te zien dat er minstens 1 veld ingevuld moet zijn. \\
+		Aangezien er niets is ingevuld, kan er ook niets opgezocht worden. De gebruiker krijgt een boodschap te zien dat er minstens één veld ingevuld moet zijn. \\
 		
 			\item \textbf{Wel artiest en geen titel} \\
 		Wanneer enkel de artiestnaam (of groepsnaam) ingevuld wordt, zal er een zoekopdracht gedaan worden naar alle artiesten/groepen met een gelijkaardige naam als de querie. Als er resultaten gevonden zijn, kan de gebruiker kiezen uit een lijst van resultaten. Wanneer een resultaat met een afbeeldingsurl kwam, kunnen we er een afbeelding bij tonen om het selectieproces te vergemakkelijken. Wanneer de gebruiker op een van de opties klikt zal hij doorgewezen worden naar de ArtistActivity pagina van die artiest/groep. \\
@@ -356,6 +362,52 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 		Wanneer beide velden ingevuld worden wordt er dezelfde aanvraag als hier net boven gestuurd naar de Last.fm API, maar in de querie voegen we de artiestnaam toe. De filtering gebeurt op de Last.fm API zelf, en indien er matches zijn voor beide gegevens, kan de gebruiker erop klikken om naar TrackActivity te gaan.
 		\end{itemize}
 		
+		
+			\subsection{Last.fm en hun data}
+	\label{sec:Tracks omzetten}
+	
+Om data uit de Last.fm database te halen moet er een call (oproep) gestuurd worden via HTTP. Deze gebeurt door een GET oproep naar de Last.fm server te sturen. Die server gaat op zijn beurt antwoorden met een XML object (of JSON op aanvraag). De architectuur van client$<->$server die hier gebruikt wordt heet 'REST(ful)'. \\
+
+De url van de aanvraag bestaat uit 3 delen; de basis van de API, de methode met zijn parameters en de api-key. De basis is altijd 'ws.audioscrobbler.com/2.0/' en de methode is van de vorm '?method=category.function'. De parameters in de vorm van '\& param1=value1\& param2=value2'. Een api-key is een string van 32 karakters en gratis te verkrijgen door te registeren bij Last.fm.
+De Last.fm API biedt tientallen methodes aan, zoals bijvoorbeeld artist.search, artist.getTopAlbums, artist.getTopTracks, track.getInfo, track.search, track.getTags, album.search, album.getBuyLinks, ... . \\
+Voor een overzicht van alle methoden verwijs ik door naar hun website: \url{http://www.last.fm/api}. \\ 
+
+De methoden die in dit project gebruikt worden zijn
+\begin{tabular}{| l | l | l |}
+\hline
+	Activity 				&	Methoden			& Uitleg \\ \hline
+	MainActivity			&	track.search 		& Gebruiker zoekt op title (en artiest) \\
+	"						&	artist.search 		& Gebruiker heeft enkel artiest ingevuld \\ \hline
+	SearchResultsActivity	&	track.getInfo		& Gebruiker klikt op een lied optie \\ \hline
+	SearchArtistActivity	&	artist.getInfo		& Gebruiker klikt op een artiest optie \\ \hline
+	TrackActivity			&	artist.getInfo		& Gebruiker wilt artiest van lied bekijken \\
+	"						&	album.getInfo		& Gebruiker wilt album van lied bekijken \\ \hline
+	ArtistActivity			&	track.getTopTracks	& Gebruiker wilt een top lied van artiest zien \\
+	"						&	album.getTopAlbums	& Gebruiker wilt een top album van artiest zien \\ \hline
+	AlbumActivity			&	track.getInfo		& Gebruiker wilt een lied van het album zien \\
+	HistoryActivity			&	track.getInfo		& Gebruiker wilt een lied herbekijken \\
+\hline
+\end{tabular}
+	\small \textit{Tabel \tabID : Een overzicht van alle oproepen in de applicatie.} \\ \normalsize
+
+	Een tegengekomen probleem in dit project is het feit dat de Last.fm API oproepen (zoals track.getInfo en track.search) antwoorden met verschillende representaties. Om een voorbeeld te geven: hieronder bevinden zich de resultaten van twee oproepen met verschillende methoden voor het lied 'Bohemian Rhapsody' van Queen. Er kan opgemerkt worden dat in het eerste resultaat 'artist' een top level attribuut is van 'track'. In het tweede snippet is 'artist' opnieuw een object met zijn eigen velden. Om zo'n object\footnote{In dit document gebruiken XML notatie omdat deze makkelijker leesbaar is dan JSON, maar in de broncode wordt er enkel met JSON gewerkt.} om te zetten in een 'Track' klasse, moet de Track klasse een onderscheid maken in wat voor soort object gebruikt wordt om de klasse te initialiseren. De beste oplossing hiervoor is om per representatie een loadFromX functie te maken die weet hoe X eruit ziet en waar alle informatie staat. Als we net een oproep hebben gedaan met methode 'track.search', zullen we de Track.loadFromSearch oproepen. Voor een oproep met 'track.getInfo', roepen we Track.loadFromInfo op. \\
+	
+	Track.search resultaat:\\
+	\includegraphics[width=15cm]{Pictures/track_search.png} \\ \newline
+	\small \textit{Afbeelding \figID : Resultaat van track.search GET oproep voor Bohemian Rhapsody - Queen.} \\
+
+	Track.getinfo resultaat: \\
+	\includegraphics[width=15cm]{Pictures/track_getinfo.png}\\ \newline
+	\small \textit{Afbeelding \figID : Resultaat van track.getInfo GET oproep voor Bohemian Rhapsody - Queen.}
+	
+	
+	
+	\subsection{Beveiliging}
+	\label{sec:Beveiliging}
+	De beide databases zijn beschermd tegen SQL-injecties door het het gebruik van preparedStatements, in plaats van String formattering. Wanneer er enkel validatie op de user input wordt gedaan, zou het nog mogelijk zijn dat de gebruiker een extra SQL-instructie meestuurt.
+	Een preparedStatement compileert een SQL-instructie op voorhand en laat toe om erna nog parameters te binden. De preparedStatement heeft dan zijn executiepad volledig uitgewerkt, wat het onmogelijk maakt om een SQL-injectie in te voegen die, bijvoorbeeld, tabellen dropt. 
+	
+	
 	\subsection{Database Syncing}
 	\label{sec:Database Syncing}
 	Het kan voorkomen dat de Java server of de MySQL database offline zijn voor een bepaalde onverwachte periode/reden. Als de gebruiker een score wilt geven en de applicatie vaststelt dat er geen verbinding tot stand kan komen, wordt de score tijdelijk opgeslagen in de lokale database. Hier komt de kolom 'Sync' handig in voor, want we zetten die sync bit dan op 0 (=unsynced, 1=synced). Telkens wanneer de gebruiker verwisselt tussen schermen in de applicatie, zal de DatabaseSyncer kijken of er unsynced scores in de lokale database zitten. Dit gebeurt volledig op de achtergrond en is onzichtbaar voor de gebruiker. Wanneer er unsynced scores zijn, zal er gekeken of er nu wel een verbinding gemaakt kan worden. Als er een verbinding gemaakt kan worden, gaan we ze een voor een opsturen naar de server. Wanneer ze allemaal zijn aangekomen zetten we hun sync bits op 1 (synced).
@@ -363,9 +415,10 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 	
 	\subsection{Uitbreidbaarheid}
 	\label{sec:Uitbreidbaarheid}
-	De uitbreidbaarheid van het systeem is zeer eenvoudig, in de veronderstelling dat de gebruiker wel enige voorkennis van Android development bezit. Om nieuwe functionaliteiten toe te voegen moeten er gewoon activities bijgemaakt worden, en toegevoegd worden in het Android Manifest.\\
+	De uitbreidbaarheid van het systeem is zeer eenvoudig, in de veronderstelling dat de gebruiker  enige voorkennis van Android development bezit. Om nieuwe functionaliteiten toe te voegen moeten er gewoon activities bijgemaakt worden, en toegevoegd worden in het Android Manifest.\\
 	
-	De taal van de applicatie is momenteel in het Engels, maar Android ondersteunt een simpel systeem om makkelijk talen toe te voegen aan een applicatie.
+	De taal van de applicatie is standaard in het Engels, maar via de menu knop kan de gebruiker kiezen om de taal te veranderen. De applicatie ondersteunt momenteel 3 talen: Nederlands, Engels en Frans. Android ondersteunt een simpel systeem om makkelijk talen toe te voegen aan een applicatie. Alle tekst staat gedefinieerd in een XML bestand genaamd 'strings.xml'. Om een taal toe te voegen volstaat het om alle strings in dat XML bestand te vertalen in een folder met de naam 'values-' en dan de afkorting van de taal. Daarna moet de nieuwe optie aan het taal-menu toegevoegd worden. Die is gedefiniëerd in de BlankActivity die door alle activities wordt ge-extend. \\
+	\includegraphics[scale=1]{Pictures/lang_folder.png}
 	
 	\subsection{Installatie}
 	\label{sec:Installatie}
@@ -381,12 +434,12 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 	
 	
 	
-		%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%
 	% GUI SECTION %
 	%%%%%%%%%%%%%%%
-\section{GUI}
+\section{Graphical User Interface}
 \label{sec:GUIpics}
-	Hieronder volgen enkele schermopnames van de uiteindelijke GUI. Deze opnames zijn van een echte Android telefoon genomen.  \\ \newline
+	Hieronder volgen enkele schermopnames van de uiteindelijke GUI met onderstaande uitleg.  \\ \newline
 	\hspace*{-5pt}\makebox[\linewidth][c]{%
 	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} %{>{\arraybackslash}m{7cm} >{\arraybackslash}m{7cm}} %{p{7cm} | p{7cm}}
 		\centering \includegraphics[scale=0.28]{Pictures/device-2013-05-25-213538.png}
@@ -481,7 +534,7 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 \hspace*{-5pt}\makebox[\linewidth][c]{%
 	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} 
 		\centering \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-24-20.png}
-		& \includegraphics[scale=0.37]{Pictures/device-2013-05-26-192153.png} \\
+		& \includegraphics[scale=0.37]{Pictures/device-2013-05-31-202010.png} \\
 		
 		\centering \small \textit{Afbeelding \figID : Instructie pop up.}  \normalsize
 		&  \small \textit{Afbeelding \figID : Geschiedenis scherm.} \\  \normalsize
@@ -497,8 +550,8 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 %%%%%%%%%%%%%%seven graphics
 \hspace*{-5pt}\makebox[\linewidth][c]{%
 	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} 
-		\centering \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-26-47.png}
-		& \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-24-56.png} \\
+		\centering \includegraphics[scale=0.28]{Pictures/device-2013-05-31-202339000.png}
+		& \includegraphics[scale=0.28]{Pictures/device-2013-05-31-202456.png} \\
 		
 		\centering \small \textit{Afbeelding \figID : Geschiedenis ratings.}  \normalsize
 		&  \small \textit{Afbeelding \figID : Geschiedenis gewist.} \\  \normalsize
@@ -511,8 +564,24 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 } \\ \end{tabular}
 } \newline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%eight graphics
+\hspace*{-5pt}\makebox[\linewidth][c]{%
+	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} 
+		\centering \includegraphics[scale=0.28]{Pictures/device-2013-05-31-195821.png}
+		& \includegraphics[scale=0.28]{Pictures/device-2013-05-31-195753.png} \\
+		
+		\centering \small \textit{Afbeelding \figID : AMuRate menu van elk scherm. }  \normalsize
+		&  \small \textit{Afbeelding \figID : Taal veranderen menu.} \\  \normalsize
+		\vspace{1pt} & \vspace{1pt} \\
+		
+\multicolumn{1}{p{7cm}|}{%%
+	Op bovenstaande afbeelding zien we het menu dat tevoorschijn komt wanneer de gebruiker op de 'menu' knop van zijn telefoontoestal duwt. Er is een optie die het huidige scherm refresht, een optie om de taal te veranderen (zie volgende afbeelding) en een knop om de applicatie volledig af te sluiten.
+ } & \multicolumn{1}{p{7cm}}{%
+ 	Wanneer men klikt op de menu knop om de taal te veranderen, zal hij een pop-up krijgen met de beschikbare taal-opties. Een gebruiker kan kiezen om de taal in te stellen die al actief is, dit zal niets veranderen en heeft dan dezelfde werking als een refresh. 
+} \\ \end{tabular}
+} \newline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % history gui
-
 
 
 
@@ -528,21 +597,22 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 	\label{sec:Synchronious tasks}
 	Wanneer data binnengehaald moet worden van de API, mag die operatie niet gebeuren op de main thread van het programma, anders zal de applicatie zeer traag/onbruikbaar zijn elke keer dat er iets gedownloaded moet worden. Hierom werd een klasse "MyConnection" gemaakt, die async\footnote{Asynchronous betekent dat een process tegelijkertijd naast een ander process kan werken.} data begint binnen te laden terwijl de applicatie vloeiend kan blijven voortdraaien.
 	
-	\subsection{Tracks omzetten van verschillende representaties}
-	\label{sec:Tracks omzetten}
-	Een tegengekomen probleem in dit project, is dat de Last.fm API oproepen (zoals track.getinfo en track.search) antwoorden met verschillende representaties. Om een voorbeeld te geven: hieronder bevinden zich de resultaten van twee oproepen naar methoden voor het lied 'Bohemian Rhapsody' van Queen. Er kan opgemerkt worden dat in het eerste resultaat 'artist' een top level attribuut is van 'track'. In het tweede snippet is 'artist' opnieuw een object met zijn eigen velden. Om zo een object\footnote{In dit document gebruik ik XML notatie omdat deze makkelijker leesbaar is, maar in de broncode wordt er enkel met JSON gewerkt.} om te zetten in een 'Track' klasse, moet de Track klasse een onderscheid maken in wat voor soort object gebruikt wordt om de klasse te initialiseren. De beste oplossing hiervoor is om per representatie een loadFromX functie te maken die weet hoe X eruit ziet en waar alle informatie staat. \\
-	
-	Track.search resultaat:\\
-	\includegraphics[width=15cm]{Pictures/track_search.png} \\ \newline
-	\small \textit{Afbeelding \figID : Resultaat van Track.search GET voor Bohemian Rhapsody - Queen.} \\
 
-	Track.getinfo resultaat: \\
-	\includegraphics[width=15cm]{Pictures/track_getinfo.png}\\ \newline
-	\small \textit{Afbeelding \figID : Resultaat van Track.getinfo GET voor Bohemian Rhapsody - Queen.}
 		
-
-
+	\subsection{Veranderende MBID's}
+	\label{sec:veranderendeMBID}
+	In de Last.fm API hebben alle liedjes, artiesten en albums een geassociëerde MBID. Tijdens het programmeren door, viel het op dat ik scores kon geven op liedjes die normaal gezien al een score hadden gekregen van mij. Nu blijkt dat de MBID's op willekeurige tijdstippen en intervallen veranderen. In onderstaande afbeelding is een query gezien, die alle MBID's weergeeft van één lied. \\
 	
+	\includegraphics[scale=1]{Pictures/mbid_change.png} \\
+	\small \textit{Afbeelding \figID : Verschillende MBID's voor één track.} \normalsize \newline
+	
+	Over deze veranderingen is geen documentatie te vinden om de Last.fm website. Het probleem van deze veranderingen is pas in mei opgemerkt, en is dus nog niet opgelost. Een oplossing voor dit probleem zou zijn om liedjes te identificeren via hun track en artiest. (Eventueel ook duratie.) 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% BRONNEN %%
+%%%%%%%%%%%%%%%%%%%%%%%	
 \newpage	
 \section{Bronnen, tools en referenties}
 	\label{sec:Bronnen}

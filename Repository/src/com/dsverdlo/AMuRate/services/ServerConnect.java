@@ -1,14 +1,9 @@
 package com.dsverdlo.AMuRate.services;
 
-
 import java.io.*;
 import java.net.*;
-
 import android.os.AsyncTask;
-
 import com.dsverdlo.AMuRate.gui.TrackActivity;
-
-
 
 
 /**
@@ -22,7 +17,14 @@ import com.dsverdlo.AMuRate.gui.TrackActivity;
  *
  */
 
-public class ExternalDatabaseConnect extends AsyncTask<String, Void, Double> {
+public class ServerConnect extends AsyncTask<String, Void, Double> {
+
+	// request methods
+	public static final int ISCONNECTED = 0;
+	public static final int SENDRATING = 1;
+	public static final int GETRATING = 2;
+	public static final int GETAMOUNT = 3;
+	public static final int HASRATED = 4;
 	
 	// private members
 	private TrackActivity activity;
@@ -33,12 +35,6 @@ public class ExternalDatabaseConnect extends AsyncTask<String, Void, Double> {
 	private String message;
 	private int method;
 
-	// request methods
-	public static final int ISCONNECTED = 0;
-	public static final int SENDRATING = 1;
-	public static final int GETRATING = 2;
-	public static final int GETAMOUNT = 3;
-	public static final int HASRATED = 4;
 
 	private int timeOut = 3000; // 3 seconds as i am inpatient
 	private int portNo = 2005; 
@@ -46,15 +42,17 @@ public class ExternalDatabaseConnect extends AsyncTask<String, Void, Double> {
 
 	private String ipAddress;
 
-	public ExternalDatabaseConnect(TrackActivity activity, String ip){ 
+	public ServerConnect(TrackActivity activity, String ip, int method){ 
 		this.activity = activity;
 		this.ipAddress = ip;
+		this.method = method;
 	}
 
 
-	public ExternalDatabaseConnect(DatabaseSyncer databaseSyncer, String ip) {
+	public ServerConnect(DatabaseSyncer databaseSyncer, String ip, int method) {
 		this.syncer = databaseSyncer;
 		this.ipAddress = ip;
+		this.method = method;
 	}
 
 
@@ -167,32 +165,11 @@ public class ExternalDatabaseConnect extends AsyncTask<String, Void, Double> {
 
 	private boolean testConnection() {
 		boolean isOnline = false;
-		//
-		try{
-			//1. creating a socket to connect to the server
-
-			System.out.println("[c]Connecting to "+ipAddress+" in port "+portNo);
-
-			InetAddress serverAddr = InetAddress.getByName(ipAddress);
-			System.out.println("[c]Connectingg to "+serverAddr.toString()+" in port "+portNo);
-
-			Socket requestSocket = new Socket();
-			requestSocket.connect(new InetSocketAddress(serverAddr, portNo), timeOut);
-
-			/** */ //requestSocket = new Socket(serverAddr, 2005);
-			System.out.println("[c]Connected to ... in port "+portNo);
-			//2. get Input and Output streams
-			out = new ObjectOutputStream(requestSocket.getOutputStream());
-			out.flush(); 
-			in = new ObjectInputStream(requestSocket.getInputStream());
-			//3: Communicating with the server
-		}
-		catch(IOException e){
-			System.out.println("Exception in Client.java [setUpConnection]\n"+e);
-		}
-		//
-		// Read connection status
 		try {
+
+			setUpConnection();
+			
+			// Read connection status
 			message = (String)in.readObject();
 			// So far so good, we got a connection with local server
 			// Now we test if the server can reach the database
@@ -284,10 +261,11 @@ public class ExternalDatabaseConnect extends AsyncTask<String, Void, Double> {
 			if(syncer != null) { syncer.onDoneSendingSynced(result); break; }
 
 		case GETRATING: activity.onDoneGettingExternal(result); break;
+		
 		case ISCONNECTED: 
 			if(activity != null) {activity.onDoneTestingExternalConnection(result); break; }
 			if(syncer != null) { syncer.onDoneTestingExternalConnection(result); break; }
-			//case GETAMOUNT: activity.onDoneGettingExternalAmount(result); break;
+		
 		case HASRATED: { activity.onDoneCheckingHasRated(result); break; }
 		default: return;
 		}
@@ -295,29 +273,26 @@ public class ExternalDatabaseConnect extends AsyncTask<String, Void, Double> {
 	}
 
 	protected Double doInBackground(String... params) {
-		method = Integer.parseInt(params[0]);
 		System.out.println("++*++*++*++ Starting a AsyncTask method=" + method);
 		switch(method) {
 		case SENDRATING:
-			String mbid = params[1];
-			String artist = params[2];
-			String title = params[3];
-			float rating = Float.parseFloat(params[4]);
-			int date = Integer.parseInt(params[5]);
-			String user = params[6];
-			if(sendRating(mbid, artist, title, rating, date, user)) {
-				return (double) 1;
-			} else {
-				return (double) -1;
-			}
+			String mbid = params[0];
+			String artist = params[1];
+			String title = params[2];
+			float rating = Float.parseFloat(params[3]);
+			int date = Integer.parseInt(params[4]);
+			String user = params[5];
+			if(sendRating(mbid, artist, title, rating, date, user))	return (double) 1;
+			return (double) -1;
+			
 		case GETRATING:
-			return getRatingAvg(params[1]);
+			return getRatingAvg(params[0]);
 
 		case ISCONNECTED:
 			return (testConnection()) ? (double) 1 : (double) -1 ;
 
 		case HASRATED:
-			return hasRated(params[1], params[2]);
+			return hasRated(params[0], params[1]);
 			
 		default:
 			return (double) -1;

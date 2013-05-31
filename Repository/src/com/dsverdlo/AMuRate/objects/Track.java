@@ -264,6 +264,9 @@ public class Track implements Parcelable {
 		return convertDurationToString(convertDuration(duration));
 	}
 
+	public int getDurationInt() {
+		return duration;
+	}
 	public String getAlbumMBID() {
 		return albumMBID;
 	}

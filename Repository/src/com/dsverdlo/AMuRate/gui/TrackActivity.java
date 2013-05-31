@@ -8,7 +8,7 @@ import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Track;
 import com.dsverdlo.AMuRate.services.DownloadImageTask;
 import com.dsverdlo.AMuRate.services.DownloadLastFM;
-import com.dsverdlo.AMuRate.services.ExternalDatabaseConnect;
+import com.dsverdlo.AMuRate.services.ServerConnect;
 import com.dsverdlo.AMuRate.services.DatabaseSyncer;
 import com.dsverdlo.AMuRate.services.InternalDatabaseHistoryAdapter;
 import com.dsverdlo.AMuRate.services.InternalDatabaseRatingAdapter;
@@ -200,7 +200,7 @@ public class TrackActivity extends BlankActivity {
 					break;
 				case 1: 
 				Toast.makeText(amr, R.string.msg_sending_external, Toast.LENGTH_SHORT).show();
-				sendToExternalDatabase(); 
+				sendToServer(); 
 				ratingBar.setClickable(false);
 				ratingBar.setEnabled(false);
 				ratingBarInfo2.setText(amr.getString(R.string.track_you_rated) + rating);
@@ -233,7 +233,7 @@ public class TrackActivity extends BlankActivity {
 		title.setSelected(true);
 		
 		// Check if ext database is connectable
-		new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.ISCONNECTED);
+		new ServerConnect(trackActivity, amr.getIp(), ServerConnect.ISCONNECTED).execute();
 		
 		// Try syncing aswell
 		new DatabaseSyncer(amr, amr.getIp(), amr.getUser()).execute();
@@ -268,7 +268,7 @@ public class TrackActivity extends BlankActivity {
 			Toast.makeText(amr, R.string.msg_sending_success, Toast.LENGTH_SHORT).show();
 
 			// get new avg
-			new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.GETRATING, track.getMBID());
+			new ServerConnect(trackActivity, amr.getIp(), ServerConnect.GETRATING).execute(track.getMBID());
 		} else {
 			// Sending did not succeed so send it unsynced to int database
 			Toast.makeText(amr, R.string.msg_sending_failed, Toast.LENGTH_SHORT).show();
@@ -277,7 +277,7 @@ public class TrackActivity extends BlankActivity {
 			
 			// Also retest connection
 			Toast.makeText(amr, R.string.msg_connection_retest, Toast.LENGTH_SHORT).show();
-			new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.ISCONNECTED);
+			new ServerConnect(trackActivity, amr.getIp(), ServerConnect.ISCONNECTED).execute();
 		}
 	}
 
@@ -289,11 +289,11 @@ public class TrackActivity extends BlankActivity {
 		// and now we know this, we can get appropriate readings
 		if(isExternalDatabaseAvailable > 0){
 			// if external available, read from it
-			new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.GETRATING, track.getMBID());
+			new ServerConnect(trackActivity, amr.getIp(), ServerConnect.GETRATING).execute(track.getMBID());
 			
 			// and check if user has already rated this
 			String user = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-			new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+ExternalDatabaseConnect.HASRATED, track.getMBID(), user);
+			new ServerConnect(trackActivity, amr.getIp(), ServerConnect.HASRATED).execute(track.getMBID(), user);
 			
 			
 		} else {
@@ -320,10 +320,10 @@ public class TrackActivity extends BlankActivity {
 		}
 	}
 
-	private void sendToExternalDatabase() {
-		System.out.println("DBDB__" + "sendToExternalDB");
+	private void sendToServer() {
+		System.out.println("DB__" + "sendToServer");
 		// Prepare params for AsyncTask
-		int method = ExternalDatabaseConnect.SENDRATING;
+		int method = ServerConnect.SENDRATING;
 		String mbid = track.getMBID();
 		String artist = track.getArtist();
 		String title = track.getTitle();
@@ -337,7 +337,7 @@ public class TrackActivity extends BlankActivity {
 		ra.addRating(track.getMBID(), track.getArtist(), track.getTitle(), rating, true);
 		
 		// Finally send to ext db
-		new ExternalDatabaseConnect(trackActivity, amr.getIp()).execute(""+method, mbid, artist, title, ""+rating, ""+date, user);
+		new ServerConnect(trackActivity, amr.getIp(), method).execute(mbid, artist, title, ""+rating, ""+date, user);
 		
 		
 	}
