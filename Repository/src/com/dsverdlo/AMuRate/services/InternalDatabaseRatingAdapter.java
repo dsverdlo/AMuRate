@@ -17,7 +17,7 @@ import android.database.sqlite.SQLiteDatabase;
  *
  */
 public class InternalDatabaseRatingAdapter {
-
+	// Database variables
 	private SQLiteDatabase database;
 	private InternalDatabaseManager dbm;
 
@@ -30,7 +30,6 @@ public class InternalDatabaseRatingAdapter {
 	private static final String COLUMN_RATING = "rating";
 	private static final String COLUMN_DATE = "date";
 	private static final String COLUMN_SYNCED = "synced";
-
 
 	private static final String TABLE_CREATE = "create table IF NOT EXISTS " + 
 			TABLE_RATINGS + " ( " + 
@@ -129,8 +128,8 @@ public class InternalDatabaseRatingAdapter {
 
 	/**
 	 * getUnsyncedRatings Get all the unsynced ratings
-	 * @param 
-	 * @return 
+	 * @param void
+	 * @return Rating[] all the unsynced ratings
 	 */
 	public Rating[] getUnsyncedRatings() {
 		database = dbm.getWritableDatabase();
@@ -185,12 +184,21 @@ public class InternalDatabaseRatingAdapter {
 		return TABLE_CREATE;
 	}
 
+	/**
+	 * getRatings Retrieves ratings from the database.
+	 * @param sql stating which ratings need to be get
+	 * @return Rating[]
+	 */
 	public Rating[] getRatings(String sql) {
 		database = dbm.getWritableDatabase();
 		Cursor results = database.rawQuery(SQL_GET_ALL_RATINGS, null);
 		Rating[] ratings = null;
+		
+		// If there are results
 		if(results != null && results.moveToFirst()) {
 			ratings = new Rating[results.getCount()];
+			
+			// For each returned rating, create a Rating object
 			for(int i = 0; i < results.getCount(); i++) {
 				Rating r = new Rating();
 				r.setArtist(results.getString(results.getColumnIndex(COLUMN_NAME)));
@@ -214,6 +222,11 @@ public class InternalDatabaseRatingAdapter {
 		}
 	}
 	
+	/**
+	 * Deletes all the synced Ratings in the database
+	 * @param Void
+	 * @return Void
+	 */
 	public void deleteRatings() {
 		database = dbm.getWritableDatabase();
 		

@@ -151,7 +151,7 @@ public final class R {
         public static final int artist_loading_tracks_failed=0x7f04001d;
         public static final int back=0x7f040008;
         public static final int cancel=0x7f040004;
-        public static final int hello_world=0x7f04004e;
+        public static final int hello_world=0x7f04004f;
         public static final int history_back=0x7f040020;
         public static final int history_delete=0x7f04002e;
         public static final int history_deleted_search=0x7f040031;
@@ -180,7 +180,9 @@ public final class R {
         public static final int main_msg_empty=0x7f04000e;
         public static final int main_no_internet_conn=0x7f04004b;
         public static final int main_results_found=0x7f04004c;
+        public static final int main_some=0x7f04004e;
         public static final int menu_settings=0x7f04000c;
+        public static final int msg_already_downloading=0x7f040051;
         public static final int msg_already_rated=0x7f040042;
         public static final int msg_can_send_later=0x7f040041;
         public static final int msg_connection_retest=0x7f04003f;
@@ -201,7 +203,7 @@ public final class R {
         public static final int searchTitle=0x7f040001;
         public static final int stars=0x7f04000b;
         public static final int title_activity_album=0x7f040011;
-        public static final int title_activity_blank=0x7f04004f;
+        public static final int title_activity_blank=0x7f040050;
         public static final int title_activity_history=0x7f040013;
         public static final int title_activity_main=0x7f040010;
         public static final int title_activity_search_artist=0x7f040012;

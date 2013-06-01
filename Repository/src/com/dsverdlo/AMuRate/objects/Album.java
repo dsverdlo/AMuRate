@@ -22,14 +22,15 @@ public class Album {
 	private String imageS, imageM, imageL;
 	private JSONArray tracks;
 	private String summary;
-	
 	private String mbid;
 
+	// The top level tags of the JSON 
 	private enum AlbumKeys {
 		name, artist, id, mbid, url, releasedate, image,
 		listeners, playcount, tracks, toptags, wiki
 	}
 
+	// When loading JSON, initialize all the members first
 	private void initialize() {
 		albumTitle = "";
 		artistName = "";
@@ -43,6 +44,10 @@ public class Album {
 		setTracks(new JSONArray());
 	}
 
+	/*
+	 * This method is called by a loadFromX method.
+	 * It assumes the given JSON object is an album
+	 */
 	private void switchAlbumInfo(JSONObject JSONAlbum) {
 		try {
 			Iterator<?> it = JSONAlbum.keys();
@@ -76,10 +81,21 @@ public class Album {
 						summary = JSONwiki.getString("summary");
 						break;
 					case tracks:
-						setTracks(JSONAlbum.getJSONObject("tracks").getJSONArray("track"));
+						JSONObject JSONtracks = JSONAlbum.getJSONObject("tracks");
+						// If there is only one track, it is not put in a JSON array
+						// So we take the Object and place it in our own array
+						if(JSONtracks.get("track").getClass() == JSONObject.class) {
+							JSONArray tracksArray = new JSONArray();
+							tracksArray.put(JSONtracks.getJSONObject("track"));
+							setTracks(tracksArray);
+						}else {
+							// Otherwise we just set the given array 
+						setTracks(JSONtracks.getJSONArray("track"));
+						}
 						break;
 
 					case image:
+						// Image will also be given in an array
 						JSONArray imageUrls = JSONAlbum.getJSONArray("image");
 						for(int i = 0; i < imageUrls.length(); i++) {
 							JSONObject imageUrl = imageUrls.getJSONObject(i);
@@ -103,9 +119,13 @@ public class Album {
 		}		
 	}
 
+	/*
+	 * Parse an Album object with a string coming from Extra bundle
+	 */
 	public Album(String extraAlbum) {
 		initialize();
 
+		// Try parsing it to JSON Object and then extracting the album
 		try {
 			JSONObject JSONobject = new JSONObject(extraAlbum);
 			JSONObject JSONAlbum = JSONobject.getJSONObject("album");
@@ -118,11 +138,16 @@ public class Album {
 
 	}
 
+	/*
+	 * This method is called when the album is already known in JSON
+	 */
 	public Album (JSONObject JSONAlbum) {
 		initialize();
 		switchAlbumInfo(JSONAlbum);
 	}
 
+	// Getters and setters
+	
 	public String getAlbumTitle() {
 		return albumTitle;
 	}

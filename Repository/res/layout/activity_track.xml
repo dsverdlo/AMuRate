@@ -110,9 +110,10 @@
 
     <com.dsverdlo.AMuRate.gui.AnimationView
         android:id="@+id/track_loading_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/track_title"
         android:visibility="invisible" />
 
     <TextView

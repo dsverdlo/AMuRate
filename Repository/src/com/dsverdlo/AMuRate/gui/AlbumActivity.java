@@ -12,11 +12,9 @@ import com.dsverdlo.AMuRate.services.DownloadImageTask;
 import com.dsverdlo.AMuRate.services.DownloadLastFM;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.text.Html;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -25,6 +23,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.TextView;
 
+/**
+ * This activity shows the details of an album. 
+ * 
+ * @author David Sverdlov
+ *
+ */
 public class AlbumActivity extends BlankActivity {
 	private AMuRate amr;
 	
@@ -38,15 +42,25 @@ public class AlbumActivity extends BlankActivity {
 	
 	private Album album;
 	
+	// When a user clicks a button, we will display a loading message
+	// to let the user know it is being processed.
+	// We also disable the ability to click another track meanwhile
+	private boolean isDownloading;
+	private CharSequence clickedText;
+	private Button clickedButton;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_album);
 		
+		// Get the application
 		amr = (AMuRate)getApplicationContext();
 		
+		// Store the itself
 		albumActivity = this;
 		
+		// Initialize the views
 		albumTitle = (TextView) findViewById(R.id.album_title);
 		albumArtist = (TextView) findViewById(R.id.album_artist);
 		albumImage = (ImageView) findViewById(R.id.album_image);
@@ -56,28 +70,42 @@ public class AlbumActivity extends BlankActivity {
 		tracksLayout = (LinearLayout) findViewById(R.id.album_tracks);
 		summary = (TextView) findViewById(R.id.album_summary);	
 		
+		// Initialize members
+		isDownloading = false;
 		
+		// Get the album to be displayed from the Extra's
 		Intent intent = getIntent();
 		if(intent.hasExtra("album")) {
 			album = new Album(intent.getStringExtra("album"));
-		} else if (intent.hasExtra("jsonalbum")) {
-			album = new Album(intent.getStringExtra("jsonalbum"));
+		} else if(intent.hasExtra("fromArtist")) {
+			try {
+				album = new Album(new JSONObject(intent.getStringExtra("fromArtist")).toString());
+			} catch (JSONException e) {
+				finish();
+			}
+		} else {
+			// If we could not get it, we can't display this activity
+			finish();
+			Toast.makeText(amr, R.string.msg_couldnt_obtain, Toast.LENGTH_SHORT).show();
 		}
 		
+		// Set the text of the album title and the artist of the album
 		albumTitle.setText(album.getAlbumTitle());
 		albumTitle.setTextSize(20);
 		albumArtist.setText(album.getArtistName());
 		albumArtist.setTextSize(17);
 		
+		// Set the text "X" on the close button
 		albumImageClose.setText(R.string.album_x);
-		
+		// Define layout parameters (margins), and gravity to the right
 		LinearLayout.LayoutParams closeLp = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.WRAP_CONTENT, 
 				LinearLayout.LayoutParams.WRAP_CONTENT);
 		closeLp.setMargins(120, 10, 0, 0); // 120left, top, right, bottom
 		albumImageClose.setGravity(Gravity.RIGHT);
 		albumImageClose.setLayoutParams(closeLp);
-		
+		// When clicked on the close button, we clear the previous activities
+		// from the stack and navigate to the main screen
 		albumImageClose.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				finish();
@@ -87,27 +115,38 @@ public class AlbumActivity extends BlankActivity {
 			}
 		});
 		
+		// Load the album image. If there is a link for the Large one, download it
+		// Otherwise we display a standard picture.
 		if(album.getImageL().length() > 0) {
 			DownloadImageTask download = new DownloadImageTask(albumImage);
 			download.execute(album.getImageL());
 		} else albumImage.setImageResource(R.drawable.not_available);
 		
-		
+		// Set the playcount and the listeners count
 		playcount.setText(amr.getString(R.string.album_playcount) + album.getPlaycount());
 		listeners.setText(amr.getString(R.string.album_listeners) + album.getListeners());
 		
+		// Set the summary of the album in the scrollview.
+		// Use fromHtml to make the links work
 		summary.setText(Html.fromHtml(album.getSummary()));
+		// If there is no info, don't display it
+		if(album.getSummary().equals("")) summary.setVisibility(View.INVISIBLE);
 
-		
-		// Set the tracks in the view TODO: abstract
+		// Set the tracks of the album in a scrollview
 		try {
 			JSONArray tracks = album.getTracks();
+			
+			// We keep track of the skipped tracks. We filter the tracks which
+			// have no MBID and no duration associated with.
+			// By keeping this counter, we kan correctly number the good tracks.
 			int skipped = 0;
+			
 			for (int i = 0; i < tracks.length(); i++) {
 				JSONObject oneTrack = tracks.getJSONObject(i);
 				final String tit = oneTrack.getString("name");
 				final String mbid = oneTrack.getString("mbid");
 				
+				// Parse the JSON to a Track object
 				Track track = new Track();
 				track.loadFromSearch(oneTrack);
 				
@@ -117,29 +156,42 @@ public class AlbumActivity extends BlankActivity {
 					continue;
 				}
 				
-				Button bt = new Button(amr);
+				// Make a custom button for the track
+				final Button bt = new Button(amr);
 				bt.setBackgroundResource(R.layout.rounded_corners);
 
+				// The layout parameters
 				LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 						LinearLayout.LayoutParams.FILL_PARENT, 
 						LinearLayout.LayoutParams.WRAP_CONTENT);
 				lp.setMargins(8, 10, 8, 4); // left, top, right, bottom
 				bt.setLayoutParams(lp);
 				
+				// Set the button text like this:     n: Song title
 				bt.setText("" + (i+1-skipped) + ":" + tit);
+				
+				// When the user clicks on it, we do a small check if there is a MBID
+				// Before we start downloading info for that mbid.
 				bt.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
-						if(mbid.length() == 0) {
-							Toast.makeText(amr, R.string.msg_no_mbid_track, Toast.LENGTH_SHORT).show();
+						if(!isDownloading) {
+							if(mbid.length() == 0) {
+								Toast.makeText(amr, R.string.msg_no_mbid_track, Toast.LENGTH_SHORT).show();
+							} else {
+								isDownloading = true;
+								clickedButton = bt;
+								clickedText = bt.getText();
+								bt.setText(R.string.loading);
+								DownloadLastFM dl = new DownloadLastFM(albumActivity, DownloadLastFM.dl_album_track_info);
+								dl.execute(tit, album.getArtistName());
+							}
 						} else {
-							new DownloadLastFM(albumActivity).execute(""+DownloadLastFM.operations.dl_album_track_info, tit, album.getArtistName());
-							
+							Toast.makeText(amr, R.string.msg_already_downloading, Toast.LENGTH_SHORT).show();
 						}
 					}
 				});
 				
-				
-				//bt.seton
+				// When we are done, we add the button to the view
 				tracksLayout.addView(bt);
 				
 			}
@@ -148,20 +200,20 @@ public class AlbumActivity extends BlankActivity {
 			System.out.println("JSONException in AlbumActivity");
 		}
 		
-		
-		
-		
-		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_album, menu);
-		return true;
-	}
-	
+
+	/*
+	 * When the info has been downloaden of the clicked track, we start a new activity.
+	 * We don't finish() this one, as the user might want to return to this by pressing 
+	 * the back button
+	 */
 	public void searchResultsTitleAndArtist(String extraString) {
+		// Set the text back
+		isDownloading = false;
+		clickedButton.setText(clickedText);
+		
+		// Start the new activity
 		Intent trackActivity = new Intent(amr, TrackActivity.class);
 		trackActivity.putExtra("track", extraString);
 		startActivity(trackActivity);

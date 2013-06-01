@@ -19,6 +19,7 @@
     <string name="main_history"> Historique </string>
     <string name="main_results_found">" resultats trouvés!"</string>
     <string name="main_many">"Beaucoup de"</string>
+    <string name="main_some">"Quelques"</string>
     <string name="main_no_internet_conn">"Pas de connection internet&#8230; Réessayer svp"</string>
     <string name="main_instructions">Instructions</string>
     <string name="main_instruction_text">"Svp entrez un artiste, un titre de chanson ou les deux dans les barres de recherche at appuyer sur 'Recherche'."</string>
@@ -80,5 +81,6 @@
     <string name="track_loading_ratings">Chargement des evaluations&#8230;</string>
     <string name="msg_testing_connection">"Vérification de la connection, svp retentez l'evaluation"</string>
     <string name="msg_sending_script">Sending to php script</string>
+    <string name="msg_already_downloading">"Déjà telecharger une piste!"</string>
 
 </resources>

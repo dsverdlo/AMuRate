@@ -39,7 +39,7 @@ public class BlankActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
 		// First item: refresh: reloads the currect screen
-        SubMenu refresh = menu.addSubMenu(Menu.NONE, 199, 0, "Refresh").setIcon(android.R.drawable.ic_menu_rotate);
+        menu.addSubMenu(Menu.NONE, 199, 0, "Refresh").setIcon(android.R.drawable.ic_menu_rotate);
         
         // Second item: change language. To add languages, extend the menu here
         SubMenu langMenu = menu.addSubMenu(0, 200, 1, R.string.language).setIcon(android.R.drawable.ic_menu_preferences);
@@ -48,7 +48,7 @@ public class BlankActivity extends Activity {
             langMenu.add(1, 203, 0, "English");
         
         // Third item: quit application
-        SubMenu quit = menu.addSubMenu(Menu.NONE, 198, 2, "Quit").setIcon(android.R.drawable.ic_lock_power_off);
+        menu.addSubMenu(Menu.NONE, 198, 2, "Quit").setIcon(android.R.drawable.ic_lock_power_off);
        
         return super.onCreateOptionsMenu(menu);
     }

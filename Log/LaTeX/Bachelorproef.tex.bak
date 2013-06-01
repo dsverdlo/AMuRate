@@ -372,24 +372,25 @@ De url van de aanvraag bestaat uit 3 delen; de basis van de API, de methode met 
 De Last.fm API biedt tientallen methodes aan, zoals bijvoorbeeld artist.search, artist.getTopAlbums, artist.getTopTracks, track.getInfo, track.search, track.getTags, album.search, album.getBuyLinks, ... . \\
 Voor een overzicht van alle methoden verwijs ik door naar hun website: \url{http://www.last.fm/api}. \\ 
 
+De methoden die in dit project gebruikt worden zijn
 \begin{tabular}{| l | l | l |}
 \hline
-	Activity 				&	Methoden		& Uitleg \\ \hline
-	MainActivity			&	track.search 	& Gebruiker zoekt op title (en artiest) \\
-	"						&	artist.search 	& Gebruiker heeft enkel artiest ingevuld \\ \hline
-	SearchResultsActivity	&	track.getinfo	& Gebruiker klikt op een lied optie \\ \hline
-	SearchArtistActivity	&	artist.getinfo	& Gebruiker klikt op een artiest optie \\ \hline
-	TrackActivity			&	artist.getinfo	& Gebruiker wilt artiest van lied bekijken \\
-	"						&	album.getinfo	& Gebruiker wilt album van lied bekijken \\ \hline
-	ArtistActivity			&	track.getinfo	& Gebruiker wilt een top lied van artiest zien \\
-	"						&	album.getinfo	& Gebruiker wilt een top album van artiest zien \\ \hline
-	AlbumActivity			&	track.getinfo	& Gebruiker wilt een lied van het album zien \\
-	HistoryActivity			&	track.getinfo	& Gebruiker wilt een lied herbekijken \\
+	Activity 				&	Methoden			& Uitleg \\ \hline
+	MainActivity			&	track.search 		& Gebruiker zoekt op title (en artiest) \\
+	"						&	artist.search 		& Gebruiker heeft enkel artiest ingevuld \\ \hline
+	SearchResultsActivity	&	track.getInfo		& Gebruiker klikt op een lied optie \\ \hline
+	SearchArtistActivity	&	artist.getInfo		& Gebruiker klikt op een artiest optie \\ \hline
+	TrackActivity			&	artist.getInfo		& Gebruiker wilt artiest van lied bekijken \\
+	"						&	album.getInfo		& Gebruiker wilt album van lied bekijken \\ \hline
+	ArtistActivity			&	track.getTopTracks	& Gebruiker wilt een top lied van artiest zien \\
+	"						&	album.getTopAlbums	& Gebruiker wilt een top album van artiest zien \\ \hline
+	AlbumActivity			&	track.getInfo		& Gebruiker wilt een lied van het album zien \\
+	HistoryActivity			&	track.getInfo		& Gebruiker wilt een lied herbekijken \\
 \hline
 \end{tabular}
 	\small \textit{Tabel \tabID : Een overzicht van alle oproepen in de applicatie.} \\ \normalsize
 
-	Een tegengekomen probleem in dit project is het feit dat de Last.fm API oproepen (zoals track.getinfo en track.search) antwoorden met verschillende representaties. Om een voorbeeld te geven: hieronder bevinden zich de resultaten van twee oproepen met verschillende methoden voor het lied 'Bohemian Rhapsody' van Queen. Er kan opgemerkt worden dat in het eerste resultaat 'artist' een top level attribuut is van 'track'. In het tweede snippet is 'artist' opnieuw een object met zijn eigen velden. Om zo'n object\footnote{In dit document gebruiken XML notatie omdat deze makkelijker leesbaar is dan JSON, maar in de broncode wordt er enkel met JSON gewerkt.} om te zetten in een 'Track' klasse, moet de Track klasse een onderscheid maken in wat voor soort object gebruikt wordt om de klasse te initialiseren. De beste oplossing hiervoor is om per representatie een loadFromX functie te maken die weet hoe X eruit ziet en waar alle informatie staat. Als we net een oproep hebben gedaan met methode 'track.search', zullen we de Track.loadFromSearch oproepen. Voor een oproep met 'track.getinfo', roepen we Track.loadFromInfo op. \\
+	Een tegengekomen probleem in dit project is het feit dat de Last.fm API oproepen (zoals track.getInfo en track.search) antwoorden met verschillende representaties. Om een voorbeeld te geven: hieronder bevinden zich de resultaten van twee oproepen met verschillende methoden voor het lied 'Bohemian Rhapsody' van Queen. Er kan opgemerkt worden dat in het eerste resultaat 'artist' een top level attribuut is van 'track'. In het tweede snippet is 'artist' opnieuw een object met zijn eigen velden. Om zo'n object\footnote{In dit document gebruiken XML notatie omdat deze makkelijker leesbaar is dan JSON, maar in de broncode wordt er enkel met JSON gewerkt.} om te zetten in een 'Track' klasse, moet de Track klasse een onderscheid maken in wat voor soort object gebruikt wordt om de klasse te initialiseren. De beste oplossing hiervoor is om per representatie een loadFromX functie te maken die weet hoe X eruit ziet en waar alle informatie staat. Als we net een oproep hebben gedaan met methode 'track.search', zullen we de Track.loadFromSearch oproepen. Voor een oproep met 'track.getInfo', roepen we Track.loadFromInfo op. \\
 	
 	Track.search resultaat:\\
 	\includegraphics[width=15cm]{Pictures/track_search.png} \\ \newline
@@ -397,13 +398,13 @@ Voor een overzicht van alle methoden verwijs ik door naar hun website: \url{http
 
 	Track.getinfo resultaat: \\
 	\includegraphics[width=15cm]{Pictures/track_getinfo.png}\\ \newline
-	\small \textit{Afbeelding \figID : Resultaat van track.getinfo GET oproep voor Bohemian Rhapsody - Queen.}
+	\small \textit{Afbeelding \figID : Resultaat van track.getInfo GET oproep voor Bohemian Rhapsody - Queen.}
 	
 	
 	
 	\subsection{Beveiliging}
 	\label{sec:Beveiliging}
-	De beide databases zijn beschermd tegen SQL-injecties door het het gebruik van preparedStatements, in plaats van String formattering. Wanneer er enkel validatie op de user input wordt gedaan, zou het nog mogelijk zijn dat de gebruiker een extra SQL-instructie zou kunnen meesturen.
+	De beide databases zijn beschermd tegen SQL-injecties door het het gebruik van preparedStatements, in plaats van String formattering. Wanneer er enkel validatie op de user input wordt gedaan, zou het nog mogelijk zijn dat de gebruiker een extra SQL-instructie meestuurt.
 	Een preparedStatement compileert een SQL-instructie op voorhand en laat toe om erna nog parameters te binden. De preparedStatement heeft dan zijn executiepad volledig uitgewerkt, wat het onmogelijk maakt om een SQL-injectie in te voegen die, bijvoorbeeld, tabellen dropt. 
 	
 	
@@ -433,12 +434,12 @@ Voor een overzicht van alle methoden verwijs ik door naar hun website: \url{http
 	
 	
 	
-		%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%
 	% GUI SECTION %
 	%%%%%%%%%%%%%%%
 \section{Graphical User Interface}
 \label{sec:GUIpics}
-	Hieronder volgen enkele schermopnames van de uiteindelijke GUI. Deze opnames zijn van een echte Android telefoon genomen.  \\ \newline
+	Hieronder volgen enkele schermopnames van de uiteindelijke GUI met onderstaande uitleg.  \\ \newline
 	\hspace*{-5pt}\makebox[\linewidth][c]{%
 	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} %{>{\arraybackslash}m{7cm} >{\arraybackslash}m{7cm}} %{p{7cm} | p{7cm}}
 		\centering \includegraphics[scale=0.28]{Pictures/device-2013-05-25-213538.png}
@@ -532,8 +533,8 @@ Voor een overzicht van alle methoden verwijs ik door naar hun website: \url{http
 %%%%%%%%%%%%%%six graphics
 \hspace*{-5pt}\makebox[\linewidth][c]{%
 	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} 
-		\centering \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-24-20.png}
-		& \includegraphics[scale=0.37]{Pictures/device-2013-05-31-202010.png} \\
+		\centering \includegraphics[scale=0.32]{Pictures/Screenshot_2013-05-24-21-24-20.png}
+		& \includegraphics[scale=0.32]{Pictures/device-2013-05-31-202010.png} \\
 		
 		\centering \small \textit{Afbeelding \figID : Instructie pop up.}  \normalsize
 		&  \small \textit{Afbeelding \figID : Geschiedenis scherm.} \\  \normalsize

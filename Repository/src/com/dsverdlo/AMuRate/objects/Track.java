@@ -33,22 +33,28 @@ public class Track implements Parcelable {
 	private boolean streamable;
 
 
+	// The keys of the Top level Track JSON
 	private enum TrackKeys
 	{
 		streamable, listeners, image, artist, album, url, mbid, name,
 		id, duration, playcount, toptags;
 	}
 
+	// The keys of the Album tag
 	private enum AlbumKeys
 	{
 		title, mbid, image, url, artist
 	}
 
+	// The keys of the Artist tag
 	private enum ArtistKeys
 	{
 		name, mbid, url
 	}
 
+	/*
+	 * Default constructor initializes vars
+	 */
 	public Track() {
 		InitializeTrack();
 	}
@@ -73,12 +79,14 @@ public class Track implements Parcelable {
 		streamable = false;
 	}
 
+	/*
+	 * Parse JSON from search
+	 */
 	public void loadFromSearch(JSONObject json) {
 		try {
 			Iterator<?> it = json.keys();
 			while(it.hasNext()) {
 				String key = (String) it.next();
-				System.out.println("@@@_"+key);
 				try { 			
 					switch(TrackKeys.valueOf(key)) {
 					case name: 
@@ -132,12 +140,14 @@ public class Track implements Parcelable {
 		}
 	}
 
+	/*
+	 * Parse JSON from info
+	 */
 	public void loadFromInfo(JSONObject json) {		
 		try {
 			Iterator<?> it = json.keys();
 			while(it.hasNext()) {
 				String key = (String) it.next();
-				//System.out.println("one:" + key);
 				try {
 					switch(TrackKeys.valueOf(key)) {
 					case id:
@@ -167,6 +177,7 @@ public class Track implements Parcelable {
 						streamable = (trackStreamable == 1);
 						break;
 					case artist:
+						// Artist has its own JSONObject
 						JSONObject JSONartist = json.getJSONObject("artist");
 						Iterator<?> itArtist = JSONartist.keys();
 						while(itArtist.hasNext()) {
@@ -186,6 +197,7 @@ public class Track implements Parcelable {
 						break;					
 
 					case album:
+						// Album has its own JSONObject
 						JSONObject JSONalbum = json.getJSONObject("album");
 						Iterator<?> itAlbum = JSONalbum.keys();
 						while(itAlbum.hasNext()) {
@@ -230,8 +242,12 @@ public class Track implements Parcelable {
 		}
 	}
 
+	/*
+	 * Parse JSON from info, but accept it as a string from Extra bundle
+	 */
 	public void loadFromInfo(String stringExtra) {
 		try {
+			// Try parsing it into a JSON Object and extracting the track
 			JSONObject JSONextra = new JSONObject(stringExtra);
 			loadFromInfo(JSONextra.getJSONObject("track"));
 		} catch (JSONException je) {
@@ -241,6 +257,7 @@ public class Track implements Parcelable {
 
 	}
 
+	// Getters and setters
 	public String getArtist() {
 		return artistName;
 	}
@@ -261,6 +278,7 @@ public class Track implements Parcelable {
 	}
 
 	public String getDuration() {
+		// Pretty print it
 		return convertDurationToString(convertDuration(duration));
 	}
 
@@ -279,17 +297,17 @@ public class Track implements Parcelable {
 		return getAlbumTitle();
 	}
 
-
 	public int describeContents() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
 
 	}
 
+	/*
+	 * This method converts milliseconds to int[seconds, minutes, hours]
+	 */
 	private int[] convertDuration(double milliseconds) {
 		int time[] = new int[3];
 		int seconds = (int) (milliseconds / 1000) % 60 ;
@@ -302,6 +320,9 @@ public class Track implements Parcelable {
 		return time;
 	}
 
+	/*
+	 * This method pretty prints the time. Adds 0's if < 10
+	 */
 	private String convertDurationToString(int[] time) {
 		int hours = time[2];
 		int minutes = time[1];
@@ -321,7 +342,6 @@ public class Track implements Parcelable {
 		return id;
 	}
 
-	
 	public String getArtistMBID() {
 		return this.artistMBID;
 	}

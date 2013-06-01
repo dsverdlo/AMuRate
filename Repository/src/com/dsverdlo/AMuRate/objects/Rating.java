@@ -19,7 +19,7 @@ public class Rating {
 	private int date;
 	private float rating;
 	
-	/**
+	/*
 	 * Public constructor initializes fields
 	 */
 	public Rating() {
@@ -31,6 +31,8 @@ public class Rating {
 		rating = 0;
 	}
 
+	// Getters and setters
+	
 	public String getMbid() {
 		return mbid;
 	}

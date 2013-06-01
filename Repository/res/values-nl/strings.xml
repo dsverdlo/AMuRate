@@ -79,5 +79,7 @@
     <string name="main_no_internet_conn">"Geen internet connectie&#8230; Probeer het later opnieuw"</string>
     <string name="main_results_found">" resultaten gevonden!"</string>
     <string name="main_many">"Veel"</string>
+    <string name="main_some">"Enkele"</string>
+    <string name="msg_already_downloading">U bent al een lied aan het downloaden!</string>
 
 </resources>

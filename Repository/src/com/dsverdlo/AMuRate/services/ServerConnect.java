@@ -36,7 +36,7 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 	private int method;
 
 
-	private int timeOut = 3000; // 3 seconds as i am inpatient
+	private int timeOut = 3000; // 3 seconds
 	private int portNo = 2005; 
 
 
@@ -59,12 +59,10 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 	private void setUpConnection() {
 		try{
 			//1. creating a socket to connect to the server
-
-			System.out.println("[c]Connecting to "+ipAddress+" in port "+portNo);
+			
 			//here you must put your computer's IP address.
 			InetAddress serverAddr = InetAddress.getByName(ipAddress);
-			System.out.println("[c]Connectingg to "+serverAddr.toString()+" in port "+portNo);
-			//			requestSocket = new Socket(serverAddr, portNo);
+			System.out.println("[c]Connecting to "+serverAddr.toString()+" in port "+portNo);
 
 			Socket requestSocket = new Socket();
 			requestSocket.connect(new InetSocketAddress(serverAddr, portNo), timeOut);
@@ -80,14 +78,15 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 			System.err.println("You are trying to connect to an unknown host!");
 		}
 		catch(IOException ioe){
-			//			ioException.printStackTrace();
-			//Toast.makeText(activity.getApplicationContext(), "Exception in Client.java [setUpConnection]", Toast.LENGTH_SHORT).show();
-			System.out.println("Exception in Client.java [setUpConnection]\n"+ioe);
+			System.out.println("IOException in Client.java [setUpConnection]\n"+ioe);
 		} catch(Exception e) {
 			System.out.println("Exception in Client.java [setUpConnection]\n"+e);
 		}
 	}
 
+	/*
+	 * tearDownConnection closes the in- and out ports and nullifies the socket.
+	 */
 	private void tearDownConnection() {
 		//4: Closing connection
 		try{
@@ -100,6 +99,26 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 		}
 	}
 
+	/*
+	 * Helper function for sending a message on the out-stream to the server
+	 */
+	private void sendMessage(String msg)
+	{
+		try{
+			out.writeObject(msg);
+			out.flush();
+			System.out.println("[c]client>" + msg);
+		}
+		catch(IOException ioException){
+			ioException.printStackTrace();
+		}
+	}
+
+	/*
+	 * SendRating send a rating on the output stream to the server
+	 * Then verifies the result
+	 * @return boolean on succes
+	 */
 	private boolean sendRating(String mbid, String artist, String title, double rating, int date, String user) {
 		boolean result = false;
 		try{
@@ -135,6 +154,9 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 		return result;
 	}
 
+	/*
+	 * This function checks if the given User has rated the given MBID track
+	 */
 	private double hasRated(String mbid, String user) {
 		double result = -1;
 		try{
@@ -163,6 +185,9 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 		return result;
 	}
 
+	/*
+	 * This function tests if we can connect with the server
+	 */
 	private boolean testConnection() {
 		boolean isOnline = false;
 		try {
@@ -193,18 +218,10 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 		return isOnline;
 	}
 
-	private void sendMessage(String msg)
-	{
-		try{
-			out.writeObject(msg);
-			out.flush();
-			System.out.println("[c]client>" + msg);
-		}
-		catch(IOException ioException){
-			ioException.printStackTrace();
-		}
-	}
-
+	/*
+	 * This function gets the average rating of a given MBID 
+	 * and the amount of ratings given on it.
+	 */
 	private double getRatingAvg(String mbid) {
 		double result = -1;
 		setUpConnection();
@@ -220,19 +237,20 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 			// send parameters
 			sendMessage(mbid);
 
-			// read results
-			result = Double.parseDouble((String)in.readObject());
-			System.out.println("[c]server>" + result);
+			// read average rating
+			Double avg = Double.parseDouble((String)in.readObject());
+			System.out.println("[c]server>" + avg);
 
-			// read second results TODO: remove here!!
+			// read amount of ratings given
 			int amt = Integer.parseInt((String)in.readObject());
+			
 			// Since an avg rating is < 10, we can multiply the amount by 10
 			// before we add it with the average to transport 2 numbers in 1
 			// E.g; 512 ratings average to 3.5 --> 512*10 + 3.5 = 5123.5
 			// to extract numbers: avg= mod( X, 10 )
 			// amount = (X - avg) / 10
 
-			result = result + (amt * 10) ;
+			result = avg + (amt * 10) ;
 
 		}
 		catch(ClassNotFoundException classNot){
@@ -250,13 +268,15 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 		return result;
 	}
 
-
+	/*
+	 * This method is called when the operations are done communicating 
+	 * with the server. We expect a Double result.
+	 */
 	protected void onPostExecute(Double result) {
-		System.out.println("++*++*++*++ Finished asynctask! "+result);
 
 		switch(method) {
 		case SENDRATING: 
-			// Send rating could alse be done by the DatabaseSyncer
+			// Since send rating could alse be done by the DatabaseSyncer
 			if(activity != null) { activity.onDoneSendingExternal(result); break; }
 			if(syncer != null) { syncer.onDoneSendingSynced(result); break; }
 
@@ -272,6 +292,10 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 
 	}
 
+	/*
+	 * In background we switch on the given method. Depending on that,
+	 * we call the private member functions to handle communication.
+	 */
 	protected Double doInBackground(String... params) {
 		System.out.println("++*++*++*++ Starting a AsyncTask method=" + method);
 		switch(method) {
@@ -282,22 +306,22 @@ public class ServerConnect extends AsyncTask<String, Void, Double> {
 			float rating = Float.parseFloat(params[3]);
 			int date = Integer.parseInt(params[4]);
 			String user = params[5];
+			// If sendRating would return True, we return the Double version of True
 			if(sendRating(mbid, artist, title, rating, date, user))	return (double) 1;
+			// Otherwise the Double version of False
 			return (double) -1;
 			
 		case GETRATING:
 			return getRatingAvg(params[0]);
 
 		case ISCONNECTED:
-			return (testConnection()) ? (double) 1 : (double) -1 ;
+			return (double) ((testConnection()) ?  1 : -1) ;
 
 		case HASRATED:
 			return hasRated(params[0], params[1]);
 			
 		default:
 			return (double) -1;
-
-
 		}
 	}
 

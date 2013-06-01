@@ -17,7 +17,7 @@ public class History {
 		private String mbid, title, artist;
 		private int date, key;
 		
-		/**
+		/*
 		 * Public constructor initializes fields
 		 */
 		public History() {
@@ -28,6 +28,7 @@ public class History {
 			date = (int) (System.currentTimeMillis() / 1000L);
 		}
 
+		// Getters and setters
 		public String getMbid() {
 			return mbid;
 		}

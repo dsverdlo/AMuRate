@@ -17,7 +17,6 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 
 	// private members 
 	private InternalDatabaseRatingAdapter ra;
-	private Context context;
 	private int amtOfSyncs;
 	private int amtOfSyncsReceived;
 	private int amtOfSyncsReceivedGood;
@@ -27,7 +26,6 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 
 	// public constuctor instantiates members
 	public DatabaseSyncer(Context context, String ip, String user) {
-		this.context = context;
 		this.ip = ip;
 		this.user = user;
 		ra = new InternalDatabaseRatingAdapter(context);
@@ -43,13 +41,10 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 		// Get all the unsynced tracks
 		unsynced = ra.getUnsyncedRatings();
 
-		// If there are any: make a client request with track information
+		// If there are any: make a server connection and test if we can connect
 		if(unsynced != null && unsynced.length > 0) {
-
 			amtOfSyncs = unsynced.length;
-			
 			new ServerConnect(this, ip, ServerConnect.ISCONNECTED).execute();
-
 
 		} else {
 			System.out.println("DatabaseSyncer: Guess there was nothing to sync..");
@@ -94,12 +89,14 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 		}
 	}
 
+	/*
+	 * When the serverconnection returns with connection result
+	 */
 	public void onDoneTestingExternalConnection(Double result) {
 		if(result < 0 ) {
 			System.out.println("DatabaseSyncer: no connection with ext database, guess we'll try later");
 		} else {
 			for(int i = 0; i < unsynced.length; i++) {
-
 
 				// Before doing any unnecessary work: check if no ratings got lost
 				if(amtOfSyncsReceived > amtOfSyncsReceivedGood) {
@@ -109,7 +106,8 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
  
 				Rating r = unsynced[i];  
 				System.out.println("DatabaseSyncer: executing unsynced request");
-				// Execute the client thread
+				
+				// Execute the server connection
 				new ServerConnect(this, ip, ServerConnect.SENDRATING).execute(
 						r.getMbid(),
 						r.getArtist(),

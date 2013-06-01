@@ -27,15 +27,17 @@ public class Artist implements Parcelable {
 	
 	// more fields from getInfo
 	private int playcount;
-	private boolean streamable; // maybe for use later?
+	private boolean streamable; 
 	private String urlOut;
 	private String summary;
 	private String content;
 	
+	// Top level keys for Artist JSON coming from search
 	private enum ArtistKeys {
 		name, mbid, url, image,	listeners, streamable
 	}
 	
+	// Top level keys for Artist JSON coming from getInfo
 	private enum ArtistInfoKeys {
 		name, mbid, url, image,	stats, streamable, bio,
 		listeners, playcount, ontour, similar, tags,
@@ -43,6 +45,9 @@ public class Artist implements Parcelable {
 		yearformed, formationlist
 	}
 	
+	/*
+	 * This method is called by every constructor to initialize the members
+	 */
 	private void initialize() {
 		artistName = "";
 		listeners = 0;
@@ -57,19 +62,23 @@ public class Artist implements Parcelable {
 		streamable = false;
 		urlOut = "";
 		summary = "";
-		content = "";
-		
-		
-		
+		content = "";	
 	}
 	
+	/*
+	 * Default constructor initializes the members
+	 */
 	public Artist() {
 		initialize();
 	}
 	
+	/*
+	 * This method is called with a string of JSON from the Extra bundle
+	 */
 	public void loadFromSearch(String extraArtist) {
 		initialize();
 		
+		// Try parsing it to a JSONObject
 		try {
 			JSONObject JSONArtist = new JSONObject(extraArtist);
 			Iterator<?> it = JSONArtist.keys();
@@ -77,7 +86,6 @@ public class Artist implements Parcelable {
 			while(it.hasNext()) {
 				try { 
 					key = (String) it.next();
-					System.out.println("777:" + key);
 					switch(ArtistKeys.valueOf(key)) {
 					case name: 
 						artistName = JSONArtist.getString("name");
@@ -96,6 +104,7 @@ public class Artist implements Parcelable {
 						break;
 												
 					case image:
+						// Image is given in an array
 						JSONArray imageUrls = JSONArtist.getJSONArray("image");
 						for(int i = 0; i < imageUrls.length(); i++) {
 							JSONObject imageUrl = imageUrls.getJSONObject(i);
@@ -119,6 +128,84 @@ public class Artist implements Parcelable {
 		}
 	}
 
+	/*
+	 * This method is called from getInfo
+	 */
+	public void loadFromInfo(String stringExtra) {
+		initialize();
+		try {
+			JSONObject JSONArtist = new JSONObject(stringExtra);
+			Iterator<?> it = JSONArtist.keys();
+			String key = "";
+			while(it.hasNext()) {
+				try { 
+					key = (String) it.next();
+					switch(ArtistInfoKeys.valueOf(key)) {
+					case name: 
+						artistName = JSONArtist.getString("name");
+						break;
+						
+					case stats:
+						JSONObject JSONstats = JSONArtist.getJSONObject("stats");
+						listeners = JSONstats.getInt("listeners");
+						playcount = JSONstats.getInt("playcount");
+						break;
+					
+					case url:
+						url = JSONArtist.getString("url");
+						break;
+						
+					case mbid:
+						setMbid(JSONArtist.getString("mbid"));
+						break;
+												
+					case image:
+						JSONArray imageUrls = JSONArtist.getJSONArray("image");
+						for(int i = 0; i < imageUrls.length(); i++) {
+							JSONObject imageUrl = imageUrls.getJSONObject(i);
+							String size = imageUrl.getString("size");
+							String url = imageUrl.getString("#text");
+							if(size.equals("small")) { imageS = url; }
+							else if(size.equals("medium")) { imageM = url; }
+							else if(size.equals("large")) { imageL = url; }
+							else if(size.equals("extralarge")) { imageXL = url; }
+						}
+						break;
+					case bio:
+						JSONObject JSONbio = JSONArtist.getJSONObject("bio");
+						Iterator<?> itBio = JSONbio.keys();
+						while(itBio.hasNext()) {
+							String keyBio = (String) itBio.next();
+							switch(ArtistInfoKeys.valueOf(keyBio)) {
+							case links: 
+								JSONObject links = JSONbio.getJSONObject("links");
+								JSONObject link = links.getJSONObject("link");
+								urlOut = link.getString("href");
+								break;
+							case summary:
+								summary = JSONbio.getString("summary");
+								break;
+							case content:
+								content = JSONbio.getString("content");
+								break;
+							default:
+								break;
+							}
+						}
+					default: break;
+					}
+				} catch (IllegalArgumentException iae) {
+					System.out.println("Error: illegal argument exception in Album: "+key);
+				}
+			}
+
+		} catch (JSONException e) {
+			System.out.println("JSONException in Artist.java Album(public constructor)");
+			e.printStackTrace();
+		}
+	}
+	
+	// Getters and setters
 	public String getArtistName() {
 		return artistName;
 	}
@@ -160,95 +247,10 @@ public class Artist implements Parcelable {
 	}
 
 	public int describeContents() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public void writeToParcel(Parcel arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void loadFromSearch(JSONObject oneResult) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void loadFromInfo(String stringExtra) {
-		initialize();
-		try {
-			JSONObject JSONArtist = new JSONObject(stringExtra);
-			//JSONObject JSONArtist = JSONobject.getJSONObject("artist");
-			Iterator<?> it = JSONArtist.keys();
-			String key = "";
-			while(it.hasNext()) {
-				try { 
-					key = (String) it.next();
-					System.out.println("8008:" + key);
-					switch(ArtistInfoKeys.valueOf(key)) {
-					case name: 
-						artistName = JSONArtist.getString("name");
-						break;
-						
-					case stats:
-						JSONObject JSONstats = JSONArtist.getJSONObject("stats");
-						listeners = JSONstats.getInt("listeners");
-						playcount = JSONstats.getInt("playcount");
-						break;
-					
-					case url:
-						url = JSONArtist.getString("url");
-						break;
-						
-					case mbid:
-						setMbid(JSONArtist.getString("mbid"));
-						break;
-												
-					case image:
-						JSONArray imageUrls = JSONArtist.getJSONArray("image");
-						for(int i = 0; i < imageUrls.length(); i++) {
-							JSONObject imageUrl = imageUrls.getJSONObject(i);
-							String size = imageUrl.getString("size");
-							String url = imageUrl.getString("#text");
-							if(size.equals("small")) { imageS = url; }
-							else if(size.equals("medium")) { imageM = url; }
-							else if(size.equals("large")) { imageL = url; }
-							else if(size.equals("extralarge")) { imageXL = url; }
-						}
-						break;
-					case bio:
-						JSONObject JSONbio = JSONArtist.getJSONObject("bio");
-						Iterator<?> itBio = JSONbio.keys();
-						while(itBio.hasNext()) {
-							String keyBio = (String) itBio.next();
-							System.out.println("80085:" + keyBio);
-							switch(ArtistInfoKeys.valueOf(keyBio)) {
-							case links: 
-								JSONObject links = JSONbio.getJSONObject("links");
-								JSONObject link = links.getJSONObject("link");
-								urlOut = link.getString("href");
-								break;
-							case summary:
-								summary = JSONbio.getString("summary");
-								break;
-							case content:
-								content = JSONbio.getString("content");
-								break;
-							default:
-								break;
-							}
-						}
-					default: break;
-					}
-				} catch (IllegalArgumentException iae) {
-					System.out.println("Error: illegal argument exception in Album: "+key);
-				}
-			}
-
-		} catch (JSONException e) {
-			System.out.println("JSONException in Artist.java Album(public constructor)");
-			e.printStackTrace();
-		}
+	public void writeToParcel(Parcel arg0, int arg1) {		
 	}
 
 	public String getContent() {
@@ -256,6 +258,7 @@ public class Artist implements Parcelable {
 	}
 
 	public String getUrlOut() {
+		// Returns a html link to the Wiki page
 		return "<a href="+this.urlOut+"> Wiki </a>";
 	}
 

@@ -19,6 +19,7 @@
     <string name="main_history"> History </string>
     <string name="main_results_found">" results found!"</string>
     <string name="main_many">"Lots of"</string>
+    <string name="main_some">"A few"</string>
     <string name="main_no_internet_conn">"No internet connection&#8230; Please try again later"</string>
     <string name="main_instructions">Instructions</string>
     <string name="main_instruction_text">Please enter an artist, a song title or both in the search field and then press search.</string>
@@ -80,5 +81,6 @@
     <string name="track_loading_ratings">Loading ratings&#8230;</string>
     <string name="msg_testing_connection">Testing connection, please try again</string>
     <string name="msg_sending_script">Sending to php script</string>
+    <string name="msg_already_downloading">Already downloading a track!</string>
 
 </resources>

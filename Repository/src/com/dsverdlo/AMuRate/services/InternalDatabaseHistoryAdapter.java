@@ -22,13 +22,15 @@ import android.database.sqlite.SQLiteDatabase;
  *
  */
 public class InternalDatabaseHistoryAdapter {
-
+	// Members
 	private SQLiteDatabase database;
 	private InternalDatabaseManager dbm;
 	
+	// History options
 	public final static int KEY_SEARCH = 1;
 	public final static int KEY_TRACK = 2;
 
+	// SQL variables
 	private final static String TABLE_HISTORY = "history";
 	
 	private final static String COLUMN_ID = "_id";
@@ -60,11 +62,14 @@ public class InternalDatabaseHistoryAdapter {
 	public final static String SQL_DELETE_TRACK = 
 			String.format("DELETE FROM %s WHERE %s", TABLE_HISTORY, COLUMN_HISTORY_KEY + " = " + KEY_TRACK);
 	
+	/*
+	 * Public constructor makes a new databasemanager
+	 */
 	public InternalDatabaseHistoryAdapter(Context context) {
 		dbm = new InternalDatabaseManager(context);
 	}
 
-	/**
+	/*
 	 * addHistorySearch adds a pair (name, title) from the search fields
 	 * to the local search history table.
 	 * 
@@ -85,7 +90,7 @@ public class InternalDatabaseHistoryAdapter {
 		return insertId;
 	}
 	
-	/**
+	/*
 	 * This function is called when a user views a track page.
 	 * We store the information of the page (artist, title)
 	 * 
@@ -107,6 +112,11 @@ public class InternalDatabaseHistoryAdapter {
 		return insertId;
 	}
 	
+	/*
+	 * GetSearchHistory takes a query from this class. It could be all
+	 * or just the track or search history. We must check that it is
+	 * in fact a SELECT statement.
+	 */
 	public History[] getSearchHistory(String query) {
 		History[] histories = null;
 
@@ -115,7 +125,11 @@ public class InternalDatabaseHistoryAdapter {
 		
 		database = dbm.getReadableDatabase();
 
+		// Do the query and get a cursor to the results
 		Cursor cursor = database.rawQuery(query, null);
+		
+		// If the cursor could be set and we can move it to first, 
+		// start making History objects from the results
 		if(cursor != null && cursor.moveToFirst()) {
 			histories = new History[cursor.getCount()];
 			for(int i = 0; i < cursor.getCount(); i++) {
@@ -136,6 +150,9 @@ public class InternalDatabaseHistoryAdapter {
 
 	}
 	
+	/*
+	 * Deletes history. Could be all, just track or search history.
+	 */
 	public void deleteHistory(String sql) {
 		database = dbm.getWritableDatabase();
 		
@@ -145,6 +162,10 @@ public class InternalDatabaseHistoryAdapter {
 		database.close();
 	}
 	
+	/*
+	 * Return the SQL to create this table for the first time
+	 * (or when a user manually deleted the app data)
+	 */
 	public static String getSQLTableCreate() {
 		return SQL_TABLE_CREATE;
 	}
