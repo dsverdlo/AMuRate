@@ -17,8 +17,6 @@
 
 \newcommand{\pack}[1]{$>$ #1.java \newline}
 
-%\newcommand{\tabID2}[2]  {\small \textit{Tabel \tabID : #2} \\ \normalsize}
-
 % Counter for the requirements
 \newcounter{reqc} 
 \newcommand{\reqID} {%
@@ -27,15 +25,21 @@
 
 % Counter for the figures/images
 \newcounter{figc}
-\newcommand{\figID} {%
+\newcommand{\increaseFigID} {%
    \stepcounter{figc}%
    \thefigc}
    
+% Command for setting text under table
+\newcommand{\figID}[1]{\small \textit{Afbeelding \increaseFigID : #1} \\ \normalsize}
+
 % Counter for the tables
    \newcounter{tabc}
-\newcommand{\tabID} {%
+\newcommand{\increaseTabID} {%
    \stepcounter{tabc}%
    \thetabc}
+
+% Command for setting text under table
+\newcommand{\tabID}[1]{\small \textit{Tabel \increaseTabID : #1} \\ \normalsize}
 
 
 \author{David Sverdlov \\ dsverdlo@vub.ac.be}
@@ -62,14 +66,13 @@
 
 	\subsection{Doel} 
 	\label{sec:Doel}
-De uitdaging van dit bachelorproject is om een applicatie te ontwikkelen voor het mobiele platform Android. De applicatie moet gebruikers in staat stellen om muzieknummers op te zoeken en een beoordeling te kunnen geven. Die scores worden dan opgestuurd naar een data-collection server met een database, waar later recommendeer algoritmen op zullen werken. De implementatie daarvan valt niet binnen de scope van dit project. \\
-De promotor van dit project is Dr. Peter Vranckx en wordt geassisteerd door Maarten Deville.
+Een bachelorproject is een belangrijke afsluiter van een bacheloropleiding. Dit project is volledig individueel en een vereiste tot het behalen van een bachelor diploma in de richting Computerwetenschappen aan de VUB. De uitdaging van dit bachelorproject is om een applicatie te ontwikkelen voor het mobiele platform Android. De applicatie moet gebruikers in staat stellen om muzieknummers op te zoeken en beoordelingen te kunnen geven. Die scores worden dan opgestuurd naar een grote database, waar later recommendeer algoritmen op zullen werken. Op die manier kunnen we nieuwe muziek aan de mensen voorstellen. De implementatie van die algoritmen valt niet binnen de scope van dit project. De promotor van dit project is Dr. Peter Vranckx en het project werd geassisteerd door Maarten Deville.
 
 	\subsection{Projectbeschrijving}
 	\label{sec:Projectbeschrijving}
 Hier gaan we het gebruik van de applicatie in dieper detail bespreken. Voor een visuele voorstelling refereer ik door naar sectie \ref{sec:GUIpics}: GUI.
 \\
-Gebruikers moeten eerst en vooral muziek kunnen opzoeken. Hier zal een scherm voor zorgen, waar men de zoekgegevens kan invullen. Er is een veld voor de titel van een lied in te vullen, en een veld voor de artiest- of groepsnaam. Beide velden hoeven niet tesamen ingevuld te zijn, het volstaat dat er maar een veld ingevuld is. Wanneer een gebruiker op de zoekknop duwt zonder enige gegevens ingevuld te hebben, zal hij/zij een melding krijgen dat er eerst een zoekterm opgegeven moet worden.
+Gebruikers moeten eerst en vooral muziek kunnen opzoeken. Hier zal het hoofdscherm voor zorgen, waar men de zoekgegevens kan invullen. Er is een veld voor de titel van een lied in te vullen, en een veld voor de artiest- of groepsnaam. Beide velden hoeven niet tegelijk ingevuld te zijn, het volstaat dat er maar één veld ingevuld is. Wanneer een gebruiker op de zoekknop duwt zonder enige gegevens ingevuld te hebben, zal hij/zij een melding krijgen dat er eerst een zoekterm opgegeven moet worden.
 \\ 
 
 Een hulpknop informeert de gebruiker over het correct gebruik van de applicatie. Dit gebeurt door een pop up en kan gesloten worden door op OK te klikken. 
@@ -78,13 +81,13 @@ Een hulpknop informeert de gebruiker over het correct gebruik van de applicatie.
 Wanneer er geen werkende data connectie is, zij dat de data-connectie niet aan staat, of dat er geen beschikbaar netwerk in de buurt is, zal de gebruiker een melding krijgen dat hij een werkende data verbinding nodig heeft eer informatie gedownloaded kan worden. 
 \\ 
 	
-Wanneer een gebruiker beschikt over een actieve data verbinding en minstens één zoekterm ingevuld heeft, zal de applicatie een verbinding maken met een grote externe database met muziekgegevens. De  database waar we gegevens van halen in dit project is die van Last.fm. Op het scherm zal een indicator tevoorschijn komen dat er een oproep behandeld wordt. Eens aangekomen, zal de Last.fm API de oproep behandelen en een antwoord vormen met de opgevraagde informatie. Eens dat antwoord door de applicatie ontvangen is, zal de applicatie het resultaat van de oproep aan de gebruiker tonen. Zie hoofdstuk GUI voor een visueel voorbeeld van dit proces. 
+Wanneer een gebruiker beschikt over een actieve data verbinding en minstens één zoekterm ingevuld heeft, zal de applicatie een verbinding maken met een grote externe database met muziekgegevens. De  database waar we gegevens van halen in dit project is die van Last.fm. Op het scherm zal een indicator tevoorschijn komen dat er een oproep behandeld wordt. Eens aangekomen, zal de Last.fm API de oproep behandelen en een antwoord vormen met de opgevraagde informatie. Eens dat antwoord door de applicatie ontvangen is, zal het resultaat aan de gebruiker getoond worden.
 \\ 
 	
 Wanneer men kiest om de resultaten te bekijken, wordt er een lijst getoond met alle opties. Door op een van de resultaten te klikken, kan er naar het volgende scherm gegaan worden: een gedetailleerde pagina met meer informatie dan de beknopte optie waarop geklikt werd. 
 \\ 
 	
-De gebruiker kan liedjes zoeken door het titelveld in te vullen, maar ook artiesten/groepen opzoeken door enkel iets in het artiestveld te schrijven. Wanneer de gebruiker enkel op artiest zoekt, gaan de gevonden resultaten doorverwijzen naar een gedetailleerde artiestenpagina. Op dit scherm is een kleine biografie te lezen van de artiest, een link naar een wiki-pagina, een afbeelding en een lijst van de top tracks en top albums van die artiest. De gebruiker kan scrollen in beide lijsten en op elk item klikken om naar de respectievelijke gedetailleerde pagina's te gaan.
+De gebruiker kan liedjes zoeken door het titelveld in te vullen, maar ook artiesten/groepen opzoeken door enkel iets in het artiestveld te schrijven. Wanneer de gebruiker enkel op artiest zoekt, gaan de gevonden resultaten doorverwijzen naar een gedetailleerde artiestenpagina. Op dat scherm is een kleine biografie te lezen van de artiest, een link naar een wiki-pagina, een afbeelding en een lijst van de top liedjes en top albums van die artiest. De gebruiker kan scrollen in beide lijsten en op elk item klikken om naar de respectievelijke gedetailleerde pagina's te gaan.
 \\
 
 Het gedetailleerde scherm van een lied geeft meer informatie over het lied in kwestie, zoals de duratie, albumnaam, artiestnaam, een afbeelding van het album\footnote{Indien er een afbeeldings URL beschikbaar is, anders een standaard blanco afbeelding.}. Indien er meer album informatie beschikbaar is, zal er een knop zijn waar gebruikers op kunnen klikken om naar de gedetailleerde pagina voor een album te gaan. 
@@ -96,10 +99,12 @@ Op het track scherm is er een deel van de pagina voorzien voor het scoresysteem.
 Het gedetailleerde scherm voor een album toont informatie over het album en alle liedjes ervan. De gebruiker kan op elk lied klikken om naar het scherm te navigeren met meer informatie om een score te geven. Met een X-knop kan er terug gegaan worden naar het hoofdmenu.
 \\ 
 	
-Wanneer een score toegediend wordt en er een werkende data verbinding is, moet de score niet alleen in de lokale database toegevoegd worden, maar ook naar de server gestuurd worden. In de externe database worden de scores opgeslagen samen met het tijdstip van het geven van de score, de mbid, de titel, de artiest en de gebruiker. De gebruiker slagen we op via het unieke Android device nummer van het GSM toestel. Een gebruiker mag maar 1 score hebben per MBID in de databank.
+Wanneer een score toegediend wordt en er een werkende data verbinding is, moet de score niet alleen in de lokale database toegevoegd worden, maar ook naar de server gestuurd worden. In de externe database worden de scores opgeslagen samen met het tijdstip van het geven van de score, de id van het liedje, de titel, de artiest en de gebruiker die de score geeft. De gebruiker slagen we op via het unieke Android device nummer van het GSM toestel. Een gebruiker mag maar één score hebben per liedje in de databank.
 \\
 
 Vanaf het beginscherm kan de gebruiker ook op de knop 'History' klikken om zijn geschiedenis te bekijken. Op het geschiedenis scherm zijn er vanboven 3 tabs te zien: 'Search', 'Tracks' en 'Ratings'.  De tabs staan in een horizontale scrollview (er kunnen dus makkelijk bijgezet worden). De geschiedenis wordt dus onderverdeeld in zoekgeschiedenis (opgegeven zoektermen), trackgeschiedenis (bekeken tracks) en ratinggeschiedenis die alle gegevens scores bijhoudt. Elke onderverdeling heeft de optie om zijn geschiedenis te wissen.
+\\
+De gebruiker kan in elk scherm kiezen om op de menu-toets te duwen van zijn gsm. Dit opent het menu met enkele opties. Als de gebruiker op de optie 'Refresh' klikt, zal de huidige pagina herladen worden. Dit kan handig zijn wanneer niet alle afbeeldingen geladen konden worden. De menu optie 'Quit' zal de applicatie afsluiten. De menu optie 'Change Language' zal een pop up tonen met de mogelijke talen waar de gebruiker uit kan kiezen. De laatste optie is 'Set IP/port'. Hier kan de gebruiker wijzigen welke poortnummer gebruikt moet worden, of welk ip-adres.
 	
 	
 	\subsection{Afkortingen en definities}
@@ -109,32 +114,32 @@ Vanaf het beginscherm kan de gebruiker ook op de knop 'History' klikken om zijn 
 		API staat voor Application Programming Interface en zorgt voor de communicatie tussen programma's, door de scheiding te vormen tussen verschillende lagen van abstracties.
 		\subsubsection{XML/JSON}
 		\label{sec:XML/JSON}
-		XML staat voor Extensible Markup Language en is een van de meest gebruikte opmaaktalen, die gestructureerde gegevens kunnen omzetten in platte tekst. (Om het zo makkelijk door te kunnen sturen.)
+		XML staat voor Extensible Markup Language en is een van de meest gebruikte opmaaktalen, die gestructureerde gegevens kunnen omzetten in platte tekst. Zo kan het makkelijk doorgestuurd worden.
 		\newline
 		JSON is aan afkorting van JavaScript Object Notation en is een alternatieve simpele manier om objecten voor te stellen als platte tekst.
 		\subsubsection{HTTP}
 		\label{sec:HTTP}
-		HTTP staat voor HyperText Transfer Protocol en is het medium tussen een webbrowser en een webserver. Die communicatie gebeurt door middel van URLs, die verwijzen naar 'iets' op een of andere webserver.
+		HTTP staat voor HyperText Transfer Protocol en is het medium tussen een webbrowser en een webserver. Die communicatie gebeurt door middel van URLs, die verwijzen naar 'iets' op een webserver.
 		\subsubsection{GUI}
 		\label{sec:GUI}
-		GUI staat voor Graphical User Interface en is een visuele vormgeving van een programma, dat door middel van knoppen, afbeeldingen, ... gebruikers toelaat om op een gebruiksvriendelijkere manier met de applicatie om te gaan .
+		GUI staat voor Graphical User Interface en is een visuele vormgeving van een programma, dat door middel van knoppen, afbeeldingen, ... gebruikers toelaat om op een gebruiksvriendelijkere manier met de applicatie om te gaan.
 		
-		\subsection{MBID}
+		\subsubsection{MBID}
 		\label{sec:MBID}
 		MBID staat voor MusicBrainz Identifier. MusicBrainz is een grootschalige onderneming die een universeel, uniek muziek identificerings systeem implementeert. Een ID bestaat uit 36 karakters en kan gebruikt worden voor liedjes, artiesten, albums,...
 	
-		\subsection{REST}
+		\subsubsection{REST}
 		\label{sec:REST}
 		REST staat voor Representational State Transfer en is een type van architectuur voor gedistribueerde systemen (zoals het World Wide Web), waarin een duidelijke onderscheiding wordt gemaakt tussen client en server. Clients kunnen oproepen doen naar de server, die de oproepen analyseert, een antwoord formuleert, en dat antwoord terug naar de client stuurt. De standaard sleutelwoorden voor oproepen in een RESTful architectuur zijn GET, POST, PUT en DELETE. Deze dienen om data te kunnen verkrijgen, aanmaken, wijzigen of opsturen.
 		
-		\subsection{JDBC}
-		JDBC staat voor Java Database Connectivity is een API van Oracle die abstractie brengt in het verbinden en beheren van databases. De API maakt het ook eenvoudig om informatie uit databases te filteren en de resultaten te gebruiken voor eender welke operaties.
+		\subsubsection{JDBC}
+		JDBC (Java Database Connectivity) is een API van Oracle die abstractie brengt in het verbinden met en beheren van databases. De API maakt het ook eenvoudig om informatie uit databases te filteren en de resultaten te gebruiken voor eender welke doeleinden.
 		
 \section{Achtergrond}
 \label{sec:Achtergrond}
 	\subsection{Last.fm API}
 	\label{sec:Last.fm API}
-Om informatie (over muziek in dit geval) op te kunnen zoeken, moet er gebruik gemaakt worden van een online database met een openbare API. \textit{Last.fm} is een muziek recommendation service met een enorme online muziek database, die geregistreerde gebruikers een gratis API aanbiedt. Zo mogen programmeurs mobiele/desktop programma's of web services bouwen, die beroep doen op hun data. De werking en gebruik hiervan wordt in detail besproken in sectie \ref{sec:Tracks omzetten}.
+Om informatie (over muziek in dit geval) te kunnen opzoeken, moet er gebruik gemaakt worden van een online database met een openbare API. \textit{Last.fm} is een muziek recommendation service met een enorme online muziek database, die geregistreerde gebruikers een gratis API aanbiedt. Zo mogen programmeurs mobiele/desktop programma's of web services bouwen, die beroep doen op hun data. De werking en gebruik hiervan wordt in detail besproken in sectie \ref{sec:Tracks omzetten}.
 
 	
 	\subsection{Codebeheer}
@@ -147,10 +152,10 @@ Om informatie (over muziek in dit geval) op te kunnen zoeken, moet er gebruik ge
 	In de ster zelf zijn drie gekleurde letters (AMR) te onderscheiden, naar de naam van de applicatie.
 	
 	
-%\newpage % hack for layout	
+\newpage % hack for layout	
 \section{Vereisten}
 \label{sec:Vereisten}
-Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde status. Deze tabel werd in de loop van het project meermaals bijgewerkt met verschillende statuskleuren, naargelang de level van afwerking per vereiste. Momenteel zijn ze allemaal groen omdat elke onderstaande functionaliteit geimplementeerd is.
+Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde status. Deze tabel werd in de loop van het project meermaals bijgewerkt met verschillende statuskleuren, naargelang de level van afwerking per vereiste. Momenteel zijn ze allemaal groen omdat elke onderstaande functionaliteit geïmplementeerd is.
 
 	% Get a nice table with colors running here, bro
 	\begin{tabular}{| l | l | c | r |}
@@ -179,15 +184,14 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 %	\reqID 	&	optional	&	Informatie ophalen van media speler & \boxred 		\\ \hline
 	%\hline	
 	\end{tabular} \\ \newline
-	\small \textit{Tabel \tabID : Vereisten van het project met uitleg en implementatiestatus.} \normalsize
-	\\ \newline
+	\tabID{Vereisten van het project met uitleg en implementatiestatus.} 
+	
 	Zoals in de projectbeschrijving reeds gezegd werd, bestaat het project uit twee afzonderlijke delen, die verbonden kunnen worden door een internetverbinding. Aan de client-kant is er de applicatie op Android, en aan de server-kant een data-collection server die scores verzameld en geregeld gebruikt wordt voor recommendeer algoritmen. De server-kant is een kleiner pakket dan de client-kant, maar niet minder belangrijk. 
 	\\ \newline
 
-	% text?
 
 
-%\newpage % hack for layout	
+\newpage % hack for layout	
 	%%%%%%%%%%%%%%%%%
 	% Implementatie %
 	%%%%%%%%%%%%%%%%%
@@ -197,7 +201,7 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 	\subsection{Android applicatie}
 	\label{sec:Android applicatie}	
 		\normalsize  
-		De broncode van het project is opgedeeld in 3 packages: \textit{gui, objects en services}. Hier een voorlopig overzicht van de packages en hun inhoud:\\
+		De broncode van het project is opgedeeld in 3 packages: \textit{gui, objects en services}. Hier een overzicht van de packages en hun inhoud:\\
 		
 		 \textbf{com.dsverdlo.AMuRate.gui} \newline		
 		 \pack{AlbumActivity}
@@ -226,15 +230,19 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 		\pack{InternalDatabaseManager}
 		\pack{InternalDatabaseRatingAdapter}
 		\pack{ServerConnect}
+		\pack{ServerConnectMySQL}
+		\pack{ServerConnectPHP}
 		
 		 In het \textit{GUI} package zitten alle activities\footnote{Dit is de naam van een scherm in Android} en alle klassen die te maken hebben met het uiterlijk van de applicatie. Elk scherm om iets op weer te geven heeft een eigen activity nodig. \\
+		 
 		In het \textit{objects} package zitten de objecten/units/simpele java klassen, die abstractie brengen in het project. Het is ook hier dat de globale applicatie 'AMuRate.java' zit.  \\
-		Package \textit{services} bevat de klassen die instaan voor verschillende diensten die moeten gebeuren in de applicatie. Zo is er de HttpConnect klasse, die de oproepen doet en antwoorden download van de Last.fm API en afbeeldingen per http binnenhaalt. De InternalDatabaseManager klasse is ook een dienst die verleend wordt aan de interne database.
+		
+		Package \textit{services} bevat de klassen die instaan voor verschillende diensten die moeten gebeuren in de applicatie. Zo is er de DownloadLastFM klasse, die de oproepen doet en antwoorden download van de Last.fm API en de DownloadImageTask die afbeeldingen per HTTP binnenhaalt. De InternalDatabaseManager klasse is ook een dienst die verleend wordt, namelijk het beheren van de interne database. Per tabel in de interne database is er een adapter klasse die alle SQL bevat. De ServerConnection klasse staat in voor de verbinding met de externe database. Momenteel zijn er twee opties en die worden in detail besproken in sectie\ref{sec:serverconnection}.
 
 	\subsection{Java server}
 	\label{sec:Java server}
-	De server code bestaat uit drie bestanden in een package. De 'Server.java' is het bestand dat eenmalig opgestart moet worden, om de server te doen draaien. De server draait standaard op poort 2005. Een ander poortnummer kan meegegeven worden door de server in commendline op te starten en een nieuw poortnummer mee te geven. \\
-	Wanneer een client probeert te verbinden met de server, zal de server een aparte task opstarten hiervoor. Op die manier kunnen er meerdere clients tegelijk hun informatie van de server krijgen zonder dat ze op elkaar moeten wachten. Zo een aparte task is een instantie van 'ServerConnectionTask.java'. Die task kan dan aan de 'ExternalDatabaseConnection.java' vragen om dingen in- of uit de database te halen. Alle SQL is dus behouden in één klasse.
+	De server code bestaat uit drie bestanden in één package. De 'Server.java' is het bestand dat eenmalig opgestart moet worden om de server te doen draaien. De server draait standaard op poort 2005. Een ander poortnummer kan meegegeven worden door de server in commandline op te starten en een nieuw poortnummer mee te geven. \\
+	Wanneer een client probeert te verbinden met de server, zal de server een aparte thread opstarten hiervoor. Op die manier kunnen er meerdere clients tegelijk hun informatie van de server krijgen zonder dat ze op elkaar moeten wachten. Zo'n thread zal een instantie van 'ServerConnectionTask.java' zijn. Die task gaat dan aan de 'ExternalDatabaseConnection.java' vragen om dingen in- of uit de database te halen. Alle SQL is behouden in één klasse en afgeschermd van de rest.
 	
 	\textbf{com.dsverdlo.AMuRate.server} \newline
 	\pack{ExternalDatabaseConnection.java}
@@ -245,39 +253,42 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 	\label{sec:Data flow}
 	Om de overgangen tussen alle schermen overzichtelijk te illustreren, werd er een Data Flow Diagram gemaakt. Zie onderstaande afbeelding: \newline
 	
-	\includegraphics[scale=1.1]{Pictures/Dataflow2.png} \newline
-	\small \textit{Afbeelding \figID : De data flow tussen alle activies.} \\ \normalsize \newline
-	Op de bovenstaande diagram zien we twee pijlen vertrekken vanuit MainActivity naar de SearchActivities. Wanneer enkel een artiest ingevuld wordt, zal de applicatie naar de ArtistSearchActivity gaan. Vanaf dat er ook een titel ingevuld wordt, gaat de applicatie naar SearchResultsActivity. Dit is visueel te zien in hoofdstuk GUI \ref{sec:GUIpics} en besproken in sectie \ref{sec:Technische details}.
+	\hspace{-5em} \includegraphics[scale=0.4]{Pictures/Dataflow2.png} \newline
+	\figID{De data flow tussen alle activies.} 
+	
+	In de diagram zien we twee pijlen vertrekken vanuit MainActivity naar de SearchActivities. Wanneer enkel een artiest ingevuld werd, zal de applicatie naar de ArtistSearchActivity gaan. Vanaf dat er ook een titel ingevuld wordt, gaat de applicatie naar SearchResultsActivity. Dit is visueel te zien in hoofdstuk \ref{sec:GUIpics}: GUI en besproken in hoofdstuk \ref{sec:Technisch}: Technisch.
 	
 	\subsection{Databases}
 	\label{sec:Databases}
-	Er zijn twee databases in dit project. Eén lokaal, op elk toestel met een AMuRate applicatie, en één grote centrale database op een server. De lokale databases houden enkel data bij van hun gebruiken, en de externe verzamelt de scores van iedereen. We zullen nu beide databases bespreken.
+	Er zijn twee databases in dit project. Eén lokaal, op elk toestel met een AMuRate applicatie, en één grote centrale database op een server. De lokale databases houden enkel data bij van hun gebruikers, terwijl de externe de scores van iedereen verzamelt. We zullen nu beide databases bespreken.
 	
 	\subsubsection{Lokale Database}
 	\label{sec:Lokale Database}
-	De lokale database moet data bijhouden die offline geraadpleegd zou willen worden. Hiermee bedoelen we onder andere geschiedenis van de ingevoerde zoekopdrachten, bekeken liedjes en de laatst gegeven scores. Aangezien deze applicatie vooral beroep doet op een actieve internetverbinding, zal er niet meer dan dat opgeslagen worden. \\ \newline \newpage
-	De lokale database bevat dus twee tabellen en de operaties op deze tabellen gebeuren d.m.v. adapters. Die adapters maken de brug tussen procedures als 'read-X-from-database' en SQLite statements (zoals "SELECT X FROM tablename"). Er bestaat 1 adapter per tabel. \newline
+	De lokale database moet data bijhouden die offline geraadpleegd zou willen worden. Hiermee bedoelen we onder andere geschiedenis van de ingevoerde zoekopdrachten, bekeken liedjes en de laatst gegeven scores. Aangezien deze applicatie vooral beroep doet op een actieve internetverbinding, zal er niet meer dan dat opgeslagen worden. \\ \newline 
+	De lokale database bevat dus twee tabellen en de operaties op deze tabellen gebeuren d.m.v. adapters. Die adapters maken de brug tussen procedures als 'read-X-from-database' en SQLite statements (zoals "SELECT X FROM tablename"). Er is dus één adapter per tabel. \newline
 	 
 	 \begin{itemize}
 		\item Ratings table \newline
+		
 		\begin{tabular}{| l | l | l | }
 		\hline
 		 Naam		& Type		& Sleutel		\\
 		 \hline 
-		id 		& integer 	& primary key 	\\
-		date 	& integer	& 				\\
-		rating 	& float 	& 				\\
-		mbid 	& text 		& 				\\
-		title 	& text 		& 				\\
-		artist 	& text 		& 				\\
-		sync	& integer 	& 				\\
-		\hline
+		 id 		& integer 	& primary key 	\\
+		 date 		& integer	& 				\\
+		 rating 	& float 	& 				\\
+		 mbid 		& text 		& 				\\
+		 title 		& text 		& 				\\
+		 artist 	& text 		& 				\\
+		 sync		& integer 	& 				\\
+		 \hline
 		\end{tabular} \newline
-		\small \textit{Tabel \tabID : Het model van de Rating tabel in de lokale database.} \\ \normalsize \newline
-		%\tabID2{Testnewcommand}
-		De laatste kolom in de tabel is een 'sync bit'. Dat betekent dat hij enkel de waarde 0 of 1 kan hebben. Wanneer hij waarde 0 nul heeft, betekent het dat de score nog niet verzonden is naar de externe database. Dit kan voorvallen als er slechte verbinding is, of de server even uit zou staan bijvoorbeeld.  De DatabaseSyncer zal de score opsturen eens er terug verbinding is en de sync bit op waarde 1 zetten, zodat we weten dat hij opgestuurd is. % TODO: bevestiging server
+		\tabID{Het model van de Rating tabel in de lokale database.}  
+
+		De laatste kolom in de tabel is een 'sync bit'. Dat betekent dat hij enkel de waarde 0 of 1 kan hebben. Wanneer hij waarde nul heeft, betekent het dat de score nog niet verzonden is naar de externe database. Dit kan voorvallen als er slechte verbinding is, of de server even uit zou staan bijvoorbeeld. Wanneer dat voorvalt, zal de functie die de score wou opsturen een negatieve response krijgen. Omdat we checken of de score goed is aangekomen, kunnen we detecteren wanneer het zou falen en kunnen we de score lokaal opslagen. De DatabaseSyncer zal de score opsturen eens er terug verbinding is en de sync bit op waarde 1 zetten, zodat we weten dat hij opgestuurd is. 
 		
-		\item Geschiedenis table \newline
+		\item Geschiedenis table \\
+		
 		\begin{tabular}{| l | l | l | }
 		\hline
 		Naam	& Type		& Sleutel		\\
@@ -290,16 +301,16 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 		mbid 	& text 		& 				\\
 		\hline
 		\end{tabular} \newline
-		\small \textit{Tabel \tabID : De Geschiedenis tabel in de lokale database.} \\ \normalsize
+		\tabID{De Geschiedenis tabel in de lokale database.} 
 	
-		De 'key' in kolom 2 is een lokale identificeerder die onderscheid gaat maken tussen een zoek-geschiedenis-record en een track-viewed-geschiedenis. Deze twee soorten records staan samen in één tabel omdat ze, op 1 na, alle velden gemeenschappelijk hebben. Bij track-viewed-geschiedenis gaan we de MBID mee opslagen om sneller de informatie terug te kunnen downloaden. Voor de zoek-geschiedenis-records is dit veld leeg in de database.
+		De 'key' in kolom 2 is een lokale identificeerder die onderscheid gaat maken tussen een zoek-geschiedenis-record en een track-viewed-geschiedenis. Deze twee soorten records staan samen in één tabel omdat ze, op één veld na, alle velden gemeenschappelijk hebben. Bij track-viewed-geschiedenis gaan we de MBID mee opslagen om sneller de informatie terug te kunnen downloaden. Voor de zoek-geschiedenis-records is dit veld leeg in de database.
 	 \end{itemize}
 	
 \newpage
 	\subsubsection{Server Database}
 	\label{sec:Server Database}
 	\label{sec:Extdb}
-	De externe database moet enkel scores van gebruikers verzamelen. Om verschillende gebruikers te onderscheiden zal de er een user ID bijgehouden worden. Die user ID zal de unieke Android ID zijn. De tabel zal er dan zo uitzien: \\ \newline
+	De externe database moet enkel scores van gebruikers verzamelen. Om verschillende gebruikers te onderscheiden zal er een user ID bijgehouden worden. Dit user ID zal het uniek Android ID zijn. De tabel zal er dan zo uitzien: \\ \newline
 		\begin{tabular}{| l | l | l | }
 		\hline
 		 Naam		& Type		& Sleutel		\\
@@ -315,9 +326,9 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 		\end{tabular}
 		\label{tab:extDB}
 	
-	\small \textit{Tabel \tabID : De Rating tabel layout van de database op de server.} \\ \normalsize
+	\tabID{De Rating tabel layout van de database op de server.} 
 		
-	De synchronisatie van deze tabel met de lokale ratings database, gebeurt via een DatabaseSyncer in de applicatie. Die klasse zal, wanneer er ongesyncte scores lokaal staan, scores naar de server sturen zodat ze gelijk lopen. Dit wordt verder in detail besproken in sectie \ref{sec:Database Syncing}.
+	De synchronisatie van deze tabel met de lokale ratings database, gebeurt via een DatabaseSyncer in de applicatie. Die klasse zal, wanneer er ongesyncte scores lokaal staan, scores naar de server sturen zodat ze gelijk lopen. Dit wordt verder in detail besproken in sectie\ref{sec:Database Syncing}: Syncing.
 	
 \newpage % hack for layout	
 
@@ -335,15 +346,18 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 	De AMuRate data collection server is een combinatie van een Java server en een MySQL database, die momenteel lokaal op mijn laptop draait. Die externe database bevat één grote tabel, zoals in deze tabel:\ref{tab:extDB} te zien is. Wanneer een score gegeven zou worden op de applicatie, probeert de applicatie een socket\footnote{Standaard communicatiemiddel tussen programma's en computerprocessen} te openen met de server. Als de server draait, is er een serversocket die constant luistert naar nieuwe verbindingen. Als die serversocket een oproep van de applicatie opmerkt, zal die een nieuwe Thread aanmaken voor die verbinding vast te maken. De applicatie zet de score op de out-stream van zijn socket, waarna de serversocket de score van zijn in-stream afhaalt. De score is nu op de server. \\
 De server geeft de score dan mee aan zijn ExternalDatabaseConnection klasse, die de nodige SQL instructies zal opstellen om de score in de database te kunnen voegen. Om de SQL op te sturen, maken we gebruik van een JDBC. Dit is een Java API die het makkelijk maakt om Java programma's te verbinden met databases, data te query-en en resultaten van queries te behandelen. \\
 
-	\includegraphics[scale=1]{Pictures/datacollection.png} \newline
-	\small \textit{Afbeelding \figID : Overzicht van de score verbindingen.} \\ \normalsize
+	\includegraphics[scale=0.12]{Pictures/Sockets_w_php.png} \newline
+	\figID{Overzicht van de server verbindingen.}
 
-	
+	In de bovenstaande afbeelding zien we ook een HTTP verbinding naar een PHP script staan. Dit is een back up voor wanneer de server offline zou zijn. De MySQL database rechts van het PHP script is een kopie van de database die erboven te zien is, en wordt gehost op een gratis webhosting service. In de applicatie is er de klasse ServerConnect, die de mogelijkheid heeft te kiezen welke service te gebruiken. Aangezien de Java Server en de MySQL database tijdens dit project lokaal op mijn laptop hebben gedraait, kon ik de app toch testen (en laten testen) door middel van de PHP scripts. Dit is niet even veilig/zeker als een socketverbinding, maar we vangen op wanneer een overdracht toch zou falen.
+
+	\subsection{Server connectie}
+	\label{sec:serverconnection}
 
 	\subsection{Uniek datamodel}
 	\label{sec:Uniek datamodel}
-	Gebruikers mogen maar één score per lied geven. Records in de database hebben dus 'MBID' en 'User' als primaire sleutel. Dit is deels om SPAM te voorkomen en deels om een eerlijke gemiddeldes te kunnen maken van scores. Wanneer een lied wordt geladen in de applicatie, wordt er in de databases gekeken of de gebruiker al een score heeft gegeven voor de MBID geassocieerd met het gekozen lied. Wanneer de gebruiker al een score heeft gegeven, zal hij/zij geinformeerd worden met de gegeven score. 
-	Als er geen verbinding is met de externe database, kunnen we op die moment niet achterhalen of de gebruiker al eens een score heeft gegeven op dat lied. We slagen de score dan even lokaal op tot er terug een verbinding op stand kan komen en updateten dan de gegeven score. Zie sectie\ref{sec:Database Syncing} Database Syncing.
+	Gebruikers mogen maar één score per lied geven. Records in de database hebben dus 'MBID' en 'User' als primaire sleutel. Dit is deels om SPAM te voorkomen en deels om een eerlijk gemiddelde te kunnen maken van scores. Wanneer een lied wordt geladen in de applicatie, wordt er in de databases gekeken of de gebruiker al een score heeft gegeven voor de MBID geassociëerd met het gekozen lied. Wanneer de gebruiker al een score heeft gegeven, zal hij/zij geinformeerd worden met de gegeven score. 
+	Als er geen verbinding is met de externe database, kunnen we op die moment niet achterhalen of de gebruiker al eens een score heeft gegeven op dat lied. We slagen de score dan even lokaal op tot er terug een verbinding op stand kan komen en updaten dan de gegeven score. Zie sectie\ref{sec:Database Syncing} Database Syncing.
 	
 	\subsection{Verschillende zoekopdrachten}
 	\label{sec:Verschillende zoekopdrachten}
@@ -372,8 +386,9 @@ De url van de aanvraag bestaat uit 3 delen; de basis van de API, de methode met 
 De Last.fm API biedt tientallen methodes aan, zoals bijvoorbeeld artist.search, artist.getTopAlbums, artist.getTopTracks, track.getInfo, track.search, track.getTags, album.search, album.getBuyLinks, ... . \\
 Voor een overzicht van alle methoden verwijs ik door naar hun website: \url{http://www.last.fm/api}. \\ 
 
-De methoden die in dit project gebruikt worden zijn
-\begin{tabular}{| l | l | l |}
+De methoden die in dit project gebruikt worden zijn: \\
+
+\hspace{-3em} \begin{tabular}{| l | l | l |}
 \hline
 	Activity 				&	Methoden			& Uitleg \\ \hline
 	MainActivity			&	track.search 		& Gebruiker zoekt op title (en artiest) \\
@@ -382,23 +397,23 @@ De methoden die in dit project gebruikt worden zijn
 	SearchArtistActivity	&	artist.getInfo		& Gebruiker klikt op een artiest optie \\ \hline
 	TrackActivity			&	artist.getInfo		& Gebruiker wilt artiest van lied bekijken \\
 	"						&	album.getInfo		& Gebruiker wilt album van lied bekijken \\ \hline
-	ArtistActivity			&	track.getTopTracks	& Gebruiker wilt een top lied van artiest zien \\
-	"						&	album.getTopAlbums	& Gebruiker wilt een top album van artiest zien \\ \hline
+	ArtistActivity			&	track.getTopTracks	& Toont top liedjes van artiest \\
+	"						&	album.getTopAlbums	& Toont top albums van artiest  \\ \hline
 	AlbumActivity			&	track.getInfo		& Gebruiker wilt een lied van het album zien \\
 	HistoryActivity			&	track.getInfo		& Gebruiker wilt een lied herbekijken \\
 \hline
 \end{tabular}
-	\small \textit{Tabel \tabID : Een overzicht van alle oproepen in de applicatie.} \\ \normalsize
+	\tabID{Een overzicht van alle oproepen in de applicatie.} 
 
 	Een tegengekomen probleem in dit project is het feit dat de Last.fm API oproepen (zoals track.getInfo en track.search) antwoorden met verschillende representaties. Om een voorbeeld te geven: hieronder bevinden zich de resultaten van twee oproepen met verschillende methoden voor het lied 'Bohemian Rhapsody' van Queen. Er kan opgemerkt worden dat in het eerste resultaat 'artist' een top level attribuut is van 'track'. In het tweede snippet is 'artist' opnieuw een object met zijn eigen velden. Om zo'n object\footnote{In dit document gebruiken XML notatie omdat deze makkelijker leesbaar is dan JSON, maar in de broncode wordt er enkel met JSON gewerkt.} om te zetten in een 'Track' klasse, moet de Track klasse een onderscheid maken in wat voor soort object gebruikt wordt om de klasse te initialiseren. De beste oplossing hiervoor is om per representatie een loadFromX functie te maken die weet hoe X eruit ziet en waar alle informatie staat. Als we net een oproep hebben gedaan met methode 'track.search', zullen we de Track.loadFromSearch oproepen. Voor een oproep met 'track.getInfo', roepen we Track.loadFromInfo op. \\
 	
 	Track.search resultaat:\\
 	\includegraphics[width=15cm]{Pictures/track_search.png} \\ \newline
-	\small \textit{Afbeelding \figID : Resultaat van track.search GET oproep voor Bohemian Rhapsody - Queen.} \\
+	\figID{Resultaat van track.search GET oproep voor Bohemian Rhapsody - Queen.}
 
 	Track.getinfo resultaat: \\
 	\includegraphics[width=15cm]{Pictures/track_getinfo.png}\\ \newline
-	\small \textit{Afbeelding \figID : Resultaat van track.getInfo GET oproep voor Bohemian Rhapsody - Queen.}
+	\figID{Resultaat van track.getInfo GET oproep voor Bohemian Rhapsody - Queen.}
 	
 	
 	
@@ -412,6 +427,11 @@ De methoden die in dit project gebruikt worden zijn
 	\label{sec:Database Syncing}
 	Het kan voorkomen dat de Java server of de MySQL database offline zijn voor een bepaalde onverwachte periode/reden. Als de gebruiker een score wilt geven en de applicatie vaststelt dat er geen verbinding tot stand kan komen, wordt de score tijdelijk opgeslagen in de lokale database. Hier komt de kolom 'Sync' handig in voor, want we zetten die sync bit dan op 0 (=unsynced, 1=synced). Telkens wanneer de gebruiker verwisselt tussen schermen in de applicatie, zal de DatabaseSyncer kijken of er unsynced scores in de lokale database zitten. Dit gebeurt volledig op de achtergrond en is onzichtbaar voor de gebruiker. Wanneer er unsynced scores zijn, zal er gekeken of er nu wel een verbinding gemaakt kan worden. Als er een verbinding gemaakt kan worden, gaan we ze een voor een opsturen naar de server. Wanneer ze allemaal zijn aangekomen zetten we hun sync bits op 1 (synced).
 		
+	\subsection{Responstijden}
+	\label{sec:responsetijden}
+	Wanneer gebruikers op een knop klikken die eerst data moet downloaden, kan dit niet sneller gaan dan de internetverbinding toelaat. Dit kan soms enkele seconden duren. Als de gebruiker op de knop zou blijven klikken uit ongeduldigheid, gaan er steeds nieuwe aanvragen verstuurd worden, die op elkaar stapelen en voor ongewenst gedrag zorgen in de applicatie. Daarom wordt er nu in elke activity een paar variabelen gebruikt om bij te houden of de applicatie al bezig is met downloaden. Wanneer de gebruiker nu meermaals op zo'n knop zou klikken, zal hij een bericht op het scherm zien dat de applicatie bezig is met zijn aanvraag. \\
+	Wanneer de zoekresultaten ingeladen worden, moet er voor elke optie een afbeelding gedownload worden. Indien de gebruiker zou zien dat de eerste optie degene is dat hij zocht en erop klikt, moest hij vroeger wachten tot alle afbeeldingen geladen waren, voordat de nieuwe informatie gedownload kon worden. Dat gaf ongewenste onreageerbaarheid in de applicatie en werd opgelost door alle tasks die afbeeldingen downloaden, tijdelijk op te slagen in een lijst. Wanneer de gebruiker dan op zijn optie zou klikken, kunnen we alle actieve tasks in die lijst onderbreken en de informatie downloaden dat de gebruiker gevraagd heeft. \\
+	Wanneer hij na zo'n onderbreking zou terugkeren naar het vorige scherm, zullen er opties zijn waarvan de afbeeldingen niet zijn ingeladen. Om dit process verder te laten gaan, kan de gebruiker op 'Refresh' klikken van zijn menubalk.
 	
 	\subsection{Uitbreidbaarheid}
 	\label{sec:Uitbreidbaarheid}
@@ -433,7 +453,7 @@ De methoden die in dit project gebruikt worden zijn
 	
 	
 	
-	
+	\newpage
 	%%%%%%%%%%%%%%%
 	% GUI SECTION %
 	%%%%%%%%%%%%%%%
@@ -441,25 +461,23 @@ De methoden die in dit project gebruikt worden zijn
 \label{sec:GUIpics}
 	Hieronder volgen enkele schermopnames van de uiteindelijke GUI met onderstaande uitleg.  \\ \newline
 	\hspace*{-5pt}\makebox[\linewidth][c]{%
-	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} %{>{\arraybackslash}m{7cm} >{\arraybackslash}m{7cm}} %{p{7cm} | p{7cm}}
+	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} 
 		\centering \includegraphics[scale=0.28]{Pictures/device-2013-05-25-213538.png}
-		&  
-		 \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-16-07.png} 
-		\\
+		& \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-16-07.png} \\
 		
-		\centering \small \textit{Afbeelding \figID : Start scherm.}  \normalsize
-		&  \small \textit{Afbeelding \figID : Zoek- en downloadproces.} \\  \normalsize
+		\centering \figID{Start scherm.} 
+		& \figID{Zoek- en downloadproces.} 
 		
 		\vspace{1pt} & \vspace{1pt} \\
 		
-\multicolumn{1}{p{7cm}|}{%		
-			Dit scherm is het start scherm en het eerste wat de gebruiker ziet wanneer de applicatie gestart wordt. Er zijn twee velden om zoektermen in te geven (een voor artiest en een voor titel). De linkerboven knop met het vraagteken erop toont de instructies van de applicatie. De submit knop start een zoekopdracht, wanneer er zoektermen opgegeven zijn. De cancel knop wist alle ingevulde gegevens. }
-&	
-\multicolumn{1}{p{7cm}}{%
-	% Zoek- en downloadproces &
-			In het bovenstaande scherm werden de zoektermen "Bohemian Rhapsody" en "Queen" ingevuld, en op de zoekknop geklikt. De applicatie heeft de zoektermen verwerkt en start het informatie download proces. Een spinner met "Loading..." verschijnt op het scherm om de gebruiker te laten weten dat de applicatie aan het downloaden bezig is. }
-\\	\end{tabular} 
-} \newline
+	\multicolumn{1}{p{7cm}|}{%		
+				Dit scherm is het start scherm en het eerste wat de gebruiker ziet wanneer de applicatie gestart wordt. Er zijn twee velden om zoektermen in te geven (een voor artiest en een voor titel). De linkerboven knop met het vraagteken erop toont de instructies van de applicatie. De submit knop start een zoekopdracht, wanneer er zoektermen opgegeven zijn. De cancel knop wist alle ingevulde gegevens. }
+	&	
+	\multicolumn{1}{p{7cm}} {%
+		% Zoek- en downloadproces &
+				In het bovenstaande scherm werden de zoektermen 'Bohemian Rhapsody' en 'Queen' ingevuld, en op de zoekknop geklikt. De applicatie heeft de zoektermen verwerkt en start het informatie download proces. Een spinner met 'Loading...' verschijnt op het scherm om de gebruiker te laten weten dat de applicatie aan het downloaden is. } 	
+				\end{tabular} 
+}
 
 %%%%%%%%%%%%%%second graphics
 \hspace*{-5pt}\makebox[\linewidth][c]{%
@@ -467,17 +485,18 @@ De methoden die in dit project gebruikt worden zijn
 		\centering \includegraphics[scale=0.4]{Pictures/GUI_0124_startresults.png}
 		& \includegraphics[scale=0.26]{Pictures/Screenshot_2013-05-24-21-17-57.png} \\
 		
-		\centering \small \textit{Afbeelding \figID : Klaar met downloaden.}  \normalsize
-		&  \small \textit{Afbeelding \figID : Lijst met alle zoekresultaten.} \\  \normalsize
+		\centering \figID{Klaar met downloaden.}  
+		& \figID{Lijst met alle zoekresultaten.} 
 		\vspace{1pt} & \vspace{1pt} \\
 		
 \multicolumn{1}{p{7cm}|}{%%Klaar met downloaden \\	
 			Wanneer de applicatie klaar is met het antwoord van de server te downloaden, verandert de text "Loading..." in het resultaat van de oproep, en het aantal gevonden resultaten. Wanneer er een positief aantal resultaten gevonden werd, verschijnt de knop View, waar de gebruiker op kan klikken om de resultaten te bekijken en het gewenste item te selecteren.
  } & \multicolumn{1}{p{7cm}}{%
 	% Geeft alle resultaten weer &
-			De lijst die resultaten weergeeft. Men kan op elke optie klikken om naar een pagina te gaan met meer informatie. Opties die niet beschikken over een afbeelding krijgen de standaard "Niet beschikbaar" afbeelding. De anderen worden asynchroon gedownloaded.
+			De lijst die resultaten weergeeft. Men kan op elke optie klikken om naar een pagina te gaan met meer informatie. Opties die niet beschikken over een afbeelding krijgen de standaard "Niet beschikbaar" afbeelding. De anderen worden asynchroon gedownload.
 } \\ \end{tabular}
 } \newline
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%third graphics
 \hspace*{-5pt}\makebox[\linewidth][c]{%
@@ -485,8 +504,9 @@ De methoden die in dit project gebruikt worden zijn
 		\centering \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-18-48.png}
 		& \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-20-57.png} \\
 		
-		\centering \small \textit{Afbeelding \figID : Gedetailleerd scherm van een lied.}  \normalsize
-		&  \small \textit{Afbeelding \figID : Gedetailleerd scherm voor een album.} \\  \normalsize
+		\centering \figID{Gedetailleerd scherm van een lied.} 
+		&  \figID{Gedetailleerd scherm voor een album.} 
+		
 		\vspace{1pt} & \vspace{1pt} \\
 		
 \multicolumn{1}{p{7cm}|}{%%Weergave van een track \\	
@@ -495,6 +515,7 @@ De methoden die in dit project gebruikt worden zijn
 	Wanneer er meer album informatie beschikbaar is en de gebruiker klikt op het album, komt hij op dit scherm terecht. Het bevat informatie over een gegeven album zoals artiest, albumafbeelding, playcount, listeners, een scrollbare album informatie tekst en alle liedjes die op dat album staan. De gebruiker kan op elk lied klikken om naar de gedetailleerde liedjes pagina te gaan. 
 } \\ \end{tabular}
 } \newline
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%fourth graphics
 \hspace*{-5pt}\makebox[\linewidth][c]{%
@@ -502,8 +523,8 @@ De methoden die in dit project gebruikt worden zijn
 		\centering \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-23-29.png}
 		& \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-23-51.png} \\
 		
-		\centering \small \textit{Afbeelding \figID : We willen hier enkel op artiestnaam zoeken.}  \normalsize
-		&  \small \textit{Afbeelding \figID : Gevonden artiest resultaten voor querie.} \\  \normalsize
+		\centering \figID{We willen hier enkel op artiestnaam zoeken.} 
+		&  \figID{Gevonden artiest resultaten voor querie.} 
 		\vspace{1pt} & \vspace{1pt} \\
 		
 \multicolumn{1}{p{7cm}|}{%%
@@ -519,8 +540,8 @@ De methoden die in dit project gebruikt worden zijn
 		\centering \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-23-02.png}
 		& \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-19-44.png} \\
 		
-		\centering \small \textit{Afbeelding \figID : Gedetailleerd scherm van een artiest.}  \normalsize
-		&  \small \textit{Afbeelding \figID : Link naar de youtube app.} \\  \normalsize
+		\centering \figID{Gedetailleerd scherm van een artiest.}  
+		&  \figID{Link naar de youtube app.} 
 		\vspace{1pt} & \vspace{1pt} \\
 		
 \multicolumn{1}{p{7cm}|}{%%
@@ -534,10 +555,10 @@ De methoden die in dit project gebruikt worden zijn
 \hspace*{-5pt}\makebox[\linewidth][c]{%
 	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} 
 		\centering \includegraphics[scale=0.32]{Pictures/Screenshot_2013-05-24-21-24-20.png}
-		& \includegraphics[scale=0.32]{Pictures/device-2013-05-31-202010.png} \\
+		& \includegraphics[scale=0.42]{Pictures/device-2013-06-02-172637track.png} \\
 		
-		\centering \small \textit{Afbeelding \figID : Instructie pop up.}  \normalsize
-		&  \small \textit{Afbeelding \figID : Geschiedenis scherm.} \\  \normalsize
+		\centering \figID{Instructie pop up.}  
+		&  \figID{Geschiedenis scherm.} 
 		\vspace{1pt} & \vspace{1pt} \\
 		
 \multicolumn{1}{p{7cm}|}{%%
@@ -553,12 +574,12 @@ De methoden die in dit project gebruikt worden zijn
 		\centering \includegraphics[scale=0.28]{Pictures/device-2013-05-31-202339000.png}
 		& \includegraphics[scale=0.28]{Pictures/device-2013-05-31-202456.png} \\
 		
-		\centering \small \textit{Afbeelding \figID : Geschiedenis ratings.}  \normalsize
-		&  \small \textit{Afbeelding \figID : Geschiedenis gewist.} \\  \normalsize
+		\centering \figID{Geschiedenis ratings.}  
+		&  \figID{Geschiedenis gewist.} 
 		\vspace{1pt} & \vspace{1pt} \\
 		
 \multicolumn{1}{p{7cm}|}{%%
-	Deze tab geeft een overzicht van alle gegeven scores. We tonen de titel, artiest en aantal gegeven sterren. Door op een score te klikken verschijnt er een Toast die zegt wanneer die rating precies gegeven werd.
+	De 'Ratings' tab geeft een overzicht van alle gegeven scores. We tonen de titel, artiest en aantal gegeven sterren. Door op een score te klikken verschijnt er een boodschap die zegt wanneer die rating precies gegeven werd.
  } & \multicolumn{1}{p{7cm}}{%
  	Delete history verwijdert de geschiedenis records van de huidig geopende tab.
 } \\ \end{tabular}
@@ -567,11 +588,11 @@ De methoden die in dit project gebruikt worden zijn
 %%%%%%%%%%%%%%eight graphics
 \hspace*{-5pt}\makebox[\linewidth][c]{%
 	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} 
-		\centering \includegraphics[scale=0.28]{Pictures/device-2013-05-31-195821.png}
+		\centering \includegraphics[scale=0.28]{Pictures/device-2013-06-01-231855menu.png}
 		& \includegraphics[scale=0.28]{Pictures/device-2013-05-31-195753.png} \\
 		
-		\centering \small \textit{Afbeelding \figID : AMuRate menu van elk scherm. }  \normalsize
-		&  \small \textit{Afbeelding \figID : Taal veranderen menu.} \\  \normalsize
+		\centering \figID{AMuRate menu van elk scherm. }  
+		& \figID{Taal veranderen menu.} 
 		\vspace{1pt} & \vspace{1pt} \\
 		
 \multicolumn{1}{p{7cm}|}{%%
@@ -580,13 +601,36 @@ De methoden die in dit project gebruikt worden zijn
  	Wanneer men klikt op de menu knop om de taal te veranderen, zal hij een pop-up krijgen met de beschikbare taal-opties. Een gebruiker kan kiezen om de taal in te stellen die al actief is, dit zal niets veranderen en heeft dan dezelfde werking als een refresh. 
 } \\ \end{tabular}
 } \newline
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%ninth graphics
+\hspace*{-5pt}\makebox[\linewidth][c] {%
+	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} 
+		\centering \includegraphics[scale=0.28]{Pictures/device-2013-06-01-232751iperror.png}
+		& \includegraphics[scale=0.28]{Pictures/device-2013-06-01-232655porterror.png} \\
+		
+		\centering \figID{Validatie van IP adres faalt. }  
+		& \figID{Validatie van poortnummer faalt.} 
+		\vspace{1pt} & \vspace{1pt} \\
+		
+\multicolumn{1}{p{7cm}|}{%%
+	Het gegeven IP adres wordt gevalideerd door de 'InetAddressUtils' klasse. Wanneer deze validatie faalt, wordt de tekst boven dat veld in het rood gekleurd.
+ } & \multicolumn{1}{p{7cm}}{%
+ 	Het poortnummer wordt eveneens gevalideerd wanneer de gebruiker op 'Validate' klikt. Het moet eerst en vooral een nummer zijn, en het moet tussen 1024 en 49151 liggen. Als de validatie faalt (zoals in de afbeelding te zien is), blijft de pop-up open. } \\ \end{tabular}
+} \newline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % history gui
 
-
-
-
 	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Feedback %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Gebruiker feedback}
+\label{sec:feedback}
+
+In de laatste maand van het project werd de applicatie door enkele vrijwilligers getest. De bedoeling was dat ze de applicatie installeren en dan enkele scores geven. Nadien konden ze via een formulier uigebreid feedback geven over hun ervaring. Van de 6 inzendingen vonden alle deelnemers direct hoe ze de applicatie konden installeren, een liedje konden opzoeken en een score konden toedienen. Gemiddeld gaf elke deelnemer 8 scores. Op één tester na gebruikten ze allemaal de Youtube knop en vonden dit een nuttige functionaliteit. De gemiddelde score op de layout viel op 3.5. 
+
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tegengekomen problemen %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -601,14 +645,34 @@ De methoden die in dit project gebruikt worden zijn
 		
 	\subsection{Veranderende MBID's}
 	\label{sec:veranderendeMBID}
-	In de Last.fm API hebben alle liedjes, artiesten en albums een geassociëerde MBID. Tijdens het programmeren door, viel het op dat ik scores kon geven op liedjes die normaal gezien al een score hadden gekregen van mij. Nu blijkt dat de MBID's op willekeurige tijdstippen en intervallen veranderen. In onderstaande afbeelding is een query gezien, die alle MBID's weergeeft van één lied. \\
+	In de Last.fm API hebben alle liedjes, artiesten en albums een geassociëerde MBID. Tijdens het programmeren door, viel het op dat ik scores kon geven op liedjes die normaal gezien al een score hadden gekregen van mij. Nu blijkt dat de MBID's op willekeurige tijdstippen en intervallen veranderen. In onderstaande afbeelding is een query gezien, die de verschillende MBID's weergeeft van één lied. \\
 	
 	\includegraphics[scale=1]{Pictures/mbid_change.png} \\
-	\small \textit{Afbeelding \figID : Verschillende MBID's voor één track.} \normalsize \newline
+	\figID{Verschillende MBID's voor één track.}
 	
-	Over deze veranderingen is geen documentatie te vinden om de Last.fm website. Het probleem van deze veranderingen is pas in mei opgemerkt, en is dus nog niet opgelost. Een oplossing voor dit probleem zou zijn om liedjes te identificeren via hun track en artiest. (Eventueel ook duratie.) 
+	Over deze veranderingen is geen documentatie te vinden op de Last.fm website. Het probleem van deze veranderingen is pas in mei opgemerkt, dus hier is nog geen oplossing voor ingevoerd. Een mogelijke oplossing voor dit probleem zou zijn om liedjes te identificeren via hun track en artiest. (Eventueel ook duratie.) 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% CONCLUSIE %%
+%%%%%%%%%%%%%%%%%%%%%%%	
+\newpage	
+\section{Conclusie}
+	\label{sec:Conclusie}
+	
+Toen ik aan dit bachelorproject begon, dacht ik dat het gelijkaardig zou zijn aan het vak Software Engineering, waar we in een groep van 5 mensen een mobiele transit applicatie hebben gemaakt. (Ook voor het mobiele platform Android.) In dat team zat ik wel in het team dat de server API implementeerde, en niet de Java code voor de applicatie. \\
+
+Tijdens het uitvoeren van dit project heb ik ondervonden dat ik niet over voldoende informatie beschikte om alles zelf te doen. Er waren veel onverwachte elementen die opdoken, en ik heb onderzoek moeten doen over deftige applicaties te schrijven voor Android. \\
+
+Het was zeer leerzaam om elke stap van het project zelf voort te brengen (in tegenstelling tot de rol in het Software Engineering project). Na de eerste stappen begon de applicatie een stevige vorm te krijgen en kon ik aan de serverside beginnen. Er moest eerst research gedaan worden naar het opzetten van een server en een MySQL database, aangezien ik dit nog nooit zelf heb moeten doen. \\
+
+Een merkbare evolutie in dit project was de kwaliteit van de code. Naarmate er meer en meer onderzoek geleverd werd naar het schrijven van goede Android code, steeg de kwaliteit, leesbaarheid, becommentarisering van de broncode. \\
+
+Door typische 'problemen' tegen te komen en op te lossen, werden er veel aspecten van het coderen van een app veel duidelijker en interessante stof tot nadenken. Bijvoorbeeld mag geen enkel download-proces op dezelfde thread lopen als de gebruikers interface. Moeten er callback's\footnote{Dit is een functie die later uitgevoerd wordt, wanneer een ander proces klaar is met zijn taak.} geïmplementeerd worden, en moeten alle mogelijke acties van gebruikers in achting genomen worden. \\
+
+Dat zijn allemaal zaken die ik door dit project heb bijgeleerd. Wat ik anders gedaan zou hebben als ik terug in de tijd kon gaan, is meer commentaar zetten bij mijn code, en vanaf het begin oog houden op uitbreidbaarheid. (Dit heeft me naar het einde van het project veel tijd gekost.) \\
+
+Ik durf wel te zeggen dat ik zelf zeer tevreden ben, met het werk dat ik heb geleverd, en de ervaring die ik heb opgedaan. Mobiele apps zijn zeker de toekomst en ik zou er zeker later meer mee willen werken.
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %% BRONNEN %%

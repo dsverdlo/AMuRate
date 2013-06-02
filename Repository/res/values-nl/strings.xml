@@ -12,7 +12,22 @@
     <string name="back"> Terug </string>
     <string name="loading">Laden&#8230;</string>
     <string name="language">Taal aanpassen</string>
-    <string name="stars">stars</string>
+        <string name="dutch">Nederlands</string>
+    <string name="french">"Français"</string>
+    <string name="english">English</string>
+    <string name="stars">stars</string>        
+    <string name="blank_menu_refresh">Vernieuwen</string>
+    <string name="blank_menu_set_ip_port">"Wijzig IP/Poort"</string>
+    <string name="blank_menu_quit">Afsluiten</string>
+    <string name="blank_set_port_ip">"Verander het IP adres en de poort"</string>
+    <string name="blank_enter_ip">"Voer aub het IP adres in"</string>
+    <string name="blank_enter_port">"Voer aub de poortnummer in"</string>
+    <string name="blank_validate">" Valideren "</string>
+    <string name="blank_cancel">" Annuleren "</string>
+    <string name="blank_switched_dutch">"Taal veranderd naar Nederlands !"</string>
+    <string name="blank_switched_french">"Language changé en Français !"</string>
+    <string name="blank_switched_english">"Switched to English !"</string>
+    <string name="msg_config_set">"De wijzigingen zijn aangebracht!"</string>
     <string name="menu_settings">Instellingen</string>
     <string name="main_history"> Geschiedenis </string>
     <string name="main_msg_empty">"Vul aub een artiest, titel of beide in. Hou 'annuleren' ingedrukt om af te sluiten"</string>
@@ -59,6 +74,7 @@
     <string name="track_artist">Geen Artiest</string>
     <string name="track_checking_rated">"Opzoeken of u al een score gegeven hebt&#8230;"</string>
     <string name="track_youtube_not_found">"Youtube app niet gevonden&#8230;"</string>
+	<string name="track_ratingbarinfo" formatted="false">"Gemiddeld: &#37;.1f (op &#37;d scores)"</string>
     <string name="msg_couldnt_obtain">Kon geen informatie ophalen&#8230;</string>
     <string name="msg_sending_external">Opsturen naar server</string>
     <string name="msg_sending_internal">Lokaal opslagen</string>

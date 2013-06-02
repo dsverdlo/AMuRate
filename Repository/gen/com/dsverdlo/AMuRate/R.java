@@ -136,88 +136,103 @@ public final class R {
         public static final int activity_search_results=0x7f060005;
     }
     public static final class string {
-        public static final int OK=0x7f040048;
-        public static final int album_artist=0x7f040015;
-        public static final int album_listeners=0x7f040017;
-        public static final int album_playcount=0x7f040016;
-        public static final int album_title=0x7f040014;
-        public static final int album_x=0x7f040018;
+        public static final int OK=0x7f040006;
+        public static final int album_artist=0x7f04002c;
+        public static final int album_listeners=0x7f04002e;
+        public static final int album_playcount=0x7f04002d;
+        public static final int album_title=0x7f04002b;
+        public static final int album_x=0x7f04002f;
         public static final int app_name=0x7f040000;
-        public static final int artist_ALBUMS=0x7f04001a;
-        public static final int artist_TRACKS=0x7f040019;
-        public static final int artist_loading_albums=0x7f04001c;
-        public static final int artist_loading_albums_failed=0x7f04001e;
-        public static final int artist_loading_tracks=0x7f04001b;
-        public static final int artist_loading_tracks_failed=0x7f04001d;
-        public static final int back=0x7f040008;
+        public static final int artist_ALBUMS=0x7f040031;
+        public static final int artist_TRACKS=0x7f040030;
+        public static final int artist_loading_albums=0x7f040033;
+        public static final int artist_loading_albums_failed=0x7f040035;
+        public static final int artist_loading_tracks=0x7f040032;
+        public static final int artist_loading_tracks_failed=0x7f040034;
+        public static final int back=0x7f040009;
+        public static final int blank_cancel=0x7f040018;
+        public static final int blank_enter_ip=0x7f040015;
+        public static final int blank_enter_port=0x7f040016;
+        public static final int blank_menu_quit=0x7f040013;
+        public static final int blank_menu_refresh=0x7f040011;
+        public static final int blank_menu_set_ip_port=0x7f040012;
+        public static final int blank_set_port_ip=0x7f040014;
+        public static final int blank_switched_dutch=0x7f040019;
+        public static final int blank_switched_english=0x7f04001b;
+        public static final int blank_switched_french=0x7f04001a;
+        public static final int blank_validate=0x7f040017;
         public static final int cancel=0x7f040004;
-        public static final int hello_world=0x7f04004f;
-        public static final int history_back=0x7f040020;
-        public static final int history_delete=0x7f04002e;
-        public static final int history_deleted_search=0x7f040031;
-        public static final int history_deleted_synced_ratings=0x7f04002f;
-        public static final int history_deleted_tracks=0x7f040030;
-        public static final int history_history=0x7f04001f;
-        public static final int history_no_ratings_yet=0x7f04002c;
-        public static final int history_no_search_yet=0x7f04002b;
-        public static final int history_no_tracks_yet=0x7f04002a;
-        public static final int history_on=0x7f04002d;
-        public static final int history_one_rating=0x7f040023;
-        public static final int history_one_search=0x7f040021;
-        public static final int history_one_track=0x7f040022;
-        public static final int history_ratings=0x7f040026;
-        public static final int history_search=0x7f040024;
-        public static final int history_showing_ratings=0x7f040027;
-        public static final int history_showing_search=0x7f040029;
-        public static final int history_showing_tracks=0x7f040028;
-        public static final int history_tracks=0x7f040025;
-        public static final int language=0x7f04000a;
-        public static final int loading=0x7f040009;
-        public static final int main_history=0x7f04000d;
-        public static final int main_instruction_text=0x7f04004a;
-        public static final int main_instructions=0x7f040049;
-        public static final int main_many=0x7f04004d;
-        public static final int main_msg_empty=0x7f04000e;
-        public static final int main_no_internet_conn=0x7f04004b;
-        public static final int main_results_found=0x7f04004c;
-        public static final int main_some=0x7f04004e;
-        public static final int menu_settings=0x7f04000c;
-        public static final int msg_already_downloading=0x7f040051;
-        public static final int msg_already_rated=0x7f040042;
-        public static final int msg_can_send_later=0x7f040041;
-        public static final int msg_connection_retest=0x7f04003f;
-        public static final int msg_couldnt_obtain=0x7f04003a;
-        public static final int msg_no_mbid_artist=0x7f040044;
-        public static final int msg_no_mbid_track=0x7f040043;
-        public static final int msg_no_server_connection=0x7f040040;
-        public static final int msg_sending_external=0x7f04003b;
-        public static final int msg_sending_failed=0x7f04003e;
-        public static final int msg_sending_internal=0x7f04003c;
-        public static final int msg_sending_script=0x7f040047;
-        public static final int msg_sending_success=0x7f04003d;
-        public static final int msg_testing_connection=0x7f040046;
-        public static final int questionmark=0x7f040006;
+        public static final int dutch=0x7f04000d;
+        public static final int english=0x7f04000f;
+        public static final int french=0x7f04000e;
+        public static final int hello_world=0x7f04000a;
+        public static final int history_back=0x7f040037;
+        public static final int history_delete=0x7f040045;
+        public static final int history_deleted_search=0x7f040048;
+        public static final int history_deleted_synced_ratings=0x7f040046;
+        public static final int history_deleted_tracks=0x7f040047;
+        public static final int history_history=0x7f040036;
+        public static final int history_no_ratings_yet=0x7f040043;
+        public static final int history_no_search_yet=0x7f040042;
+        public static final int history_no_tracks_yet=0x7f040041;
+        public static final int history_on=0x7f040044;
+        public static final int history_one_rating=0x7f04003a;
+        public static final int history_one_search=0x7f040038;
+        public static final int history_one_track=0x7f040039;
+        public static final int history_ratings=0x7f04003d;
+        public static final int history_search=0x7f04003b;
+        public static final int history_showing_ratings=0x7f04003e;
+        public static final int history_showing_search=0x7f040040;
+        public static final int history_showing_tracks=0x7f04003f;
+        public static final int history_tracks=0x7f04003c;
+        public static final int language=0x7f04000c;
+        public static final int loading=0x7f04000b;
+        public static final int main_history=0x7f04001e;
+        public static final int main_instruction_text=0x7f040024;
+        public static final int main_instructions=0x7f040023;
+        public static final int main_many=0x7f040020;
+        public static final int main_msg_empty=0x7f040025;
+        public static final int main_no_internet_conn=0x7f040022;
+        public static final int main_results_found=0x7f04001f;
+        public static final int main_some=0x7f040021;
+        public static final int menu_settings=0x7f04001d;
+        public static final int msg_already_downloading=0x7f040060;
+        public static final int msg_already_rated=0x7f04005a;
+        public static final int msg_can_send_later=0x7f040059;
+        public static final int msg_config_set=0x7f04001c;
+        public static final int msg_connection_retest=0x7f040057;
+        public static final int msg_couldnt_obtain=0x7f040052;
+        public static final int msg_no_mbid_artist=0x7f04005c;
+        public static final int msg_no_mbid_track=0x7f04005b;
+        public static final int msg_no_server_connection=0x7f040058;
+        public static final int msg_sending_external=0x7f040053;
+        public static final int msg_sending_failed=0x7f040056;
+        public static final int msg_sending_internal=0x7f040054;
+        public static final int msg_sending_script=0x7f04005f;
+        public static final int msg_sending_success=0x7f040055;
+        public static final int msg_testing_connection=0x7f04005e;
+        public static final int questionmark=0x7f040007;
         public static final int results=0x7f040005;
         public static final int search=0x7f040003;
         public static final int searchArtist=0x7f040002;
         public static final int searchTitle=0x7f040001;
-        public static final int stars=0x7f04000b;
-        public static final int title_activity_album=0x7f040011;
-        public static final int title_activity_blank=0x7f040050;
-        public static final int title_activity_history=0x7f040013;
-        public static final int title_activity_main=0x7f040010;
-        public static final int title_activity_search_artist=0x7f040012;
-        public static final int title_activity_search_results=0x7f04000f;
-        public static final int track_album=0x7f040034;
-        public static final int track_artist=0x7f040037;
-        public static final int track_checking_rated=0x7f040038;
-        public static final int track_loading_ratings=0x7f040045;
-        public static final int track_marquee=0x7f040032;
-        public static final int track_new_search=0x7f040033;
-        public static final int track_not_rated=0x7f040035;
-        public static final int track_you_rated=0x7f040036;
-        public static final int track_youtube_not_found=0x7f040039;
-        public static final int view=0x7f040007;
+        public static final int stars=0x7f040010;
+        public static final int title_activity_album=0x7f040028;
+        public static final int title_activity_history=0x7f04002a;
+        public static final int title_activity_main=0x7f040027;
+        public static final int title_activity_search_artist=0x7f040029;
+        public static final int title_activity_search_results=0x7f040026;
+        public static final int track_album=0x7f04004b;
+        public static final int track_artist=0x7f04004e;
+        public static final int track_checking_rated=0x7f04004f;
+        public static final int track_loading_ratings=0x7f04005d;
+        public static final int track_marquee=0x7f040049;
+        public static final int track_new_search=0x7f04004a;
+        public static final int track_not_rated=0x7f04004c;
+        public static final int track_ratingbarinfo=0x7f040051;
+        public static final int track_you_rated=0x7f04004d;
+        public static final int track_youtube_not_found=0x7f040050;
+        public static final int view=0x7f040008;
     }
     public static final class style {
         /** 
@@ -240,31 +255,9 @@ public final class R {
         res/values-v11/styles.xml on API 14+ devices.
     
  API 14 theme customizations can go here. 
-
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
          */
         public static final int AppBaseTheme=0x7f050000;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
- Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
- Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f050001;

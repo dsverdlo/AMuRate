@@ -249,7 +249,11 @@ public class Track implements Parcelable {
 		try {
 			// Try parsing it into a JSON Object and extracting the track
 			JSONObject JSONextra = new JSONObject(stringExtra);
-			loadFromInfo(JSONextra.getJSONObject("track"));
+			if(JSONextra.has("track")) {
+				loadFromInfo(JSONextra.getJSONObject("track"));
+			} else {
+				loadFromInfo(JSONextra);
+			}
 		} catch (JSONException je) {
 			System.out.println("JSONException in Track(loadFromInfo(String))");
 			je.printStackTrace();

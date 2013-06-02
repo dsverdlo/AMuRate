@@ -32,48 +32,52 @@
             android:textColor="@android:color/white" />
     </LinearLayout>
 
-    <HorizontalScrollView
-        android:id="@+id/history_scroll_options"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/history_linlay_top" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/history_scroll_options"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:orientation="horizontal" >
+            android:background="#AAC0C0C0"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_below="@id/history_linlay_top"
+            android:orientation="horizontal"
+           >
 
             <Button
                 android:id="@+id/history_button_search"
                 android:layout_width="wrap_content"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:layout_marginLeft="10dp"
-                android:minWidth="120dp"
+                android:textSize="20sp"
                 android:text="@string/history_search" />
 
             <Button
                 android:id="@+id/history_button_track"
                 android:layout_width="wrap_content"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:layout_marginLeft="10dp"
-                android:minWidth="120dp"
+                android:textSize="20sp"
                 android:text="@string/history_tracks" />
 
             <Button
                 android:id="@+id/history_button_ratings"
                 android:layout_width="wrap_content"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:textSize="20sp"
                 android:textColor="@android:color/white"
-                android:minWidth="120dp"
                 android:text="@string/history_ratings" />
         </LinearLayout>
-    </HorizontalScrollView>
+
 
     <Button
         android:id="@+id/history_button_remove"

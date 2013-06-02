@@ -14,7 +14,22 @@
     <string name="hello_world">Hello world!</string>
     <string name="loading">Loading&#8230;</string>
     <string name="language">Set language</string>
+    <string name="dutch">Nederlands</string>
+    <string name="french">"Français"</string>
+    <string name="english">English</string>
     <string name="stars">stars</string>
+    <string name="blank_menu_refresh">Refresh</string>
+    <string name="blank_menu_set_ip_port">"Set IP/Port"</string>
+    <string name="blank_menu_quit">Quit</string>
+    <string name="blank_set_port_ip">"Set IP and port"</string>
+    <string name="blank_enter_ip">"Please enter an IP address"</string>
+    <string name="blank_enter_port">"Please enter a port no"</string>
+    <string name="blank_validate">" Validate "</string>
+    <string name="blank_cancel">" Cancel "</string>
+    <string name="blank_switched_dutch">"Taal veranderd naar Nederlands !"</string>
+    <string name="blank_switched_french">"Language changé en Français !"</string>
+    <string name="blank_switched_english">"Switched to English !"</string>
+    <string name="msg_config_set">"Configurations set!"</string>
     <string name="menu_settings">Settings</string>
     <string name="main_history"> History </string>
     <string name="main_results_found">" results found!"</string>
@@ -67,6 +82,7 @@
     <string name="track_artist">No Artist</string>
     <string name="track_checking_rated">"Checking if you have rated before&#8230;"</string>
     <string name="track_youtube_not_found">"Youtube app not found&#8230;"</string>
+	<string name="track_ratingbarinfo" formatted="false">"Average: &#37;.1f (based on &#37;d reviews)"</string>
     <string name="msg_couldnt_obtain">No info could be obtained..</string>
     <string name="msg_sending_external">Sending to ext DB</string>
     <string name="msg_sending_internal">Sending to int DB</string>

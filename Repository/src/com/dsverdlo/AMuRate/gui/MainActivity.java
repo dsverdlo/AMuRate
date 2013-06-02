@@ -106,15 +106,6 @@ public class MainActivity extends BlankActivity implements OnClickListener {
 		questionMark.setOnClickListener(this);
 		questionMark.setTextColor(Color.LTGRAY);
 		questionMark.setText(R.string.questionmark);
-		questionMark.setOnLongClickListener(new OnLongClickListener() {
-				public boolean onLongClick(View v) {
-					String ip = searchTitle.getText().toString();
-					if(ip != null) {
-						amr.setIp(ip);
-						Toast.makeText(amr, "Ip set!", Toast.LENGTH_SHORT).show();
-					}
-					return false;
-		}});
 		
 		// The view button is invisible until results return
 		view = (Button) findViewById(R.id.view);
@@ -140,7 +131,7 @@ public class MainActivity extends BlankActivity implements OnClickListener {
 		cancelButton.setOnLongClickListener(quitAction);
 
 		// Try syncing databases
-		new DatabaseSyncer(amr, amr.getIp(), amr.getUser()).execute();
+		new DatabaseSyncer(amr, amr.getIp(), amr.getPort(), amr.getUser()).execute();
 
 	}
 

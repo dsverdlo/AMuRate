@@ -14,8 +14,23 @@
     <string name="hello_world">Hello world!</string>
     <string name="loading">Chargement&#8230;</string>
     <string name="language">Changer la langue</string>
+    <string name="dutch">Nederlands</string>
+    <string name="french">"Français"</string>
+    <string name="english">English</string>
     <string name="stars"> Etoiles </string>
-    <string name="menu_settings"> Configuration </string>
+    <string name="menu_settings"> Configuration </string>    
+    <string name="blank_menu_refresh">"Rafraîchir"</string>
+    <string name="blank_menu_set_ip_port">"Modifier IP/porte"</string>
+    <string name="blank_menu_quit">Quitter</string>
+    <string name="blank_set_port_ip">"Entrer IP et le port"</string>
+    <string name="blank_enter_ip">"Svp entrer une adresse IP"</string>
+    <string name="blank_enter_port">"Svp entrer un numéro de port"</string>
+    <string name="blank_validate">" Valider "</string>
+    <string name="blank_cancel">" Annuler "</string>
+    <string name="blank_switched_dutch">"Taal veranderd naar Nederlands !"</string>
+    <string name="blank_switched_french">"Language changé en Français !"</string>
+    <string name="blank_switched_english">"Switched to English !"</string>
+    <string name="msg_config_set">"La configuration est ajustée"</string>
     <string name="main_history"> Historique </string>
     <string name="main_results_found">" resultats trouvés!"</string>
     <string name="main_many">"Beaucoup de"</string>
@@ -67,6 +82,7 @@
     <string name="track_artist">"Pas d'artiste"</string>
     <string name="track_checking_rated">"Vérifier si vous avez déjà evalué&#8230;"</string>
     <string name="track_youtube_not_found">"Application Youtube non trouvée&#8230;"</string>
+	<string name="track_ratingbarinfo" formatted="false">"Moyenne: &#37;.1f (basé sur &#37;d évaluations)"</string>
     <string name="msg_couldnt_obtain">"Aucune information n'a pu être obtenue.."</string>
     <string name="msg_sending_external">Envoi vers le serveur</string>
     <string name="msg_sending_internal">Sauvegarde locale</string>

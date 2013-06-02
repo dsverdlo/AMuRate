@@ -22,11 +22,13 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 	private int amtOfSyncsReceivedGood;
 	private Rating[] unsynced;
 	private String ip;
+	private int port;
 	private String user;
 
 	// public constuctor instantiates members
-	public DatabaseSyncer(Context context, String ip, String user) {
+	public DatabaseSyncer(Context context, String ip, int port, String user) {
 		this.ip = ip;
+		this.port = port;
 		this.user = user;
 		ra = new InternalDatabaseRatingAdapter(context);
 		amtOfSyncs = 0;
@@ -44,7 +46,7 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 		// If there are any: make a server connection and test if we can connect
 		if(unsynced != null && unsynced.length > 0) {
 			amtOfSyncs = unsynced.length;
-			new ServerConnect(this, ip, ServerConnect.ISCONNECTED).execute();
+			new ServerConnect(this, ip, port, ServerConnect.ISCONNECTED).execute();
 
 		} else {
 			System.out.println("DatabaseSyncer: Guess there was nothing to sync..");
@@ -108,7 +110,7 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 				System.out.println("DatabaseSyncer: executing unsynced request");
 				
 				// Execute the server connection
-				new ServerConnect(this, ip, ServerConnect.SENDRATING).execute(
+				new ServerConnect(this, ip, port, ServerConnect.SENDRATING).execute(
 						r.getMbid(),
 						r.getArtist(),
 						r.getTitle(),

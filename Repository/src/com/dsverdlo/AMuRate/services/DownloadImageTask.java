@@ -2,6 +2,7 @@ package com.dsverdlo.AMuRate.services;
 
 import java.net.URL;
 
+import android.R;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -50,8 +51,8 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 			Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
 			return bmp;
 		} catch (Exception e) {
-			System.out.println("Exception in MyConnection(loadImage):");
-			e.printStackTrace();
+			System.out.println("Exception in MyConnection(loadImage):"+e);
+
 			return null;
 		}
 	}
@@ -64,8 +65,11 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 	protected void onPostExecute(Bitmap bmp) {
 		super.onPostExecute(bmp);
 		if(load != null) load.setVisibility(View.GONE);
-		iv.setVisibility(View.VISIBLE);
-		iv.setImageBitmap(bmp);
+		if(bmp != null) {
+			iv.setVisibility(View.VISIBLE);
+			iv.setImageBitmap(bmp);
+		}
+
 	}			
 }
 

@@ -15,6 +15,7 @@ import com.dsverdlo.AMuRate.services.InternalDatabaseRatingAdapter;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +39,7 @@ public class TrackActivity extends BlankActivity {
 	private TrackActivity trackActivity;
 	
 	private final Track track = new Track();
-	private final static String ratingBarInfoString = "Average: %.1f (based on %d reviews)";
+	private static String ratingBarInfoString;
 	
 	// This int keeps the state of the server connection: unchecked, no conn, conn
 	private int isServerAvailable; 
@@ -120,7 +121,8 @@ public class TrackActivity extends BlankActivity {
 		// One for server messages, and one for displaying own rating
 		ratingBarInfo = (TextView) findViewById(R.id.track_ratingbarinfo); 		
 		ratingBarInfo2 = (TextView) findViewById(R.id.track_ratingbarinfo2);
-
+		ratingBarInfoString = amr.getString(R.string.track_ratingbarinfo);
+		
 		// Get the youtube button and add the click functionality
 		youtube = (ImageButton) findViewById(R.id.track_youtube);
 		youtube.setOnClickListener(new OnClickListener() {
@@ -140,6 +142,12 @@ public class TrackActivity extends BlankActivity {
 				catch (Exception ex){
 					// if not installed it will raise exception so we show a Toast
 					Toast.makeText(amr, R.string.track_youtube_not_found , Toast.LENGTH_SHORT).show();
+					// Then we will launch it in the browser
+					String youtube = "http://www.youtube.com/results?search_query="
+							+ track.getTitle() +" - "+track.getArtist();
+					Uri uriUrl = Uri.parse(youtube);
+					Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+					startActivity(launchBrowser);
 				}
 			}
 		});
@@ -262,10 +270,10 @@ public class TrackActivity extends BlankActivity {
 		title.setSelected(true);
 		
 		// Check if server is connectable. This will set the isServerAvailable int
-		new ServerConnect(trackActivity, amr.getIp(), ServerConnect.ISCONNECTED).execute();
+		new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), ServerConnect.ISCONNECTED).execute();
 		
 		// Try syncing in the background as well
-		new DatabaseSyncer(amr, amr.getIp(), amr.getUser()).execute();
+		new DatabaseSyncer(amr, amr.getIp(), amr.getPort(), amr.getUser()).execute();
 	}
 
 
@@ -302,7 +310,7 @@ public class TrackActivity extends BlankActivity {
 		if(result > 0) { // Sent succesfully
 			Toast.makeText(amr, R.string.msg_sending_success, Toast.LENGTH_SHORT).show();
 			// get new avg
-			new ServerConnect(trackActivity, amr.getIp(), ServerConnect.GETRATING).execute(track.getMBID());
+			new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), ServerConnect.GETRATING).execute(track.getMBID());
 			// When this returns, it will call onDoneGettingExternal
 		} else {
 			// Sending did not succeed, so send it unsynced to local database
@@ -312,7 +320,7 @@ public class TrackActivity extends BlankActivity {
 			
 			// Also retest connection
 			Toast.makeText(amr, R.string.msg_connection_retest, Toast.LENGTH_SHORT).show();
-			new ServerConnect(trackActivity, amr.getIp(), ServerConnect.ISCONNECTED).execute();
+			new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), ServerConnect.ISCONNECTED).execute();
 			// And this will update isServerAvailable when it is done
 		}
 	}
@@ -328,10 +336,10 @@ public class TrackActivity extends BlankActivity {
 		
 		if(isServerAvailable > 0){
 			// if server connection available, get the server average
-			new ServerConnect(trackActivity, amr.getIp(), ServerConnect.GETRATING).execute(track.getMBID());
+			new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), ServerConnect.GETRATING).execute(track.getMBID());
 			
 			// and check if user has already rated this
-			new ServerConnect(trackActivity, amr.getIp(), ServerConnect.HASRATED).execute(track.getMBID(), amr.getUser());
+			new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), ServerConnect.HASRATED).execute(track.getMBID(), amr.getUser());
 			
 		} else {
 			// We can't connect to the server, so we display it.
@@ -383,7 +391,7 @@ public class TrackActivity extends BlankActivity {
 		ra.addRating(track.getMBID(), track.getArtist(), track.getTitle(), rating, true);
 		
 		// Finally send to ext db
-		new ServerConnect(trackActivity, amr.getIp(), method).execute(mbid, artist, title, ""+rating, ""+date, user);
+		new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), method).execute(mbid, artist, title, ""+rating, ""+date, user);
 		// This will call onDoneSendingExternal when it's done
 	}
 

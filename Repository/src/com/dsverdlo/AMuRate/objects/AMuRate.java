@@ -20,6 +20,8 @@ public class AMuRate extends Application {
 	
 	// Some important variables
 	private String ip;
+	private int portNo;
+	
 	private String USER_ID;
 	private int SCREENWIDTH;
 	private int SCREENHEIGHT;
@@ -33,13 +35,14 @@ public class AMuRate extends Application {
 
 		//			ip = "localhost"; // local
 		//			ip = "81.164.233.130"; // thuis
-		ip = "134.184.120.178"; // kot 
+//		ip = "134.184.120.178"; // kot 
 		//			ip = "10.2.33.36"; // urbizone
 		//			ip = "134.184.108.145"; // edoroam
-		//			ip = "134.184.140.70"; // vubnet
+					ip = "134.184.140.70"; // vubnet
 		//			ip = "194.168.5.43"; // 3G
 		//			ip = "10.0.1.97"; // como
-
+		portNo = 2005;
+		
 		// Grab the user AndroidID
 		USER_ID = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
@@ -80,6 +83,14 @@ public class AMuRate extends Application {
 	}
 	public void setSCREENHEIGHT(int SCREENHEIGHT) {
 		this.SCREENHEIGHT = SCREENHEIGHT;
+	}
+
+	public int getPort() {
+		return portNo;
+	}
+
+	public void setPort(int portNo) {
+		this.portNo = portNo;
 	}
 
 

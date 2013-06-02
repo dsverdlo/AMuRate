@@ -63,7 +63,7 @@ public class AnimationView extends View {
           dur = 3000;
         }
         int relTime = (int) ((now - mMovieStart) % dur);
-       Log.d("", "real time :: " +relTime);
+//       Log.d("", "real time :: " +relTime);
         mMovie.setTime(relTime);
         mMovie.draw(canvas, getWidth() - 200, getHeight()-200);
         invalidate();
