@@ -41,7 +41,14 @@
 % Command for setting text under table
 \newcommand{\tabID}[1]{\small \textit{Tabel \increaseTabID : #1} \\ \normalsize}
 
-
+\usepackage{lastpage}
+	\usepackage{fancyheadings}
+	\pagestyle{fancy}
+	\lfoot{David Sverdlov}
+	\cfoot{}
+	\rfoot{\thepage /\pageref*{LastPage} }
+	\lhead{}
+	
 \author{David Sverdlov \\ dsverdlo@vub.ac.be \\ 3e Bachelor Computerwetenschappen}
 \title{Bachelorproef AMuRate: Eindverslag }
 \begin{document}
@@ -668,13 +675,20 @@ Het was zeer leerzaam om elke stap van het project zelf voort te brengen (in teg
 
 Een merkbare evolutie in dit project was de kwaliteit van de code. Naarmate er meer en meer onderzoek geleverd werd naar het schrijven van goede Android code, steeg de kwaliteit, leesbaarheid en becommentarisering van de broncode. \\
 
-Door typische `problemen' tegen te komen en op te lossen, werden er veel aspecten van het coderen van een app veel duidelijker en interessante stof tot nadenken. Bijvoorbeeld mag geen enkel download-proces op dezelfde thread lopen als de gebruikers interface. Moeten er callback's\footnote{Dit is een functie die later uitgevoerd wordt, wanneer een ander proces klaar is met zijn taak.} geïmplementeerd worden, en moeten alle mogelijke acties van gebruikers in achting genomen worden. Ook de layout is belangrijk voor de eindgebruikers en hier moet voldoende tijd en aandacht in gestoken worden. \\
+Door typische `problemen' tegen te komen en op te lossen, werden er veel aspecten van het coderen van een app veel duidelijker en interessante stof tot nadenken. Bijvoorbeeld mag geen enkel download-proces op dezelfde thread lopen als de gebruikers interface. Moeten er callbacks\footnote{Dit is een functie die later uitgevoerd wordt, wanneer een ander proces klaar is met zijn taak.} geïmplementeerd worden, en moeten alle mogelijke acties van gebruikers in achting genomen worden. Ook de layout is belangrijk voor de eindgebruikers en hier moet voldoende tijd en aandacht in gestoken worden. \\
 
 Dat zijn allemaal zaken die ik door dit project heb bijgeleerd. Wat ik anders gedaan zou hebben als ik terug in de tijd kon gaan, is meer commentaar zetten bij mijn code, en vanaf het begin oog houden op uitbreidbaarheid. (Dit heeft me naar het einde van het project veel tijd gekost.) \\
 
 Wat er in de toekomst nog aan de app bijgemaakt kan worden, is een integratie met andere media applicaties (zoals Shazam, TrackID, MusicPlayer, ...) om gebruikers sneller hun favoriete liedjes op te laten zoeken en te raten. Verder ook de muziek recommendering, die op basis van gegeven scores, nieuwe muziek kan voorstellen aan de gebruikers. \\
 
-Ik durf wel te zeggen dat ik zelf zeer tevreden ben met de eind applicatie, met het werk dat ik heb geleverd, en de ervaring die ik heb opgedaan. Mobiele apps zijn zeker aanwezig in de toekomst en ik zou er later meer mee willen werken.
+Ik durf wel te zeggen dat ik zelf zeer tevreden ben met de eind applicatie, met het werk dat ik heb geleverd, en de ervaring die ik heb opgedaan. Mobiele apps zijn zeker aanwezig in de toekomst en ik zou er later meer mee willen werken. 
+
+
+
+\section{Dankwoord}
+\label{sec:dank}
+
+Mijn dank gaat uit naar mijn begeleider Maarten Devillé en promoter Peter Vrancx, voor alle tijd en moeite die ze in mijn project hebben gestoken. De meetings, het advies, het nakijken en nalezen van mijn documenten en code. Deze mensen hebben mij een interessant project gegeven waar ik veel uit heb geleerd, en ik ben zeer tevreden met de keuze van mijn bachelorproject. Ook al was er op het einde wat tijdsdruk, hebben we toch niet opgegeven en nog mooi afgerond. Bedankt! \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %% BRONNEN %%

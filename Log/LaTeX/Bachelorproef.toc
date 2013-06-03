@@ -38,4 +38,5 @@
 \contentsline {subsection}{\numberline {8.1}Synchronous tasks}{31}{subsection.8.1}
 \contentsline {subsection}{\numberline {8.2}Veranderende MBID's}{31}{subsection.8.2}
 \contentsline {section}{\numberline {9}Conclusie}{33}{section.9}
-\contentsline {section}{\numberline {10}Bronnen, tools en referenties}{35}{section.10}
+\contentsline {section}{\numberline {10}Dankwoord}{34}{section.10}
+\contentsline {section}{\numberline {11}Bronnen, tools en referenties}{35}{section.11}

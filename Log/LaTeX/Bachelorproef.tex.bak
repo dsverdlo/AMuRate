@@ -41,7 +41,14 @@
 % Command for setting text under table
 \newcommand{\tabID}[1]{\small \textit{Tabel \increaseTabID : #1} \\ \normalsize}
 
-
+\usepackage{lastpage}
+	\usepackage{fancyheadings}
+	\pagestyle{fancy}
+	\lfoot{David Sverdlov}
+	\cfoot{}
+	\rfoot{\thepage /\pageref*{LastPage} }
+	\lhead{}
+	
 \author{David Sverdlov \\ dsverdlo@vub.ac.be \\ 3e Bachelor Computerwetenschappen}
 \title{Bachelorproef AMuRate: Eindverslag }
 \begin{document}
@@ -268,7 +275,7 @@ Hieronder volgt een tabel die alle vereisten opsomt, met hun geïmplementeerde s
 	\label{sec:Lokale Database}
 	De lokale database moet data bijhouden die offline geraadpleegd zou willen worden. Hiermee bedoelen we onder andere geschiedenis van de ingevoerde zoekopdrachten, bekeken liedjes en de laatst gegeven scores. Aangezien deze applicatie vooral beroep doet op een actieve internetverbinding, zal er niet meer dan dat opgeslagen worden. \\ \newline 
 	De lokale database bevat dus twee tabellen en de operaties op deze tabellen gebeuren d.m.v. adapters. Die adapters maken de brug tussen procedures als `read-X-from-database' en SQLite statements (zoals "SELECT X FROM tablename"). Er is dus één adapter per tabel. \newline
-	 
+	 \\ \newline
 	 \begin{itemize}
 		\item Ratings table \newline
 		
@@ -385,7 +392,7 @@ Voor een overzicht van alle methoden verwijzen we door naar hun website: \url{ht
 
 De methoden die in dit project gebruikt worden zijn: \\
 
-\hspace{-3em} \begin{tabular}{| l | l | l |}
+\hspace{-4em} \begin{tabular}{| l | l | l |}
 \hline
 	Activity 				&	Methoden			& Uitleg \\ \hline
 	MainActivity			&	track.search 		& Gebruiker zoekt op title (en artiest) \\
@@ -396,7 +403,7 @@ De methoden die in dit project gebruikt worden zijn: \\
 	"						&	album.getInfo		& Gebruiker wilt album van lied bekijken \\ \hline
 	ArtistActivity			&	track.getTopTracks	& Toont top liedjes van artiest \\
 	"						&	album.getTopAlbums	& Toont top albums van artiest  \\ \hline
-	AlbumActivity			&	track.getInfo		& Gebruiker wilt een lied van het album zien \\ \hline
+	AlbumActivity			&	track.getInfo		& Gebruiker wilt een lied v/h album zien \\ \hline
 	HistoryActivity			&	track.getInfo		& Gebruiker wilt een lied herbekijken \\
 \hline
 \end{tabular}
@@ -537,7 +544,7 @@ De methoden die in dit project gebruikt worden zijn: \\
 \hspace*{-5pt}\makebox[\linewidth][c]{%
 	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} 
 		\centering \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-19-44.png}
-		& \includegraphics[scale=0.32]{Pictures/Screenshot_2013-05-24-21-24-20.png} \\
+		& \includegraphics[scale=0.28]{Pictures/Screenshot_2013-05-24-21-24-20.png} \\
 		
 		\centering \figID{Link naar de youtube app.}  
 		&  \figID{Instructie pop up.} 
@@ -553,7 +560,7 @@ De methoden die in dit project gebruikt worden zijn: \\
 %%%%%%%%%%%%%%six graphics
 \hspace*{-5pt}\makebox[\linewidth][c]{%
 	\begin{tabular} {p{7cm} >{\centering\arraybackslash}p{7cm}@{\hskip 0.5in}} 
-		\centering \includegraphics[scale=0.42]{Pictures/device-2013-06-02-172637track.png}
+		\centering \includegraphics[scale=0.37]{Pictures/device-2013-06-02-172637track.png}
 		& \includegraphics[scale=0.28]{Pictures/device-2013-05-31-202339000.png} \\
 		
 		\centering \figID{Geschiedenis scherm.}  
@@ -668,13 +675,20 @@ Het was zeer leerzaam om elke stap van het project zelf voort te brengen (in teg
 
 Een merkbare evolutie in dit project was de kwaliteit van de code. Naarmate er meer en meer onderzoek geleverd werd naar het schrijven van goede Android code, steeg de kwaliteit, leesbaarheid en becommentarisering van de broncode. \\
 
-Door typische `problemen' tegen te komen en op te lossen, werden er veel aspecten van het coderen van een app veel duidelijker en interessante stof tot nadenken. Bijvoorbeeld mag geen enkel download-proces op dezelfde thread lopen als de gebruikers interface. Moeten er callback's\footnote{Dit is een functie die later uitgevoerd wordt, wanneer een ander proces klaar is met zijn taak.} geïmplementeerd worden, en moeten alle mogelijke acties van gebruikers in achting genomen worden. Ook de layout is belangrijk voor de eindgebruikers en hier moet voldoende tijd en aandacht in gestoken worden. \\
+Door typische `problemen' tegen te komen en op te lossen, werden er veel aspecten van het coderen van een app veel duidelijker en interessante stof tot nadenken. Bijvoorbeeld mag geen enkel download-proces op dezelfde thread lopen als de gebruikers interface. Moeten er callbacks\footnote{Dit is een functie die later uitgevoerd wordt, wanneer een ander proces klaar is met zijn taak.} geïmplementeerd worden, en moeten alle mogelijke acties van gebruikers in achting genomen worden. Ook de layout is belangrijk voor de eindgebruikers en hier moet voldoende tijd en aandacht in gestoken worden. \\
 
 Dat zijn allemaal zaken die ik door dit project heb bijgeleerd. Wat ik anders gedaan zou hebben als ik terug in de tijd kon gaan, is meer commentaar zetten bij mijn code, en vanaf het begin oog houden op uitbreidbaarheid. (Dit heeft me naar het einde van het project veel tijd gekost.) \\
 
 Wat er in de toekomst nog aan de app bijgemaakt kan worden, is een integratie met andere media applicaties (zoals Shazam, TrackID, MusicPlayer, ...) om gebruikers sneller hun favoriete liedjes op te laten zoeken en te raten. Verder ook de muziek recommendering, die op basis van gegeven scores, nieuwe muziek kan voorstellen aan de gebruikers. \\
 
-Ik durf wel te zeggen dat ik zelf zeer tevreden ben met de eind applicatie, met het werk dat ik heb geleverd, en de ervaring die ik heb opgedaan. Mobiele apps zijn zeker aanwezig in de toekomst en ik zou er later meer mee willen werken.
+Ik durf wel te zeggen dat ik zelf zeer tevreden ben met de eind applicatie, met het werk dat ik heb geleverd, en de ervaring die ik heb opgedaan. Mobiele apps zijn zeker aanwezig in de toekomst en ik zou er later meer mee willen werken. 
+
+
+
+\section{Dankwoord}
+\label{sec:dank}
+
+Mijn dank gaat uit naar mijn begeleider Maarten Devillé en promoter Peter Vrancx, voor alle tijd en moeite die ze in mijn project hebben gestoken. De meetings, het advies, het nakijken en nalezen van mijn documenten en code. Deze mensen hebben mij een interessant project gegeven waar ik veel uit heb geleerd, en ik ben zeer tevreden met de keuze van mijn bachelorproject. Ook al was er op het einde wat tijdsdruk, hebben we toch niet opgegeven en nog mooi afgerond. Bedankt! \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %% BRONNEN %%
