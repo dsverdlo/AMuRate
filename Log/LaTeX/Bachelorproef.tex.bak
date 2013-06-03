@@ -648,7 +648,9 @@ In de laatste maand van het project werd de applicatie door een tiental vrijwill
 	\label{sec:Synchronious tasks}
 	Wanneer data binnengehaald moet worden van de API, mag die operatie niet gebeuren op de main thread van het programma, anders zal de applicatie zeer traag/onbruikbaar zijn elke keer dat er iets gedownload moet worden. Hierom werd een klasse `ServerConnect' gemaakt, die async\footnote{Asynchronous betekent dat een process tegelijkertijd naast een ander process kan werken.} data begint binnen te laden terwijl de applicatie vloeiend kan blijven voortdraaien. Door alle tijdnemende processen op een nadere
 	
-
+	\subsection{Normalisatie van de DB}
+	\label{sec:normalisatie}
+	De uiteindelijke databases zijn nog niet genormaliseerd. Indien er veel scores op dezelfde liedjes gegeven worden, slagen we momenteel elke keer opnieuw dezelfde informatie over die liedjes op. De voornaamste reden dat de database niet genormaliseerd is, is uitstelling. Toen de database in het begin van het project opgezet werd, was de bedoeling dat er een simpele database was, waarmee we kon testen of de applicatie scores kon opslagen. Zonder hieraan te denken, was alles in 1 grote tabel gestoken om alles zo snel en simpel mogelijk te houden. Toen er in het tweede semester een tijdsgebrek begon te komen heb ik de aandacht meer gelegd in de functionaliteiten af te werken, dan naar het `todo-lijstje' te kijken met de normalisering erop. Om de database te normaliseren kunnen we aparte tabellen maken met gebruikers(info) en liedjes(info), om dan vanuit de score tabel te linken naar de ID's.
 		
 	\subsection{Veranderende MBID's}
 	\label{sec:veranderendeMBID}
@@ -688,7 +690,8 @@ Ik durf wel te zeggen dat ik zelf zeer tevreden ben met de eind applicatie, met 
 \section{Dankwoord}
 \label{sec:dank}
 
-Mijn dank gaat uit naar mijn begeleider Maarten Devillé en promoter Peter Vrancx, voor alle tijd en moeite die ze in mijn project hebben gestoken. De meetings, het advies, het nakijken en nalezen van mijn documenten en code. Deze mensen hebben mij een interessant project gegeven waar ik veel uit heb geleerd, en ik ben zeer tevreden met de keuze van mijn bachelorproject. Ook al was er op het einde wat tijdsdruk, hebben we toch niet opgegeven en nog mooi afgerond. Bedankt! \\
+Mijn dank gaat uit naar mijn begeleider Maarten Devillé en promoter Peter Vrancx, voor alle tijd en moeite die ze in mijn project hebben gestoken. De meetings, het advies, het nakijken en nalezen van mijn documenten en code. Deze mensen hebben mij een interessant project gegeven waar ik veel uit heb geleerd, en ik ben zeer tevreden met de keuze van mijn bachelorproject. Ook al was er op het einde wat tijdsdruk, hebben we toch niet opgegeven en nog mooi afgerond. \\
+Ook aan alle personen die mijn applicatie hebben getest en hun feedback hebben gegeven, bedankt! \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %% BRONNEN %%
