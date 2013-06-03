@@ -23,19 +23,18 @@
 \BOOKMARK [3][-]{subsubsection.4.4.2}{Server Database}{subsection.4.4}% 23
 \BOOKMARK [1][-]{section.5}{Technische beschrijving}{}% 24
 \BOOKMARK [2][-]{subsection.5.1}{Netwerkverbinding}{section.5}% 25
-\BOOKMARK [2][-]{subsection.5.2}{Server connectie}{section.5}% 26
-\BOOKMARK [2][-]{subsection.5.3}{Uniek datamodel}{section.5}% 27
-\BOOKMARK [2][-]{subsection.5.4}{Verschillende zoekopdrachten}{section.5}% 28
-\BOOKMARK [2][-]{subsection.5.5}{Last.fm en hun data}{section.5}% 29
-\BOOKMARK [2][-]{subsection.5.6}{Beveiliging}{section.5}% 30
-\BOOKMARK [2][-]{subsection.5.7}{Database Syncing}{section.5}% 31
-\BOOKMARK [2][-]{subsection.5.8}{Responstijden}{section.5}% 32
-\BOOKMARK [2][-]{subsection.5.9}{Uitbreidbaarheid}{section.5}% 33
-\BOOKMARK [2][-]{subsection.5.10}{Installatie}{section.5}% 34
-\BOOKMARK [1][-]{section.6}{Graphical User Interface}{}% 35
-\BOOKMARK [1][-]{section.7}{Gebruiker feedback}{}% 36
-\BOOKMARK [1][-]{section.8}{Tegengekomen problemen}{}% 37
-\BOOKMARK [2][-]{subsection.8.1}{Synchronious tasks}{section.8}% 38
-\BOOKMARK [2][-]{subsection.8.2}{Veranderende MBID's}{section.8}% 39
-\BOOKMARK [1][-]{section.9}{Conclusie}{}% 40
-\BOOKMARK [1][-]{section.10}{Bronnen, tools en referenties}{}% 41
+\BOOKMARK [2][-]{subsection.5.2}{Uniek datamodel}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.3}{Soorten zoekopdrachten}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.4}{Last.fm}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.5}{Beveiliging}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.6}{Database Syncing}{section.5}% 30
+\BOOKMARK [2][-]{subsection.5.7}{Responstijden}{section.5}% 31
+\BOOKMARK [2][-]{subsection.5.8}{Uitbreidbaarheid}{section.5}% 32
+\BOOKMARK [2][-]{subsection.5.9}{Installatie}{section.5}% 33
+\BOOKMARK [1][-]{section.6}{Graphical User Interface}{}% 34
+\BOOKMARK [1][-]{section.7}{Gebruiker feedback}{}% 35
+\BOOKMARK [1][-]{section.8}{Tegengekomen problemen}{}% 36
+\BOOKMARK [2][-]{subsection.8.1}{Synchronous tasks}{section.8}% 37
+\BOOKMARK [2][-]{subsection.8.2}{Veranderende MBID's}{section.8}% 38
+\BOOKMARK [1][-]{section.9}{Conclusie}{}% 39
+\BOOKMARK [1][-]{section.10}{Bronnen, tools en referenties}{}% 40

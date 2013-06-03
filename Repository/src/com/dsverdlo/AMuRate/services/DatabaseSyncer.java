@@ -3,6 +3,7 @@ package com.dsverdlo.AMuRate.services;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.dsverdlo.AMuRate.objects.AMuRate;
 import com.dsverdlo.AMuRate.objects.Rating;
 
 /**
@@ -21,16 +22,14 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 	private int amtOfSyncsReceived;
 	private int amtOfSyncsReceivedGood;
 	private Rating[] unsynced;
-	private String ip;
-	private int port;
 	private String user;
+	private AMuRate amr;
 
 	// public constuctor instantiates members
-	public DatabaseSyncer(Context context, String ip, int port, String user) {
-		this.ip = ip;
-		this.port = port;
-		this.user = user;
-		ra = new InternalDatabaseRatingAdapter(context);
+	public DatabaseSyncer(AMuRate amr) {
+		this.amr = amr;
+		this.user = amr.getUser();
+		ra = new InternalDatabaseRatingAdapter(amr);
 		amtOfSyncs = 0;
 		amtOfSyncsReceived = 0;
 		amtOfSyncsReceivedGood = 0;
@@ -46,7 +45,7 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 		// If there are any: make a server connection and test if we can connect
 		if(unsynced != null && unsynced.length > 0) {
 			amtOfSyncs = unsynced.length;
-			new ServerConnect(this, ip, port, ServerConnect.ISCONNECTED).execute();
+			new ServerConnect(this, amr, ServerConnect.ISCONNECTED).execute();
 
 		} else {
 			System.out.println("DatabaseSyncer: Guess there was nothing to sync..");
@@ -110,7 +109,7 @@ public class DatabaseSyncer extends AsyncTask<Void, Void, Void> {
 				System.out.println("DatabaseSyncer: executing unsynced request");
 				
 				// Execute the server connection
-				new ServerConnect(this, ip, port, ServerConnect.SENDRATING).execute(
+				new ServerConnect(this, amr, ServerConnect.SENDRATING).execute(
 						r.getMbid(),
 						r.getArtist(),
 						r.getTitle(),

@@ -1,6 +1,7 @@
 package com.dsverdlo.AMuRate.services;
 
 import com.dsverdlo.AMuRate.gui.TrackActivity;
+import com.dsverdlo.AMuRate.objects.AMuRate;
 
 import android.os.AsyncTask;
 
@@ -13,25 +14,27 @@ public class ServerConnect {
 	public static final int HASRATED = 4;
 	
 	// Connection to be used
-	private static final int USEMYSQL = 0;
-	private static final int USEPHP = 1;
-	
-	// CHANGE THIS TO SWITCH CONNECTION TYPE
-	private static final int USE = 0;
-	// CHANGE THIS TO SWITCH CONNECTION TYPE
-	
+	public static final int USEMYSQL = 0;
+	public static final int USEPHP = 1;
+		
 	AsyncTask<String, Void, Double> test = null;
 	
-	public ServerConnect(DatabaseSyncer databaseSyncer, String ip, int port, int method){
-		switch(USE) {
+	public ServerConnect(DatabaseSyncer databaseSyncer, AMuRate amr, int method){
+		int port = amr.getPort();
+		String ip = amr.getIp();
+		
+		switch(amr.getServerConnectionType()) {
 		case USEMYSQL: test = new ServerConnectMySQL(databaseSyncer, ip, port, method); break;
 		case USEPHP: test = new ServerConnectPHP(databaseSyncer, ip, method); break;
 		default: test = new ServerConnectPHP(databaseSyncer, ip, method); break;
 		} 
 	}
 	
-	public ServerConnect(TrackActivity trackActivity, String ip, int port, int method){
-		switch(USE) {
+	public ServerConnect(TrackActivity trackActivity, AMuRate amr, int method){
+		int port = amr.getPort();
+		String ip = amr.getIp();
+		
+		switch(amr.getServerConnectionType()) {
 		case USEMYSQL: test = new ServerConnectMySQL(trackActivity, ip, port, method); break;
 		case USEPHP: test = new ServerConnectPHP(trackActivity, ip, method); break;
 		default: test = new ServerConnectPHP(trackActivity, ip, method); break;

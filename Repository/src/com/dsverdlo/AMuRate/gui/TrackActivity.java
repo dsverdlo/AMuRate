@@ -44,6 +44,9 @@ public class TrackActivity extends BlankActivity {
 	// This int keeps the state of the server connection: unchecked, no conn, conn
 	private int isServerAvailable; 
 	
+	// This boolean keeps track if the ServerConnectionTYpe has switched yet
+	private boolean haveSwitched;
+	
 	// The views
 	private AnimationView loading_image;
 	private Button back;
@@ -74,6 +77,8 @@ public class TrackActivity extends BlankActivity {
 		
 		// Set the downloading information
 		isDownloading = false;
+		
+		haveSwitched = false;
 		
 		// Load the track if there is one
 		if(getIntent().hasExtra("track")) {
@@ -270,10 +275,10 @@ public class TrackActivity extends BlankActivity {
 		title.setSelected(true);
 		
 		// Check if server is connectable. This will set the isServerAvailable int
-		new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), ServerConnect.ISCONNECTED).execute();
+		new ServerConnect(trackActivity, amr, ServerConnect.ISCONNECTED).execute();
 		
 		// Try syncing in the background as well
-		new DatabaseSyncer(amr, amr.getIp(), amr.getPort(), amr.getUser()).execute();
+		new DatabaseSyncer(amr).execute();
 	}
 
 
@@ -310,7 +315,7 @@ public class TrackActivity extends BlankActivity {
 		if(result > 0) { // Sent succesfully
 			Toast.makeText(amr, R.string.msg_sending_success, Toast.LENGTH_SHORT).show();
 			// get new avg
-			new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), ServerConnect.GETRATING).execute(track.getMBID());
+			new ServerConnect(trackActivity, amr, ServerConnect.GETRATING).execute(track.getMBID());
 			// When this returns, it will call onDoneGettingExternal
 		} else {
 			// Sending did not succeed, so send it unsynced to local database
@@ -320,7 +325,7 @@ public class TrackActivity extends BlankActivity {
 			
 			// Also retest connection
 			Toast.makeText(amr, R.string.msg_connection_retest, Toast.LENGTH_SHORT).show();
-			new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), ServerConnect.ISCONNECTED).execute();
+			new ServerConnect(trackActivity, amr, ServerConnect.ISCONNECTED).execute();
 			// And this will update isServerAvailable when it is done
 		}
 	}
@@ -336,39 +341,46 @@ public class TrackActivity extends BlankActivity {
 		
 		if(isServerAvailable > 0){
 			// if server connection available, get the server average
-			new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), ServerConnect.GETRATING).execute(track.getMBID());
+			new ServerConnect(trackActivity, amr, ServerConnect.GETRATING).execute(track.getMBID());
 			
 			// and check if user has already rated this
-			new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), ServerConnect.HASRATED).execute(track.getMBID(), amr.getUser());
+			new ServerConnect(trackActivity, amr, ServerConnect.HASRATED).execute(track.getMBID(), amr.getUser());
 			
 		} else {
-			// We can't connect to the server, so we display it.
-			// The only thing we can try to do is see if we've rated it already
-			// and that score hasn't been deleted from the local database
-	
-			if(ra.hasRatedBefore(track.getMBID())){
-				float rating = ra.readRating(track.getMBID());
-				// If the user has rated it before and we have the rating
-				// Say that there is no server connection, but we know what
-				// he rated the track before
-				ratingBarInfo.setText(R.string.msg_no_server_connection);
-				ratingBarInfo2.setText(amr.getString(R.string.track_you_rated) + rating);
+			// If we have not Switched yet, try other serverconnectiontype
+			if(!haveSwitched) {
+				amr.switchConnectionType();
+				haveSwitched = true;
+				new ServerConnect(trackActivity, amr, ServerConnect.ISCONNECTED).execute();
 				
-				// change listener swap trick (otherwise it will send the score again)
-				OnRatingBarChangeListener orbcl = ratingBar.getOnRatingBarChangeListener();
-				ratingBar.setOnRatingBarChangeListener(null);
-				ratingBar.setRating(rating); 
-				ratingBar.setOnRatingBarChangeListener(orbcl);
-				
-				// User already rated, so disable it
-				ratingBar.setEnabled(false);
 			} else {
-				// If there is no connection we cannot make sure if the user already
-				// rated this track. Give the possibility to be able to rate.
-				// On sending it we will verify if the user had rated before or not.
-				ratingBarInfo.setText(R.string.msg_can_send_later);
-				ratingBarInfo2.setVisibility(View.GONE);
-				ratingBar.setEnabled(true);
+				// We can't connect to the server, so we display it.
+				// The only thing we can try to do is see if we've rated it already
+				// and that score hasn't been deleted from the local database
+				if(ra.hasRatedBefore(track.getMBID())){
+					float rating = ra.readRating(track.getMBID());
+					// If the user has rated it before and we have the rating
+					// Say that there is no server connection, but we know what
+					// he rated the track before
+					ratingBarInfo.setText(R.string.msg_no_server_connection);
+					ratingBarInfo2.setText(amr.getString(R.string.track_you_rated) + rating);
+
+					// change listener swap trick (otherwise it will send the score again)
+					OnRatingBarChangeListener orbcl = ratingBar.getOnRatingBarChangeListener();
+					ratingBar.setOnRatingBarChangeListener(null);
+					ratingBar.setRating(rating); 
+					ratingBar.setOnRatingBarChangeListener(orbcl);
+
+					// User already rated, so disable it
+					ratingBar.setEnabled(false);
+				} else {
+					// If there is no connection we cannot make sure if the user already
+					// rated this track. Give the possibility to be able to rate.
+					// On sending it we will verify if the user had rated before or not.
+					ratingBarInfo.setText(R.string.msg_can_send_later);
+					ratingBarInfo2.setVisibility(View.GONE);
+					ratingBar.setEnabled(true);
+				}
 			}
 		}
 	}
@@ -391,7 +403,7 @@ public class TrackActivity extends BlankActivity {
 		ra.addRating(track.getMBID(), track.getArtist(), track.getTitle(), rating, true);
 		
 		// Finally send to ext db
-		new ServerConnect(trackActivity, amr.getIp(), amr.getPort(), method).execute(mbid, artist, title, ""+rating, ""+date, user);
+		new ServerConnect(trackActivity, amr, method).execute(mbid, artist, title, ""+rating, ""+date, user);
 		// This will call onDoneSendingExternal when it's done
 	}
 

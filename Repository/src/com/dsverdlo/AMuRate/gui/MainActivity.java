@@ -131,7 +131,7 @@ public class MainActivity extends BlankActivity implements OnClickListener {
 		cancelButton.setOnLongClickListener(quitAction);
 
 		// Try syncing databases
-		new DatabaseSyncer(amr, amr.getIp(), amr.getPort(), amr.getUser()).execute();
+		new DatabaseSyncer(amr).execute();
 
 	}
 
@@ -272,22 +272,16 @@ public class MainActivity extends BlankActivity implements OnClickListener {
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
 						search_option = SEARCH_TITLE;
-						String resultsMessage = amr.getString(R.string.main_results_found);
-						
-						// Since the results are limited by 30 per request
-						if(nResults>30) {
-							results.setText(amr.getString(R.string.main_many) + resultsMessage); }
-						else {
-							// If there are less than 30 found, display some results found.
-							// The number might be inaccurate sinds there could be fakes
-							results.setText(amr.getString(R.string.main_some) + resultsMessage);
-						}
-						
+												
 						// Store the result matches until the user clicks on View button
 						searchResults = JSONresults.getJSONObject("trackmatches");
 						loading.setVisibility(View.GONE);
-						results.setVisibility(View.VISIBLE);
 						view.setVisibility(Button.VISIBLE);
+
+						// Immediately start next intent
+						Intent newpage = new Intent(this, SearchResultsActivity.class);
+						newpage.putExtra("searchResults", searchResults.toString());
+						startActivity(newpage);	
 					}
 
 				}
@@ -323,20 +317,19 @@ public class MainActivity extends BlankActivity implements OnClickListener {
 					// Get the amount of results found
 					int nResults = JSONresults.getInt("opensearch:totalResults");
 					if(nResults>0) {
-						// If there are results, set the search option to Artist search
+						// If there are any, set the option to artist
 						search_option = SEARCH_ARTIST;
-						String resultsMessage = amr.getString(R.string.main_results_found);
-						if(nResults>30) {
-							results.setText(amr.getString(R.string.main_many) + resultsMessage); }
-						else {
-							results.setText(amr.getString(R.string.main_some) + resultsMessage);
-						}
 						
 						// Save the matches for until the user clicks on the View button
 						searchResults = JSONresults.getJSONObject("artistmatches");
 						loading.setVisibility(View.GONE);
-						results.setVisibility(View.VISIBLE);
 						view.setVisibility(Button.VISIBLE);
+						
+						// Immediately start intent
+						Intent newpage = new Intent(this, SearchArtistActivity.class);
+						newpage.putExtra("searchResults", searchResults.toString());
+
+						startActivity(newpage);	
 					}	
 				}
 			} catch (JSONException je) {
@@ -373,17 +366,16 @@ public class MainActivity extends BlankActivity implements OnClickListener {
 					if(nResults>0) {
 						// If there are any, set the option to title
 						search_option = SEARCH_TITLE;
-						String resultsMessage = amr.getString(R.string.main_results_found);
-						if(nResults>30) {
-							results.setText(amr.getString(R.string.main_many) + resultsMessage); }
-						else {
-							results.setText(amr.getString(R.string.main_some) + resultsMessage);
-						}
+
 						// Store the results until the user clicks View
 						searchResults = JSONresults.getJSONObject("trackmatches");
 						loading.setVisibility(View.GONE);
 						view.setVisibility(Button.VISIBLE);
-						results.setVisibility(View.VISIBLE);
+						
+						// Immediately start intent
+						Intent newpage = new Intent(this, SearchResultsActivity.class);
+						newpage.putExtra("searchResults", searchResults.toString());
+						startActivity(newpage);	
 					}
 				}
 			} catch (JSONException je) {

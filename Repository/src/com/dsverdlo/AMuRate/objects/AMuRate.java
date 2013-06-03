@@ -3,6 +3,7 @@ package com.dsverdlo.AMuRate.objects;
 import java.util.Locale;
 
 import com.dsverdlo.AMuRate.services.InternalDatabaseManager;
+import com.dsverdlo.AMuRate.services.ServerConnect;
 
 import android.app.Application;
 import android.content.res.Configuration;
@@ -21,6 +22,7 @@ public class AMuRate extends Application {
 	// Some important variables
 	private String ip;
 	private int portNo;
+	private int serverConnectionType;
 	
 	private String USER_ID;
 	private int SCREENWIDTH;
@@ -42,6 +44,7 @@ public class AMuRate extends Application {
 		//			ip = "194.168.5.43"; // 3G
 		//			ip = "10.0.1.97"; // como
 		portNo = 2005;
+		serverConnectionType = ServerConnect.USEMYSQL;
 		
 		// Grab the user AndroidID
 		USER_ID = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
@@ -64,6 +67,7 @@ public class AMuRate extends Application {
 	}
 	// Getters and setters
 	public void setIp(String ip) {
+		serverConnectionType = ServerConnect.USEMYSQL;
 		this.ip = ip;
 	}
 	public String getIp() {
@@ -91,6 +95,19 @@ public class AMuRate extends Application {
 
 	public void setPort(int portNo) {
 		this.portNo = portNo;
+		serverConnectionType = ServerConnect.USEMYSQL;
+	}
+
+	public int getServerConnectionType() {
+		return serverConnectionType;
+	}
+	
+	public void switchConnectionType() {
+		System.out.println("AMURATE SIWTCHING");
+		if(serverConnectionType == ServerConnect.USEMYSQL)
+			serverConnectionType = ServerConnect.USEPHP;
+		else 
+			serverConnectionType = ServerConnect.USEMYSQL;
 	}
 
 

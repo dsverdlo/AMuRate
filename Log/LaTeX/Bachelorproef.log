@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.8.11)  2 JUN 2013 18:47
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.8.11)  3 JUN 2013 15:22
 entering extended mode
 **Bachelorproef.tex
 
@@ -587,7 +587,7 @@ LaTeX Info: Redefining \nameref on input line 47.
 \Bachelorproef.out)
 \@outlinefile=\write3
 
-<Pictures/vub_logo.jpg, id=167, 1683.28876pt x 532.99126pt>
+<Pictures/vub_logo.jpg, id=163, 1683.28876pt x 532.99126pt>
 File: Pictures/vub_logo.jpg Graphic file (type jpg)
 
 <use Pictures/vub_logo.jpg>
@@ -603,7 +603,7 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 52.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-<Pictures/amr_gold_thick.png, id=168, 401.5pt x 376.40625pt>
+<Pictures/amr_gold_thick.png, id=164, 401.5pt x 376.40625pt>
 File: Pictures/amr_gold_thick.png Graphic file (type png)
 
 <use Pictures/amr_gold_thick.png>
@@ -669,64 +669,63 @@ Underfull \hbox (badness 10000) in paragraph at lines 102--104
  []
 
 [5]
-Overfull \hbox (3.35803pt too wide) in paragraph at lines 117--120
-\OT1/cmr/m/n/10.95 bruikte op-maak-ta-len, die ge-struc-tu-reerde ge-ge-vens ku
-n-nen om-zet-ten in platte
+Underfull \hbox (badness 10000) in paragraph at lines 105--107
+
  []
 
 [6] [7] [8]
-Overfull \hbox (7.00792pt too wide) in paragraph at lines 158--159
+Overfull \hbox (7.00792pt too wide) in paragraph at lines 160--161
 \OT1/cmr/m/n/10.95 Hieronder volgt een ta-bel die alle ver-eis-ten op-somt, met
  hun ge[]mplementeerde
  []
 
 
-Overfull \hbox (43.08202pt too wide) in paragraph at lines 161--188
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 161--188
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 161--188
+Overfull \hbox (23.6153pt too wide) in paragraph at lines 163--190
+[]  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 163--190
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 189--191
+Underfull \hbox (badness 10000) in paragraph at lines 163--190
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 189--191
+Underfull \hbox (badness 10000) in paragraph at lines 191--193
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 191--193
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 204--205
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--216
+Underfull \hbox (badness 10000) in paragraph at lines 208--218
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 217--224
+Underfull \hbox (badness 10000) in paragraph at lines 219--226
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 225--235
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 236--237
+Underfull \hbox (badness 10000) in paragraph at lines 227--237
 
  []
 
@@ -735,264 +734,278 @@ Underfull \hbox (badness 10000) in paragraph at lines 238--239
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
+
+ []
+
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 247--251
+Underfull \hbox (badness 10000) in paragraph at lines 246--248
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 254--255
+Underfull \hbox (badness 10000) in paragraph at lines 249--253
 
  []
 
-<Pictures/Dataflow2.png, id=276, 1145.78062pt x 520.94624pt>
-File: Pictures/Dataflow2.png Graphic file (type png)
 
-<use Pictures/Dataflow2.png>
-Package pdftex.def Info: Pictures/Dataflow2.png used on input line 256.
-(pdftex.def)             Requested size: 458.30414pt x 208.3748pt.
+Underfull \hbox (badness 10000) in paragraph at lines 256--257
 
-Overfull \hbox (62.98734pt too wide) in paragraph at lines 256--258
+ []
+
+<Pictures/Dataflow4.png, id=271, 2823.54875pt x 1264.725pt>
+File: Pictures/Dataflow4.png Graphic file (type png)
+
+<use Pictures/Dataflow4.png>
+Package pdftex.def Info: Pictures/Dataflow4.png used on input line 258.
+(pdftex.def)             Requested size: 395.29413pt x 177.06029pt.
+
+Overfull \hbox (21.87738pt too wide) in paragraph at lines 258--260
 []  [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 256--258
+Underfull \hbox (badness 10000) in paragraph at lines 258--260
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 267--269
+Underfull \hbox (badness 10000) in paragraph at lines 269--272
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 267--269
+Underfull \hbox (badness 10000) in paragraph at lines 269--272
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 271.
+
+Underfull \hbox (badness 10000) in paragraph at lines 269--272
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 269--272
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 273.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 271.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 273.
 
-Underfull \hbox (badness 10000) in paragraph at lines 271--272
+Underfull \hbox (badness 10000) in paragraph at lines 273--274
 
  []
 
 [12 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/Dataflow2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 273--287
+aTeX/Pictures/Dataflow4.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 275--289
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 290--291
+Underfull \hbox (badness 10000) in paragraph at lines 292--293
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 292--305
+Underfull \hbox (badness 10000) in paragraph at lines 294--307
 
- []
-
-
-Overfull \hbox (26.13997pt too wide) in paragraph at lines 306--307
-\OT1/cmr/m/n/10.95 ma-ken tus-sen een zoek-geschiedenis-record en een track-vie
-wed-geschiedenis.
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 313--328
+Underfull \hbox (badness 10000) in paragraph at lines 315--330
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 329--330
+Underfull \hbox (badness 10000) in paragraph at lines 331--332
 
  []
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 346--348
+Underfull \hbox (badness 10000) in paragraph at lines 344--346
 
  []
 
-<Pictures/Sockets_w_php.png, id=301, 2931.95375pt x 2021.5525pt>
-File: Pictures/Sockets_w_php.png Graphic file (type png)
+<Pictures/Sockets3.png, id=295, 2862.695pt x 2000.47375pt>
+File: Pictures/Sockets3.png Graphic file (type png)
 
-<use Pictures/Sockets_w_php.png>
-Package pdftex.def Info: Pictures/Sockets_w_php.png used on input line 349.
-(pdftex.def)             Requested size: 351.81927pt x 242.57584pt.
+<use Pictures/Sockets3.png>
+Package pdftex.def Info: Pictures/Sockets3.png used on input line 347.
+(pdftex.def)             Requested size: 343.50858pt x 240.0465pt.
 
-Overfull \hbox (8.81927pt too wide) in paragraph at lines 349--351
+Overfull \hbox (0.50858pt too wide) in paragraph at lines 347--349
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 349--351
+Underfull \hbox (badness 10000) in paragraph at lines 347--349
 
  []
 
 [15 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/Sockets_w_php.png (PNG copy)>]
+aTeX/Pictures/Sockets3.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 363--365
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 366--368
 
  []
 
-
+[16]
 Underfull \hbox (badness 10000) in paragraph at lines 369--371
 
  []
 
-[16]
-Underfull \hbox (badness 10000) in paragraph at lines 372--374
+
+Underfull \hbox (badness 10000) in paragraph at lines 380--381
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 383--384
-
- []
-
-
-Overfull \hbox (50.25035pt too wide) in paragraph at lines 385--388
+Overfull \hbox (50.25035pt too wide) in paragraph at lines 382--385
 \OT1/cmr/m/n/10.95 thode met zijn pa-ra-me-ters en de api-key. De ba-sis is al-
-tijd 'ws.audioscrobbler.com/2.0/'
+tijd `ws.audioscrobbler.com/2.0/'
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 385--388
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 389--390
+Underfull \hbox (badness 10000) in paragraph at lines 382--385
 
  []
 
 
-Overfull \hbox (77.13564pt too wide) in paragraph at lines 391--407
-[]  []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 391--407
+Underfull \hbox (badness 10000) in paragraph at lines 386--387
 
  []
 
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 408--409
+Overfull \hbox (49.54771pt too wide) in paragraph at lines 388--404
+[]  []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 388--404
 
  []
 
-<Pictures/track_search.png, id=318, 497.60907pt x 170.13562pt>
-File: Pictures/track_search.png Graphic file (type png)
 
-<use Pictures/track_search.png>
-Package pdftex.def Info: Pictures/track_search.png used on input line 411.
-(pdftex.def)             Requested size: 426.79134pt x 145.92436pt.
+Underfull \hbox (badness 10000) in paragraph at lines 405--406
 
-Overfull \hbox (66.79134pt too wide) in paragraph at lines 410--413
+ []
+
+<Pictures/track_search2.png, id=313, 497.60907pt x 136.25906pt>
+File: Pictures/track_search2.png Graphic file (type png)
+
+<use Pictures/track_search2.png>
+Package pdftex.def Info: Pictures/track_search2.png used on input line 408.
+(pdftex.def)             Requested size: 398.08778pt x 109.00739pt.
+
+Overfull \hbox (38.08778pt too wide) in paragraph at lines 407--410
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 410--413
+Underfull \hbox (badness 10000) in paragraph at lines 407--410
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 410--413
+Underfull \hbox (badness 10000) in paragraph at lines 407--410
 
  []
 
 [18 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/track_search.png>]
-<Pictures/track_getinfo.png, id=324, 503.63156pt x 396.7322pt>
-File: Pictures/track_getinfo.png Graphic file (type png)
+aTeX/Pictures/track_search2.png>]
+<Pictures/track_getinfo2.png, id=320, 401.24907pt x 243.15843pt>
+File: Pictures/track_getinfo2.png Graphic file (type png)
 
-<use Pictures/track_getinfo.png>
-Package pdftex.def Info: Pictures/track_getinfo.png used on input line 415.
-(pdftex.def)             Requested size: 426.79134pt x 336.20088pt.
+<use Pictures/track_getinfo2.png>
+Package pdftex.def Info: Pictures/track_getinfo2.png used on input line 412.
+(pdftex.def)             Requested size: 320.99968pt x 194.52701pt.
 
-Overfull \hbox (66.79134pt too wide) in paragraph at lines 414--417
-[] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 414--417
+Underfull \hbox (badness 10000) in paragraph at lines 411--414
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 414--417
+Underfull \hbox (badness 10000) in paragraph at lines 411--414
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 419--421
 
  []
 
 [19 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/track_getinfo.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 438--439
+aTeX/Pictures/track_getinfo2.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 437--438
 
  []
 
-[20] <Pictures/lang_folder.png, id=334, 96.36pt x 85.82062pt>
+<Pictures/lang_folder.png, id=327, 96.36pt x 85.82062pt>
 File: Pictures/lang_folder.png Graphic file (type png)
 
 <use Pictures/lang_folder.png>
-Package pdftex.def Info: Pictures/lang_folder.png used on input line 441.
+Package pdftex.def Info: Pictures/lang_folder.png used on input line 440.
 (pdftex.def)             Requested size: 96.35974pt x 85.82039pt.
- [21 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/
-LaTeX/Pictures/lang_folder.png>]
-<Pictures/device-2013-05-25-213538.png, id=339, 481.8pt x 803.0pt>
+ [20] [21 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate
+/Log/LaTeX/Pictures/lang_folder.png>]
+<Pictures/device-2013-05-25-213538.png, id=337, 481.8pt x 803.0pt>
 File: Pictures/device-2013-05-25-213538.png Graphic file (type png)
 
 <use Pictures/device-2013-05-25-213538.png>
 Package pdftex.def Info: Pictures/device-2013-05-25-213538.png used on input li
-ne 480.
+ne 479.
 (pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-<Pictures/Screenshot_2013-05-24-21-16-07.png, id=340, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-16-07.png, id=338, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-16-07.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-16-07.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-16-07.png used on in
-put line 480.
+put line 479.
 (pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Underfull \hbox (badness 5475) in paragraph at lines 480--480
+Underfull \hbox (badness 5475) in paragraph at lines 479--479
 []|\OT1/cmr/m/n/10.95 In het bo-ven-staande scherm wer-den
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 462--481
+Underfull \hbox (badness 10000) in paragraph at lines 461--480
 
  []
 
-<Pictures/GUI_0124_startresults.png, id=341, 319.1925pt x 520.94624pt>
-File: Pictures/GUI_0124_startresults.png Graphic file (type png)
-
-<use Pictures/GUI_0124_startresults.png>
-Package pdftex.def Info: Pictures/GUI_0124_startresults.png used on input line 
-498.
-(pdftex.def)             Requested size: 127.67473pt x 208.3748pt.
-
-<Pictures/Screenshot_2013-05-24-21-17-57.png, id=342, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-17-57.png, id=339, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-17-57.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-17-57.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-17-57.png used on in
-put line 498.
-(pdftex.def)             Requested size: 125.26503pt x 208.77507pt.
+put line 497.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 483--499
+<Pictures/Screenshot_2013-05-24-21-18-48.png, id=340, 481.8pt x 803.0pt>
+File: Pictures/Screenshot_2013-05-24-21-18-48.png Graphic file (type png)
+
+<use Pictures/Screenshot_2013-05-24-21-18-48.png>
+Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-18-48.png used on in
+put line 497.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+Overfull \hbox (12.0pt too wide) in paragraph at lines 482--498
 []| [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--499
+Underfull \hbox (badness 10000) in paragraph at lines 482--498
 
  []
 
@@ -1000,142 +1013,142 @@ Underfull \hbox (badness 10000) in paragraph at lines 483--499
 aTeX/Pictures/device-2013-05-25-213538.png (PNG copy)> <C:/Users/david/Document
 s/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_201
 3-05-24-21-16-07.png>]
-<Pictures/Screenshot_2013-05-24-21-18-48.png, id=347, 481.8pt x 803.0pt>
-File: Pictures/Screenshot_2013-05-24-21-18-48.png Graphic file (type png)
-
-<use Pictures/Screenshot_2013-05-24-21-18-48.png>
-Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-18-48.png used on in
-put line 517.
-(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
-
-<Pictures/Screenshot_2013-05-24-21-20-57.png, id=348, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-20-57.png, id=345, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-20-57.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-20-57.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-20-57.png used on in
-put line 517.
+put line 516.
 (pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 502--518
-[]| [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 502--518
-
- []
-
-[23 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/GUI_0124_startresults.png> <C:/Users/david/Documents/Studies/VUB/
-2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-17-
-57.png>]
-<Pictures/Screenshot_2013-05-24-21-23-29.png, id=353, 481.8pt x 803.0pt>
+<Pictures/Screenshot_2013-05-24-21-23-29.png, id=346, 481.8pt x 803.0pt>
 File: Pictures/Screenshot_2013-05-24-21-23-29.png Graphic file (type png)
 
 <use Pictures/Screenshot_2013-05-24-21-23-29.png>
 Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-23-29.png used on in
-put line 535.
+put line 516.
 (pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-<Pictures/Screenshot_2013-05-24-21-23-51.png, id=354, 481.8pt x 803.0pt>
-File: Pictures/Screenshot_2013-05-24-21-23-51.png Graphic file (type png)
-
-<use Pictures/Screenshot_2013-05-24-21-23-51.png>
-Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-23-51.png used on in
-put line 535.
-(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
-
-<Pictures/Screenshot_2013-05-24-21-23-02.png, id=355, 481.8pt x 803.0pt>
-File: Pictures/Screenshot_2013-05-24-21-23-02.png Graphic file (type png)
-
-<use Pictures/Screenshot_2013-05-24-21-23-02.png>
-Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-23-02.png used on in
-put line 552.
-(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
-
-<Pictures/Screenshot_2013-05-24-21-19-44.png, id=356, 481.8pt x 803.0pt>
-File: Pictures/Screenshot_2013-05-24-21-19-44.png Graphic file (type png)
-
-<use Pictures/Screenshot_2013-05-24-21-19-44.png>
-Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-19-44.png used on in
-put line 552.
-(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
-
-<Pictures/Screenshot_2013-05-24-21-24-20.png, id=357, 481.8pt x 803.0pt>
-File: Pictures/Screenshot_2013-05-24-21-24-20.png Graphic file (type png)
-
-<use Pictures/Screenshot_2013-05-24-21-24-20.png>
-Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-24-20.png used on in
-put line 569.
-(pdftex.def)             Requested size: 154.17914pt x 256.96526pt.
-
-<Pictures/device-2013-06-02-172637track.png, id=358, 361.35pt x 602.25pt>
-File: Pictures/device-2013-06-02-172637track.png Graphic file (type png)
-
-<use Pictures/device-2013-06-02-172637track.png>
-Package pdftex.def Info: Pictures/device-2013-06-02-172637track.png used on inp
-ut line 569.
-(pdftex.def)             Requested size: 151.76596pt x 252.94327pt.
-
-<Pictures/device-2013-05-31-202339000.png, id=359, 481.8pt x 803.0pt>
-File: Pictures/device-2013-05-31-202339000.png Graphic file (type png)
-
-<use Pictures/device-2013-05-31-202339000.png>
-Package pdftex.def Info: Pictures/device-2013-05-31-202339000.png used on input
- line 586.
-(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
-
-<Pictures/device-2013-05-31-202456.png, id=360, 481.8pt x 803.0pt>
-File: Pictures/device-2013-05-31-202456.png Graphic file (type png)
-
-<use Pictures/device-2013-05-31-202456.png>
-Package pdftex.def Info: Pictures/device-2013-05-31-202456.png used on input li
-ne 586.
-(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
-
-<Pictures/device-2013-06-01-231855menu.png, id=361, 481.8pt x 803.0pt>
-File: Pictures/device-2013-06-01-231855menu.png Graphic file (type png)
-
-<use Pictures/device-2013-06-01-231855menu.png>
-Package pdftex.def Info: Pictures/device-2013-06-01-231855menu.png used on inpu
-t line 603.
-(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
-
-<Pictures/device-2013-05-31-195753.png, id=362, 481.8pt x 803.0pt>
-File: Pictures/device-2013-05-31-195753.png Graphic file (type png)
-
-<use Pictures/device-2013-05-31-195753.png>
-Package pdftex.def Info: Pictures/device-2013-05-31-195753.png used on input li
-ne 603.
-(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
-
-Overfull \hbox (12.0pt too wide) in paragraph at lines 521--604
+Overfull \hbox (12.0pt too wide) in paragraph at lines 501--517
 []| [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 521--604
+Underfull \hbox (badness 10000) in paragraph at lines 501--517
+
+ []
+
+[23 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
+aTeX/Pictures/Screenshot_2013-05-24-21-17-57.png> <C:/Users/david/Documents/Stu
+dies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-
+24-21-18-48.png>]
+<Pictures/Screenshot_2013-05-24-21-23-51.png, id=351, 481.8pt x 803.0pt>
+File: Pictures/Screenshot_2013-05-24-21-23-51.png Graphic file (type png)
+
+<use Pictures/Screenshot_2013-05-24-21-23-51.png>
+Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-23-51.png used on in
+put line 534.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+<Pictures/Screenshot_2013-05-24-21-23-02.png, id=352, 481.8pt x 803.0pt>
+File: Pictures/Screenshot_2013-05-24-21-23-02.png Graphic file (type png)
+
+<use Pictures/Screenshot_2013-05-24-21-23-02.png>
+Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-23-02.png used on in
+put line 534.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+<Pictures/Screenshot_2013-05-24-21-19-44.png, id=353, 481.8pt x 803.0pt>
+File: Pictures/Screenshot_2013-05-24-21-19-44.png Graphic file (type png)
+
+<use Pictures/Screenshot_2013-05-24-21-19-44.png>
+Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-19-44.png used on in
+put line 551.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+<Pictures/Screenshot_2013-05-24-21-24-20.png, id=354, 481.8pt x 803.0pt>
+File: Pictures/Screenshot_2013-05-24-21-24-20.png Graphic file (type png)
+
+<use Pictures/Screenshot_2013-05-24-21-24-20.png>
+Package pdftex.def Info: Pictures/Screenshot_2013-05-24-21-24-20.png used on in
+put line 551.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+<Pictures/device-2013-06-02-172637track.png, id=355, 361.35pt x 602.25pt>
+File: Pictures/device-2013-06-02-172637track.png Graphic file (type png)
+
+<use Pictures/device-2013-06-02-172637track.png>
+Package pdftex.def Info: Pictures/device-2013-06-02-172637track.png used on inp
+ut line 568.
+(pdftex.def)             Requested size: 133.6974pt x 222.82901pt.
+
+<Pictures/device-2013-05-31-202339000.png, id=356, 481.8pt x 803.0pt>
+File: Pictures/device-2013-05-31-202339000.png Graphic file (type png)
+
+<use Pictures/device-2013-05-31-202339000.png>
+Package pdftex.def Info: Pictures/device-2013-05-31-202339000.png used on input
+ line 568.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+<Pictures/device-2013-05-31-202456.png, id=357, 481.8pt x 803.0pt>
+File: Pictures/device-2013-05-31-202456.png Graphic file (type png)
+
+<use Pictures/device-2013-05-31-202456.png>
+Package pdftex.def Info: Pictures/device-2013-05-31-202456.png used on input li
+ne 585.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+<Pictures/device-2013-06-01-231855menu.png, id=358, 481.8pt x 803.0pt>
+File: Pictures/device-2013-06-01-231855menu.png Graphic file (type png)
+
+<use Pictures/device-2013-06-01-231855menu.png>
+Package pdftex.def Info: Pictures/device-2013-06-01-231855menu.png used on inpu
+t line 585.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+<Pictures/device-2013-05-31-195753.png, id=359, 481.8pt x 803.0pt>
+File: Pictures/device-2013-05-31-195753.png Graphic file (type png)
+
+<use Pictures/device-2013-05-31-195753.png>
+Package pdftex.def Info: Pictures/device-2013-05-31-195753.png used on input li
+ne 602.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+<Pictures/device-2013-05-31-200021.png, id=360, 481.8pt x 803.0pt>
+File: Pictures/device-2013-05-31-200021.png Graphic file (type png)
+
+<use Pictures/device-2013-05-31-200021.png>
+Package pdftex.def Info: Pictures/device-2013-05-31-200021.png used on input li
+ne 602.
+(pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
+
+Overfull \hbox (12.0pt too wide) in paragraph at lines 520--603
+[]| [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 520--603
 
  []
 
 [24 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/Screenshot_2013-05-24-21-18-48.png> <C:/Users/david/Documents/Stu
+aTeX/Pictures/Screenshot_2013-05-24-21-20-57.png> <C:/Users/david/Documents/Stu
 dies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-
-24-21-20-57.png>] [25 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorp
-roef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-23-29.png> <C:/Users/d
+24-21-23-29.png>] [25 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorp
+roef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-23-51.png> <C:/Users/d
 avid/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/S
-creenshot_2013-05-24-21-23-51.png>] [26 <C:/Users/david/Documents/Studies/VUB/2
-012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-23-0
-2.png> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Lo
-g/LaTeX/Pictures/Screenshot_2013-05-24-21-19-44.png>] [27 <C:/Users/david/Docum
-ents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_
-2013-05-24-21-24-20.png> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachel
-orproef/AMuRate/Log/LaTeX/Pictures/device-2013-06-02-172637track.png>] [28 <C:/
-Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pic
-tures/device-2013-05-31-202339000.png (PNG copy)> <C:/Users/david/Documents/Stu
-dies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/device-2013-05-31-2
-02456.png (PNG copy)>]
-<Pictures/device-2013-06-01-232751iperror.png, id=385, 481.8pt x 803.0pt>
+creenshot_2013-05-24-21-23-02.png>] [26 <C:/Users/david/Documents/Studies/VUB/2
+012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/Screenshot_2013-05-24-21-19-4
+4.png> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Lo
+g/LaTeX/Pictures/Screenshot_2013-05-24-21-24-20.png>] [27 <C:/Users/david/Docum
+ents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/device-2013
+-06-02-172637track.png> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelo
+rproef/AMuRate/Log/LaTeX/Pictures/device-2013-05-31-202339000.png (PNG copy)>]
+[28 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
+aTeX/Pictures/device-2013-05-31-202456.png (PNG copy)> <C:/Users/david/Document
+s/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/device-2013-06
+-01-231855menu.png (PNG copy)>]
+<Pictures/device-2013-06-01-232751iperror.png, id=383, 481.8pt x 803.0pt>
 File: Pictures/device-2013-06-01-232751iperror.png Graphic file (type png)
 
 <use Pictures/device-2013-06-01-232751iperror.png>
@@ -1143,7 +1156,7 @@ Package pdftex.def Info: Pictures/device-2013-06-01-232751iperror.png used on i
 nput line 620.
 (pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-<Pictures/device-2013-06-01-232655porterror.png, id=386, 481.8pt x 803.0pt>
+<Pictures/device-2013-06-01-232655porterror.png, id=384, 481.8pt x 803.0pt>
 File: Pictures/device-2013-06-01-232655porterror.png Graphic file (type png)
 
 <use Pictures/device-2013-06-01-232655porterror.png>
@@ -1151,27 +1164,27 @@ Package pdftex.def Info: Pictures/device-2013-06-01-232655porterror.png used on
  input line 620.
 (pdftex.def)             Requested size: 134.90308pt x 224.83847pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 607--623
+Overfull \hbox (12.0pt too wide) in paragraph at lines 606--623
 []| [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 607--623
+Underfull \hbox (badness 10000) in paragraph at lines 606--623
 
  []
 
 [29 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/device-2013-06-01-231855menu.png (PNG copy)> <C:/Users/david/Docu
-ments/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/device-201
-3-05-31-195753.png (PNG copy)>] [30 <C:/Users/david/Documents/Studies/VUB/2012-
-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/device-2013-06-01-232751iperror.p
-ng (PNG copy)> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AM
-uRate/Log/LaTeX/Pictures/device-2013-06-01-232655porterror.png (PNG copy)>]
+aTeX/Pictures/device-2013-05-31-195753.png (PNG copy)> <C:/Users/david/Document
+s/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/LaTeX/Pictures/device-2013-05
+-31-200021.png (PNG copy)>] [30 <C:/Users/david/Documents/Studies/VUB/2012-2013
+/Bachelorproef/AMuRate/Log/LaTeX/Pictures/device-2013-06-01-232751iperror.png (
+PNG copy)> <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRat
+e/Log/LaTeX/Pictures/device-2013-06-01-232655porterror.png (PNG copy)>]
 Underfull \hbox (badness 10000) in paragraph at lines 648--649
 
  []
 
-<Pictures/mbid_change.png, id=396, 333.49594pt x 74.52844pt>
+<Pictures/mbid_change.png, id=398, 333.49594pt x 74.52844pt>
 File: Pictures/mbid_change.png Graphic file (type png)
 
 <use Pictures/mbid_change.png>
@@ -1183,7 +1196,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 650--652
  []
 
 [31 <C:/Users/david/Documents/Studies/VUB/2012-2013/Bachelorproef/AMuRate/Log/L
-aTeX/Pictures/mbid_change.png>]
+aTeX/Pictures/mbid_change.png>] [32]
 Underfull \hbox (badness 10000) in paragraph at lines 663--664
 
  []
@@ -1213,31 +1226,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 673--674
 
  []
 
-[32]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 723.
- [33]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 723.
+
+Underfull \hbox (badness 10000) in paragraph at lines 675--676
+
+ []
+
+[33] [34]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 725.
+ [35]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 725.
 
 (C:\Users\david\Documents\Studies\VUB\2012-2013\Bachelorproef\AMuRate\Log\LaTeX
 \Bachelorproef.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 723.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 723.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 725.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 725.
 Package rerunfilecheck Info: File `Bachelorproef.out' has not changed.
-(rerunfilecheck)             Checksum: 7A80FED08C39E0BCE59AAD229202CDEE;2588.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 723.
+(rerunfilecheck)             Checksum: 0874FA1A810D5C40306F827D3B0A8139;2501.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 725.
  ) 
 Here is how much of TeX's memory you used:
- 8405 strings out of 494045
- 120091 string characters out of 3148387
- 217776 words of memory out of 3000000
- 11488 multiletter control sequences out of 15000+200000
- 14402 words of font info for 55 fonts, out of 3000000 for 9000
+ 8397 strings out of 494045
+ 119947 string characters out of 3148387
+ 216709 words of memory out of 3000000
+ 11477 multiletter control sequences out of 15000+200000
+ 14569 words of font info for 56 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 29i,14n,35p,1166b,423s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,14n,35p,1163b,423s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKT
@@ -1248,10 +1262,11 @@ msfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Prog
 ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Bachelorproef.pdf (33 pages, 3338224 bytes).
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on Bachelorproef.pdf (35 pages, 3293230 bytes).
 PDF statistics:
- 480 PDF objects out of 1000 (max. 8388607)
- 82 named destinations out of 1000 (max. 500000)
- 459 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 495 PDF objects out of 1000 (max. 8388607)
+ 84 named destinations out of 1000 (max. 500000)
+ 451 words of extra memory for PDF output out of 10000 (max. 10000000)
 

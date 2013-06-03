@@ -42,6 +42,7 @@ public class SearchResultsActivity extends BlankActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_search_results);
 		
 		// Get the application and activity
@@ -76,6 +77,7 @@ public class SearchResultsActivity extends BlankActivity {
 			// Get the trackmatches
 			JSONArray tracks = searchResults.getJSONArray("track");
 
+			System.out.println(""+5+": "+System.currentTimeMillis());
 			// For each, make a layout 
 			for(int i = 0; i < tracks.length(); i++ ) {
 				// Get the current JSON track
@@ -211,6 +213,7 @@ public class SearchResultsActivity extends BlankActivity {
 			System.out.println("Exception in SearchResultsActivity (onCreate):");
 			e.printStackTrace();
 		}
+
 	}
 
 	/*
